@@ -66,8 +66,8 @@ The reference site has been reviewed at the level of its visual concept, content
 - Scroll: subtle section entrances, image/cover parallax and chapter progress.
 - Work: project shelf / horizontal browse with drag and touch affordances.
 - Project detail: transition from cover to case study with clear back navigation.
-- Navigation: mobile paper-panel transition; desktop active chapter marker.
-- Micro-interactions: cursor feedback on desktop, link arrows, filter transitions, stamps, hover depth.
+- Navigation: mobile paper-panel transition with a torn-edge finish; persistent desktop chapter rail with active section tracking and hover labels.
+- Micro-interactions: cursor feedback on desktop, link arrows, filter transitions, stamps, hover depth and tactile chapter controls.
 - Character later: scroll-aware poses, contextual cameos and small reactions; no constant distracting movement.
 
 **Motion tokens**
@@ -125,17 +125,17 @@ The reference site has been reviewed at the level of its visual concept, content
 |---|---|---|
 | React/Vite foundation | In place | Existing stack retained |
 | Editorial visual direction | First pass implemented | Paper, ink, cobalt, vermilion, typography |
-| Main content sections | First pass implemented | Hero, work, field note, About, journey, learning, skills, contact |
-| Project filter | Implemented | Four project categories |
+| Main content sections | First pass implemented | Hero, work, expanded Viksit Bharat field note, About with working principles, journey, learning, skills, contact |
+| Project filter | Implemented | Four project categories; filter transitions and shelf counter wired |
 | GSAP / Lenis | First pass implemented | Intro, scroll reveals, orbit details, reading progress; needs motion QA |
 | Responsive layouts | First pass implemented | Needs real device/browser testing |
 | Custom character | Intentionally deferred | Placeholder only; original artwork later |
 | Project case studies | Not complete | Need real screenshots, outcomes, role and status |
 | Desktop horizontal work shelf | First pass implemented | Horizontal snap shelf, touch scrolling, drag affordance, previous/next controls and position counter; needs browser QA |
-| Torn-paper / WebGL navigation | Planned, conditional | Use only if it improves UX and performance |
+| Chapter navigation | First pass implemented | Persistent desktop rail, active chapter tracking, hover labels; mobile torn-edge panel; WebGL intentionally not required |
 | Project detail transitions | First pass implemented | Accessible project-file dialog with Escape, backdrop close, focus trap and focus return; full case-study content remains to be written |
 | Content verification | Pending | Credentials, academic data, roles, links |
-| Browser visual QA | Pending | No connected visual browser session available for this branch yet; must be completed before release |
+| Browser visual QA | Pending | Code and CI checks only so far; visual QA across viewports remains a release gate |
 | Production deploy | Not done | Do not treat draft branch as live site |
 
 ## Current branch and working agreement
