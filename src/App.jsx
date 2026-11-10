@@ -186,11 +186,17 @@ function App() {
   const [activeCategory, setActiveCategory] = useState('ALL WORK')
   const [activeSection, setActiveSection] = useState('')
   const [activeProject, setActiveProject] = useState(null)
-  const [activeProjectIndex, setActiveProjectIndex] = useState(0)\n  const [activeLearningCategory, setActiveLearningCategory] = useState('ALL ENTRIES')
+  const [activeProjectIndex, setActiveProjectIndex] = useState(0)
+  const [activeLearningCategory, setActiveLearningCategory] = useState('ALL ENTRIES')
   const projectShelfRef = useRef(null)
   const shelfDragRef = useRef({ pointerId: null, startX: 0, scrollLeft: 0, dragged: false })
 
-  const visibleLearning = useMemo(\n    () => activeLearningCategory === 'ALL ENTRIES' ? learning : learning.filter(item => item.category === activeLearningCategory),\n    [activeLearningCategory],\n  )\n\n  const visibleProjects = useMemo(
+  const visibleLearning = useMemo(
+    () => activeLearningCategory === 'ALL ENTRIES' ? learning : learning.filter(item => item.category === activeLearningCategory),
+    [activeLearningCategory],
+  )
+
+  const visibleProjects = useMemo(
     () => activeCategory === 'ALL WORK' ? projects : projects.filter(project => project.category === activeCategory),
     [activeCategory],
   )
