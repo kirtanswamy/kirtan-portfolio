@@ -73,13 +73,13 @@ const chapterItems = [
 ]
 
 const learning = [
-  { name: 'Qualcomm AI Upskilling', detail: 'Technical Foundations', kind: 'AI / MACHINE LEARNING', status: 'COURSE COMPLETED · CREDENTIAL TO VERIFY' },
-  { name: 'Goldman Sachs', detail: 'Operations Job Simulation · Forage', kind: 'BUSINESS / OPERATIONS', status: 'JOB SIMULATION COMPLETED' },
-  { name: 'Google Ads & Analytics', detail: 'Digital marketing and measurement learning', kind: 'ANALYTICS', status: 'COURSE DETAILS TO VERIFY' },
-  { name: 'Microsoft × LinkedIn', detail: 'Generative AI learning programme', kind: 'GENERATIVE AI', status: 'COURSE COMPLETED · TITLE TO VERIFY' },
+  { name: 'Qualcomm AI Upskilling', detail: 'Technical Foundations', kind: 'AI / MACHINE LEARNING', category: 'TECH', record: 'COURSE', status: 'COURSE COMPLETED · CREDENTIAL NOT VERIFIED' },
+  { name: 'Goldman Sachs', detail: 'Operations Job Simulation · Forage', kind: 'BUSINESS / OPERATIONS', category: 'BUSINESS', record: 'SIMULATION', status: 'JOB SIMULATION COMPLETED' },
+  { name: 'Google Ads & Analytics', detail: 'Digital marketing and measurement learning', kind: 'DIGITAL / ANALYTICS', category: 'DIGITAL', record: 'LEARNING LOG', status: 'COURSE DETAILS TO VERIFY' },
+  { name: 'Microsoft × LinkedIn', detail: 'Generative AI learning programme', kind: 'GENERATIVE AI', category: 'TECH', record: 'COURSE', status: 'COURSE COMPLETED · EXACT TITLE TO VERIFY' },
 ]
 
-const skills = [
+const learningCategories = ['ALL ENTRIES', 'TECH', 'BUSINESS', 'DIGITAL']\n\nconst skills = [
   { group: 'BUILD', items: ['JavaScript', 'React', 'React Native', 'Flutter', 'Python', 'C / C++', 'Java'] },
   { group: 'DESIGN', items: ['UI / UX', 'Interaction design', 'Visual storytelling', 'Prototyping'] },
   { group: 'SYSTEMS', items: ['Git & GitHub', 'Vite', 'Supabase', 'Electronics', 'AI / ML foundations'] },
@@ -184,11 +184,11 @@ function App() {
   const [activeCategory, setActiveCategory] = useState('ALL WORK')
   const [activeSection, setActiveSection] = useState('')
   const [activeProject, setActiveProject] = useState(null)
-  const [activeProjectIndex, setActiveProjectIndex] = useState(0)
+  const [activeProjectIndex, setActiveProjectIndex] = useState(0)\n  const [activeLearningCategory, setActiveLearningCategory] = useState('ALL ENTRIES')
   const projectShelfRef = useRef(null)
   const shelfDragRef = useRef({ pointerId: null, startX: 0, scrollLeft: 0, dragged: false })
 
-  const visibleProjects = useMemo(
+  const visibleLearning = useMemo(\n    () => activeLearningCategory === 'ALL ENTRIES' ? learning : learning.filter(item => item.category === activeLearningCategory),\n    [activeLearningCategory],\n  )\n\n  const visibleProjects = useMemo(
     () => activeCategory === 'ALL WORK' ? projects : projects.filter(project => project.category === activeCategory),
     [activeCategory],
   )
@@ -521,10 +521,17 @@ function App() {
       <section className="learning-section section-pad" id="learning">
         <div className="section-index reveal"><Eyebrow>06 — THE READING ROOM</Eyebrow><span>COURSES / SIMULATIONS / CONTINUOUS LEARNING</span></div>
         <div className="learning-intro reveal"><div><h2>ALWAYS<br /><em>LEARNING.</em></h2></div><p>Not every useful lesson comes with a certificate. This is a growing record of courses, simulations and learning paths. Credential links will be added when each record is verified.</p></div>
-        <div className="learning-grid">
-          {learning.map((item, index) => <article className="learning-card reveal" key={item.name}>
-            <div className="learning-card-top"><span>0{index + 1} / LEARNING LOG</span><BookOpen size={19} /></div>
+        <div className="learning-archive-bar">
+          <div className="learning-filters" role="group" aria-label="Filter learning records">
+            {learningCategories.map(category => <button key={category} type="button" className={activeLearningCategory === category ? 'selected' : ''} onClick={() => setActiveLearningCategory(category)} aria-pressed={activeLearningCategory === category}>{category}<span>{category === 'ALL ENTRIES' ? String(learning.length).padStart(2, '0') : String(learning.filter(item => item.category === category).length).padStart(2, '0')}</span></button>)}
+          </div>
+          <span className="learning-archive-count" aria-live="polite">SHOWING {String(visibleLearning.length).padStart(2, '0')} / {String(learning.length).padStart(2, '0')}</span>
+        </div>
+        <div className="learning-grid" aria-live="polite">
+          {visibleLearning.map((item, index) => <article className="learning-card reveal" key={item.name}>
+            <div className="learning-card-top"><span>0{learning.indexOf(item) + 1} / LEARNING LOG</span><span className="learning-record-type">{item.record}</span></div>
             <p>{item.kind}</p><h3>{item.name}</h3><h4>{item.detail}</h4><span className="learning-status">{item.status}</span>
+            <span className="learning-card-index" aria-hidden="true">{String(learning.indexOf(item) + 1).padStart(2, '0')}</span>
           </article>)}
         </div>
         <p className="learning-disclaimer">STATUS IS LABELLED AS COURSE OR SIMULATION COMPLETION—NOT AS A PROFESSIONAL CERTIFICATION UNLESS A VERIFIED CREDENTIAL IS LINKED.</p>
