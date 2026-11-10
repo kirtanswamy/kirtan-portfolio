@@ -391,8 +391,11 @@ function App() {
           <h2><span className="title-mask"><span>SELECTED</span></span><span className="title-mask"><span>WORK<span className="blue-period">.</span></span></span></h2>
           <p>Ideas are easy to have.<br />Making them useful is the work.</p>
         </div>
-        <div className="project-filters" role="group" aria-label="Filter projects">
-          {categories.map(category => <button key={category} className={activeCategory === category ? 'selected' : ''} onClick={() => setActiveCategory(category)} aria-pressed={activeCategory === category}>{category}<span>{category === 'ALL WORK' ? '04' : String(projects.filter(project => project.category === category).length).padStart(2, '0')}</span></button>)}
+        <div className="project-index-bar">
+          <div className="project-filters" role="group" aria-label="Filter projects">
+            {categories.map(category => <button key={category} className={activeCategory === category ? 'selected' : ''} onClick={() => setActiveCategory(category)} aria-pressed={activeCategory === category}>{category}<span>{category === 'ALL WORK' ? '04' : String(projects.filter(project => project.category === category).length).padStart(2, '0')}</span></button>)}
+          </div>
+          <span className="archive-index-caption">FILE INDEX / 001—004</span>
         </div>
         <div className="shelf-toolbar reveal">
           <span>DRAG / SCROLL TO EXPLORE THE ARCHIVE</span>
