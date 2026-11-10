@@ -125,7 +125,7 @@ The reference site has been reviewed at the level of its visual concept, content
 |---|---|---|
 | React/Vite foundation | In place | Existing stack retained |
 | Editorial visual direction | First pass implemented | Paper, ink, cobalt, vermilion, typography |
-| Main content sections | First pass implemented | Hero, work, expanded Viksit Bharat field note, About with working principles, journey, learning, skills, contact |
+| Main content sections | Enhanced first pass | Hero, work, Viksit Bharat feature with JanSeva One civic journey concept map, About with working principles, annotated journey timeline, filterable learning archive, skills, contact |
 | Project filter | Implemented | Four project categories; filter transitions and shelf counter wired |
 | GSAP / Lenis | First pass implemented | Intro, scroll reveals, orbit details, reading progress; needs motion QA |
 | Responsive layouts | First pass implemented | Eight-item navigation, keyboard skip link and global reduced-motion fallback added; still needs real device/browser testing |
@@ -134,7 +134,7 @@ The reference site has been reviewed at the level of its visual concept, content
 | Desktop horizontal work shelf | First pass implemented | Horizontal snap shelf, touch scrolling, drag affordance, previous/next controls and position counter; needs browser QA |
 | Chapter navigation | First pass implemented | Persistent desktop rail, active chapter tracking, hover labels; mobile torn-edge panel; WebGL intentionally not required |
 | Project detail transitions | Enhanced first pass | Accessible project-file dialog with Escape, backdrop close, focus trap and focus return; book-opening transition, structured mini case studies and original conceptual diagrams |
-| Content verification | Pending | Credentials, academic data, roles, links |
+| Content verification | Partially structured; source checks pending | Learning records now distinguish course, simulation and unverified entries; final titles, evidence, academic details, roles and contact links still require user confirmation |
 | Browser visual QA | Pending | Code and CI checks only so far; visual QA across viewports remains a release gate |
 | Production deploy | Not done | Do not treat draft branch as live site |
 
