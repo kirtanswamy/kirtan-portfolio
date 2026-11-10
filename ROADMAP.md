@@ -127,15 +127,15 @@ The reference site has been reviewed at the level of its visual concept, content
 | Editorial visual direction | First pass implemented | Paper, ink, cobalt, vermilion, typography |
 | Main content sections | First pass implemented | Hero, work, field note, About, journey, learning, skills, contact |
 | Project filter | Implemented | Four project categories |
-| GSAP / Lenis | First pass implemented | Intro and scroll reveals; needs motion QA |
+| GSAP / Lenis | First pass implemented | Intro, scroll reveals, orbit details, reading progress; needs motion QA |
 | Responsive layouts | First pass implemented | Needs real device/browser testing |
 | Custom character | Intentionally deferred | Placeholder only; original artwork later |
 | Project case studies | Not complete | Need real screenshots, outcomes, role and status |
-| Desktop horizontal work shelf | Planned | Replace / extend current grid in Phase 3 |
+| Desktop horizontal work shelf | First pass implemented | Horizontal snap shelf, touch scrolling, drag affordance, previous/next controls and position counter; needs browser QA |
 | Torn-paper / WebGL navigation | Planned, conditional | Use only if it improves UX and performance |
-| Project detail transitions | Planned | Case-study route / overlay |
+| Project detail transitions | First pass implemented | Accessible project-file dialog with Escape, backdrop close, focus trap and focus return; full case-study content remains to be written |
 | Content verification | Pending | Credentials, academic data, roles, links |
-| Browser visual QA | Pending | Must be completed before release |
+| Browser visual QA | Pending | No connected visual browser session available for this branch yet; must be completed before release |
 | Production deploy | Not done | Do not treat draft branch as live site |
 
 ## Current branch and working agreement
