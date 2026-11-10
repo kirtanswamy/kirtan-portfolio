@@ -87,7 +87,7 @@ The reference site has been reviewed at the level of its visual concept, content
 - Varsity: student problem, feature set, contribution and screenshots from actual build.
 - ElectroLab: diode model, solver, sweep visualisation and technical details.
 - JanSeva One: civic problem, concept, presentation context and proposed pilot.
-- Build custom visual covers from actual product screens, diagrams, photos and diagrams—not generic stock graphics.
+- Build custom visual covers from actual product screens, diagrams and photos—not generic stock graphics. First pass now includes original conceptual workflow / interface / circuit / civic diagrams; replace these with real product evidence when available.
 
 **Exit gate:** every featured project has evidence, a clear role statement and working links.
 
@@ -130,10 +130,10 @@ The reference site has been reviewed at the level of its visual concept, content
 | GSAP / Lenis | First pass implemented | Intro, scroll reveals, orbit details, reading progress; needs motion QA |
 | Responsive layouts | First pass implemented | Needs real device/browser testing |
 | Custom character | Intentionally deferred | Placeholder only; original artwork later |
-| Project case studies | Structured first pass | Project dialogs now explain problem, approach, honest current state and next iteration; real screenshots, evidence and outcome metrics still needed |
+| Project case studies | Structured first pass | Project dialogs explain problem, approach, honest current state and next iteration; original conceptual diagrams added; real screenshots, evidence and outcome metrics still needed |
 | Desktop horizontal work shelf | First pass implemented | Horizontal snap shelf, touch scrolling, drag affordance, previous/next controls and position counter; needs browser QA |
 | Chapter navigation | First pass implemented | Persistent desktop rail, active chapter tracking, hover labels; mobile torn-edge panel; WebGL intentionally not required |
-| Project detail transitions | First pass implemented | Accessible project-file dialog with Escape, backdrop close, focus trap and focus return; full case-study content remains to be written |
+| Project detail transitions | First pass implemented | Accessible project-file dialog with Escape, backdrop close, focus trap and focus return; structured mini case studies and original conceptual diagrams now present |
 | Content verification | Pending | Credentials, academic data, roles, links |
 | Browser visual QA | Pending | Code and CI checks only so far; visual QA across viewports remains a release gate |
 | Production deploy | Not done | Do not treat draft branch as live site |
