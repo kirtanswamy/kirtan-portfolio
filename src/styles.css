@@ -164,3 +164,12 @@ body.dialog-open{overflow:hidden}
 .project-art-button .project-art-arrow{width:35px;height:35px;right:15px;bottom:13px}
 @media(max-width:600px){.project-art-button .project-visual{height:42%;bottom:8%}.project-dialog-art .project-visual{max-height:145px}.project-dialog-art{min-height:220px}.project-dialog-art strong{font-size:44px}}
 @media(prefers-reduced-motion:reduce){.project-art-button .project-visual,.project-card:hover .project-art-button .project-visual{transition:none;transform:none}}
+
+.skip-link{position:fixed;z-index:120;left:14px;top:10px;padding:12px 15px;background:var(--ink);color:var(--paper);font:9px var(--mono);letter-spacing:.06em;transform:translateY(-160%);transition:transform .2s}
+.skip-link:focus{transform:translateY(0);outline:2px solid var(--acid);outline-offset:3px}
+#main-content{scroll-margin-top:24px}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  .reveal{opacity:1!important;transform:none!important;will-change:auto!important}
+  .ticker-track{animation:none!important}
+}
