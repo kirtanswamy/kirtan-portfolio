@@ -200,3 +200,6 @@ body.dialog-open{overflow:hidden}
 @media(max-width:950px){.project-index-bar{display:block}.archive-index-caption{display:block;padding:0 0 12px}.project-index-bar .project-filters{overflow-x:auto;flex-wrap:nowrap}.project-index-bar .project-filters button{white-space:nowrap}}
 @media(max-width:600px){.projects-shelf{grid-auto-columns:88%;gap:15px}.project-card:before{width:5px}.project-art{height:330px}.project-art-button:after{width:7px}}
 @media(prefers-reduced-motion:reduce){.project-art-button,.project-card:hover .project-art-button{transition:none;transform:none;box-shadow:none}.project-dialog{animation:none}}
+
+@media(max-width:950px){.mobile-nav{justify-content:flex-start;overflow-y:auto;overscroll-behavior:contain;padding-top:max(92px,12vh);padding-bottom:32px;gap:5px}.mobile-nav>a{flex:0 0 auto;padding:clamp(8px,1.8vh,13px) 0;font-size:clamp(25px,5.8vw,44px)}.mobile-nav>p{margin-top:16px;padding-bottom:12px}}
+@media(max-width:600px){.mobile-nav{padding-left:22px;padding-right:22px}.mobile-nav>a{grid-template-columns:32px 1fr 22px;font-size:clamp(26px,8vw,38px)}.mobile-nav>.eyebrow{margin-bottom:5px}}
