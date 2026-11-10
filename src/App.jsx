@@ -302,6 +302,12 @@ function App() {
         <span className="chapter-rail-label">THE NOTEBOOK</span>
         {chapterItems.map(([number, label, href]) => <a key={href} href={href} className={activeSection === href ? 'active' : ''} aria-label={label} aria-current={activeSection === href ? 'location' : undefined}><span>{number}</span><i /><small>{label}</small></a>)}
       </nav>
+      <aside className="desk-note" aria-label="Featured project shortcut">
+        <span className="desk-note-kicker">ON THE DESK / CURRENT FILE</span>
+        <strong>{visibleProjects[Math.min(activeProjectIndex, visibleProjects.length - 1)]?.name ?? 'PROJECT ARCHIVE'}</strong>
+        <span className="desk-note-category">{visibleProjects[Math.min(activeProjectIndex, visibleProjects.length - 1)]?.category ?? 'SELECTED WORK'}</span>
+        <button type="button" onClick={() => { const project = visibleProjects[Math.min(activeProjectIndex, visibleProjects.length - 1)]; if (project) setActiveProject(project) }}>OPEN FILE <ArrowUpRight size={12}/></button>
+      </aside>
       <header className="masthead">
         <a className="masthead-brand" href="#top" aria-label="Kirtan Swamy home">
           <span className="brand-monogram">KS<span>®</span></span>
@@ -327,7 +333,7 @@ function App() {
         <div className="hero-overline">
           <Eyebrow>ENGINEERING / DESIGN / IDEAS</Eyebrow>
           <span className="edition-label">A WORK IN PROGRESS — ALWAYS</span>
-          <span className="issue-date">TUESDAY, 10 NOVEMBER 2026</span>
+          <span className="issue-date">FIELD EDITION / 2026</span>
         </div>
         <div className="hero-headline">
           <div className="headline-kicker"><span>THE MAKER'S</span><span className="headline-rule" /><span>NOTEBOOK</span></div>
