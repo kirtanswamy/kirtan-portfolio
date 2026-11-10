@@ -454,6 +454,20 @@ function App() {
             <article><span>02 / THE ROOM</span><h3>LISTEN, EXCHANGE, REFRAME.</h3><p>The dialogue created space to share perspectives on the future of India and learn from young leaders working across different contexts.</p></article>
             <article><span>03 / THE IDEA</span><h3>MAKE PUBLIC SYSTEMS FEEL CLOSER.</h3><p>JanSeva One was my civic-tech concept: a unified way to surface local issues and help communities follow the path from reporting to action.</p></article>
           </div>
+          <div className="field-note-artifact">
+            <div className="field-note-artifact-heading"><span>THE IDEA / JANSEVA ONE</span><span>CONCEPT MAP · 001</span></div>
+            <svg viewBox="0 0 900 240" role="img" aria-label="Concept diagram showing local issue reporting moving through a civic response system">
+              <path d="M170 110H360M540 110H730" stroke="#e7e0d2" strokeWidth="2" strokeDasharray="6 7" fill="none"/>
+              <path d="m347 100 13 10-13 10M717 100l13 10-13 10" fill="none" stroke="#d7e27b" strokeWidth="2"/>
+              <g fill="#e7e0d2" fillOpacity=".08" stroke="#e7e0d2" strokeOpacity=".55">
+                <rect x="22" y="36" width="148" height="148" rx="4"/><rect x="376" y="36" width="148" height="148" rx="4"/><rect x="730" y="36" width="148" height="148" rx="4"/>
+              </g>
+              <g fill="#d7e27b" fontFamily="monospace" fontSize="12"><text x="42" y="65">01 / REPORT</text><text x="396" y="65">02 / ROUTE</text><text x="750" y="65">03 / RESPOND</text></g>
+              <g stroke="#e7e0d2" fill="none" strokeWidth="2"><path d="M95 91v42m-20-20h40M449 92h42m-42 18h42m-42 18h28M803 92h42m-42 18h42m-42 18h28"/></g>
+              <g fill="#e7e0d2" fontFamily="monospace" fontSize="10"><text x="42" y="160">COMMUNITY VOICE</text><text x="396" y="160">PUBLIC WORKFLOW</text><text x="750" y="160">VISIBLE FOLLOW-UP</text></g>
+              <text x="450" y="222" textAnchor="middle" fill="#e7e0d2" fillOpacity=".6" fontFamily="monospace" fontSize="10">A PROPOSED CIVIC JOURNEY — NOT A DEPLOYED GOVERNMENT SERVICE</text>
+            </svg>
+          </div>
           <div className="field-note-bottom"><span>A MOMENT THAT REMINDED ME WHY BUILDING MATTERS.</span><span>03 / 08</span></div>
         </div>
       </section>
