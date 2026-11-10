@@ -108,6 +108,7 @@ function App() {
   const [activeProject, setActiveProject] = useState(null)
   const [activeProjectIndex, setActiveProjectIndex] = useState(0)
   const projectShelfRef = useRef(null)
+  const shelfDragRef = useRef({ pointerId: null, startX: 0, scrollLeft: 0, dragged: false })
 
   const visibleProjects = useMemo(
     () => activeCategory === 'ALL WORK' ? projects : projects.filter(project => project.category === activeCategory),
@@ -312,11 +313,31 @@ function App() {
             <button type="button" onClick={() => moveProjectShelf(1)} disabled={activeProjectIndex >= visibleProjects.length - 1} aria-label="Next project"><ArrowRight size={16} /></button>
           </div>
         </div>
-        <div className="projects-grid projects-shelf" ref={projectShelfRef} aria-live="polite" onScroll={event => {
-          const shelf = event.currentTarget
-          const card = shelf.querySelector('.project-card')
-          if (card) setActiveProjectIndex(Math.min(visibleProjects.length - 1, Math.max(0, Math.round(shelf.scrollLeft / (card.getBoundingClientRect().width + 22)))))
-        }}>
+        <div className="projects-grid projects-shelf" ref={projectShelfRef} aria-live="polite"
+          onPointerDown={event => {
+            if (event.pointerType !== 'mouse' || event.button !== 0) return
+            const drag = shelfDragRef.current
+            drag.pointerId = event.pointerId
+            drag.startX = event.clientX
+            drag.scrollLeft = event.currentTarget.scrollLeft
+            drag.dragged = false
+            event.currentTarget.setPointerCapture(event.pointerId)
+          }}
+          onPointerMove={event => {
+            const drag = shelfDragRef.current
+            if (drag.pointerId !== event.pointerId) return
+            const delta = event.clientX - drag.startX
+            if (Math.abs(delta) > 5) drag.dragged = true
+            if (drag.dragged) event.currentTarget.scrollLeft = drag.scrollLeft - delta
+          }}
+          onPointerUp={event => { if (shelfDragRef.current.pointerId === event.pointerId) shelfDragRef.current.pointerId = null }}
+          onPointerCancel={() => { shelfDragRef.current.pointerId = null }}
+          onClickCapture={event => { if (shelfDragRef.current.dragged) { event.preventDefault(); event.stopPropagation(); shelfDragRef.current.dragged = false } }}
+          onScroll={event => {
+            const shelf = event.currentTarget
+            const card = shelf.querySelector('.project-card')
+            if (card) setActiveProjectIndex(Math.min(visibleProjects.length - 1, Math.max(0, Math.round(shelf.scrollLeft / (card.getBoundingClientRect().width + 22)))))
+          }}>
           {visibleProjects.map((project, index) => <ProjectCard key={project.id} project={project} index={projects.indexOf(project)} onOpen={setActiveProject} />)}
         </div>
         <div className="work-foot reveal"><span>MORE EXPERIMENTS ARE ALWAYS IN THE WORKS.</span><a href="https://github.com/kirtanswamy" target="_blank" rel="noreferrer">EXPLORE GITHUB <ArrowUpRight size={14} /></a></div>
