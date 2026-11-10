@@ -239,7 +239,31 @@ function App() {
     gsap.to('.orbit-ring', { rotate: 360, duration: 38, repeat: -1, ease: 'none' })
     gsap.to('.hero-starburst', { rotate: -360, duration: 54, repeat: -1, ease: 'none' })
 
+    const workbench = document.querySelector('.portrait-frame')
+    const deskArt = workbench?.querySelector('.desk-illustration')
+    const moveDeskX = deskArt ? gsap.quickTo(deskArt, 'x', { duration: 0.55, ease: 'power3.out' }) : null
+    const moveDeskY = deskArt ? gsap.quickTo(deskArt, 'y', { duration: 0.55, ease: 'power3.out' }) : null
+    const moveDeskRotate = deskArt ? gsap.quickTo(deskArt, 'rotation', { duration: 0.7, ease: 'power3.out' }) : null
+    const onDeskMove = event => {
+      if (!workbench || !moveDeskX || !moveDeskY || !moveDeskRotate) return
+      const bounds = workbench.getBoundingClientRect()
+      const x = (event.clientX - bounds.left) / bounds.width - 0.5
+      const y = (event.clientY - bounds.top) / bounds.height - 0.5
+      moveDeskX(x * 7)
+      moveDeskY(y * 5)
+      moveDeskRotate(x * 1.2)
+    }
+    const resetDesk = () => {
+      moveDeskX?.(0)
+      moveDeskY?.(0)
+      moveDeskRotate?.(0)
+    }
+    workbench?.addEventListener('pointermove', onDeskMove)
+    workbench?.addEventListener('pointerleave', resetDesk)
+
     return () => {
+      workbench?.removeEventListener('pointermove', onDeskMove)
+      workbench?.removeEventListener('pointerleave', resetDesk)
       gsap.ticker.remove(tick)
       lenis.destroy()
       ScrollTrigger.getAll().forEach(trigger => trigger.kill())
