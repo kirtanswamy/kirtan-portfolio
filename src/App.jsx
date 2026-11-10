@@ -148,6 +148,7 @@ function App() {
       })
     })
 
+    ScrollTrigger.create({ start: 0, end: 'max', onUpdate: self => gsap.set('.reading-progress__bar', { scaleX: self.progress }) })
     gsap.to('.orbit-ring', { rotate: 360, duration: 38, repeat: -1, ease: 'none' })
     gsap.to('.hero-starburst', { rotate: -360, duration: 54, repeat: -1, ease: 'none' })
 
@@ -186,12 +187,25 @@ function App() {
 
   useEffect(() => {
     if (!activeProject) return undefined
-    const onKeyDown = event => { if (event.key === 'Escape') setActiveProject(null) }
+    const previouslyFocused = document.activeElement
+    const dialog = document.querySelector('.project-dialog')
+    const closeButton = dialog?.querySelector('.project-dialog-top button')
+    closeButton?.focus()
+    const onKeyDown = event => {
+      if (event.key === 'Escape') { setActiveProject(null); return }
+      if (event.key !== 'Tab' || !dialog) return
+      const focusable = [...dialog.querySelectorAll('a[href], button:not([disabled])')]
+      if (!focusable.length) return
+      const first = focusable[0], last = focusable[focusable.length - 1]
+      if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus() }
+      else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus() }
+    }
     document.addEventListener('keydown', onKeyDown)
     document.body.classList.add('dialog-open')
     return () => {
       document.removeEventListener('keydown', onKeyDown)
       document.body.classList.remove('dialog-open')
+      previouslyFocused?.focus?.()
     }
   }, [activeProject])
 
@@ -202,6 +216,7 @@ function App() {
 
   return (
     <main className="site-shell" id="top">
+      <div className="reading-progress" aria-hidden="true"><span className="reading-progress__bar" /></div>
       <div className="paper-grain" aria-hidden="true" />
       <header className="masthead">
         <a className="masthead-brand" href="#top" aria-label="Kirtan Swamy home">
@@ -218,7 +233,7 @@ function App() {
         </nav>
       </header>
 
-      <div className={`mobile-nav ${menuOpen ? 'is-open' : ''}`} aria-hidden={!menuOpen}>
+      <div className={`mobile-nav ${menuOpen ? 'is-open' : ''}`} aria-hidden={!menuOpen} inert={!menuOpen}>
         <Eyebrow>THE CONTENTS</Eyebrow>
         {navItems.map(([label, href], index) => <a key={href} href={href} onClick={closeMenu}><span>0{index + 1}</span>{label}<ArrowUpRight /></a>)}
         <p>AN OPEN NOTEBOOK · CHENNAI, INDIA</p>
