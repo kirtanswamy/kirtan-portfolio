@@ -4,7 +4,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Lenis from 'lenis'
 import {
   ArrowDown, ArrowDownRight, ArrowRight, ArrowUpRight, Asterisk,
-  ArrowUp, ExternalLink, Github, Linkedin, Menu, MoveUpRight, X,
+  ArrowUp, ExternalLink, Code2, Menu, MoveUpRight, X,
   CircleDot, Sparkles, BookOpen, Cpu, Layers3, Compass, Send,
 } from 'lucide-react'
 
@@ -90,7 +90,7 @@ function ProjectCard({ project, index }) {
       <div className="project-info">
         <div className="project-title-line">
           <div><Eyebrow>{project.category} · {project.year}</Eyebrow><h3>{project.name}<sup>®</sup></h3></div>
-          <a href={project.repo} target="_blank" rel="noreferrer" className="project-repo" aria-label={`View ${project.name} repository`}><Github size={17} /><ArrowUpRight size={13} /></a>
+          <a href={project.repo} target="_blank" rel="noreferrer" className="project-repo" aria-label={`View ${project.name} repository`}><Code2 size={17} /><ArrowUpRight size={13} /></a>
         </div>
         <p className="project-type">{project.type}</p>
         <p className="project-description">{project.description}</p>
@@ -370,7 +370,7 @@ function App() {
         </div>
         <footer className="footer">
           <a className="footer-brand" href="#top"><span className="brand-monogram">KS<span>®</span></span><span>THE PERSONAL EDITION<br />CHENNAI, INDIA</span></a>
-          <div className="footer-links"><a href="https://github.com/kirtanswamy" target="_blank" rel="noreferrer"><Github size={16} /> GITHUB <ExternalLink size={12} /></a><a href="#work">SELECTED WORK <ArrowUpRight size={12} /></a><a href="#top">BACK TO TOP <ArrowUp size={12} /></a></div>
+          <div className="footer-links"><a href="https://github.com/kirtanswamy" target="_blank" rel="noreferrer"><Code2 size={16} /> GITHUB <ExternalLink size={12} /></a><a href="#work">SELECTED WORK <ArrowUpRight size={12} /></a><a href="#top">BACK TO TOP <ArrowUp size={12} /></a></div>
           <span className="footer-copy">© 2026 KIRTAN SWAMY<br />PRINTED ON THE INTERNET.</span>
         </footer>
       </section>
