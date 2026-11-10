@@ -240,3 +240,27 @@ body.dialog-open{overflow:hidden}
 .journey-mark{display:grid;place-items:center;width:34px;height:34px;border:1px solid var(--line);border-radius:50%}
 .journey-mark svg{width:16px}
 @media(max-width:600px){.journey-list{padding-left:15px}.journey-item{grid-template-columns:28px 1fr 25px;gap:9px 12px;padding:19px 0}.journey-item:before{left:-15px;top:25px;width:7px;height:7px}.journey-count{grid-column:1;grid-row:1;font-size:8px}.journey-date{grid-column:2;grid-row:1}.journey-item>div{grid-column:1/3;grid-row:2;padding-left:0}.journey-item h3{font-size:20px}.journey-item p,.journey-item small{font-size:12px}.journey-mark{grid-column:3;grid-row:1/3;align-self:center;width:27px;height:27px}}
+
+/* Hero workbench — original illustrated scene, not a portrait placeholder */
+.portrait-frame{position:relative;isolation:isolate;transition:box-shadow .35s ease,transform .35s ease}
+.portrait-frame:hover{box-shadow:12px 14px 0 rgba(36,36,31,.11);transform:rotate(.4deg) translateY(-3px)}
+.desk-art{background:#b9b3a5;overflow:hidden;contain:paint}
+.desk-art:before{z-index:1;pointer-events:none;mix-blend-mode:multiply}
+.desk-art:after{z-index:2;pointer-events:none}
+.desk-illustration{display:block;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform-origin:50% 50%;will-change:transform}
+.desk-orbit{transform-box:fill-box;transform-origin:center;animation:desk-orbit 24s linear infinite}
+.desk-signal{stroke-dasharray:250;stroke-dashoffset:250;animation:signal-draw 3.2s .45s ease-out forwards}
+.desk-orbit-dot{transform-box:fill-box;transform-origin:center;animation:desk-dot 7s ease-in-out infinite}
+@keyframes desk-orbit{to{transform:rotate(339deg)}}
+@keyframes signal-draw{to{stroke-dashoffset:0}}
+@keyframes desk-dot{0%,100%{transform:translate(0,0)}50%{transform:translate(14px,-10px)}}
+.portrait-coordinates{z-index:3;background:#eee7d9d9;padding:5px 7px;backdrop-filter:blur(4px)}
+.portrait-caption{font-size:6px;letter-spacing:.06em}
+.hero-deck p{max-width:36ch}
+.hero-aside .aside-index{font-size:8px}
+.hero-aside p{font-size:8px;letter-spacing:.06em}
+.hero .hero-overline{gap:15px}
+.hero .issue-date{white-space:nowrap}
+@media(max-width:950px){.portrait-frame{width:min(78%,460px)}.desk-illustration{object-fit:cover}}
+@media(max-width:600px){.portrait-frame{width:92%;max-width:430px}.desk-art{height:240px}.hero-lower{gap:28px}.hero-aside{display:none}.hero-deck p{max-width:32ch}.portrait-top,.portrait-caption{font-size:6px}}
+@media(prefers-reduced-motion:reduce){.desk-orbit,.desk-signal,.desk-orbit-dot{animation:none!important}.desk-signal{stroke-dashoffset:0}.desk-illustration{will-change:auto}}
