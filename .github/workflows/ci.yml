@@ -2,7 +2,7 @@ name: Portfolio CI
 
 on:
   push:
-    branches: [main]
+    branches: [main, feature/editorial-world-rebuild]
   pull_request:
     branches: [main]
 
@@ -16,6 +16,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
+          cache: npm
       - name: Install dependencies
         run: npm install
       - name: Build production bundle
