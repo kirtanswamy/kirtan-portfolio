@@ -145,3 +145,5 @@ body.dialog-open{overflow:hidden}
 .project-dialog-actions{padding-top:15px;border-top:1px solid var(--line)}
 @media(max-width:950px){.project-dialog-body{grid-template-columns:.7fr 1.3fr;gap:22px}.project-dialog-art{min-height:300px}}
 @media(max-width:600px){.project-dialog-body{grid-template-columns:1fr}.project-dialog-art{min-height:185px}.project-case-grid{grid-template-columns:1fr;gap:13px;margin-top:20px}.project-case-grid article{padding-bottom:12px;border-bottom:1px solid var(--line)}.project-case-grid article p{font-size:12px;margin-top:5px}}
+
+.project-stage span{background:#777166;box-shadow:0 0 0 3px #77716620}
