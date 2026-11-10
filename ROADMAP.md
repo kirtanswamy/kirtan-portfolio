@@ -105,7 +105,7 @@ The reference site has been reviewed at the level of its visual concept, content
 - Test 1440px desktop, 1280px laptop, 1024px tablet, 768px tablet portrait, 390px and 360px mobile.
 - Test Chrome, Firefox, Safari and mobile touch.
 - Verify all navigation, project filters, external links, focus order, keyboard access and menu close behaviour.
-- Check contrast, heading hierarchy, alt text, tap target size and reduced motion.
+- Check contrast, heading hierarchy, alt text, tap target size, skip navigation, keyboard dialog focus, mobile navigation completeness and reduced motion.
 - Check no horizontal overflow, layout shifts, console errors or broken images.
 - Run production build, Lighthouse / PageSpeed and Core Web Vitals review.
 - Optimise fonts, images, code splitting and animation workload.
@@ -128,7 +128,7 @@ The reference site has been reviewed at the level of its visual concept, content
 | Main content sections | First pass implemented | Hero, work, expanded Viksit Bharat field note, About with working principles, journey, learning, skills, contact |
 | Project filter | Implemented | Four project categories; filter transitions and shelf counter wired |
 | GSAP / Lenis | First pass implemented | Intro, scroll reveals, orbit details, reading progress; needs motion QA |
-| Responsive layouts | First pass implemented | Needs real device/browser testing |
+| Responsive layouts | First pass implemented | Eight-item navigation, keyboard skip link and global reduced-motion fallback added; still needs real device/browser testing |
 | Custom character | Intentionally deferred | Placeholder only; original artwork later |
 | Project case studies | Structured first pass | Project dialogs explain problem, approach, honest current state and next iteration; original conceptual diagrams added; real screenshots, evidence and outcome metrics still needed |
 | Desktop horizontal work shelf | First pass implemented | Horizontal snap shelf, touch scrolling, drag affordance, previous/next controls and position counter; needs browser QA |
