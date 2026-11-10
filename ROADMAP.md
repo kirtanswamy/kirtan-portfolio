@@ -130,7 +130,7 @@ The reference site has been reviewed at the level of its visual concept, content
 | GSAP / Lenis | First pass implemented | Intro, scroll reveals, orbit details, reading progress; needs motion QA |
 | Responsive layouts | First pass implemented | Needs real device/browser testing |
 | Custom character | Intentionally deferred | Placeholder only; original artwork later |
-| Project case studies | Not complete | Need real screenshots, outcomes, role and status |
+| Project case studies | Structured first pass | Project dialogs now explain problem, approach, honest current state and next iteration; real screenshots, evidence and outcome metrics still needed |
 | Desktop horizontal work shelf | First pass implemented | Horizontal snap shelf, touch scrolling, drag affordance, previous/next controls and position counter; needs browser QA |
 | Chapter navigation | First pass implemented | Persistent desktop rail, active chapter tracking, hover labels; mobile torn-edge panel; WebGL intentionally not required |
 | Project detail transitions | First pass implemented | Accessible project-file dialog with Escape, backdrop close, focus trap and focus return; full case-study content remains to be written |
