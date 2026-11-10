@@ -119,6 +119,15 @@ The reference site has been reviewed at the level of its visual concept, content
 - Test production URL and all outgoing links.
 - Keep a post-launch backlog for content updates and new projects.
 
+
+### Latest iteration — hero and story polish
+
+- Replaced the abstract portrait placeholder with an original SVG maker's-workbench scene: notebook, circuit-board study, pencil, signal trace, orbit path and location coordinates.
+- Added a restrained pointer-reactive parallax response on desktop and animated signal/orbit details, with a reduced-motion fallback.
+- Strengthened the About narrative with a paragraph on collaborative making and community spaces.
+- Expanded project-file metadata to show each project's stage and filing category alongside contribution and focus areas.
+- Kept the human character intentionally deferred until the user selects the art direction and provides a suitable portrait reference. The workbench is a visual identity device, not a fabricated likeness.
+
 ## Current implementation status
 
 | Area | Status | Notes |
