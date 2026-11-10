@@ -68,8 +68,8 @@ const projects = [
 const categories = ['ALL WORK', 'PUBLIC SYSTEMS', 'CAMPUS LIFE', 'ENGINEERING', 'CIVIC INNOVATION']
 
 const chapterItems = [
-  ['01', 'WORK', '#work'], ['02', 'FIELD NOTE', '#field-notes'], ['03', 'ABOUT', '#about'],
-  ['04', 'JOURNEY', '#journey'], ['05', 'LEARNING', '#learning'], ['06', 'TOOLBOX', '#skills'], ['07', 'CONTACT', '#contact'],
+  ['01', 'STORY', '#story'], ['02', 'WORK', '#work'], ['03', 'FIELD NOTE', '#field-notes'], ['04', 'ABOUT', '#about'],
+  ['05', 'JOURNEY', '#journey'], ['06', 'LEARNING', '#learning'], ['07', 'TOOLBOX', '#skills'], ['08', 'CONTACT', '#contact'],
 ]
 
 const learning = [
