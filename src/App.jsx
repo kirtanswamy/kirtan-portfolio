@@ -8,7 +8,6 @@ import {
   ArrowUpRight,
   Asterisk,
   Github,
-  Linkedin,
   Menu,
   MoveUpRight,
   X,
@@ -220,7 +219,7 @@ function App() {
       <section className="intro-grid" aria-label="Introduction and featured projects">
         <a className="intro-card intro-card-image" href="#about">
           <div className="intro-photo">
-            <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=1000&q=85" alt="Abstract editorial portrait placeholder" loading="lazy" />
+            <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1000&q=85" alt="Creative studio interior with natural light" loading="lazy" />
             <span className="photo-note">A MIND IN<br />PROGRESS ↗</span>
           </div>
           <div className="intro-card-bottom"><span className="eyebrow">A LITTLE INTRODUCTION</span><ArrowUpRight size={18} /></div>
@@ -331,7 +330,7 @@ function App() {
           <a className="brand footer-brand" href="#top"><span className="brand-mark">KS<span>®</span></span><span className="brand-caption">MADE WITH CURIOSITY<br />IN CHENNAI, INDIA</span></a>
           <div className="footer-links">
             <a href="https://github.com/kirtanswamy" target="_blank" rel="noreferrer"><Github size={15} /> GITHUB <ArrowUpRight size={12} /></a>
-            <a href="https://www.linkedin.com/" target="_blank" rel="noreferrer"><Linkedin size={15} /> LINKEDIN <ArrowUpRight size={12} /></a>
+            <span className="footer-profile-note">LINKEDIN URL TO BE ADDED</span>
           </div>
           <span className="copyright">© 2026 KIRTAN SWAMY<br />ALL RIGHTS RESERVED</span>
           <a href="#top" className="back-top">BACK TO TOP <ArrowUpRight size={14} /></a>
