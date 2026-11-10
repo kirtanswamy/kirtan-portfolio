@@ -1,9 +1,9 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Lenis from 'lenis'
 import {
-  ArrowDown, ArrowDownRight, ArrowRight, ArrowUpRight, Asterisk,
+  ArrowDown, ArrowDownRight, ArrowLeft, ArrowRight, ArrowUpRight, Asterisk,
   ArrowUp, ExternalLink, Code2, Menu, MoveUpRight, X,
   CircleDot, Sparkles, BookOpen, Cpu, Layers3, Compass, Send,
 } from 'lucide-react'
@@ -61,7 +61,7 @@ const skills = [
 ]
 
 const navItems = [
-  ['WORK', '#work'], ['STORY', '#story'], ['JOURNEY', '#journey'],
+  ['WORK', '#work'], ['STORY', '#story'], ['ABOUT', '#about'], ['JOURNEY', '#journey'],
   ['FIELD NOTES', '#field-notes'], ['CONTACT', '#contact'],
 ]
 
@@ -69,14 +69,14 @@ function Eyebrow({ children, light = false }) {
   return <p className={`eyebrow ${light ? 'eyebrow-light' : ''}`}>{children}</p>
 }
 
-function ProjectCard({ project, index }) {
+function ProjectCard({ project, index, onOpen }) {
   return (
     <article className={`project-card project-${project.tone} reveal`}>
       <div className="project-card-top">
         <span className="project-number">{project.id} / 04</span>
         <span className="project-stage"><span />{project.stage}</span>
       </div>
-      <a className="project-art" href={project.href} target="_blank" rel="noreferrer" aria-label={`Open ${project.name}`}>
+      <button type="button" className="project-art project-art-button" onClick={() => onOpen(project)} aria-label={`Read the ${project.name} project note`}>
         <div className="project-art-grid" aria-hidden="true" />
         <span className="project-art-index">{project.id}</span>
         <span className="project-art-name">{project.name}</span>
@@ -86,7 +86,7 @@ function ProjectCard({ project, index }) {
         {index === 1 && <div className="art-stack" aria-hidden="true"><i /><i /><i /></div>}
         {index === 2 && <div className="art-circuit" aria-hidden="true"><i /><i /><i /><i /><i /></div>}
         {index === 3 && <div className="art-sun" aria-hidden="true"><Asterisk size={150} strokeWidth={0.7} /></div>}
-      </a>
+      </button>
       <div className="project-info">
         <div className="project-title-line">
           <div><Eyebrow>{project.category} · {project.year}</Eyebrow><h3>{project.name}<sup>®</sup></h3></div>
@@ -95,6 +95,7 @@ function ProjectCard({ project, index }) {
         <p className="project-type">{project.type}</p>
         <p className="project-description">{project.description}</p>
         <div className="project-tags">{project.tags.map(tag => <span key={tag}>{tag}</span>)}</div>
+        <button type="button" className="project-read-more" onClick={() => onOpen(project)}>OPEN PROJECT NOTE <ArrowUpRight size={13} /></button>
       </div>
     </article>
   )
@@ -104,6 +105,9 @@ function App() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [activeCategory, setActiveCategory] = useState('ALL WORK')
   const [activeSection, setActiveSection] = useState('')
+  const [activeProject, setActiveProject] = useState(null)
+  const [activeProjectIndex, setActiveProjectIndex] = useState(0)
+  const projectShelfRef = useRef(null)
 
   const visibleProjects = useMemo(
     () => activeCategory === 'ALL WORK' ? projects : projects.filter(project => project.category === activeCategory),
@@ -171,6 +175,30 @@ function App() {
   }, [])
 
   const closeMenu = () => setMenuOpen(false)
+
+  const moveProjectShelf = direction => {
+    const shelf = projectShelfRef.current
+    if (!shelf) return
+    const card = shelf.querySelector('.project-card')
+    const distance = card ? card.getBoundingClientRect().width + 22 : shelf.clientWidth * 0.8
+    shelf.scrollBy({ left: direction * distance, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' })
+  }
+
+  useEffect(() => {
+    if (!activeProject) return undefined
+    const onKeyDown = event => { if (event.key === 'Escape') setActiveProject(null) }
+    document.addEventListener('keydown', onKeyDown)
+    document.body.classList.add('dialog-open')
+    return () => {
+      document.removeEventListener('keydown', onKeyDown)
+      document.body.classList.remove('dialog-open')
+    }
+  }, [activeProject])
+
+  useEffect(() => {
+    if (projectShelfRef.current) projectShelfRef.current.scrollTo({ left: 0, behavior: 'auto' })
+    setActiveProjectIndex(0)
+  }, [activeCategory])
 
   return (
     <main className="site-shell" id="top">
@@ -261,8 +289,20 @@ function App() {
         <div className="project-filters" role="group" aria-label="Filter projects">
           {categories.map(category => <button key={category} className={activeCategory === category ? 'selected' : ''} onClick={() => setActiveCategory(category)} aria-pressed={activeCategory === category}>{category}<span>{category === 'ALL WORK' ? '04' : String(projects.filter(project => project.category === category).length).padStart(2, '0')}</span></button>)}
         </div>
-        <div className="projects-grid" aria-live="polite">
-          {visibleProjects.map((project, index) => <ProjectCard key={project.id} project={project} index={projects.indexOf(project)} />)}
+        <div className="shelf-toolbar reveal">
+          <span>DRAG / SCROLL TO EXPLORE THE ARCHIVE</span>
+          <div className="shelf-controls">
+            <span className="shelf-counter">{String(activeProjectIndex + 1).padStart(2, '0')} <i>/</i> {String(visibleProjects.length).padStart(2, '0')}</span>
+            <button type="button" onClick={() => moveProjectShelf(-1)} disabled={activeProjectIndex === 0} aria-label="Previous project"><ArrowLeft size={16} /></button>
+            <button type="button" onClick={() => moveProjectShelf(1)} disabled={activeProjectIndex >= visibleProjects.length - 1} aria-label="Next project"><ArrowRight size={16} /></button>
+          </div>
+        </div>
+        <div className="projects-grid projects-shelf" ref={projectShelfRef} aria-live="polite" onScroll={event => {
+          const shelf = event.currentTarget
+          const card = shelf.querySelector('.project-card')
+          if (card) setActiveProjectIndex(Math.min(visibleProjects.length - 1, Math.max(0, Math.round(shelf.scrollLeft / (card.getBoundingClientRect().width + 22)))))
+        }}>
+          {visibleProjects.map((project, index) => <ProjectCard key={project.id} project={project} index={projects.indexOf(project)} onOpen={setActiveProject} />)}
         </div>
         <div className="work-foot reveal"><span>MORE EXPERIMENTS ARE ALWAYS IN THE WORKS.</span><a href="https://github.com/kirtanswamy" target="_blank" rel="noreferrer">EXPLORE GITHUB <ArrowUpRight size={14} /></a></div>
       </section>
@@ -374,6 +414,20 @@ function App() {
           <span className="footer-copy">© 2026 KIRTAN SWAMY<br />PRINTED ON THE INTERNET.</span>
         </footer>
       </section>
+
+      {activeProject && <div className="project-dialog-backdrop" role="presentation" onMouseDown={event => { if (event.target === event.currentTarget) setActiveProject(null) }}>
+        <section className={`project-dialog project-${activeProject.tone}`} role="dialog" aria-modal="true" aria-labelledby="project-dialog-title">
+          <div className="project-dialog-top"><span>THE PROJECT FILE / {activeProject.id}</span><button type="button" onClick={() => setActiveProject(null)} aria-label="Close project note"><X size={20} /></button></div>
+          <div className="project-dialog-body">
+            <div className="project-dialog-art"><span>{activeProject.id}</span><strong>{activeProject.name}</strong><small>{activeProject.note}</small></div>
+            <div className="project-dialog-copy"><Eyebrow>{activeProject.category} · {activeProject.year}</Eyebrow><h2 id="project-dialog-title">{activeProject.name}<span>.</span></h2><p className="project-dialog-type">{activeProject.type}</p><p className="project-dialog-description">{activeProject.description}</p>
+              <div className="project-dialog-meta"><div><span>CURRENT CHAPTER</span><strong>{activeProject.stage}</strong></div><div><span>FOCUS AREAS</span><strong>{activeProject.tags.join(' · ')}</strong></div></div>
+              <div className="project-dialog-actions">{activeProject.href && <a href={activeProject.href} target="_blank" rel="noreferrer">OPEN PROJECT / PUBLIC PAGE <ArrowUpRight size={15} /></a>}{activeProject.repo && <a href={activeProject.repo} target="_blank" rel="noreferrer">VIEW SOURCE <Code2 size={15} /></a>}</div>
+            </div>
+          </div>
+          <div className="project-dialog-foot"><span>AN OPEN FILE — THE WORK CONTINUES</span><span>ESC TO CLOSE ↗</span></div>
+        </section>
+      </div>}
     </main>
   )
 }
