@@ -358,17 +358,54 @@ function App() {
             <a href="#story" className="read-link">READ MY STORY <ArrowDownRight size={16} /></a>
           </div>
           <div className="portrait-frame" aria-label="Illustrated character artwork will be added in a later stage">
-            <div className="portrait-top"><span>THE MAKER, IN PRINT</span><span>FIG. 001</span></div>
-            <div className="portrait-art" aria-hidden="true">
-              <div className="portrait-sun" />
-              <div className="portrait-arch" />
-              <div className="portrait-lines" aria-hidden="true"><i /><i /><i /><i /><i /><i /></div>
-              <div className="portrait-orbit orbit-one" />
-              <div className="portrait-orbit orbit-two" />
-              <div className="portrait-star">✳</div>
+            <div className="portrait-top"><span>THE WORKBENCH / STUDY 001</span><span>FIG. 001</span></div>
+            <div className="portrait-art desk-art">
+              <svg className="desk-illustration" viewBox="0 0 600 360" role="img" aria-label="An illustrated maker's desk with a notebook, circuit board, pencil and orbiting signal paths">
+                <defs>
+                  <pattern id="desk-grid" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0H0V24" fill="none" stroke="#24241f" strokeOpacity=".12" strokeWidth="1"/></pattern>
+                  <linearGradient id="desk-paper" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#eee7d9"/><stop offset="1" stopColor="#c9c0b0"/></linearGradient>
+                </defs>
+                <rect width="600" height="360" fill="#b9b3a5"/>
+                <rect width="600" height="360" fill="url(#desk-grid)"/>
+                <circle cx="456" cy="88" r="65" fill="#d3df83" opacity=".85"/>
+                <circle cx="456" cy="88" r="83" fill="none" stroke="#24241f" strokeOpacity=".55"/>
+                <ellipse className="desk-orbit" cx="300" cy="180" rx="250" ry="94" fill="none" stroke="#254cdb" strokeWidth="1.5" strokeDasharray="5 8" transform="rotate(-21 300 180)"/>
+                <path className="desk-signal" d="M34 268H105l17-29 18 58 18-29h85" fill="none" stroke="#c94d34" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+                <g transform="translate(90 70) rotate(-8 120 110)">
+                  <rect x="8" y="9" width="226" height="220" rx="3" fill="#24241f" opacity=".18"/>
+                  <rect width="226" height="220" rx="3" fill="url(#desk-paper)" stroke="#24241f" strokeWidth="2"/>
+                  <path d="M22 0V220" stroke="#c94d34" strokeWidth="2"/>
+                  {#for (let i = 0; i < 8; i++)}
+                    <path d={`M36 ${35 + i * 21}H205`} stroke="#24241f" strokeOpacity=".24" strokeWidth="1"/>
+                  {/for}
+                  <text x="36" y="27" fill="#254cdb" fontSize="10" fontFamily="monospace" letterSpacing="2">FIELD NOTES / 001</text>
+                  <path d="M45 78l35-19 25 26 38-42 32 25" fill="none" stroke="#254cdb" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+                  <circle cx="80" cy="59" r="4" fill="#c94d34"/><circle cx="143" cy="43" r="4" fill="#c94d34"/>
+                  <text x="36" y="196" fill="#24241f" fontSize="11" fontFamily="monospace">IDEA → PROTOTYPE</text>
+                </g>
+                <g transform="translate(360 184) rotate(9)">
+                  <rect x="0" y="0" width="142" height="105" rx="5" fill="#242a3c" stroke="#24241f" strokeWidth="2"/>
+                  {#for (let i = 0; i < 5; i++)}
+                    <path d={`M${20 + i * 25} -10V0M${20 + i * 25} 105v10`} stroke="#d3df83" strokeWidth="3"/>
+                  {/for}
+                  <rect x="42" y="26" width="58" height="52" rx="3" fill="#d3df83"/>
+                  <path d="M52 39h38M52 50h38M52 61h24" stroke="#24241f" strokeWidth="2"/>
+                  <text x="71" y="94" textAnchor="middle" fill="#eee7d9" fontSize="8" fontFamily="monospace">SYSTEM / 01</text>
+                </g>
+                <g transform="translate(478 244) rotate(-34)">
+                  <rect x="0" y="0" width="14" height="100" rx="5" fill="#c94d34"/>
+                  <path d="M0 0l7-16 7 16" fill="#24241f"/>
+                  <path d="M4 86h6" stroke="#eee7d9" strokeWidth="2"/>
+                </g>
+                <g fill="#24241f" fontFamily="monospace" fontSize="10">
+                  <text x="25" y="30">OBSERVE</text><text x="25" y="345">SKETCH / TEST / REFINE</text>
+                  <text x="465" y="174">SIGNAL</text>
+                </g>
+                <circle className="desk-orbit-dot" cx="75" cy="160" r="6" fill="#c94d34" stroke="#eee7d9" strokeWidth="2"/>
+              </svg>
               <span className="portrait-coordinates">13°04' N<br />80°16' E</span>
             </div>
-            <div className="portrait-caption"><span>AN ORIGINAL ILLUSTRATED IDENTITY</span><span>TO BE PRINTED SOON ↗</span></div>
+            <div className="portrait-caption"><span>IDEAS BECOME OBJECTS</span><span>THINK / MAKE / REPEAT ↗</span></div>
           </div>
           <div className="hero-aside">
             <span className="aside-index">01 / 08</span>
@@ -492,6 +529,7 @@ function App() {
             <p>My curiosity rarely stays in one lane. Some days it's a circuit, a simulation or a line of code. Other days it's a product flow, a civic problem or a visual detail that makes an experience feel right.</p>
             <p>I enjoy the full journey: understanding a problem, asking better questions, designing a direction, building a first version and learning from what breaks. I'm especially drawn to technology that can make everyday systems work a little better.</p>
             <p>Outside the screen, I enjoy storytelling, editing and community spaces. I like noticing how people communicate, what makes an idea memorable and how a small design decision can change the way someone experiences a product.</p>
+            <p>I also enjoy the energy of building with other people: sharing unfinished ideas, helping organise student-led spaces and learning how a team turns a rough thought into something others can experience.</p>
             <div className="about-signoff"><span>IN PROGRESS, BY DESIGN.</span><span>— K.S.</span></div>
           </div>
         </div>
@@ -592,7 +630,7 @@ function App() {
           <div className="project-dialog-body">
             <div className="project-dialog-art"><span>{activeProject.id} / SYSTEM SKETCH</span><strong>{activeProject.name}</strong><small>{activeProject.note}</small><ProjectVisual project={activeProject} /></div>
             <div className="project-dialog-copy"><Eyebrow>{activeProject.category} · {activeProject.year}</Eyebrow><h2 id="project-dialog-title">{activeProject.name}<span>.</span></h2><p className="project-dialog-type">{activeProject.type}</p><p className="project-dialog-description">{activeProject.description}</p>
-              <div className="project-dialog-meta"><div><span>CONTRIBUTION</span><strong>{activeProject.contribution}</strong></div><div><span>FOCUS AREAS</span><strong>{activeProject.tags.join(' · ')}</strong></div></div>
+              <div className="project-dialog-meta"><div><span>CONTRIBUTION</span><strong>{activeProject.contribution}</strong></div><div><span>STAGE</span><strong>{activeProject.stage}</strong></div><div><span>FOCUS AREAS</span><strong>{activeProject.tags.join(' · ')}</strong></div><div><span>FILED</span><strong>{activeProject.year} / {activeProject.category}</strong></div></div>
               <div className="project-case-grid">
                 <article><span>01 / THE QUESTION</span><p>{activeProject.problem}</p></article>
                 <article><span>02 / THE APPROACH</span><p>{activeProject.approach}</p></article>
