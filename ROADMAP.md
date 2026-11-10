@@ -133,7 +133,7 @@ The reference site has been reviewed at the level of its visual concept, content
 | Project case studies | Structured first pass | Project dialogs explain problem, approach, honest current state and next iteration; original conceptual diagrams added; real screenshots, evidence and outcome metrics still needed |
 | Desktop horizontal work shelf | First pass implemented | Horizontal snap shelf, touch scrolling, drag affordance, previous/next controls and position counter; needs browser QA |
 | Chapter navigation | First pass implemented | Persistent desktop rail, active chapter tracking, hover labels; mobile torn-edge panel; WebGL intentionally not required |
-| Project detail transitions | First pass implemented | Accessible project-file dialog with Escape, backdrop close, focus trap and focus return; structured mini case studies and original conceptual diagrams now present |
+| Project detail transitions | Enhanced first pass | Accessible project-file dialog with Escape, backdrop close, focus trap and focus return; book-opening transition, structured mini case studies and original conceptual diagrams |
 | Content verification | Pending | Credentials, academic data, roles, links |
 | Browser visual QA | Pending | Code and CI checks only so far; visual QA across viewports remains a release gate |
 | Production deploy | Not done | Do not treat draft branch as live site |
