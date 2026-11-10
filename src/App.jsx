@@ -18,6 +18,11 @@ const projects = [
     href: 'https://project1busho.vercel.app/', repo: 'https://github.com/kirtanswamy/BUSHO',
     tags: ['React', 'Supabase', 'Workflow design'],
     note: 'From the field, for the field.',
+    contribution: 'PROJECT LEAD · PRODUCT & DEVELOPMENT',
+    problem: 'Frontline health information needs a dependable path from the person recording it to the supervisor who reviews and acts on it.',
+    approach: 'Shape a health-worker-to-supervisor workflow, with structured data entry and a clearer review surface. The build is moving toward Supabase-backed records and operational data.',
+    current: 'A working prototype with parts of the workflow in place. The complete end-to-end demonstration and real-data validation are still in progress.',
+    next: 'Complete the full reporting-to-review loop, validate the data model and test the workflow against realistic field conditions.',
   },
   {
     id: '02', name: 'VARSITY', category: 'CAMPUS LIFE', type: 'Ed-tech · Student experience',
@@ -26,6 +31,11 @@ const projects = [
     href: 'https://github.com/aalindmukati/Varsity', repo: 'https://github.com/aalindmukati/Varsity',
     tags: ['React Native', 'Expo', 'Product design'],
     note: 'Make campus life feel connected.',
+    contribution: 'APP DEVELOPMENT LEAD',
+    problem: 'Students often have to move between separate places to check attendance, marks, schedules and useful study material.',
+    approach: 'Bring core academic information into one student-first companion: attendance tracking and prediction, marks, schedules, CT resources, notes and previous-year questions.',
+    current: 'An active product build with the core experience and multiple feature areas under development. This is not being presented as a completed campus-wide release.',
+    next: 'Tighten the end-to-end student workflows, validate data accuracy and test the experience with real student use cases.',
   },
   {
     id: '03', name: 'ELECTROLAB', category: 'ENGINEERING', type: 'Electronics · Simulation',
@@ -34,6 +44,11 @@ const projects = [
     href: 'https://github.com/kirtanswamy/ElectroLab', repo: 'https://github.com/kirtanswamy/ElectroLab',
     tags: ['React', 'TypeScript', 'Electronics'],
     note: 'Making invisible behaviour visible.',
+    contribution: 'ENGINEERING & IMPLEMENTATION',
+    problem: 'Diode behaviour is easier to understand when equations, changing parameters and voltage response can be explored together.',
+    approach: 'Implement the Shockley diode model, validated calculations, a voltage-sweep engine with signed-log graphing and a bisection solver for a series-diode circuit.',
+    current: 'The calculation engine, responsive parameter controls, sweep visualisation and series-diode solver have been implemented and tested in the current prototype.',
+    next: 'Extend the workbench with additional circuit experiments, clearer guided explanations and more model validation cases.',
   },
   {
     id: '04', name: 'JANSEVA ONE', category: 'CIVIC INNOVATION', type: 'Civic-tech · Public impact',
@@ -42,6 +57,11 @@ const projects = [
     href: 'https://github.com/kirtanswamy', repo: 'https://github.com/kirtanswamy',
     tags: ['Civic technology', 'Research', 'Public systems'],
     note: 'A small report should start a real response.',
+    contribution: 'CIVIC-TECH CONCEPT & PRESENTATION',
+    problem: 'Local infrastructure concerns can be difficult for residents to report and follow through to a visible response.',
+    approach: 'Propose a unified civic action platform for reporting and tracking local issues, with an initial focus on road-related problems and a community-to-public-system feedback loop.',
+    current: 'A civic-tech concept presented at Viksit Bharat Young Leaders Dialogue 2026 under “Innovation with Tradition: Building a Modern Bharat”. It is a proposal, not a deployed government service.',
+    next: 'Prototype the reporting and resolution journey, test the assumptions with community stakeholders and explore a focused local pilot.',
   },
 ]
 
@@ -480,7 +500,13 @@ function App() {
           <div className="project-dialog-body">
             <div className="project-dialog-art"><span>{activeProject.id}</span><strong>{activeProject.name}</strong><small>{activeProject.note}</small></div>
             <div className="project-dialog-copy"><Eyebrow>{activeProject.category} · {activeProject.year}</Eyebrow><h2 id="project-dialog-title">{activeProject.name}<span>.</span></h2><p className="project-dialog-type">{activeProject.type}</p><p className="project-dialog-description">{activeProject.description}</p>
-              <div className="project-dialog-meta"><div><span>CURRENT CHAPTER</span><strong>{activeProject.stage}</strong></div><div><span>FOCUS AREAS</span><strong>{activeProject.tags.join(' · ')}</strong></div></div>
+              <div className="project-dialog-meta"><div><span>CONTRIBUTION</span><strong>{activeProject.contribution}</strong></div><div><span>FOCUS AREAS</span><strong>{activeProject.tags.join(' · ')}</strong></div></div>
+              <div className="project-case-grid">
+                <article><span>01 / THE QUESTION</span><p>{activeProject.problem}</p></article>
+                <article><span>02 / THE APPROACH</span><p>{activeProject.approach}</p></article>
+                <article><span>03 / WHERE IT STANDS</span><p>{activeProject.current}</p></article>
+                <article><span>04 / NEXT ITERATION</span><p>{activeProject.next}</p></article>
+              </div>
               <div className="project-dialog-actions">{activeProject.href && <a href={activeProject.href} target="_blank" rel="noreferrer">OPEN PROJECT / PUBLIC PAGE <ArrowUpRight size={15} /></a>}{activeProject.repo && <a href={activeProject.repo} target="_blank" rel="noreferrer">VIEW SOURCE <Code2 size={15} /></a>}</div>
             </div>
           </div>
