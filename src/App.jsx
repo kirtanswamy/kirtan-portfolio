@@ -86,8 +86,8 @@ const skills = [
 ]
 
 const navItems = [
-  ['WORK', '#work'], ['STORY', '#story'], ['ABOUT', '#about'], ['JOURNEY', '#journey'],
-  ['FIELD NOTES', '#field-notes'], ['CONTACT', '#contact'],
+  ['STORY', '#story'], ['WORK', '#work'], ['FIELD NOTES', '#field-notes'], ['ABOUT', '#about'],
+  ['JOURNEY', '#journey'], ['LEARNING', '#learning'], ['TOOLBOX', '#skills'], ['CONTACT', '#contact'],
 ]
 
 function Eyebrow({ children, light = false }) {
@@ -197,7 +197,7 @@ function App() {
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     if (reduceMotion) {
       document.documentElement.classList.add('reduce-motion')
-      return undefined
+      return () => document.documentElement.classList.remove('reduce-motion')
     }
 
     const lenis = new Lenis({ duration: 1.05, smoothWheel: true, wheelMultiplier: 0.88, touchMultiplier: 1.35 })
@@ -295,6 +295,7 @@ function App() {
 
   return (
     <main className="site-shell" id="top">
+      <a className="skip-link" href="#main-content">SKIP TO CONTENT</a>
       <div className="reading-progress" aria-hidden="true"><span className="reading-progress__bar" /></div>
       <div className="paper-grain" aria-hidden="true" />
       <nav className="chapter-rail" aria-label="Page chapters">
@@ -322,7 +323,7 @@ function App() {
         <p>AN OPEN NOTEBOOK · CHENNAI, INDIA</p>
       </div>
 
-      <section className="hero" aria-labelledby="hero-title">
+      <section className="hero" id="main-content" aria-labelledby="hero-title">
         <div className="hero-overline">
           <Eyebrow>ENGINEERING / DESIGN / IDEAS</Eyebrow>
           <span className="edition-label">A WORK IN PROGRESS — ALWAYS</span>
