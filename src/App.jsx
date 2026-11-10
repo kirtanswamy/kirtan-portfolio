@@ -274,7 +274,7 @@ function App() {
             <div className="portrait-art" aria-hidden="true">
               <div className="portrait-sun" />
               <div className="portrait-arch" />
-              <div className="portrait-lines"><i /><i /><i /><i /><i /><i /></div>
+              <div className="portrait-lines" aria-hidden="true"><i /><i /><i /><i /><i /><i /></div>
               <div className="portrait-orbit orbit-one" />
               <div className="portrait-orbit orbit-two" />
               <div className="portrait-star">✳</div>
@@ -386,7 +386,7 @@ function App() {
             <p className="about-lede">I'm Kirtan—an Electronics & Communication Engineering student at SRM Institute of Science and Technology, Chennai.</p>
             <p>My curiosity rarely stays in one lane. Some days it's a circuit, a simulation or a line of code. Other days it's a product flow, a civic problem or a visual detail that makes an experience feel right.</p>
             <p>I enjoy the full journey: understanding a problem, asking better questions, designing a direction, building a first version and learning from what breaks. I'm especially drawn to technology that can make everyday systems work a little better.</p>
-            <p>Outside the screen, I'm interested in public innovation, storytelling, communities and the small details that make people feel considered.</p>
+            <p>Outside the screen, I enjoy storytelling, editing and community spaces. I like noticing how people communicate, what makes an idea memorable and how a small design decision can change the way someone experiences a product.</p>
             <div className="about-signoff"><span>IN PROGRESS, BY DESIGN.</span><span>— K.S.</span></div>
           </div>
         </div>
