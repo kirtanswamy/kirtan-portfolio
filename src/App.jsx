@@ -79,7 +79,9 @@ const learning = [
   { name: 'Microsoft × LinkedIn', detail: 'Generative AI learning programme', kind: 'GENERATIVE AI', category: 'TECH', record: 'COURSE', status: 'COURSE COMPLETED · EXACT TITLE TO VERIFY' },
 ]
 
-const learningCategories = ['ALL ENTRIES', 'TECH', 'BUSINESS', 'DIGITAL']\n\nconst skills = [
+const learningCategories = ['ALL ENTRIES', 'TECH', 'BUSINESS', 'DIGITAL']
+
+const skills = [
   { group: 'BUILD', items: ['JavaScript', 'React', 'React Native', 'Flutter', 'Python', 'C / C++', 'Java'] },
   { group: 'DESIGN', items: ['UI / UX', 'Interaction design', 'Visual storytelling', 'Prototyping'] },
   { group: 'SYSTEMS', items: ['Git & GitHub', 'Vite', 'Supabase', 'Electronics', 'AI / ML foundations'] },
