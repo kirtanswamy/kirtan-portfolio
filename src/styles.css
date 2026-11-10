@@ -88,3 +88,10 @@ body.dialog-open{overflow:hidden}
 .reading-progress{position:fixed;z-index:80;left:0;right:0;top:0;height:2px;pointer-events:none;background:transparent}
 .reading-progress__bar{display:block;width:100%;height:100%;background:var(--blue);transform:scaleX(0);transform-origin:left center;will-change:transform}
 @media(prefers-reduced-motion:reduce){.reading-progress__bar{will-change:auto}}
+
+.projects-shelf{perspective:1400px}
+.projects-shelf .project-card{transform-style:preserve-3d}
+.projects-shelf .project-art-button{transform-origin:center bottom;box-shadow:0 16px 24px -23px rgba(30,27,22,.8)}
+.projects-shelf .project-card:hover .project-art-button{transform:translateY(-4px) rotateY(-1.2deg) rotateX(.35deg);box-shadow:0 24px 32px -24px rgba(30,27,22,.7)}
+.projects-shelf .project-art-button:active{transform:translateY(-1px) scale(.995)}
+@media(hover:none){.projects-shelf{cursor:auto}.projects-shelf:active{cursor:auto}.projects-shelf .project-card:hover .project-art-button{transform:none}}
