@@ -375,9 +375,7 @@ function App() {
                   <rect x="8" y="9" width="226" height="220" rx="3" fill="#24241f" opacity=".18"/>
                   <rect width="226" height="220" rx="3" fill="url(#desk-paper)" stroke="#24241f" strokeWidth="2"/>
                   <path d="M22 0V220" stroke="#c94d34" strokeWidth="2"/>
-                  {#for (let i = 0; i < 8; i++)}
-                    <path d={`M36 ${35 + i * 21}H205`} stroke="#24241f" strokeOpacity=".24" strokeWidth="1"/>
-                  {/for}
+                  {Array.from({ length: 8 }, (_, index) => <path key={index} d={`M36 ${35 + index * 21}H205`} stroke="#24241f" strokeOpacity=".24" strokeWidth="1" />)}
                   <text x="36" y="27" fill="#254cdb" fontSize="10" fontFamily="monospace" letterSpacing="2">FIELD NOTES / 001</text>
                   <path d="M45 78l35-19 25 26 38-42 32 25" fill="none" stroke="#254cdb" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
                   <circle cx="80" cy="59" r="4" fill="#c94d34"/><circle cx="143" cy="43" r="4" fill="#c94d34"/>
@@ -385,9 +383,7 @@ function App() {
                 </g>
                 <g transform="translate(360 184) rotate(9)">
                   <rect x="0" y="0" width="142" height="105" rx="5" fill="#242a3c" stroke="#24241f" strokeWidth="2"/>
-                  {#for (let i = 0; i < 5; i++)}
-                    <path d={`M${20 + i * 25} -10V0M${20 + i * 25} 105v10`} stroke="#d3df83" strokeWidth="3"/>
-                  {/for}
+                  {Array.from({ length: 5 }, (_, index) => <path key={index} d={`M${20 + index * 25} -10V0M${20 + index * 25} 105v10`} stroke="#d3df83" strokeWidth="3" />)}
                   <rect x="42" y="26" width="58" height="52" rx="3" fill="#d3df83"/>
                   <path d="M52 39h38M52 50h38M52 61h24" stroke="#24241f" strokeWidth="2"/>
                   <text x="71" y="94" textAnchor="middle" fill="#eee7d9" fontSize="8" fontFamily="monospace">SYSTEM / 01</text>
