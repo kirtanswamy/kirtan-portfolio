@@ -173,3 +173,30 @@ body.dialog-open{overflow:hidden}
   .reveal{opacity:1!important;transform:none!important;will-change:auto!important}
   .ticker-track{animation:none!important}
 }
+
+/* The Maker's Notebook — persistent editorial furniture */
+.desk-note{position:fixed;z-index:42;left:14px;top:50%;transform:translateY(-50%);width:126px;padding:13px 11px 11px;background:#eee7d9;border:1px solid #24241f35;box-shadow:3px 4px 0 #24241f0c;display:flex;flex-direction:column;gap:8px}
+.desk-note:before,.desk-note:after{content:"";position:absolute;width:8px;height:8px;border-radius:50%;background:var(--paper);border:1px solid #24241f35;top:7px}
+.desk-note:before{left:7px}.desk-note:after{right:7px}
+.desk-note-kicker{font:6px var(--mono);letter-spacing:.06em;color:var(--muted);margin-top:5px}
+.desk-note strong{font:21px/.9 var(--display);letter-spacing:-.06em;overflow-wrap:anywhere}
+.desk-note-category{font:6px var(--mono);line-height:1.4;color:var(--muted)}
+.desk-note button{display:flex;align-items:center;gap:5px;justify-content:space-between;border:0;border-top:1px solid var(--line);background:none;padding:8px 0 0;color:var(--blue);font:7px var(--mono);cursor:pointer;text-align:left}
+.desk-note button:hover{color:var(--red)}
+.project-index-bar{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);margin-bottom:23px}
+.project-index-bar .project-filters{margin-bottom:0;border-bottom:0;flex:1}
+.archive-index-caption{font:7px var(--mono);letter-spacing:.06em;color:var(--muted);padding-bottom:14px;white-space:nowrap}
+.project-card{position:relative;perspective:1200px;transform-style:preserve-3d}
+.project-card:before{content:"";position:absolute;z-index:3;left:0;top:43px;bottom:0;width:8px;background:linear-gradient(90deg,#24241f45,#fff2,#24241f05);pointer-events:none;opacity:.65}
+.project-art-button{transform-style:preserve-3d;transform-origin:left center;transition:transform .45s cubic-bezier(.2,.75,.25,1),filter .35s ease;box-shadow:6px 8px 18px #24241f14,1px 0 0 #24241f33}
+.project-card:hover .project-art-button{transform:rotateY(-3deg) translateX(3px);box-shadow:12px 12px 25px #24241f1c,1px 0 0 #24241f44}
+.project-art-button:after{content:"";position:absolute;inset:0 auto 0 0;width:11px;background:linear-gradient(90deg,#24241f26,#fff3 42%,transparent);z-index:4;pointer-events:none}
+.project-card-top{padding-left:4px}
+.project-dialog-backdrop{perspective:1400px}
+.project-dialog{transform-origin:20% 50%;animation:book-open .5s cubic-bezier(.18,.72,.2,1) both}
+@keyframes book-open{from{opacity:0;transform:translateX(45px) rotateY(-9deg) scale(.97)}to{opacity:1;transform:translateX(0) rotateY(0) scale(1)}}
+@media(min-width:1500px){.site-shell{padding-left:calc(4.1vw + 26px);padding-right:calc(4.1vw + 26px)}}
+@media(max-width:1250px){.desk-note{display:none}}
+@media(max-width:950px){.project-index-bar{display:block}.archive-index-caption{display:block;padding:0 0 12px}.project-index-bar .project-filters{overflow-x:auto;flex-wrap:nowrap}.project-index-bar .project-filters button{white-space:nowrap}}
+@media(max-width:600px){.projects-shelf{grid-auto-columns:88%;gap:15px}.project-card:before{width:5px}.project-art{height:330px}.project-art-button:after{width:7px}}
+@media(prefers-reduced-motion:reduce){.project-art-button,.project-card:hover .project-art-button{transition:none;transform:none;box-shadow:none}.project-dialog{animation:none}}
