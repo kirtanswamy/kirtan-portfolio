@@ -47,6 +47,11 @@ const projects = [
 
 const categories = ['ALL WORK', 'PUBLIC SYSTEMS', 'CAMPUS LIFE', 'ENGINEERING', 'CIVIC INNOVATION']
 
+const chapterItems = [
+  ['01', 'WORK', '#work'], ['02', 'FIELD NOTE', '#field-notes'], ['03', 'ABOUT', '#about'],
+  ['04', 'JOURNEY', '#journey'], ['05', 'LEARNING', '#learning'], ['06', 'TOOLBOX', '#skills'], ['07', 'CONTACT', '#contact'],
+]
+
 const learning = [
   { name: 'Qualcomm AI Upskilling', detail: 'Technical Foundations', kind: 'AI / MACHINE LEARNING', status: 'COURSE COMPLETED · CREDENTIAL TO VERIFY' },
   { name: 'Goldman Sachs', detail: 'Operations Job Simulation · Forage', kind: 'BUSINESS / OPERATIONS', status: 'JOB SIMULATION COMPLETED' },
@@ -167,7 +172,7 @@ function App() {
   }, [menuOpen])
 
   useEffect(() => {
-    const nodes = navItems.map(([, href]) => document.querySelector(href)).filter(Boolean)
+    const nodes = chapterItems.map(([, , href]) => document.querySelector(href)).filter(Boolean)
     const observer = new IntersectionObserver(entries => {
       const visible = entries.filter(entry => entry.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0]
       if (visible) setActiveSection(`#${visible.target.id}`)
@@ -219,6 +224,10 @@ function App() {
     <main className="site-shell" id="top">
       <div className="reading-progress" aria-hidden="true"><span className="reading-progress__bar" /></div>
       <div className="paper-grain" aria-hidden="true" />
+      <nav className="chapter-rail" aria-label="Page chapters">
+        <span className="chapter-rail-label">THE NOTEBOOK</span>
+        {chapterItems.map(([number, label, href]) => <a key={href} href={href} className={activeSection === href ? 'active' : ''} aria-label={label} aria-current={activeSection === href ? 'location' : undefined}><span>{number}</span><i /><small>{label}</small></a>)}
+      </nav>
       <header className="masthead">
         <a className="masthead-brand" href="#top" aria-label="Kirtan Swamy home">
           <span className="brand-monogram">KS<span>®</span></span>
@@ -356,6 +365,12 @@ function App() {
             </div>
             <div className="field-note-seal" aria-hidden="true"><div className="orbit-ring"><span>IDEAS FOR INDIA · 2026 · </span></div><Asterisk size={100} /></div>
           </div>
+          <div className="field-note-story">
+            <div className="field-note-story-intro"><span>FROM A LOCAL QUESTION TO A NATIONAL ROOM</span><p>A short record of the three parts of this experience that continue to shape how I think about building.</p></div>
+            <article><span>01 / THE ROOT</span><h3>START WITH THE GROUND.</h3><p>Representing Balod district and Chhattisgarh brought the importance of local context into focus: meaningful innovation has to begin with the people and places it is meant to serve.</p></article>
+            <article><span>02 / THE ROOM</span><h3>LISTEN, EXCHANGE, REFRAME.</h3><p>The dialogue created space to share perspectives on the future of India and learn from young leaders working across different contexts.</p></article>
+            <article><span>03 / THE IDEA</span><h3>MAKE PUBLIC SYSTEMS FEEL CLOSER.</h3><p>JanSeva One was my civic-tech concept: a unified way to surface local issues and help communities follow the path from reporting to action.</p></article>
+          </div>
           <div className="field-note-bottom"><span>A MOMENT THAT REMINDED ME WHY BUILDING MATTERS.</span><span>03 / 08</span></div>
         </div>
       </section>
@@ -379,6 +394,14 @@ function App() {
           <div><span>01 / CURRENT CHAPTER</span><strong>ECE UNDERGRADUATE</strong><small>SRMIST · CHENNAI</small></div>
           <div><span>02 / NATURAL HABIT</span><strong>LEARN BY BUILDING</strong><small>PROTOTYPE · TEST · REFINE</small></div>
           <div><span>03 / BIG INTEREST</span><strong>TECH WITH PURPOSE</strong><small>PRODUCT · PEOPLE · IMPACT</small></div>
+        </div>
+        <div className="about-method reveal">
+          <div className="about-method-heading"><Eyebrow>THE WAY I LIKE TO WORK</Eyebrow><span>AN OPEN OPERATING MANUAL / 001</span></div>
+          <div className="about-method-grid">
+            <article><span>01</span><h3>NOTICE THE FRICTION.</h3><p>Look beyond the obvious request. Understand the people, constraints and small moments that make a problem worth solving.</p><i>OBSERVE / QUESTION</i></article>
+            <article><span>02</span><h3>MAKE AN IDEA TANGIBLE.</h3><p>Move from a rough sketch to a prototype, interface, simulation or working flow that someone can actually react to.</p><i>DESIGN / BUILD</i></article>
+            <article><span>03</span><h3>LEARN IN THE OPEN.</h3><p>Test assumptions, listen to feedback and improve the thing. Progress matters more when it can be examined and shared.</p><i>TEST / REFINE</i></article>
+          </div>
         </div>
       </section>
 
@@ -412,7 +435,7 @@ function App() {
         </div>
       </section>
 
-      <section className="learning-section section-pad">
+      <section className="learning-section section-pad" id="learning">
         <div className="section-index reveal"><Eyebrow>06 — THE READING ROOM</Eyebrow><span>COURSES / SIMULATIONS / CONTINUOUS LEARNING</span></div>
         <div className="learning-intro reveal"><div><h2>ALWAYS<br /><em>LEARNING.</em></h2></div><p>Not every useful lesson comes with a certificate. This is a growing record of courses, simulations and learning paths. Credential links will be added when each record is verified.</p></div>
         <div className="learning-grid">
@@ -424,7 +447,7 @@ function App() {
         <p className="learning-disclaimer">STATUS IS LABELLED AS COURSE OR SIMULATION COMPLETION—NOT AS A PROFESSIONAL CERTIFICATION UNLESS A VERIFIED CREDENTIAL IS LINKED.</p>
       </section>
 
-      <section className="skills-section">
+      <section className="skills-section" id="skills">
         <div className="skills-inner section-pad">
           <div className="section-index reveal"><Eyebrow light>07 — THINGS I WORK WITH</Eyebrow><span>TOOLS ARE MEANS, NOT THE POINT.</span></div>
           <div className="skills-heading"><h2>THE<br /><em>TOOLBOX.</em></h2><p>My toolkit keeps changing.<br />The curiosity doesn't.</p></div>
