@@ -94,6 +94,59 @@ function Eyebrow({ children, light = false }) {
   return <p className={`eyebrow ${light ? 'eyebrow-light' : ''}`}>{children}</p>
 }
 
+function ProjectVisual({ project }) {
+  if (project.id === '01') return (
+    <svg className="project-visual project-visual-busho" viewBox="0 0 520 230" role="img" aria-label="Conceptual health worker to supervisor reporting workflow">
+      <path d="M130 108H190M330 108H390" stroke="currentColor" strokeWidth="1.5" strokeDasharray="5 5" fill="none" />
+      <path d="m180 101 10 7-10 7M380 101l10 7-10 7" stroke="currentColor" fill="none" strokeWidth="1.5"/>
+      <rect x="14" y="45" width="116" height="125" rx="4" fill="#f1e8d8" fillOpacity=".5" stroke="currentColor"/>
+      <rect x="202" y="45" width="116" height="125" rx="4" fill="#f1e8d8" fillOpacity=".5" stroke="currentColor"/>
+      <rect x="390" y="45" width="116" height="125" rx="4" fill="#f1e8d8" fillOpacity=".5" stroke="currentColor"/>
+      <g fill="currentColor" fontFamily="monospace" fontSize="11"><text x="26" y="67">01 / FIELD</text><text x="214" y="67">02 / RECORD</text><text x="402" y="67">03 / REVIEW</text></g>
+      <g stroke="currentColor" fill="none"><circle cx="72" cy="102" r="16"/><path d="M45 145c3-18 51-18 54 0M229 91h62M229 108h62M229 125h42M417 91h62M417 108h62M417 125h42" strokeWidth="2"/></g>
+      <g fill="#254cdb"><circle cx="72" cy="102" r="5"/><circle cx="260" cy="91" r="3"/><circle cx="448" cy="91" r="3"/></g>
+      <g fill="currentColor" fontFamily="monospace" fontSize="9"><text x="27" y="190">HEALTH WORKER</text><text x="217" y="190">STRUCTURED DATA</text><text x="414" y="190">SUPERVISOR</text></g>
+    </svg>
+  )
+  if (project.id === '02') return (
+    <svg className="project-visual project-visual-varsity" viewBox="0 0 520 230" role="img" aria-label="Conceptual student campus dashboard interface">
+      <rect x="20" y="18" width="480" height="194" rx="5" fill="#f1e8d8" fillOpacity=".65" stroke="currentColor"/>
+      <path d="M20 48H500" stroke="currentColor" opacity=".5"/>
+      <circle cx="37" cy="33" r="4" fill="#c94d34"/><circle cx="51" cy="33" r="4" fill="#d3a24c"/><circle cx="65" cy="33" r="4" fill="#63814d"/>
+      <rect x="38" y="65" width="128" height="125" rx="3" fill="#254cdb" fillOpacity=".12" stroke="currentColor" opacity=".8"/>
+      <text x="52" y="86" fill="currentColor" fontSize="10" fontFamily="monospace">ATTENDANCE</text>
+      <circle cx="102" cy="132" r="31" fill="none" stroke="currentColor" strokeOpacity=".2" strokeWidth="7"/>
+      <path d="M102 101a31 31 0 1 1-27 46" fill="none" stroke="#254cdb" strokeWidth="7" strokeLinecap="round"/>
+      <text x="102" y="137" textAnchor="middle" fill="currentColor" fontSize="16" fontFamily="sans-serif">86%</text>
+      <rect x="184" y="65" width="135" height="55" rx="3" fill="#f1e8d8" stroke="currentColor"/>
+      <rect x="335" y="65" width="145" height="55" rx="3" fill="#f1e8d8" stroke="currentColor"/>
+      <rect x="184" y="133" width="296" height="57" rx="3" fill="#f1e8d8" stroke="currentColor"/>
+      <g fill="currentColor" fontFamily="monospace" fontSize="9"><text x="196" y="82">UPCOMING TEST</text><text x="196" y="105" fontSize="13">DLD · UNIT 04</text><text x="347" y="82">STUDY MATERIAL</text><text x="347" y="105" fontSize="13">PYQ ARCHIVE</text><text x="198" y="151">YOUR WEEK / ACADEMIC TIMELINE</text></g>
+      <path d="M198 174h38v-7h37v10h38v-14h37v8h37v-6h37v8h38" fill="none" stroke="#254cdb" strokeWidth="2"/>
+    </svg>
+  )
+  if (project.id === '03') return (
+    <svg className="project-visual project-visual-electrolab" viewBox="0 0 520 230" role="img" aria-label="Conceptual diode current voltage characteristic graph">
+      <g stroke="currentColor" strokeOpacity=".2"><path d="M48 25V195H488M48 60H488M48 95H488M48 130H488M48 165H488" fill="none" strokeDasharray="3 5"/><path d="M136 25V195M224 25V195M312 25V195M400 25V195" fill="none" strokeDasharray="3 5"/></g>
+      <path d="M48 108H488M268 25V195" stroke="currentColor" strokeWidth="1.5" fill="none"/>
+      <path d="M55 108C135 108 190 108 235 109S284 111 302 103 326 82 341 51 366 19 395 13" fill="none" stroke="#254cdb" strokeWidth="4" strokeLinecap="round"/>
+      <path d="M55 108C135 108 190 108 235 109S284 111 302 103 326 82 341 51 366 19 395 13L395 108Z" fill="#254cdb" fillOpacity=".12"/>
+      <g fill="currentColor" fontFamily="monospace" fontSize="10"><text x="55" y="18">DIODE I–V SWEEP</text><text x="468" y="127">V</text><text x="280" y="37">I</text><text x="55" y="218">REVERSE</text><text x="423" y="218">FORWARD</text></g>
+      <circle cx="341" cy="51" r="5" fill="#c94d34" stroke="#f1e8d8" strokeWidth="2"/>
+    </svg>
+  )
+  return (
+    <svg className="project-visual project-visual-janseva" viewBox="0 0 520 230" role="img" aria-label="Conceptual civic issue reporting and resolution map">
+      <path d="M20 30 150 18 176 195 37 210ZM176 18l150 10-15 175-135-8ZM326 28l170-8-20 182-165 1Z" fill="#f1e8d8" fillOpacity=".25" stroke="currentColor" strokeOpacity=".45"/>
+      <path d="m31 84 454 50M112 20l-5 183M265 20l-2 175M411 22l-10 177" stroke="currentColor" strokeOpacity=".25" strokeDasharray="4 5"/>
+      <path d="M108 87c35 0 39 42 80 42s49-54 87-54 50 52 87 52" fill="none" stroke="#254cdb" strokeWidth="3" strokeDasharray="7 6"/>
+      <g><circle cx="108" cy="87" r="10" fill="#c94d34"/><circle cx="275" cy="75" r="10" fill="#d3a24c"/><circle cx="362" cy="127" r="10" fill="#63814d"/></g>
+      <g fill="currentColor" fontFamily="monospace" fontSize="10"><text x="36" y="58">REPORT</text><text x="224" y="47">ASSIGN</text><text x="350" y="157">RESOLVE</text><text x="30" y="224">LOCAL ISSUE → PUBLIC ACTION</text></g>
+      <rect x="390" y="36" width="105" height="34" rx="3" fill="#f1e8d8" stroke="currentColor"/><text x="402" y="57" fill="currentColor" fontFamily="monospace" fontSize="9">STATUS / OPEN</text>
+    </svg>
+  )
+}
+
 function ProjectCard({ project, index, onOpen }) {
   return (
     <article className={`project-card project-${project.tone} reveal`}>
@@ -498,7 +551,7 @@ function App() {
         <section className={`project-dialog project-${activeProject.tone}`} role="dialog" aria-modal="true" aria-labelledby="project-dialog-title">
           <div className="project-dialog-top"><span>THE PROJECT FILE / {activeProject.id}</span><button type="button" onClick={() => setActiveProject(null)} aria-label="Close project note"><X size={20} /></button></div>
           <div className="project-dialog-body">
-            <div className="project-dialog-art"><span>{activeProject.id}</span><strong>{activeProject.name}</strong><small>{activeProject.note}</small></div>
+            <div className="project-dialog-art"><span>{activeProject.id} / SYSTEM SKETCH</span><strong>{activeProject.name}</strong><small>{activeProject.note}</small><ProjectVisual project={activeProject} /></div>
             <div className="project-dialog-copy"><Eyebrow>{activeProject.category} · {activeProject.year}</Eyebrow><h2 id="project-dialog-title">{activeProject.name}<span>.</span></h2><p className="project-dialog-type">{activeProject.type}</p><p className="project-dialog-description">{activeProject.description}</p>
               <div className="project-dialog-meta"><div><span>CONTRIBUTION</span><strong>{activeProject.contribution}</strong></div><div><span>FOCUS AREAS</span><strong>{activeProject.tags.join(' · ')}</strong></div></div>
               <div className="project-case-grid">
