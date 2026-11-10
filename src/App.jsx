@@ -7,7 +7,7 @@ import {
   ArrowRight,
   ArrowUpRight,
   Asterisk,
-  Github,
+  Code2,
   Menu,
   MoveUpRight,
   X,
@@ -329,7 +329,7 @@ function App() {
         <div className="footer-bottom">
           <a className="brand footer-brand" href="#top"><span className="brand-mark">KS<span>®</span></span><span className="brand-caption">MADE WITH CURIOSITY<br />IN CHENNAI, INDIA</span></a>
           <div className="footer-links">
-            <a href="https://github.com/kirtanswamy" target="_blank" rel="noreferrer"><Github size={15} /> GITHUB <ArrowUpRight size={12} /></a>
+            <a href="https://github.com/kirtanswamy" target="_blank" rel="noreferrer"><Code2 size={15} /> GITHUB <ArrowUpRight size={12} /></a>
             <span className="footer-profile-note">LINKEDIN URL TO BE ADDED</span>
           </div>
           <span className="copyright">© 2026 KIRTAN SWAMY<br />ALL RIGHTS RESERVED</span>
