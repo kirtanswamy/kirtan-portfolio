@@ -513,7 +513,7 @@ function App() {
           </div>
           <div className="about-copy reveal">
             <p className="about-lede">I'm Kirtan—an Electronics & Communication Engineering student at SRM Institute of Science and Technology, Chennai.</p>
-            <p>My curiosity rarely stays in one lane. Some days it's a circuit, a simulation or a line of code. Other days it's a product flow, a civic problem or a visual detail that makes an experience feel right.</p>
+            <p>My curiosity rarely stays in one lane. I move between electronics, software, product thinking, visual design and questions about how public systems serve people. I don't want to choose between understanding how something works and making it easier for someone to use.</p>
             <p>I enjoy the full journey: understanding a problem, asking better questions, designing a direction, building a first version and learning from what breaks. I'm especially drawn to technology that can make everyday systems work a little better.</p>
             <p>Outside the screen, I enjoy storytelling, editing and community spaces. I like noticing how people communicate, what makes an idea memorable and how a small design decision can change the way someone experiences a product.</p>
             <p>I also enjoy the energy of building with other people: sharing unfinished ideas, helping organise student-led spaces and learning how a team turns a rough thought into something others can experience.</p>
@@ -524,6 +524,22 @@ function App() {
           <div><span>01 / CURRENT CHAPTER</span><strong>ECE UNDERGRADUATE</strong><small>SRMIST · CHENNAI</small></div>
           <div><span>02 / NATURAL HABIT</span><strong>LEARN BY BUILDING</strong><small>PROTOTYPE · TEST · REFINE</small></div>
           <div><span>03 / BIG INTEREST</span><strong>TECH WITH PURPOSE</strong><small>PRODUCT · PEOPLE · IMPACT</small></div>
+        </div>
+        <div className="about-intersection reveal">
+          <div className="about-intersection-head"><Eyebrow>THE INTERSECTION</Eyebrow><span>FOUR LENSES / ONE PRACTICE</span></div>
+          <div className="intersection-map" role="img" aria-label="Four connected interests: engineering, product thinking, visual design and public impact">
+            <svg className="intersection-lines" viewBox="0 0 800 390" preserveAspectRatio="none" aria-hidden="true">
+              <path d="M400 195 170 78M400 195 630 78M400 195 170 312M400 195 630 312" />
+              <circle cx="400" cy="195" r="112" />
+              <circle cx="400" cy="195" r="146" />
+            </svg>
+            <article className="intersection-node node-engineering"><span>01 / UNDERSTAND</span><strong>ENGINEERING</strong><small>Circuits · code · systems</small></article>
+            <article className="intersection-node node-product"><span>02 / SHAPE</span><strong>PRODUCT THINKING</strong><small>Problems · flows · usefulness</small></article>
+            <div className="intersection-core"><span>THE COMMON THREAD</span><strong>CURIOUS<br/>BUILDER<span>.</span></strong><small>QUESTION → MAKE → LEARN</small></div>
+            <article className="intersection-node node-design"><span>03 / COMMUNICATE</span><strong>VISUAL DESIGN</strong><small>Interfaces · interaction · story</small></article>
+            <article className="intersection-node node-impact"><span>04 / CONTRIBUTE</span><strong>PUBLIC IMPACT</strong><small>People · access · everyday systems</small></article>
+          </div>
+          <p className="intersection-caption">I don't see these as separate interests. The most interesting work, for me, happens when they meet.</p>
         </div>
         <div className="about-method reveal">
           <div className="about-method-heading"><Eyebrow>THE WAY I LIKE TO WORK</Eyebrow><span>AN OPEN OPERATING MANUAL / 001</span></div>
