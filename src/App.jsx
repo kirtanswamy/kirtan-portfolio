@@ -381,8 +381,8 @@ function App() {
             <p>I'm an engineering student and creative builder exploring the space between <em>technology, design and people.</em> I like turning questions into prototypes—and prototypes into things that matter.</p>
             <a href="#story" className="read-link">READ MY STORY <ArrowDownRight size={16} /></a>
           </div>
-          <div className="portrait-frame" aria-label="Illustrated character artwork will be added in a later stage">
-            <div className="portrait-top"><span>THE WORKBENCH / STUDY 001</span><span>FIG. 001</span></div>
+          <div className="portrait-frame" aria-label="Temporary editorial illustration of a maker’s workbench; custom character artwork will be added later">
+            <div className="portrait-top"><span>THE MAKER, IN PRINT</span><span>FIG. 001</span></div>
             <div className="portrait-art desk-art">
               <svg className="desk-illustration" viewBox="0 0 600 360" role="img" aria-label="An illustrated maker's desk with a notebook, circuit board, pencil and orbiting signal paths">
                 <defs>
@@ -425,7 +425,7 @@ function App() {
               </svg>
               <span className="portrait-coordinates">13°04' N<br />80°16' E</span>
             </div>
-            <div className="portrait-caption"><span>IDEAS BECOME OBJECTS</span><span>THINK / MAKE / REPEAT ↗</span></div>
+            <div className="portrait-caption"><span>THE NOTEBOOK’S CURRENT ILLUSTRATION</span><span>CHARACTER STUDY TO COME ↗</span></div>
           </div>
           <div className="hero-aside">
             <span className="aside-index">01 / 08</span>
