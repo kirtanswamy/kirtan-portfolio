@@ -651,9 +651,10 @@ function App() {
         <div className="contact-main">
           <div className="contact-copy"><p>HAVE A QUESTION, AN IDEA<br />OR A GOOD PROBLEM?</p><h2>LET'S<br /><em>MAKE IT.</em></h2><span className="contact-footnote">GOOD CONVERSATIONS CAN START ANYWHERE.</span></div>
           <div className="contact-action">
-            <span className="contact-stamp"><Send size={28} /><span>OPEN<br />CHANNEL</span></span>
-            <a href="https://github.com/kirtanswamy" target="_blank" rel="noreferrer" className="contact-link">FIND ME ON GITHUB <ArrowUpRight /></a>
-            <p>For collaborations, project conversations and interesting ideas.</p>
+            <span className="contact-stamp" aria-label="Open to thoughtful collaborations"><span className="contact-stamp-orbit">CURIOUS MINDS · GOOD PROBLEMS · USEFUL WORK ·</span><Send size={27} /><span>OPEN<br />CHANNEL</span></span>
+            <p className="contact-invitation">Have a problem worth solving, a product worth shaping or an idea that needs a first version? I'd love to hear about it.</p>
+            <a href="https://github.com/kirtanswamy" target="_blank" rel="noreferrer" className="contact-link">START WITH GITHUB <ArrowUpRight /></a>
+            <p className="contact-small-note">For collaborations, project conversations and interesting ideas.</p>
           </div>
         </div>
         <footer className="footer">
