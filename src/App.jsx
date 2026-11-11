@@ -54,7 +54,7 @@ const projects = [
     id: '04', name: 'JANSEVA ONE', category: 'CIVIC INNOVATION', type: 'Civic-tech · Public impact',
     description: 'A unified civic action concept focused on making local infrastructure issues easier to report, track and resolve through community participation.',
     stage: 'CONCEPT / PRESENTED', year: '2026', tone: 'red',
-    href: 'https://github.com/kirtanswamy', repo: 'https://github.com/kirtanswamy',
+    href: '', repo: '',
     tags: ['Civic technology', 'Research', 'Public systems'],
     note: 'A small report should start a real response.',
     contribution: 'CIVIC-TECH CONCEPT & PRESENTATION',
@@ -111,7 +111,7 @@ function ProjectVisual({ project }) {
     </svg>
   )
   if (project.id === '02') return (
-    <svg className="project-visual project-visual-varsity" viewBox="0 0 520 230" role="img" aria-label="Conceptual student campus dashboard interface">
+    <svg className="project-visual project-visual-varsity" viewBox="0 0 520 230" role="img" aria-label="Illustrative student campus dashboard concept; values are placeholders, not live student data">
       <rect x="20" y="18" width="480" height="194" rx="5" fill="#f1e8d8" fillOpacity=".65" stroke="currentColor"/>
       <path d="M20 48H500" stroke="currentColor" opacity=".5"/>
       <circle cx="37" cy="33" r="4" fill="#c94d34"/><circle cx="51" cy="33" r="4" fill="#d3a24c"/><circle cx="65" cy="33" r="4" fill="#63814d"/>
@@ -119,7 +119,7 @@ function ProjectVisual({ project }) {
       <text x="52" y="86" fill="currentColor" fontSize="10" fontFamily="monospace">ATTENDANCE</text>
       <circle cx="102" cy="132" r="31" fill="none" stroke="currentColor" strokeOpacity=".2" strokeWidth="7"/>
       <path d="M102 101a31 31 0 1 1-27 46" fill="none" stroke="#254cdb" strokeWidth="7" strokeLinecap="round"/>
-      <text x="102" y="137" textAnchor="middle" fill="currentColor" fontSize="16" fontFamily="sans-serif">86%</text>
+      <text x="102" y="137" textAnchor="middle" fill="currentColor" fontSize="16" fontFamily="sans-serif">—</text>
       <rect x="184" y="65" width="135" height="55" rx="3" fill="#f1e8d8" stroke="currentColor"/>
       <rect x="335" y="65" width="145" height="55" rx="3" fill="#f1e8d8" stroke="currentColor"/>
       <rect x="184" y="133" width="296" height="57" rx="3" fill="#f1e8d8" stroke="currentColor"/>
