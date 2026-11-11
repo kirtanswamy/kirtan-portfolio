@@ -163,6 +163,14 @@ The reference site has been reviewed at the level of its visual concept, content
 - Actual credential titles, issue dates, public verification links and current proficiency remain to be confirmed.
 - The current newspaper-style character placeholder remains unchanged.
 
+### Latest iteration — Contact chapter and motion refinement
+
+- Reworked the contact action into a clearer invitation for thoughtful collaborations, useful problems and product conversations.
+- Added an editorial orbit stamp with a reduced-motion fallback, responsive contact composition and visible keyboard focus treatment.
+- Refined the footer layout for smaller screens.
+- The original newspaper-style character remains unchanged.
+- The website remains a draft implementation; browser QA, accessibility checks and deployment are still release gates.
+
 ## Current implementation status
 
 | Area | Status | Notes |
