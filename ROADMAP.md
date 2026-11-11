@@ -136,6 +136,15 @@ The reference site has been reviewed at the level of its visual concept, content
 - Preserved the current newspaper-style character illustration as the hero placeholder.
 - Responsive layout and reduced-motion fallback included; still requires live browser and device QA.
 
+### Latest iteration — About narrative, turning point and builder evolution
+
+- Rewrote the About narrative around the user's own arc: JEE setback, reset at SRM, Viksit Bharat representation, SQAC App Development leadership and BUSHO.
+- Kept the language grounded: the JEE phase is framed as a difficult chapter and reset, not a simplistic triumph claim.
+- Added an editorial turning-point block and a four-stage visual evolution from basic HTML pages to interfaces, API/backend integration and real-data workflows.
+- Retained the four-part intersection map and the current newspaper-style character placeholder.
+- All biographical copy is based on the user's account; role names and event details should receive a final factual review before release.
+- Responsive layout and reduced-motion fallback included; live browser/device QA remains outstanding.
+
 ## Current implementation status
 
 | Area | Status | Notes |
