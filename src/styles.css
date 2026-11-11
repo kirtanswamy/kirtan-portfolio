@@ -363,3 +363,17 @@ body.dialog-open{overflow:hidden}
  .build-evolution-track article:nth-child(3),.build-evolution-track article:nth-child(4){border-top:0}
 }
 @media(prefers-reduced-motion:reduce){.about-turning-point:after{display:none}}
+
+/* Impact archive — a field ledger for leadership and public-facing work */
+.impact-ledger{margin:clamp(45px,7vw,90px) 0 0;border-top:1px solid #eee7d944}
+.impact-ledger-head{display:flex;justify-content:space-between;align-items:center;gap:15px;padding:17px 0;color:#eee7d9}
+.impact-ledger-head span{font:7px var(--mono);letter-spacing:.08em;color:#d7e27b}
+.impact-ledger-grid{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:1px;background:#eee7d933;border:1px solid #eee7d933}
+.impact-ledger-card{min-height:180px;padding:20px;background:#24241f;display:flex;flex-direction:column;position:relative;overflow:hidden}
+.impact-ledger-card:first-child{background:#303b34}
+.impact-ledger-card>span{font:7px var(--mono);letter-spacing:.08em;color:#d7e27b}
+.impact-ledger-card strong{font:clamp(22px,3vw,36px)/.94 var(--display);letter-spacing:-.05em;color:#eee7d9;margin:24px 0 10px;max-width:13ch}
+.impact-ledger-card p{font:10px/1.55 var(--body);color:#eee7d9b9;max-width:35ch;margin-top:auto}
+.impact-ledger-card i{position:absolute;right:12px;top:12px;font:italic 35px var(--display);color:#eee7d91a}
+@media(max-width:700px){.impact-ledger-grid{grid-template-columns:1fr 1fr}.impact-ledger-card:first-child{grid-column:1/-1;min-height:150px}.impact-ledger-card{min-height:155px;padding:15px}}
+@media(max-width:420px){.impact-ledger-grid{grid-template-columns:1fr}.impact-ledger-card:first-child{grid-column:auto}.impact-ledger-card{min-height:135px}}
