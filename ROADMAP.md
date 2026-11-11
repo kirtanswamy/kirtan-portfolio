@@ -171,6 +171,14 @@ The reference site has been reviewed at the level of its visual concept, content
 - The original newspaper-style character remains unchanged.
 - The website remains a draft implementation; browser QA, accessibility checks and deployment are still release gates.
 
+### Latest iteration — release metadata and contact polish
+
+- Added author, application, Open Graph and Twitter summary metadata for clearer link previews when the portfolio is shared.
+- Tightened the page description to reflect engineering, software, product design and public-impact interests.
+- Contact chapter now has a direct invitation, orbit stamp, responsive layout, keyboard focus styling and reduced-motion fallback.
+- Latest CI is queued; previous contact and motion implementation builds passed.
+- Full browser/device visual QA and verification of live project, certificate, academic and contact evidence remain before release.
+
 ## Current implementation status
 
 | Area | Status | Notes |
