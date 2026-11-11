@@ -500,6 +500,14 @@ function App() {
               <text x="450" y="222" textAnchor="middle" fill="#e7e0d2" fillOpacity=".6" fontFamily="monospace" fontSize="10">A PROPOSED CIVIC JOURNEY — NOT A DEPLOYED GOVERNMENT SERVICE</text>
             </svg>
           </div>
+          <div className="impact-ledger">
+            <div className="impact-ledger-head"><Eyebrow light>PEOPLE / PLATFORMS / POSSIBILITY</Eyebrow><span>IMPACT LEDGER · 002</span></div>
+            <div className="impact-ledger-grid">
+              <article className="impact-ledger-card"><i>01</i><span>VIKSIT BHARAT / 2026</span><strong>A NATIONAL CONVERSATION.</strong><p>Represented Chhattisgarh's state contingent in New Delhi and presented the JanSeva One civic-tech concept.</p></article>
+              <article className="impact-ledger-card"><i>02</i><span>SQAC / SRMIST</span><strong>BUILDING WITH A TEAM.</strong><p>App Development Lead and core member, contributing to student-led software activity and Mineverse.</p></article>
+              <article className="impact-ledger-card"><i>03</i><span>INDEPENDENT BUILDS</span><strong>FROM IDEA TO WORKFLOW.</strong><p>Taking projects beyond static screens into interfaces, integrations, backend workflows and real-data thinking.</p></article>
+            </div>
+          </div>
           <div className="field-note-bottom"><span>A MOMENT THAT REMINDED ME WHY BUILDING MATTERS.</span><span>03 / 08</span></div>
         </div>
       </section>
