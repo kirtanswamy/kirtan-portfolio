@@ -274,7 +274,17 @@ function App() {
 
   useEffect(() => {
     document.body.classList.toggle('menu-open', menuOpen)
-    return () => document.body.classList.remove('menu-open')
+    if (!menuOpen) return () => document.body.classList.remove('menu-open')
+    const onKeyDown = event => {
+      if (event.key !== 'Escape') return
+      setMenuOpen(false)
+      document.querySelector('.menu-button')?.focus()
+    }
+    document.addEventListener('keydown', onKeyDown)
+    return () => {
+      document.removeEventListener('keydown', onKeyDown)
+      document.body.classList.remove('menu-open')
+    }
   }, [menuOpen])
 
   useEffect(() => {
