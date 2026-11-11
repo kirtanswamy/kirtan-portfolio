@@ -46,6 +46,20 @@ npm run preview
 
 Update project details and links in `src/App.jsx`. The BUSHO, Varsity, ElectroLab and JanSeva One entries are based on Kirtan's known projects. Replace the editorial placeholder portrait with a personal photograph before publishing. Add a verified email address and exact LinkedIn profile URL before enabling direct contact links.
 
+## Development workflow
+
+The stable baseline lives on `main`. Active editorial redesign work is developed separately on `feature/editorial-world-rebuild` and reviewed through [Pull Request #1](https://github.com/kirtanswamy/kirtan-portfolio/pull/1).
+
+Before merging a release:
+
+1. Run `npm ci` and `npm run build`.
+2. Review the site at desktop, tablet and mobile widths.
+3. Check keyboard navigation and the reduced-motion experience.
+4. Verify project descriptions, credential status, academic details and contact links.
+5. Merge the reviewed pull request into `main` only after those checks pass.
+
+The current branch is a work in progress; it is not yet the published portfolio.
+
 ## Deployment
 
 This repository is ready to import into Vercel. Use the default Vite settings:
