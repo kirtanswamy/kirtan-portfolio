@@ -592,6 +592,16 @@ function App() {
           </article>
           <article className="journey-item reveal">
             <span className="journey-count">04</span><span className="journey-date">ONGOING</span>
+            <div><h3>BUSHO — healthcare workflow project</h3><p>Independent product build · Healthcare reporting</p><small>Exploring a structured reporting journey between frontline health workers and supervisors, with a focus on data, accountability and operational clarity.</small></div>
+            <span className="journey-mark"><Activity /></span>
+          </article>
+          <article className="journey-item reveal">
+            <span className="journey-count">05</span><span className="journey-date">CAMPUS</span>
+            <div><h3>Varsity — student campus app</h3><p>App development · Student product initiative</p><small>Building a campus companion around attendance, academic resources, schedules and previous-year questions.</small></div>
+            <span className="journey-mark"><Layers3 /></span>
+          </article>
+          <article className="journey-item reveal">
+            <span className="journey-count">06</span><span className="journey-date">ONGOING</span>
             <div><h3>Research, experiments & independent builds</h3><p>AI / ML · Electronics · Product development</p><small>Learning through practical projects, technical exploration and collaboration.</small></div>
             <span className="journey-mark"><Sparkles /></span>
           </article>
