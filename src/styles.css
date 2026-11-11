@@ -322,3 +322,44 @@ body.dialog-open{overflow:hidden}
 }
 @media(max-width:390px){.intersection-map{min-height:500px;gap:10px;padding-left:0;padding-right:0}.intersection-node{min-height:82px;padding:8px}.intersection-core{width:122px}.intersection-core>strong{font-size:18px}}
 @media(prefers-reduced-motion:reduce){.intersection-node,.intersection-node:hover{transition:none;transform:none}}
+
+/* Personal story — setbacks, turning points and the long build */
+.about-turning-point{margin:clamp(44px,7vw,90px) 0;padding:clamp(24px,4vw,48px);background:var(--ink);color:var(--paper);display:grid;grid-template-columns:1fr 1.4fr;gap:22px 7%;position:relative;overflow:hidden}
+.about-turning-point:after{content:"";position:absolute;width:280px;height:280px;border:1px solid #eee7d922;border-radius:50%;right:-85px;top:-130px;box-shadow:0 0 0 22px #eee7d909,0 0 0 48px #eee7d906;pointer-events:none}
+.turning-point-label{display:flex;flex-direction:column;gap:10px}
+.turning-point-label .eyebrow{color:var(--acid)}
+.turning-point-label>span:last-child{font:7px var(--mono);letter-spacing:.08em;color:#eee7d980}
+.about-turning-point blockquote{font:clamp(25px,4.4vw,53px)/.98 var(--display);letter-spacing:-.055em;max-width:14ch;position:relative;z-index:1}
+.turning-point-copy{grid-column:2;display:flex;justify-content:space-between;align-items:end;gap:22px}
+.turning-point-copy p{font:12px/1.7 var(--body);color:#eee7d9c7;max-width:52ch}
+.turning-point-copy span{font:7px var(--mono);color:var(--acid);letter-spacing:.08em;white-space:nowrap}
+.build-evolution{margin:clamp(54px,8vw,100px) 0}
+.build-evolution-head{display:flex;justify-content:space-between;align-items:center;gap:18px;border-bottom:1px solid var(--line);padding-bottom:14px}
+.build-evolution-head>span{font:7px var(--mono);letter-spacing:.07em;color:var(--muted)}
+.build-evolution-track{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin-top:25px;border-top:1px solid var(--line-strong);position:relative}
+.build-evolution-track:before{content:"";position:absolute;top:-4px;left:0;right:0;height:7px;background:linear-gradient(90deg,var(--red),var(--blue),var(--acid));opacity:.7}
+.build-evolution-track article{padding:23px 17px 17px 0;border-right:1px solid var(--line);display:flex;flex-direction:column;min-height:210px}
+.build-evolution-track article+article{padding-left:17px}
+.build-evolution-track article:last-child{border-right:0}
+.build-evolution-track article>span{font:7px var(--mono);letter-spacing:.06em;color:var(--blue);margin-bottom:22px}
+.build-evolution-track article strong{font:clamp(15px,1.8vw,21px)/.98 var(--display);letter-spacing:-.035em;max-width:13ch}
+.build-evolution-track article p{font:10px/1.6 var(--body);color:var(--muted);margin:13px 0 20px}
+.build-evolution-track article i{font:7px var(--mono);letter-spacing:.08em;color:var(--red);font-style:normal;margin-top:auto}
+.build-evolution-note{font:italic 14px/1.5 var(--display);color:var(--muted);max-width:62ch;margin:18px 0 0 auto;text-align:right}
+@media(max-width:760px){
+ .about-turning-point{grid-template-columns:1fr;gap:22px}
+ .turning-point-copy{grid-column:1;align-items:start;flex-direction:column;gap:12px}
+ .build-evolution-track{grid-template-columns:1fr 1fr}
+ .build-evolution-track article:nth-child(2){border-right:0}
+ .build-evolution-track article:nth-child(3){padding-left:0;border-top:1px solid var(--line)}
+ .build-evolution-track article:nth-child(4){border-top:1px solid var(--line)}
+}
+@media(max-width:430px){
+ .build-evolution-head{align-items:start;flex-direction:column;gap:6px}
+ .build-evolution-track{grid-template-columns:1fr}
+ .build-evolution-track article,.build-evolution-track article+article{padding:18px 0;border-right:0;border-bottom:1px solid var(--line);min-height:0}
+ .build-evolution-track article>span{margin-bottom:10px}
+ .build-evolution-track article p{margin:9px 0 12px}
+ .build-evolution-track article:nth-child(3),.build-evolution-track article:nth-child(4){border-top:0}
+}
+@media(prefers-reduced-motion:reduce){.about-turning-point:after{display:none}}
