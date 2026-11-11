@@ -275,6 +275,7 @@ function App() {
   useEffect(() => {
     document.body.classList.toggle('menu-open', menuOpen)
     if (!menuOpen) return () => document.body.classList.remove('menu-open')
+    document.querySelector('.mobile-nav a')?.focus()
     const onKeyDown = event => {
       if (event.key !== 'Escape') return
       setMenuOpen(false)
