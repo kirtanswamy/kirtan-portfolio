@@ -214,6 +214,7 @@ function App() {
     gsap.ticker.add(tick)
     gsap.ticker.lagSmoothing(0)
 
+    const animationContext = gsap.context(() => {
     const intro = gsap.timeline({ defaults: { ease: 'power4.out' } })
     intro
       .fromTo('.masthead', { y: -18, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7 })
@@ -238,6 +239,7 @@ function App() {
     ScrollTrigger.create({ start: 0, end: 'max', onUpdate: self => gsap.set('.reading-progress__bar', { scaleX: self.progress }) })
     gsap.to('.orbit-ring', { rotate: 360, duration: 38, repeat: -1, ease: 'none' })
     gsap.to('.hero-starburst', { rotate: -360, duration: 54, repeat: -1, ease: 'none' })
+    })
 
     const workbench = document.querySelector('.portrait-frame')
     const deskArt = workbench?.querySelector('.desk-illustration')
@@ -266,8 +268,7 @@ function App() {
       workbench?.removeEventListener('pointerleave', resetDesk)
       gsap.ticker.remove(tick)
       lenis.destroy()
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill())
-      gsap.killTweensOf('*')
+      animationContext.revert()
     }
   }, [])
 
