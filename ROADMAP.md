@@ -128,13 +128,21 @@ The reference site has been reviewed at the level of its visual concept, content
 - The About narrative includes collaboration, community spaces and learning through experimentation.
 - Project-file metadata shows each project's contribution, stage, focus areas, year and category.
 
+### Latest iteration — About chapter direction
+
+- Added an original four-part intersection map connecting engineering, product thinking, visual design and public impact.
+- The map places the common thread—curious builder—at the centre, with four surrounding editorial cards and connective lines.
+- Reworked the About lede to describe cross-disciplinary curiosity without presenting every interest as a separate identity.
+- Preserved the current newspaper-style character illustration as the hero placeholder.
+- Responsive layout and reduced-motion fallback included; still requires live browser and device QA.
+
 ## Current implementation status
 
 | Area | Status | Notes |
 |---|---|---|
 | React/Vite foundation | In place | Existing stack retained |
 | Editorial visual direction | First pass implemented | Paper, ink, cobalt, vermilion, typography |
-| Main content sections | Enhanced first pass | Hero, work, Viksit Bharat feature with JanSeva One civic journey concept map, About with working principles, annotated journey timeline, filterable learning archive, skills, contact |
+| Main content sections | Enhanced first pass | Hero, work, Viksit Bharat feature with JanSeva One civic journey concept map, About with working principles and a four-part intersection map, annotated journey timeline, filterable learning archive, skills, contact |
 | Project filter | Implemented | Four project categories; filter transitions and shelf counter wired |
 | GSAP / Lenis | First pass implemented | Intro, scroll reveals, orbit details, reading progress; needs motion QA |
 | Responsive layouts | First pass implemented | Eight-item navigation, keyboard skip link and global reduced-motion fallback added; still needs real device/browser testing |
