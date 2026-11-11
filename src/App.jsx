@@ -601,7 +601,7 @@ function App() {
           <article className="journey-item reveal">
             <span className="journey-count">04</span><span className="journey-date">ONGOING</span>
             <div><h3>BUSHO — healthcare workflow project</h3><p>Independent product build · Healthcare reporting</p><small>Exploring a structured reporting journey between frontline health workers and supervisors, with a focus on data, accountability and operational clarity.</small></div>
-            <span className="journey-mark"><Activity /></span>
+            <span className="journey-mark"><CircleDot /></span>
           </article>
           <article className="journey-item reveal">
             <span className="journey-count">05</span><span className="journey-date">CAMPUS</span>
