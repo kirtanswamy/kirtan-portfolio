@@ -377,3 +377,17 @@ body.dialog-open{overflow:hidden}
 .impact-ledger-card i{position:absolute;right:12px;top:12px;font:italic 35px var(--display);color:#eee7d91a}
 @media(max-width:700px){.impact-ledger-grid{grid-template-columns:1fr 1fr}.impact-ledger-card:first-child{grid-column:1/-1;min-height:150px}.impact-ledger-card{min-height:155px;padding:15px}}
 @media(max-width:420px){.impact-ledger-grid{grid-template-columns:1fr}.impact-ledger-card:first-child{grid-column:auto}.impact-ledger-card{min-height:135px}}
+
+/* Learning archive and skills index refinement */
+.learning-next-step{margin:18px 0 0;padding:15px 18px;border-left:2px solid var(--red);background:#24241f05;display:grid;grid-template-columns:1fr 2fr 1fr;align-items:center;gap:16px}
+.learning-next-step>span{font:7px var(--mono);letter-spacing:.07em;color:var(--blue)}
+.learning-next-step>span:last-child{text-align:right;color:var(--red)}
+.learning-next-step p{font:italic 14px/1.45 var(--display);color:var(--muted);max-width:54ch}
+.skills-groups{border-top:1px solid #eee7d944}
+.skill-group{display:grid;grid-template-columns:190px 1fr;gap:25px;padding:24px 0;border-bottom:1px solid #eee7d944}
+.skill-group>span{font:8px var(--mono);letter-spacing:.08em;color:var(--acid)}
+.skill-group>div{display:flex;flex-wrap:wrap;gap:8px}
+.skill-group>div>span{padding:9px 12px;border:1px solid #eee7d944;color:#eee7d9;font:9px var(--mono);transition:background .2s,border-color .2s,color .2s}
+.skill-group>div>span:hover{background:var(--acid);border-color:var(--acid);color:var(--ink)}
+@media(max-width:700px){.learning-next-step{grid-template-columns:1fr;gap:8px}.learning-next-step>span:last-child{text-align:left}.skill-group{grid-template-columns:1fr;gap:12px;padding:19px 0}}
+@media(prefers-reduced-motion:reduce){.skill-group>div>span{transition:none}}
