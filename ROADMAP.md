@@ -179,6 +179,14 @@ The reference site has been reviewed at the level of its visual concept, content
 - Latest CI is queued; previous contact and motion implementation builds passed.
 - Full browser/device visual QA and verification of live project, certificate, academic and contact evidence remain before release.
 
+### Latest iteration — release audit and link integrity
+
+- Scoped the GSAP animation lifecycle with `gsap.context()`; teardown now reverts portfolio-owned animations instead of globally killing all page tweens and ScrollTriggers.
+- Audited project repository actions and corrected the JanSeva One card: with no verified repository URL, it now shows a non-interactive “link pending” label rather than a dead clickable link.
+- Verified the production build for the GSAP lifecycle fix passed.
+- Latest project-link integrity change is committed; its CI run is pending.
+- Browser/device QA, final copy verification, credentials and contact details still require review before release.
+
 ## Current implementation status
 
 | Area | Status | Notes |
