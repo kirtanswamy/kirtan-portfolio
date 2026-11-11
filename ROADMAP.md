@@ -154,13 +154,22 @@ The reference site has been reviewed at the level of its visual concept, content
 - Certification titles, academic figures, project outcome metrics and external evidence remain subject to verification.
 - CI and live visual QA are release gates; no deployment has been made.
 
+### Latest iteration — Learning and skills archive refinement
+
+- Refined the skills taxonomy into frontend/apps, programming, and product/systems, reflecting the user's supplied toolset.
+- Added a verification-first editorial note to the learning archive; credential status remains clearly distinguished from course and simulation completion.
+- Refined the responsive learning archive and skills index presentation.
+- No additional certificates or skill proficiency claims were invented.
+- Actual credential titles, issue dates, public verification links and current proficiency remain to be confirmed.
+- The current newspaper-style character placeholder remains unchanged.
+
 ## Current implementation status
 
 | Area | Status | Notes |
 |---|---|---|
 | React/Vite foundation | In place | Existing stack retained |
 | Editorial visual direction | First pass implemented | Paper, ink, cobalt, vermilion, typography |
-| Main content sections | Enhanced first pass | Hero, work, Viksit Bharat feature with JanSeva One civic journey concept map, About with working principles and a four-part intersection map, annotated journey timeline with BUSHO and Varsity milestones, filterable learning archive, skills, contact |
+| Main content sections | Enhanced first pass | Hero, work, Viksit Bharat feature with JanSeva One civic journey concept map, About with working principles and a four-part intersection map, annotated journey timeline with BUSHO and Varsity milestones, filterable learning archive with verification-first credential note, skills, contact |
 | Project filter | Implemented | Four project categories; filter transitions and shelf counter wired |
 | GSAP / Lenis | First pass implemented | Intro, scroll reveals, orbit details, reading progress; needs motion QA |
 | Responsive layouts | First pass implemented | Eight-item navigation, keyboard skip link and global reduced-motion fallback added; still needs real device/browser testing |
