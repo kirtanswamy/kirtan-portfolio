@@ -512,11 +512,13 @@ function App() {
             <div className="about-note"><Asterisk size={28} /><span>STILL FIGURING<br />THINGS OUT.</span></div>
           </div>
           <div className="about-copy reveal">
-            <p className="about-lede">I'm Kirtan—an Electronics & Communication Engineering student at SRM Institute of Science and Technology, Chennai.</p>
-            <p>My curiosity rarely stays in one lane. I move between electronics, software, product thinking, visual design and questions about how public systems serve people. I don't want to choose between understanding how something works and making it easier for someone to use.</p>
-            <p>I enjoy the full journey: understanding a problem, asking better questions, designing a direction, building a first version and learning from what breaks. I'm especially drawn to technology that can make everyday systems work a little better.</p>
-            <p>Outside the screen, I enjoy storytelling, editing and community spaces. I like noticing how people communicate, what makes an idea memorable and how a small design decision can change the way someone experiences a product.</p>
-            <p>I also enjoy the energy of building with other people: sharing unfinished ideas, helping organise student-led spaces and learning how a team turns a rough thought into something others can experience.</p>
+            <p className="about-lede">I'm Kirtan—an Electronics & Communication Engineering student at SRMIST, Chennai, a builder who is still learning, and someone who has become very comfortable starting again.</p>
+            <p>My story has not been a straight line. The JEE phase did not go the way I had hoped. For a while, that chapter felt much bigger than an exam; it felt like a verdict on what came next. It wasn't. Coming to SRM gave me a new environment, new people and room to find a direction that felt like mine.</p>
+            <p>That direction grew through experiences I could never have planned on a timetable: representing my state contingent at the Viksit Bharat Young Leaders Dialogue, taking on responsibility in SQAC as an App Development Lead, and working on BUSHO—a project that pushes me to think beyond screens and consider how information moves through real healthcare workflows.</p>
+            <p>Each experience stretched a different part of me. Viksit Bharat made the scale of public problems feel closer. SQAC taught me that leadership is also about helping other people make things happen. BUSHO keeps reminding me that building technology for people means caring about the details behind the interface: roles, data, hand-offs, reliability and what happens after someone presses a button.</p>
+            <p>What drives me most is the feeling of progress. I started with very basic HTML pages and small websites. Since then, I've kept moving toward richer interfaces, API integrations, backend workflows and systems that work with real data. I still have a lot to learn, but looking back at that distance makes me want to keep going—not because I think I've arrived, but because I love coding, learning how things work and solving problems that could make a difference at a much larger scale.</p>
+            <p>I'm drawn to the space where engineering, product thinking, design and public impact overlap. I like the messy middle: asking questions, making a first version, finding what breaks, listening, rebuilding and getting a little better with every iteration. I don't want to stop doing that.</p>
+            <p>And outside the build itself, I care about storytelling, visual communication and communities. I enjoy bringing people together around an idea and making complex things feel more approachable.</p>
             <div className="about-signoff"><span>IN PROGRESS, BY DESIGN.</span><span>— K.S.</span></div>
           </div>
         </div>
@@ -524,6 +526,21 @@ function App() {
           <div><span>01 / CURRENT CHAPTER</span><strong>ECE UNDERGRADUATE</strong><small>SRMIST · CHENNAI</small></div>
           <div><span>02 / NATURAL HABIT</span><strong>LEARN BY BUILDING</strong><small>PROTOTYPE · TEST · REFINE</small></div>
           <div><span>03 / BIG INTEREST</span><strong>TECH WITH PURPOSE</strong><small>PRODUCT · PEOPLE · IMPACT</small></div>
+        </div>
+        <div className="about-turning-point reveal">
+          <div className="turning-point-label"><Eyebrow>THE PART THAT CHANGED ME</Eyebrow><span>NOT A STRAIGHT LINE / FIELD NOTE 002</span></div>
+          <blockquote>“That chapter didn't go to plan. It still wasn't the end of the story.”</blockquote>
+          <div className="turning-point-copy"><p>The JEE setback became a reset, not a definition. SRM became the next chapter; Viksit Bharat, SQAC and BUSHO became places to test what I could do with the opportunity in front of me.</p><span>KEEP MOVING. KEEP MAKING.</span></div>
+        </div>
+        <div className="build-evolution reveal">
+          <div className="build-evolution-head"><Eyebrow>THE BUILDING CURVE</Eyebrow><span>FROM FIRST TAG TO REAL WORKFLOW</span></div>
+          <div className="build-evolution-track">
+            <article><span>01 / THE FIRST PAGE</span><strong>HTML & SMALL WEBSITES</strong><p>Learning how a page is structured and how an idea becomes something visible.</p><i>START SMALL</i></article>
+            <article><span>02 / MAKING IT INTERACTIVE</span><strong>INTERFACES & APPLICATIONS</strong><p>Moving into components, app flows and experiences people can actually use.</p><i>MAKE IT WORK</i></article>
+            <article><span>03 / CONNECTING SYSTEMS</span><strong>APIs & BACKENDS</strong><p>Going beyond the screen: connecting services, handling data and designing complete workflows.</p><i>MAKE IT CONNECT</i></article>
+            <article><span>04 / BUILDING FOR REAL CONTEXT</span><strong>REAL DATA & PEOPLE</strong><p>Thinking about reliability, roles, hand-offs and whether a system helps solve the original problem.</p><i>MAKE IT MATTER</i></article>
+          </div>
+          <p className="build-evolution-note">Not a claim that the learning is finished. A record of how far curiosity has carried me—and a reason to keep going.</p>
         </div>
         <div className="about-intersection reveal">
           <div className="about-intersection-head"><Eyebrow>THE INTERSECTION</Eyebrow><span>FOUR LENSES / ONE PRACTICE</span></div>
