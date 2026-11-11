@@ -82,9 +82,9 @@ const learning = [
 const learningCategories = ['ALL ENTRIES', 'TECH', 'BUSINESS', 'DIGITAL']
 
 const skills = [
-  { group: 'BUILD', items: ['JavaScript', 'React', 'React Native', 'Flutter', 'Python', 'C / C++', 'Java'] },
-  { group: 'DESIGN', items: ['UI / UX', 'Interaction design', 'Visual storytelling', 'Prototyping'] },
-  { group: 'SYSTEMS', items: ['Git & GitHub', 'Vite', 'Supabase', 'Electronics', 'AI / ML foundations'] },
+  { group: 'FRONTEND & APPS', items: ['HTML & CSS', 'JavaScript', 'TypeScript', 'React', 'React Native', 'Expo', 'Flutter'] },
+  { group: 'PROGRAMMING', items: ['Python', 'C / C++', 'Java', 'API integration', 'Responsive UI'] },
+  { group: 'PRODUCT & SYSTEMS', items: ['UI / UX', 'Git & GitHub', 'Supabase', 'Vite', 'Electronics', 'AI / ML foundations'] },
 ]
 
 const navItems = [
@@ -633,6 +633,7 @@ function App() {
           </article>)}
         </div>
         <p className="learning-disclaimer">STATUS IS LABELLED AS COURSE OR SIMULATION COMPLETION—NOT AS A PROFESSIONAL CERTIFICATION UNLESS A VERIFIED CREDENTIAL IS LINKED.</p>
+        <div className="learning-next-step"><span>THE ARCHIVE IS STILL OPEN</span><p>More learning records will be added as titles, completion details and credential evidence are checked. No badge is worth more than being accurate about what it represents.</p><span>VERIFY FIRST / PUBLISH SECOND</span></div>
       </section>
 
       <section className="skills-section" id="skills">
