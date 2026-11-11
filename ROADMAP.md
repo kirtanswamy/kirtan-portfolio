@@ -145,13 +145,22 @@ The reference site has been reviewed at the level of its visual concept, content
 - All biographical copy is based on the user's account; role names and event details should receive a final factual review before release.
 - Responsive layout and reduced-motion fallback included; live browser/device QA remains outstanding.
 
+### Latest iteration — Impact archive
+
+- Expanded the journey timeline with dedicated BUSHO and Varsity milestones.
+- Added a three-part impact ledger to the Viksit Bharat feature: national dialogue, SQAC team leadership and independent product building.
+- The ledger uses restrained editorial cards and responsive layouts; all claims stay within the user's supplied context.
+- Kept the existing newspaper-style character illustration unchanged.
+- Certification titles, academic figures, project outcome metrics and external evidence remain subject to verification.
+- CI and live visual QA are release gates; no deployment has been made.
+
 ## Current implementation status
 
 | Area | Status | Notes |
 |---|---|---|
 | React/Vite foundation | In place | Existing stack retained |
 | Editorial visual direction | First pass implemented | Paper, ink, cobalt, vermilion, typography |
-| Main content sections | Enhanced first pass | Hero, work, Viksit Bharat feature with JanSeva One civic journey concept map, About with working principles and a four-part intersection map, annotated journey timeline, filterable learning archive, skills, contact |
+| Main content sections | Enhanced first pass | Hero, work, Viksit Bharat feature with JanSeva One civic journey concept map, About with working principles and a four-part intersection map, annotated journey timeline with BUSHO and Varsity milestones, filterable learning archive, skills, contact |
 | Project filter | Implemented | Four project categories; filter transitions and shelf counter wired |
 | GSAP / Lenis | First pass implemented | Intro, scroll reveals, orbit details, reading progress; needs motion QA |
 | Responsive layouts | First pass implemented | Eight-item navigation, keyboard skip link and global reduced-motion fallback added; still needs real device/browser testing |
