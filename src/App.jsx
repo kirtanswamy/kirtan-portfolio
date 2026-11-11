@@ -170,7 +170,7 @@ function ProjectCard({ project, index, onOpen }) {
       <div className="project-info">
         <div className="project-title-line">
           <div><Eyebrow>{project.category} · {project.year}</Eyebrow><h3>{project.name}<sup>®</sup></h3></div>
-          <a href={project.repo} target="_blank" rel="noreferrer" className="project-repo" aria-label={`View ${project.name} repository`}><Code2 size={17} /><ArrowUpRight size={13} /></a>
+          {project.repo ? <a href={project.repo} target="_blank" rel="noreferrer" className="project-repo" aria-label={`View ${project.name} repository`}><Code2 size={17} /><ArrowUpRight size={13} /></a> : <span className="project-repo project-repo-unavailable" aria-label={`${project.name} repository link not yet available`} title="Repository link not yet available"><Code2 size={17} /><span>LINK PENDING</span></span>}
         </div>
         <p className="project-type">{project.type}</p>
         <p className="project-description">{project.description}</p>
