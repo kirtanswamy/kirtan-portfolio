@@ -28,15 +28,25 @@ npm run preview
 
 ## Sections
 
-1. Masthead and opening editorial hero
-2. Maker's manifesto
-3. Filterable selected-project archive
-4. Viksit Bharat / JanSeva One field note
-5. Personal About section
-6. Academic, community and project journey
-7. Courses and learning archive
-8. Skills and tools
-9. Contact and footer
+1. Opening cover and maker's manifesto
+2. Selected work / horizontal project archive
+3. Think · Create · Deliver
+4. Recognition archive
+5. Up Next / active work notebook
+6. Viksit Bharat field note
+7. About / personal story
+8. Journey / education and community
+9. Learning archive
+10. Skills and tools
+11. Contact and footer
+
+## Interactions and accessibility
+
+- Desktop chapter rail and mobile chapter navigation.
+- Horizontal project archive with pointer drag, touch scrolling, keyboard arrows, Home and End.
+- Project detail dialogs with Escape-to-close, focus trapping, focus restoration and backdrop dismissal.
+- Scroll progress, GSAP section reveals and restrained hero parallax.
+- Reduced-motion handling and keyboard-visible focus styles.
 
 ## Personal data accuracy
 
