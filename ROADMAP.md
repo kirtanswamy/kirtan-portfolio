@@ -246,6 +246,15 @@ The reference site has been reviewed at the level of its visual concept, content
 - The existing GSAP intro choreography remains the entrance animation; new ornament details are static/low-motion.
 - Latest commits are on the feature branch; CI and browser viewport checks are pending.
 
+### Latest iteration — hero artwork choreography
+
+- Added a staged reveal for the existing newspaper illustration and its caption as part of the GSAP hero entrance.
+- Added subtle scroll-linked movement to the portrait artwork and edition seal to create depth as visitors leave the cover.
+- Motion is tied to the hero's scroll range and remains inside the existing GSAP context for teardown.
+- Kept the artwork itself unchanged; this is not the personalised face character.
+- Reduced-motion mode already bypasses the Lenis/GSAP motion setup.
+- Browser verification across desktop, mobile, touch and reduced-motion settings remains outstanding.
+
 ## Current implementation status
 
 | Area | Status | Notes |
