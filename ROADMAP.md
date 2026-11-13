@@ -153,6 +153,16 @@ The user supplied a 3:09 desktop screen recording at 1920 × 1080. Review findin
 **M1 exit gate remains open:** source-level polish is in place, but rendered desktop/mobile interaction QA and a user preview review are still required before starting M2's WebGL paper shader and book interaction work.
 
 ### M2 — Material and paper-motion engine
+
+**Status:** In progress — first material pass added on 13 November 2026.
+
+**First implementation pass**
+- Added a lightweight SVG turbulence/displacement filter to roughen the INDEX's torn paper lip, with the existing CSS clip-path retained as the no-filter fallback.
+- Added visible page-stack thickness, inner-edge shading and a deeper central crease to the opening spread.
+- Kept the paper treatment isolated to decorative layers so chapter text and controls remain crisp and selectable.
+- Kept the implementation dependency-free; this is an SVG filter enhancement, not a WebGL shader or a Three.js scene.
+
+**Next in M2**
 - Replace/upgrade the CSS tear approximation with a displacement-based WebGL or shader transition, keeping an SVG/CSS fallback.
 - Refine paper thickness, fold shading, grain, edge distortion and perspective based on browser review.
 - Prototype the rare charred/burning edge as an optional chapter transition; do not use it on every navigation.
@@ -214,8 +224,8 @@ See [CONTENT_REGISTRY.md](./CONTENT_REGISTRY.md). That file is the source of tru
 |---|---|
 | Specification and direction | Approved |
 | M0 — Foundation and truth audit | Complete — content truth register established; pending evidence checks remain deferred |
-| M1 — Newspaper shell and opening | In progress — source polish updated; rendered preview QA pending |
-| M2–M7 | Not started |
+| M1 — Newspaper shell and opening | Desktop preview reviewed; mobile/tablet QA remains open for M6 |
+| M2 — Material and paper motion | In progress — first SVG displacement and fold-depth pass |\n| M3–M7 | Not started |
 
 ## Repository working agreement
 
