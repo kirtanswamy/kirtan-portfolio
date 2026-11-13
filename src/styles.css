@@ -516,3 +516,17 @@ body.dialog-open{overflow:hidden}
 .shelf-controls button:focus-visible,.project-filters button:focus-visible{outline:2px solid var(--blue);outline-offset:4px}
 @media(hover:hover){.projects-shelf::-webkit-scrollbar{height:5px}.projects-shelf::-webkit-scrollbar-thumb{background:var(--red)}}
 @media(prefers-reduced-motion:reduce){.projects-shelf{scroll-behavior:auto;scroll-snap-type:x proximity}}
+
+/* Opening edition details — the first screen reads like a cover, not a template */
+.hero{position:relative}
+.hero-edition-mark{position:absolute;right:clamp(0px,2vw,28px);bottom:clamp(14px,2.5vw,30px);width:clamp(94px,12vw,142px);aspect-ratio:1;border:1px solid var(--line-strong);border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;transform:rotate(9deg);pointer-events:none}
+.hero-edition-mark:before,.hero-edition-mark:after{content:"";position:absolute;inset:6px;border:1px dashed var(--line);border-radius:50%}
+.hero-edition-mark:after{inset:-5px;border:1px solid var(--line);opacity:.55}
+.hero-edition-mark>span,.hero-edition-mark>i{font:5px var(--mono);letter-spacing:.08em;color:var(--muted);font-style:normal;text-align:center}
+.hero-edition-mark>strong{font:clamp(27px,4vw,43px)/.8 var(--display);letter-spacing:-.08em;color:var(--blue)}
+.hero-edition-mark>strong span{font:10px var(--serif);vertical-align:top;margin-left:2px}
+.hero-scroll-note{display:flex;align-items:center;gap:12px;margin-top:18px;font:7px var(--mono);letter-spacing:.1em;color:var(--muted)}
+.hero-scroll-note i{font:normal 14px var(--serif);color:var(--red);animation:scroll-nudge 1.8s ease-in-out infinite}
+@keyframes scroll-nudge{0%,100%{transform:translateY(-2px)}50%{transform:translateY(4px)}}
+@media(max-width:700px){.hero-edition-mark{right:2px;bottom:0;width:82px}.hero-edition-mark>span,.hero-edition-mark>i{font-size:4px}.hero-edition-mark>strong{font-size:25px}.hero-scroll-note{margin-top:12px}}
+@media(prefers-reduced-motion:reduce){.hero-scroll-note i{animation:none}}
