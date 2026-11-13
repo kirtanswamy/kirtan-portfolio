@@ -1,300 +1,162 @@
-# Portfolio Build Roadmap — The Maker's Notebook
+# The Maker's Notebook — Implementation Roadmap
 
-This is the implementation plan and quality bar for the portfolio. The target is an original, character-led editorial experience informed by the interaction principles of Niccolò Miranda's live portfolio—not a copy of its artwork, exact layout, assets, or identity.
+**Status:** Approved design specification; implementation proceeds one milestone at a time.
+**Branch:** `feature/editorial-world-rebuild`
+**Working rule:** Do not merge to the production branch or deploy a release until the user reviews the milestone previews and final QA passes.
 
 ## North star
 
-The site should feel like opening a beautifully art-directed, interactive maker's journal. The user should understand who Kirtan is, what he makes, why the work matters, and how to start a conversation within the first few scrolls.
+An interactive, cinematic newspaper documenting the evolution of a builder. The experience combines editorial paper design, tactile book navigation, deliberate 3D scenes and concise personal storytelling. It is inspired by the interaction principles of Niccolò Miranda's live portfolio, but must use an original identity, artwork, content and implementation.
 
-**Design pillars**
-1. Editorial composition: strong typographic scale, intentional asymmetry, columns, issue markers, captions, footnotes and paper-like surfaces.
-2. Narrative navigation: the sections should read like chapters, not a stack of generic portfolio cards.
-3. Interaction with purpose: motion reveals hierarchy, responds to input, and gives feedback. No animation exists only to decorate.
-4. Original identity: bespoke graphic language and character art, never borrowed character designs or exact reference assets.
-5. Performance and accessibility: responsive, keyboard-operable, reduced-motion aware, readable and fast.
+## Approved creative direction
 
-## Reference-site design audit translated into original principles
+- **Opening:** a cinematic 3D newspaper forms, unfolds and reveals the masthead, Kirtan's name, short introduction and the existing newspaper-style character placeholder. A personal likeness character is deferred until a portrait is supplied.
+- **Global navigation:** full-screen INDEX overlay revealed with a torn-paper transition.
+- **Project navigation:** horizontal, tactile bookshelf; five distinct books; a selected book pulls forward and opens into its own case study.
+- **Visual identity:** retain warm paper and editorial typography; add controlled visual variety with ink, cobalt, vermilion, lime and dark scenes.
+- **Motion:** rich and deliberate. Paper opening, torn masks, book pull/open, chapter transitions, cinematic autobiography and meaningful micro-interactions. No unnecessary movement or scroll hijacking.
+- **About:** concise cinematic autobiography and visual timeline: JEE setback, reset at SRM, early HTML projects, technical growth into apps/APIs/backend/real-data workflows, Viksit Bharat, SQAC and BUSHO.
+- **Location:** Hyderabad, India.
+- **Projects:** BUSHO, VARSITY, ELECTROLAB, JANSEVA ONE and CHHUTTI KE BAAD.
+- **Content discipline:** no invented metrics, awards, testimonials, production status, credentials or impact claims. Do not use the Viksit Bharat presentation topic as a headline/story. JanSeva One remains a separate civic-tech project.
+- **Responsive experience:** desktop, tablet and mobile are designed deliberately; mobile is not a scaled desktop.
+- **Character:** retain the current newspaper character as a temporary placeholder; create the user's likeness later from a supplied portrait.
 
-| Reference mechanic / principle | Our original interpretation | Planned implementation |
-|---|---|---|
-| Newspaper / editorial world | The Maker's Notebook visual identity | Paper palette, masthead, issue labels, editorial grid, serif + grotesk + mono type |
-| Illustrated designer identity | A future original Kirtan character | Character artwork system with multiple poses and section-specific cameos |
-| Persistent side navigation | Chapter index / section progress | Sticky desktop chapter rail or compact progress marker; mobile drawer |
-| Torn-paper navigation transition | Paper-fold / cutout chapter transition | CSS/SVG mask first; WebGL only if it materially improves the result |
-| Rotated bookshelf and book-pull interaction | Project archive as a tactile filing cabinet / work shelf | GSAP draggable or scroll-driven project sequence; project detail transitions |
-| Horizontal project exploration | Sideways project index with clear scroll affordance | Desktop horizontal gallery; touch-native swipe on mobile |
-| Spiral / looping motion | Original orbit / ink-stamp motifs | SVG/CSS/GSAP; restrained, non-blocking, pause/reduced-motion support |
-| Layered scroll choreography | Editorial reveal and scene changes | GSAP ScrollTrigger with pinned moments used sparingly |
-| Strong soundless visual storytelling | Illustrated project covers and field notes | Custom vector/canvas visuals, real project screenshots when available |
+## Experience architecture
 
-The reference site has been reviewed at the level of its visual concept, content architecture and designer-described mechanics. Exact timing, easing curves and every live interaction have not been measured frame-by-frame. We will use the principles above as design input and test our own implementation rather than claim a pixel-perfect recreation.
+1. **Front Page** — newspaper opening, identity, short positioning and featured-work invitation.
+2. **Bookshelf** — five project books and individual case studies.
+3. **Milestones** — Viksit Bharat, SQAC and Mineverse, supported by real evidence.
+4. **Autobiography** — concise visual story and cinematic timeline.
+5. **Journey** — education, leadership and selected milestones.
+6. **Archive** — verified certificates, completed courses, simulations and ongoing applications, clearly distinguished.
+7. **Workshop** — skills connected to actual projects and work.
+8. **Final Page** — character-led closing and verified contact links.
 
-## Build phases
+## Motion and interaction requirements
 
-### Phase 0 — Foundation and truth audit
-- Keep the rebuild isolated on `feature/editorial-world-rebuild` until checks pass.
-- Confirm project status, public links, role and contribution for each project.
-- Confirm academic year/semester and latest CGPA before publishing numbers.
-- Verify course names, dates, credential URLs and whether each item is a course, simulation, certificate or application.
-- Add real contact email and LinkedIn only when supplied/verified.
+| Interaction | Intended behaviour |
+|---|---|
+| Newspaper opening | Layered 3D paper unfold and perspective settle |
+| Global INDEX | Full-screen dark overlay with irregular torn-paper reveal |
+| Project bookshelf | Horizontal browse, touch swipe, keyboard support, clear affordance |
+| Book selection | Pull forward, then open into a project-specific experience |
+| Project exit | Reverse transition and restore the same shelf position |
+| Chapter transitions | Contextual paper masks/folds; not every transition uses tearing |
+| Autobiography | Scroll-linked scenes and timeline reveals |
+| Character | Contextual, restrained reactions; no distracting perpetual animation |
+| Micro-interactions | Tactile focus, hover, active, pressed and loading feedback |
 
-**Exit gate:** no invented claims, dead links or placeholder copy presented as fact.
+### Motion timing guidance
 
-### Phase 1 — Editorial art direction and responsive system
-- Lock colour tokens, typography scale, grid, spacing, border, paper grain and illustration style.
-- Define desktop, tablet and mobile layouts independently; don't merely shrink desktop.
-- Create reusable editorial primitives: masthead, eyebrow, folio, section index, chapter marker, project cover, pull quote, timeline row, field note.
-- Establish hover, focus, pressed, loading and active states.
-
-**Exit gate:** a consistent visual system across every section and all key viewport sizes.
-
-### Phase 2 — Story and information architecture
-1. Hero / opening cover: identity, value proposition, location and clear next action.
-2. Manifesto: what motivates the work.
-3. Selected work: strongest projects first, each with problem, role, process, outcome and links.
-4. Viksit Bharat feature: selection, representation, theme and JanSeva One.
-5. About: human story, working style, interests and perspective.
-6. Journey: education, leadership, community, research and milestones.
-7. Learning archive: verified courses, simulations and credentials.
-8. Toolkit: skills grouped by how they are used, not a keyword dump.
-9. Contact: direct and frictionless.
-
-**Exit gate:** each section answers a distinct question; no repetitive filler.
-
-### Phase 3 — Motion and interaction system
-- Intro: editorial title reveal with clipped masks and staggered lines.
-- Scroll: subtle section entrances, image/cover parallax and chapter progress.
-- Work: project shelf / horizontal browse with drag and touch affordances.
-- Project detail: transition from cover to case study with clear back navigation.
-- Navigation: mobile paper-panel transition with a torn-edge finish; persistent desktop chapter rail with active section tracking and hover labels.
-- Micro-interactions: cursor feedback on desktop, link arrows, filter transitions, stamps, hover depth and tactile chapter controls.
-- Character later: scroll-aware poses, contextual cameos and small reactions; no constant distracting movement.
-
-**Motion tokens**
 - Micro feedback: 140–220 ms.
-- Standard interface transitions: 260–420 ms.
+- Standard UI transitions: 260–420 ms.
 - Editorial entrances: 650–1000 ms, staggered.
-- Large scene transitions: 800–1200 ms only when they have a narrative reason.
-- Prefer power2/power3 easing for UI and power4 for expressive title entrances.
-- Avoid animating layout-heavy properties; use transform and opacity.
+- Major scene transitions: 800–1200 ms only when narratively justified.
+- Prefer transform and opacity over layout-triggering animation.
 - Never hijack normal scrolling or trap keyboard/touch users.
-- Respect `prefers-reduced-motion`; provide static equivalents.
+- Respect `prefers-reduced-motion`; provide complete static alternatives.
 
-**Exit gate:** motion feels coherent, intentional, responsive and never blocks reading or navigation.
+## Technical direction
 
-### Phase 4 — Project case studies and original visuals
-- BUSHO: problem context, health-worker-to-supervisor workflow, architecture and honest prototype status.
-- Varsity: student problem, feature set, contribution and screenshots from actual build.
-- ElectroLab: diode model, solver, sweep visualisation and technical details.
-- JanSeva One: civic problem, concept, presentation context and proposed pilot.
-- Build custom visual covers from actual product screens, diagrams and photos—not generic stock graphics. First pass now includes original conceptual workflow / interface / circuit / civic diagrams; replace these with real product evidence when available.
+- React + Vite application foundation.
+- Three.js / React Three Fiber for selected 3D scenes, not every section.
+- GSAP + ScrollTrigger for sequenced motion.
+- WebGL shaders, displacement maps and SVG masks for paper effects.
+- Lenis only where it improves the experience and never at the expense of native accessibility.
+- SVG/CSS/procedural artwork for lightweight editorial graphics.
+- Structured project content; lazy-loaded media and 3D assets.
+- Vercel preview deployments for milestone review; production release only after approval.
 
-**Exit gate:** every featured project has evidence, a clear role statement and working links.
+## Milestones and exit gates
 
-### Phase 5 — Character design and integration
-- Collect a clear reference portrait and choose a visual direction.
-- Design a recognisable but stylised original character with a coherent silhouette, palette and expressions.
-- Produce hero, neutral, thinking, building, presenting and waving poses.
-- Integrate character as a storytelling device: opening cover, work shelf, field note, about and contact.
-- Optimise assets (SVG/WebP/GLB as appropriate); lazy-load secondary scenes.
-- Keep character optional on reduced-motion and low-power devices.
+### M0 — Foundation and truth audit
+- Review the existing portfolio code and current project data.
+- Inspect project repositories and authoritative READMEs where accessible.
+- Create a content registry separating verified facts, user-supplied claims and items needing confirmation.
+- Add CHHUTTI KE BAAD to the project inventory using its actual repository documentation.
+- Reconcile outdated project descriptions, location labels and the old section architecture in documentation.
+- Identify missing screenshots, photos, certificate evidence and contact details.
+- Do not redesign or modify application UI during M0.
 
-**Exit gate:** the character supports the narrative and does not compromise load time or legibility.
+**Exit gate:** approved project inventory and content/evidence checklist; no unsupported claims silently promoted to fact.
 
-### Phase 6 — QA, accessibility and performance
-- Test 1440px desktop, 1280px laptop, 1024px tablet, 768px tablet portrait, 390px and 360px mobile.
-- Test Chrome, Firefox, Safari and mobile touch.
-- Verify all navigation, project filters, external links, focus order, keyboard access and menu close behaviour.
-- Check contrast, heading hierarchy, alt text, tap target size, skip navigation, keyboard dialog focus, mobile navigation completeness and reduced motion.
-- Check no horizontal overflow, layout shifts, console errors or broken images.
-- Run production build, Lighthouse / PageSpeed and Core Web Vitals review.
-- Optimise fonts, images, code splitting and animation workload.
+### M1 — Editorial system and responsive shell
+- Define colour, typography, grid, spacing, paper texture, borders and material tokens.
+- Build masthead, front-page layout, reusable editorial primitives and responsive foundations.
+- Replace the conventional nav with the INDEX entry point and full-screen overlay shell.
+- Keep the existing character placeholder.
+- Establish accessible focus, keyboard, loading, active and reduced-motion states.
 
-**Exit gate:** production build passes and visual QA is signed off across viewports.
+**Exit gate:** complete responsive shell and navigation structure, without the full 3D opening yet.
 
-### Phase 7 — Release
-- Merge only after QA and CI pass.
-- Connect / verify Vercel deployment and domain.
-- Verify metadata, social preview, favicon and analytics/privacy choice.
-- Test production URL and all outgoing links.
-- Keep a post-launch backlog for content updates and new projects.
+### M2 — Newspaper opening and paper-motion engine
+- Build the 3D cover/opening sequence.
+- Implement torn-paper INDEX reveal and close.
+- Prototype paper displacement, grain, fold and optional charred/burning edge as a rare effect.
+- Tune timing, easing, material response and fallback behaviour.
 
+**Exit gate:** polished opening and navigation transitions, smooth on target devices and usable without WebGL.
 
-### Latest iteration — hero, character placeholder and story polish
+### M3 — Bookshelf and five project worlds
+- Build five individual book covers and tactile horizontal bookshelf.
+- Implement pointer, touch and keyboard browsing.
+- Implement pull-forward, book-open and return-to-shelf transitions.
+- Build individual case studies for BUSHO, VARSITY, ELECTROLAB, JANSEVA ONE and CHHUTTI KE BAAD.
+- Use real product evidence where available; label conceptual artwork honestly.
 
-- The original abstract newspaper-style maker character illustration is restored in the hero, matching the direction the user wants to retain for now.
-- The placeholder is explicitly described as temporary; the personal likeness version will be created later from a portrait reference.
-- The previous workbench experiment is no longer used in the hero.
-- The About narrative includes collaboration, community spaces and learning through experimentation.
-- Project-file metadata shows each project's contribution, stage, focus areas, year and category.
+**Exit gate:** all five projects are navigable, factually accurate and have working, verified links or clear link-pending states.
 
-### Latest iteration — About chapter direction
+### M4 — Milestones and cinematic autobiography
+- Build Viksit Bharat, SQAC and Mineverse recognition modules.
+- Build concise visual autobiography and timeline.
+- Integrate supplied photos and artefacts where available.
+- Remove the old long, repetitive About essay.
 
-- Added an original four-part intersection map connecting engineering, product thinking, visual design and public impact.
-- The map places the common thread—curious builder—at the centre, with four surrounding editorial cards and connective lines.
-- Reworked the About lede to describe cross-disciplinary curiosity without presenting every interest as a separate identity.
-- Preserved the current newspaper-style character illustration as the hero placeholder.
-- Responsive layout and reduced-motion fallback included; still requires live browser and device QA.
+**Exit gate:** coherent, concise story with fact-checked milestones and no invented claims.
 
-### Latest iteration — About narrative, turning point and builder evolution
+### M5 — Journey, learning archive, workshop and contact
+- Verify education and academic figures.
+- Distinguish earned certificates, completed courses, simulations and applications.
+- Connect skills to project evidence.
+- Add verified contact and social links.
+- Build the final-page closing scene.
 
-- Rewrote the About narrative around the user's own arc: JEE setback, reset at SRM, Viksit Bharat representation, SQAC App Development leadership and BUSHO.
-- Kept the language grounded: the JEE phase is framed as a difficult chapter and reset, not a simplistic triumph claim.
-- Added an editorial turning-point block and a four-stage visual evolution from basic HTML pages to interfaces, API/backend integration and real-data workflows.
-- Retained the four-part intersection map and the current newspaper-style character placeholder.
-- All biographical copy is based on the user's account; role names and event details should receive a final factual review before release.
-- Responsive layout and reduced-motion fallback included; live browser/device QA remains outstanding.
+**Exit gate:** complete content, no placeholder contact details or unverified credentials presented as earned.
 
-### Latest iteration — Impact archive
+### M6 — Quality assurance and release candidate
+- Test 1440px, 1280px, 1024px, 768px, 390px and 360px widths.
+- Test Chrome, Firefox, Safari and touch interaction where available.
+- Verify navigation, bookshelf, book transitions, dialogs, focus, external links and browser console.
+- Check reduced motion, contrast, headings, alt text, keyboard operation and tap targets.
+- Check overflow, layout shifts, image loading, GPU load and performance.
+- Run production build and performance audits.
 
-- Expanded the journey timeline with dedicated BUSHO and Varsity milestones.
-- Added a three-part impact ledger to the Viksit Bharat feature: national dialogue, SQAC team leadership and independent product building.
-- The ledger uses restrained editorial cards and responsive layouts; all claims stay within the user's supplied context.
-- Kept the existing newspaper-style character illustration unchanged.
-- Certification titles, academic figures, project outcome metrics and external evidence remain subject to verification.
-- CI and live visual QA are release gates; no deployment has been made.
+**Exit gate:** user-approved preview, successful CI, no blocking accessibility or responsive defects.
 
-### Latest iteration — Learning and skills archive refinement
+### M7 — Release
+- Merge only after user sign-off and all QA gates pass.
+- Verify production deployment, metadata, social previews and all external links.
+- Keep a post-launch improvement backlog.
 
-- Refined the skills taxonomy into frontend/apps, programming, and product/systems, reflecting the user's supplied toolset.
-- Added a verification-first editorial note to the learning archive; credential status remains clearly distinguished from course and simulation completion.
-- Refined the responsive learning archive and skills index presentation.
-- No additional certificates or skill proficiency claims were invented.
-- Actual credential titles, issue dates, public verification links and current proficiency remain to be confirmed.
-- The current newspaper-style character placeholder remains unchanged.
+**Exit gate:** production site verified end-to-end.
 
-### Latest iteration — Contact chapter and motion refinement
+## M0 content truth register
 
-- Reworked the contact action into a clearer invitation for thoughtful collaborations, useful problems and product conversations.
-- Added an editorial orbit stamp with a reduced-motion fallback, responsive contact composition and visible keyboard focus treatment.
-- Refined the footer layout for smaller screens.
-- The original newspaper-style character remains unchanged.
-- The website remains a draft implementation; browser QA, accessibility checks and deployment are still release gates.
+See [CONTENT_REGISTRY.md](./CONTENT_REGISTRY.md). That file is the source of truth for project facts, current evidence and outstanding confirmations. Where repository access is unavailable or details are not documented, the website must not invent them.
 
-### Latest iteration — release metadata and contact polish
+## Current status
 
-- Added author, application, Open Graph and Twitter summary metadata for clearer link previews when the portfolio is shared.
-- Tightened the page description to reflect engineering, software, product design and public-impact interests.
-- Contact chapter now has a direct invitation, orbit stamp, responsive layout, keyboard focus styling and reduced-motion fallback.
-- Latest CI is queued; previous contact and motion implementation builds passed.
-- Full browser/device visual QA and verification of live project, certificate, academic and contact evidence remain before release.
+| Milestone | Status |
+|---|---|
+| Specification and direction | Approved |
+| M0 — Foundation and truth audit | In progress |
+| M1–M7 | Not started |
 
-### Latest iteration — release audit and link integrity
+## Repository working agreement
 
-- Scoped the GSAP animation lifecycle with `gsap.context()`; teardown now reverts portfolio-owned animations instead of globally killing all page tweens and ScrollTriggers.
-- Audited project repository actions and corrected the JanSeva One card: with no verified repository URL, it now shows a non-interactive “link pending” label rather than a dead clickable link.
-- Verified the production build for the GSAP lifecycle fix passed.
-- Latest project-link integrity change is committed; its CI run is pending.
-- Browser/device QA, final copy verification, credentials and contact details still require review before release.
-
-### Latest iteration — reference architecture alignment
-
-- Added a dedicated **Think / Create / Deliver** chapter, inspired by the reference site's process-storytelling structure but written around Kirtan's own approach to problem framing, product design, engineering and iteration.
-- Added a three-column editorial process spread with responsive mobile stacking and reduced-motion-safe presentation.
-- Added the new chapter to the persistent desktop rail and mobile navigation; chapter numbering now runs 01–09.
-- Preserved the current newspaper-style character and the existing featured-work shelf.
-- Still to build: an upcoming-work feature, richer full-width project storytelling, and genuine proof/recognition material where supplied.
-- This is a structural and visual iteration, not a pixel-perfect copy of proprietary reference assets or animations.
-
-### Latest iteration — upcoming work / open notebook
-
-- Added a dedicated **Up Next** chapter with BUSHO as the lead feature and follow-on work directions for ElectroLab and Varsity.
-- The section is explicitly labelled as work in progress; it does not imply unfinished features are shipped or that future plans are completed achievements.
-- Added an original dark editorial feature spread, project status language and responsive stacked layout.
-- Added the new chapter to persistent navigation and updated the chapter count to ten.
-- Preserved the current illustrated newspaper character.
-- Remaining: a richer full project detail experience, proof/recognition archive, real project imagery, browser QA and release checks.
-
-### Latest iteration — recognition and impact archive
-
-- Added a dedicated recognition chapter for Viksit Bharat Young Leaders Dialogue 2026, SQAC App Development leadership and Mineverse event leadership.
-- Framed these as selected experiences and responsibilities, not fabricated awards or trophy counts.
-- Added editorial feature/card layouts, responsive breakpoints and an eleven-chapter navigation update.
-- The existing newspaper character remains unchanged.
-- Still required: documentary evidence/photos where the user wants them shown, a deeper full-page project detail experience, final factual verification, browser QA and release readiness.
-
-### Latest iteration — immersive project file detail
-
-- Deepened the project dialog with an editorial thesis statement, clearer project-stage metadata, four-part case-study structure and a Question → Design → Build → Learn sequence.
-- Styled the detail view as a scrollable project feature with responsive case-study layout and clearer external action links.
-- Added mobile-specific dialog sizing and stacked content/actions.
-- Existing project facts and stages remain as previously supplied; no fabricated metrics, user counts or launch claims added.
-- Browser-level interaction testing and real project screenshots remain required before release.
-
-### Latest iteration — About chapter art direction
-
-- Added a distinctive cobalt-blue “north star” pull quote to give the personal story an emotional centre: the joy of turning difficult problems into something useful.
-- Kept the longer JEE → SRM → Viksit Bharat → SQAC → BUSHO story and the build-evolution timeline intact.
-- Styled the statement as a responsive editorial feature with decorative orbit detail and no additional unsupported personal claims.
-- The immersive project-file detail and recognition chapters remain in place.
-- Browser QA, real project imagery, credential evidence and final factual review remain release gates.
-
-### Latest iteration — featured work interaction and accessibility
-
-- Added keyboard support to the horizontal project shelf: Left/Right to move between project cards, Home to return to the first and End to reach the last.
-- Added a labelled, focusable region so the horizontal archive can be discovered and operated without a pointer.
-- Refined drag cursor, scroll snapping, scrollbar treatment and visible keyboard focus.
-- Preserved touch scrolling and the existing previous/next shelf controls.
-- Latest changes are committed; CI and browser/device interaction QA remain required.
-
-### Latest iteration — opening cover and first-screen hierarchy
-
-- Refined the hero into an independent maker's edition cover with an original KS edition seal and volume marker.
-- Added a small scroll invitation beneath the hero action; its nudge animation respects reduced-motion preferences.
-- Updated the hero's chapter marker to reflect the current eleven-part structure.
-- Kept the existing temporary newspaper-style illustration; no personal likeness was generated.
-- The existing GSAP intro choreography remains the entrance animation; new ornament details are static/low-motion.
-- Latest commits are on the feature branch; CI and browser viewport checks are pending.
-
-### Latest iteration — hero artwork choreography
-
-- Added a staged reveal for the existing newspaper illustration and its caption as part of the GSAP hero entrance.
-- Added subtle scroll-linked movement to the portrait artwork and edition seal to create depth as visitors leave the cover.
-- Motion is tied to the hero's scroll range and remains inside the existing GSAP context for teardown.
-- Kept the artwork itself unchanged; this is not the personalised face character.
-- Reduced-motion mode already bypasses the Lenis/GSAP motion setup.
-- Browser verification across desktop, mobile, touch and reduced-motion settings remains outstanding.
-
-### Latest iteration — editorial consistency and content integrity audit
-
-- Reconciled the visible chapter labels with the eleven-section navigation: Recognition, Up Next, Field Note, About, Journey, Learning, Toolbox and Contact now use consistent numbering.
-- Audited rendered section IDs: all eleven navigation targets exist and section IDs are unique.
-- Audited image elements and external links in the main application source; no inline image tags are currently used because the artwork is composed from SVG/CSS.
-- Confirmed project cards use the current repository/live links supplied in the project data; the BUSHO project remains marked in development.
-- Confirmed the development PR is open and mergeable, but intentionally still draft.
-- Latest numbering fix is committed; its own CI run is not yet confirmed. Browser/device QA remains a release gate.
-
-### Latest iteration — source-level navigation and accessibility audit
-
-- Audited the rendered application source: all eleven chapter targets exist, there are no duplicate element IDs, and every in-page hash link resolves to an existing ID.
-- Checked the native button controls for accessible labels; the current nine buttons have explicit labels or visible text.
-- Confirmed the page has a skip-to-content link, document language, viewport metadata, page description, social title/description metadata and a favicon.
-- Confirmed the temporary newspaper character is currently rendered as CSS/SVG artwork rather than an external image; no missing image asset references were found in the application markup.
-- A real browser/device pass is still required for visual overflow, touch behaviour, focus appearance, console errors and performance.
-- Vercel currently has no project connected for this repository in the available account context, so no preview deployment was created. Do not treat the CI build as browser QA.
-
-## Current implementation status
-
-| Area | Status | Notes |
-|---|---|---|
-| React/Vite foundation | In place | Existing stack retained |
-| Editorial visual direction | First pass implemented | Paper, ink, cobalt, vermilion, typography |
-| Main content sections | Enhanced first pass | Hero, work, Viksit Bharat feature with JanSeva One civic journey concept map, About with working principles and a four-part intersection map, annotated journey timeline with BUSHO and Varsity milestones, filterable learning archive with verification-first credential note, skills, contact |
-| Project filter | Implemented | Four project categories; filter transitions and shelf counter wired |
-| GSAP / Lenis | First pass implemented | Intro, scroll reveals, orbit details, reading progress; needs motion QA |
-| Responsive layouts | First pass implemented | Eight-item navigation, keyboard skip link and global reduced-motion fallback added; still needs real device/browser testing |
-| Custom character | Intentionally deferred | Placeholder only; original artwork later |
-| Project case studies | Structured first pass | Project dialogs explain problem, approach, honest current state and next iteration; original conceptual diagrams added; real screenshots, evidence and outcome metrics still needed |
-| Desktop horizontal work shelf | First pass implemented | Horizontal snap shelf, touch scrolling, drag affordance, previous/next controls and position counter; needs browser QA |
-| Chapter navigation | First pass implemented | Persistent desktop rail, active chapter tracking, hover labels; mobile torn-edge panel; WebGL intentionally not required |
-| Project detail transitions | Enhanced first pass | Accessible project-file dialog with Escape, backdrop close, focus trap and focus return; book-opening transition, structured mini case studies and original conceptual diagrams |
-| Content verification | Partially structured; source checks pending | Learning records now distinguish course, simulation and unverified entries; final titles, evidence, academic details, roles and contact links still require user confirmation |
-| Browser visual QA | Pending | Code and CI checks only so far; visual QA across viewports remains a release gate |
-| Production deploy | Not done | Do not treat draft branch as live site |
-
-## Current branch and working agreement
-
-- Branch: `feature/editorial-world-rebuild`
-- Draft PR: #1
-- Main branch remains untouched until build and QA gates pass.
-- Keep the original site as a reference for design analysis, not as a source of copied assets or exact components.
+- Keep changes isolated on `feature/editorial-world-rebuild`.
+- Work in small, reviewable commits.
+- Run CI after each meaningful change.
+- Preserve a preview link for milestone review when available.
+- Do not merge or publish a production release without the user's explicit approval.
