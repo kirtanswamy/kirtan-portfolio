@@ -187,6 +187,15 @@ The reference site has been reviewed at the level of its visual concept, content
 - Latest project-link integrity change is committed; its CI run is pending.
 - Browser/device QA, final copy verification, credentials and contact details still require review before release.
 
+### Latest iteration — reference architecture alignment
+
+- Added a dedicated **Think / Create / Deliver** chapter, inspired by the reference site's process-storytelling structure but written around Kirtan's own approach to problem framing, product design, engineering and iteration.
+- Added a three-column editorial process spread with responsive mobile stacking and reduced-motion-safe presentation.
+- Added the new chapter to the persistent desktop rail and mobile navigation; chapter numbering now runs 01–09.
+- Preserved the current newspaper-style character and the existing featured-work shelf.
+- Still to build: an upcoming-work feature, richer full-width project storytelling, and genuine proof/recognition material where supplied.
+- This is a structural and visual iteration, not a pixel-perfect copy of proprietary reference assets or animations.
+
 ## Current implementation status
 
 | Area | Status | Notes |
