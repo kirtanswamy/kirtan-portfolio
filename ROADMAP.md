@@ -225,7 +225,8 @@ See [CONTENT_REGISTRY.md](./CONTENT_REGISTRY.md). That file is the source of tru
 | Specification and direction | Approved |
 | M0 — Foundation and truth audit | Complete — content truth register established; pending evidence checks remain deferred |
 | M1 — Newspaper shell and opening | Desktop preview reviewed; mobile/tablet QA remains open for M6 |
-| M2 — Material and paper motion | In progress — first SVG displacement and fold-depth pass |\n| M3–M7 | Not started |
+| M2 — Material and paper motion | In progress — first SVG displacement and fold-depth pass |
+| M3–M7 | Not started |
 
 ## Repository working agreement
 
