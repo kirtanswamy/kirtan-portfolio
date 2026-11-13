@@ -229,6 +229,14 @@ The reference site has been reviewed at the level of its visual concept, content
 - The immersive project-file detail and recognition chapters remain in place.
 - Browser QA, real project imagery, credential evidence and final factual review remain release gates.
 
+### Latest iteration — featured work interaction and accessibility
+
+- Added keyboard support to the horizontal project shelf: Left/Right to move between project cards, Home to return to the first and End to reach the last.
+- Added a labelled, focusable region so the horizontal archive can be discovered and operated without a pointer.
+- Refined drag cursor, scroll snapping, scrollbar treatment and visible keyboard focus.
+- Preserved touch scrolling and the existing previous/next shelf controls.
+- Latest changes are committed; CI and browser/device interaction QA remain required.
+
 ## Current implementation status
 
 | Area | Status | Notes |
