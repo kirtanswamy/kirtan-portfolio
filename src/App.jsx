@@ -479,9 +479,20 @@ function App() {
         <div className="work-foot reveal"><span>MORE EXPERIMENTS ARE ALWAYS IN THE WORKS.</span><a href="https://github.com/kirtanswamy" target="_blank" rel="noreferrer">EXPLORE GITHUB <ArrowUpRight size={14} /></a></div>
       </section>
 
+      <section className="process-section section-pad" id="process">
+        <div className="section-index reveal"><Eyebrow>03 — THE WAY I WORK</Eyebrow><span>THINK / CREATE / DELIVER</span></div>
+        <div className="process-heading"><h2>THINK.<br/><em>CREATE.</em><br/>DELIVER<span>.</span></h2><p>Good work is rarely a straight line from brief to launch. It takes curiosity, craft, iteration and care for the person on the other side.</p></div>
+        <div className="process-grid">
+          <article className="process-card reveal"><span>01 / THINK</span><strong>FIND THE REAL QUESTION.</strong><p>Understand the context before reaching for a solution. Ask who the problem affects, what already exists and what would make a meaningful difference.</p><i>OBSERVE → QUESTION → FRAME</i></article>
+          <article className="process-card reveal"><span>02 / CREATE</span><strong>MAKE THE IDEA TANGIBLE.</strong><p>Explore the experience, shape the interface and build a working version. Move between design and engineering until the pieces make sense together.</p><i>EXPLORE → DESIGN → BUILD</i></article>
+          <article className="process-card reveal"><span>03 / DELIVER</span><strong>MAKE IT WORK IN CONTEXT.</strong><p>Test the details, connect the systems and learn from what happens in use. A useful product has to work beyond the presentation.</p><i>TEST → REFINE → LEARN</i></article>
+        </div>
+        <div className="process-foot"><span>AN ITERATIVE PRACTICE / NOT A LINEAR FORMULA</span><span>03 / 09</span></div>
+      </section>
+
       <section className="field-note" id="field-notes">
         <div className="field-note-inner">
-          <div className="field-note-label"><Eyebrow light>03 — OUTSIDE THE WORKSHOP</Eyebrow><span>FIELD NOTE / 001</span></div>
+          <div className="field-note-label"><Eyebrow light>04 — OUTSIDE THE WORKSHOP</Eyebrow><span>FIELD NOTE / 001</span></div>
           <div className="field-note-layout">
             <div className="field-note-date">2026<span>NEW DELHI</span></div>
             <div className="field-note-copy">
@@ -525,7 +536,7 @@ function App() {
       </section>
 
       <section className="about-section section-pad" id="about">
-        <div className="section-index reveal"><Eyebrow>04 — THE PERSON BEHIND THE PROJECTS</Eyebrow><span>A LITTLE CONTEXT</span></div>
+        <div className="section-index reveal"><Eyebrow>05 — THE PERSON BEHIND THE PROJECTS</Eyebrow><span>A LITTLE CONTEXT</span></div>
         <div className="about-layout">
           <div className="about-heading section-title">
             <h2><span className="title-mask"><span>MORE</span></span><span className="title-mask"><span>THAN</span></span><span className="title-mask"><span>THE <em>CODE.</em></span></span></h2>
@@ -659,7 +670,7 @@ function App() {
       </section>
 
       <section className="contact-section section-pad" id="contact">
-        <div className="section-index reveal"><Eyebrow>08 — THE NEXT PAGE IS OPEN</Eyebrow><span>LET'S MAKE SOMETHING USEFUL</span></div>
+        <div className="section-index reveal"><Eyebrow>09 — THE NEXT PAGE IS OPEN</Eyebrow><span>LET'S MAKE SOMETHING USEFUL</span></div>
         <div className="contact-main">
           <div className="contact-copy"><p>HAVE A QUESTION, AN IDEA<br />OR A GOOD PROBLEM?</p><h2>LET'S<br /><em>MAKE IT.</em></h2><span className="contact-footnote">GOOD CONVERSATIONS CAN START ANYWHERE.</span></div>
           <div className="contact-action">
