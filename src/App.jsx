@@ -178,7 +178,7 @@ function ProjectCard({ project, index, onOpen }) {
   return (
     <article className={`project-card project-${project.tone} reveal`}>
       <div className="project-card-top">
-        <span className="project-number">{project.id} / 04</span>
+        <span className="project-number">{project.id} / {String(projects.length).padStart(2, '0')}</span>
         <span className="project-stage"><span />{project.stage}</span>
       </div>
       <button type="button" className="project-art project-art-button" onClick={() => onOpen(project)} aria-label={`Read the ${project.name} project note`}>
@@ -207,7 +207,7 @@ function ProjectCard({ project, index, onOpen }) {
 }
 
 function App() {
-  const [openingActive, setOpeningActive] = useState(true)
+  const [openingActive, setOpeningActive] = useState(() => !window.matchMedia('(prefers-reduced-motion: reduce)').matches)
   const [openingLeaving, setOpeningLeaving] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const [activeCategory, setActiveCategory] = useState('ALL WORK')
@@ -220,8 +220,9 @@ function App() {
 
   useEffect(() => {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    const exitTimer = window.setTimeout(() => setOpeningLeaving(true), reduced ? 80 : 2450)
-    const removeTimer = window.setTimeout(() => setOpeningActive(false), reduced ? 180 : 3000)
+    if (reduced) return undefined
+    const exitTimer = window.setTimeout(() => setOpeningLeaving(true), 2450)
+    const removeTimer = window.setTimeout(() => setOpeningActive(false), 3000)
     return () => { window.clearTimeout(exitTimer); window.clearTimeout(removeTimer) }
   }, [])
 
@@ -387,18 +388,18 @@ function App() {
 
   return (
     <main className="site-shell" id="top">
-      {openingActive && <div className={`newspaper-opening ${openingLeaving ? "is-leaving" : ""}`} role="status" aria-label="Opening The Maker's Notebook">
+      {openingActive && <div className={`newspaper-opening ${openingLeaving ? "is-leaving" : ""}`} role="dialog" aria-modal="true" aria-labelledby="opening-title">
         <div className="opening-vignette" />
         <div className="opening-stage" aria-hidden="true">
           <div className="opening-paper">
             <div className="opening-paper-under"><span>THE MAKER'S NOTEBOOK</span><strong>K.S.</strong><i>VOL. 01 / 2026</i></div>
-            <div className="opening-leaf opening-leaf-left"><span>INDEPENDENT<br/>MAKER'S EDITION</span><strong>KIRTAN<br/>SWAMY.</strong><i>ENGINEERING / DESIGN / IDEAS</i></div>
+            <div className="opening-leaf opening-leaf-left"><span>INDEPENDENT<br/>MAKER'S EDITION</span><strong id="opening-title">KIRTAN<br/>SWAMY.</strong><i>ENGINEERING / DESIGN / IDEAS</i></div>
             <div className="opening-leaf opening-leaf-right"><span>FIELD NOTES / 001</span><strong>CURIOUS<br/>BY NATURE.</strong><i>HYDERABAD, INDIA</i></div>
             <div className="opening-fold" />
           </div>
         </div>
         <div className="opening-caption"><span>AN OPEN NOTEBOOK</span><span>2026 / INDIA</span></div>
-        <button type="button" className="opening-skip" onClick={() => { setOpeningLeaving(true); window.setTimeout(() => setOpeningActive(false), 450) }}>SKIP INTRO <ArrowUpRight size={13}/></button>
+        <button type="button" className="opening-skip" autoFocus onClick={() => { setOpeningLeaving(true); window.setTimeout(() => setOpeningActive(false), 450) }}>SKIP INTRO <ArrowUpRight size={13}/></button>
       </div>}
       <a className="skip-link" href="#main-content">SKIP TO CONTENT</a>
       <div className="reading-progress" aria-hidden="true"><span className="reading-progress__bar" /></div>
@@ -423,13 +424,16 @@ function App() {
         <button className="menu-button" onClick={() => setMenuOpen(!menuOpen)} aria-expanded={menuOpen} aria-label={menuOpen ? 'Close navigation' : 'Open navigation'}>
           {menuOpen ? <X /> : <Menu />}
         </button>
-        <span className="masthead-index-prompt">OPEN THE INDEX <i>↗</i></span>
+        <button type="button" className="masthead-index-prompt" onClick={() => setMenuOpen(true)} aria-controls="mobile-navigation" aria-expanded={menuOpen}>OPEN THE INDEX <i>↗</i></button>
       </header>
 
       <nav id="mobile-navigation" className={`mobile-nav index-overlay ${menuOpen ? 'is-open' : ''}`} aria-label="Global index" aria-hidden={!menuOpen} inert={!menuOpen}>
-        <Eyebrow>THE CONTENTS</Eyebrow>
-        {navItems.map(([label, href], index) => <a key={href} href={href} onClick={closeMenu}><span>0{index + 1}</span>{label}<ArrowUpRight /></a>)}
-        <p>AN OPEN NOTEBOOK · HYDERABAD, INDIA</p>
+        <div className="index-overlay-top"><span>THE MAKER'S NOTEBOOK / INDEX</span><span>VOL. 01 — 2026</span><button type="button" onClick={closeMenu} aria-label="Close index"><X size={19}/><span>CLOSE</span></button></div>
+        <div className="index-overlay-title"><span>CONTENTS / 08 CHAPTERS</span><strong>INDEX<span>.</span></strong></div>
+        <div className="index-overlay-links">
+          {navItems.map(([label, href], index) => <a key={href} href={href} onClick={closeMenu} className={activeSection === href ? 'is-current' : ''}><span>0{index + 1}</span><strong>{label}</strong><ArrowUpRight /></a>)}
+        </div>
+        <div className="index-overlay-bottom"><span>AN OPEN NOTEBOOK · HYDERABAD, INDIA</span><span>TURN THE PAGE / FIND THE WORK</span></div>
       </nav>
 
       <section className="hero" id="main-content" aria-labelledby="hero-title">
@@ -497,9 +501,9 @@ function App() {
         </div>
         <div className="project-index-bar">
           <div className="project-filters" role="group" aria-label="Filter projects">
-            {categories.map(category => <button key={category} className={activeCategory === category ? 'selected' : ''} onClick={() => setActiveCategory(category)} aria-pressed={activeCategory === category}>{category}<span>{category === 'ALL WORK' ? '04' : String(projects.filter(project => project.category === category).length).padStart(2, '0')}</span></button>)}
+            {categories.map(category => <button key={category} className={activeCategory === category ? 'selected' : ''} onClick={() => setActiveCategory(category)} aria-pressed={activeCategory === category}>{category}<span>{String(category === 'ALL WORK' ? projects.length : projects.filter(project => project.category === category).length).padStart(2, '0')}</span></button>)}
           </div>
-          <span className="archive-index-caption">FILE INDEX / 001—004</span>
+          <span className="archive-index-caption">FILE INDEX / 001—005</span>
         </div>
         <div className="shelf-toolbar reveal">
           <span>DRAG / SCROLL TO EXPLORE THE ARCHIVE</span>
