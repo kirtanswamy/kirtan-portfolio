@@ -59,8 +59,8 @@ const projects = [
     note: 'A road complaint should not disappear into a file.',
     contribution: 'ORIGINAL IDEA · CONCEPT DEVELOPMENT',
     problem: 'Residents can notice damaged roads and local infrastructure issues, but often lack a clear way to submit a traceable report and follow its resolution.',
-    approach: 'JanSeva One was imagined as a unified civic-feedback framework: residents submit a geo-tagged road photo or video; the issue is categorised and routed to the responsible jurisdiction; citizens can track its status; and repair history creates an accountability trail. Roads were the proposed first focus, with sanitation, sewage, public toilets, health centres and schools as possible future domains.',
-    current: 'An ideation-stage concept prepared for the Viksit Bharat Young Leaders Dialogue 2026. It was presented as a proposal only: no application, deployed prototype, pilot or operational service was implemented.',
+    approach: 'JanSeva One (UCAP) was imagined as a citizen-first civic transparency and action platform. The proposed road / PMGSY pilot would let citizens submit geo-tagged photos or video of potholes, flooding and surface damage, then connect the report to public-works information such as the responsible department, contractor, project timelines and milestones. The proposed journey included jurisdiction routing, status updates, evidence of repair and a public repair-history trail. Assisted reporting through CSCs, Panchayat offices and youth volunteers was also considered. Later concept extensions included drainage, sanitation, PHCs, schools and wider village infrastructure.',
+    current: 'Ideation only. JanSeva One was never implemented: no working application, deployed prototype, backend, pilot or operational government integration exists. The concept was explored as a proposed MVP for one Gram Panchayat in Chhattisgarh, using simulated data for any demonstration.',
     next: 'The concept would need stakeholder research, jurisdiction and escalation mapping, a citizen journey prototype and local validation before any implementation could be considered.',
   },
   {
