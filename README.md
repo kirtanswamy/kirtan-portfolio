@@ -37,7 +37,7 @@ npm run preview
 7. Skills and workshop
 8. Contact and closing page
 
-Featured projects: BUSHO, Varsity, ElectroLab, JanSeva One and Chhutti Ke Baad. Varsity is in development and is not deployed; ElectroLab and Varsity therefore link to source only. JanSeva One is an ideation-stage concept that was never implemented.
+Featured projects: BUSHO, Varsity, ElectroLab, JanSeva One and Chhutti Ke Baad. Varsity is in development and is not deployed; ElectroLab and Varsity therefore link to source only. JanSeva One is an ideation-only concept that was never implemented; its Viksit Bharat presentation topic is not used in the public case study.
 
 Global navigation is planned as a torn-paper INDEX; project navigation remains a separate tactile bookshelf. The existing newspaper-style character artwork is temporary until a custom likeness is created from a user-supplied portrait. The current opening is a CSS perspective prototype; WebGL paper displacement is a later milestone.
 
@@ -47,6 +47,8 @@ Global navigation is planned as a torn-paper INDEX; project navigation remains a
 - Current build: horizontal project archive with pointer drag, touch scrolling, keyboard arrows, Home and End. Next milestone: replace the grid-like shelf with a tactile bookshelf and book-open transitions.
 - Project detail dialogs with Escape-to-close, focus trapping, focus restoration and backdrop dismissal.
 - Scroll progress, GSAP section reveals and restrained hero parallax.
+- The persistent current-project bookmark collapses to an edge tab and expands on hover or keyboard focus.
+- Lenis is stopped while the global INDEX is open; the page behind the overlay is locked to prevent competing scrollbars.
 - Reduced-motion handling and keyboard-visible focus styles.
 
 ## Personal data accuracy
