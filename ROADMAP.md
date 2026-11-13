@@ -99,7 +99,7 @@ An interactive, cinematic newspaper documenting the evolution of a builder. The 
 
 ### M1 — Newspaper shell and opening prototype
 
-<badge>In progress</badge>
+**Status: In progress.**
 
 **Implemented on `feature/editorial-world-rebuild`:**
 - Added a cinematic opening overlay with two independently animated paper leaves, perspective rotation, central fold, paper-grid texture, dark vignette and the masthead revealed across the spread.
