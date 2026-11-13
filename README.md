@@ -1,6 +1,6 @@
 # Kirtan Swamy — The Maker's Notebook
 
-An original editorial portfolio planned as a living newspaper / maker's notebook: cinematic 3D opening, torn-paper global index, tactile project bookshelf and a visual autobiography. The current build is the foundation; the approved motion-led redesign will be delivered milestone by milestone.
+An original editorial portfolio built as a living newspaper / maker's notebook: a CSS-perspective opening, torn-paper global index, a project archive evolving into a tactile bookshelf, and a visual autobiography. The current build is the M1 newspaper-shell prototype; the WebGL paper engine and five-book shelf remain later milestones.
 
 ## Stack
 
@@ -44,6 +44,7 @@ Global navigation is planned as a torn-paper INDEX; project navigation remains a
 ## Interactions and accessibility
 
 - Eight-chapter desktop rail and full-screen torn-edge INDEX on desktop and mobile; Escape closes it, Tab focus is contained, and focus returns to the trigger.
+- The opening has a keyboard-operable skip action, Escape dismissal, focus containment and reduced-motion bypass. Rendered desktop/mobile QA remains pending before M1 sign-off.
 - Current build: horizontal project archive with pointer drag, touch scrolling, keyboard arrows, Home and End. Next milestone: replace the grid-like shelf with a tactile bookshelf and book-open transitions.
 - Project detail dialogs with Escape-to-close, focus trapping, focus restoration and backdrop dismissal.
 - Scroll progress, GSAP section reveals and restrained hero parallax.
