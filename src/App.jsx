@@ -68,8 +68,8 @@ const projects = [
 const categories = ['ALL WORK', 'PUBLIC SYSTEMS', 'CAMPUS LIFE', 'ENGINEERING', 'CIVIC INNOVATION']
 
 const chapterItems = [
-  ['01', 'STORY', '#story'], ['02', 'WORK', '#work'], ['03', 'PROCESS', '#process'], ['04', 'UP NEXT', '#up-next'], ['05', 'FIELD NOTE', '#field-notes'], ['06', 'ABOUT', '#about'],
-  ['07', 'JOURNEY', '#journey'], ['08', 'LEARNING', '#learning'], ['09', 'TOOLBOX', '#skills'], ['10', 'CONTACT', '#contact'],
+  ['01', 'STORY', '#story'], ['02', 'WORK', '#work'], ['03', 'PROCESS', '#process'], ['04', 'RECOGNITION', '#recognition'], ['05', 'UP NEXT', '#up-next'], ['06', 'FIELD NOTE', '#field-notes'], ['07', 'ABOUT', '#about'],
+  ['08', 'JOURNEY', '#journey'], ['09', 'LEARNING', '#learning'], ['10', 'TOOLBOX', '#skills'], ['11', 'CONTACT', '#contact'],
 ]
 
 const learning = [
@@ -88,7 +88,7 @@ const skills = [
 ]
 
 const navItems = [
-  ['STORY', '#story'], ['WORK', '#work'], ['PROCESS', '#process'], ['UP NEXT', '#up-next'], ['FIELD NOTES', '#field-notes'], ['ABOUT', '#about'],
+  ['STORY', '#story'], ['WORK', '#work'], ['PROCESS', '#process'], ['RECOGNITION', '#recognition'], ['UP NEXT', '#up-next'], ['FIELD NOTES', '#field-notes'], ['ABOUT', '#about'],
   ['JOURNEY', '#journey'], ['LEARNING', '#learning'], ['TOOLBOX', '#skills'], ['CONTACT', '#contact'],
 ]
 
@@ -487,7 +487,7 @@ function App() {
           <article className="process-card reveal"><span>02 / CREATE</span><strong>MAKE THE IDEA TANGIBLE.</strong><p>Explore the experience, shape the interface and build a working version. Move between design and engineering until the pieces make sense together.</p><i>EXPLORE → DESIGN → BUILD</i></article>
           <article className="process-card reveal"><span>03 / DELIVER</span><strong>MAKE IT WORK IN CONTEXT.</strong><p>Test the details, connect the systems and learn from what happens in use. A useful product has to work beyond the presentation.</p><i>TEST → REFINE → LEARN</i></article>
         </div>
-        <div className="process-foot"><span>AN ITERATIVE PRACTICE / NOT A LINEAR FORMULA</span><span>03 / 10</span></div>
+        <div className="process-foot"><span>AN ITERATIVE PRACTICE / NOT A LINEAR FORMULA</span><span>03 / 11</span></div>
       </section>
 
       <section className="recognition-section section-pad" id="recognition">
