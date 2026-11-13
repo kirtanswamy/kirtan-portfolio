@@ -490,6 +490,20 @@ function App() {
         <div className="process-foot"><span>AN ITERATIVE PRACTICE / NOT A LINEAR FORMULA</span><span>03 / 09</span></div>
       </section>
 
+      <section className="up-next-section section-pad" id="up-next">
+        <div className="section-index reveal"><Eyebrow>UP NEXT — IN THE MAKING</Eyebrow><span>OPEN FILES / NOT FINISHED STORIES</span></div>
+        <div className="up-next-heading"><h2>THE NEXT<br/><em>CHAPTERS.</em></h2><p>Some ideas are still on the workbench. These are the directions I'm actively exploring—not finished launches or promises dressed up as products.</p></div>
+        <div className="up-next-feature reveal">
+          <div className="up-next-feature-mark"><span>IN PROGRESS / 001</span><strong>BUSHO</strong><i>↗</i></div>
+          <div className="up-next-feature-copy"><span>HEALTHCARE WORKFLOWS / DATA IN CONTEXT</span><h3>FROM ENTRY<br/>TO <em>ACTION.</em></h3><p>Complete and validate the health-worker-to-supervisor reporting loop, strengthen the Supabase-backed data model and test the experience against realistic operational workflows.</p><b>NEXT FOCUS / END-TO-END WORKFLOW</b></div>
+        </div>
+        <div className="up-next-list">
+          <article className="up-next-item reveal"><span>002 / ELECTROLAB</span><div><h3>MAKE THE INVISIBLE VISIBLE.</h3><p>Continue expanding the electronics workbench: more device models, useful experiments and clearer engineering visualisations.</p></div><i>EXPERIMENT</i></article>
+          <article className="up-next-item reveal"><span>003 / VARSITY</span><div><h3>MAKE CAMPUS INFORMATION FEEL CONNECTED.</h3><p>Move core student workflows toward a more complete, reliable and coherent campus companion.</p></div><i>PRODUCT BUILD</i></article>
+        </div>
+        <div className="up-next-foot"><span>STATUS IS A SNAPSHOT, NOT A FINISH LINE.</span><span>AN OPEN NOTEBOOK / 2026</span></div>
+      </section>
+
       <section className="field-note" id="field-notes">
         <div className="field-note-inner">
           <div className="field-note-label"><Eyebrow light>04 — OUTSIDE THE WORKSHOP</Eyebrow><span>FIELD NOTE / 001</span></div>
