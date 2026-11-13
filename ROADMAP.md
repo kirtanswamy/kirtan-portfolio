@@ -255,6 +255,15 @@ The reference site has been reviewed at the level of its visual concept, content
 - Reduced-motion mode already bypasses the Lenis/GSAP motion setup.
 - Browser verification across desktop, mobile, touch and reduced-motion settings remains outstanding.
 
+### Latest iteration — editorial consistency and content integrity audit
+
+- Reconciled the visible chapter labels with the eleven-section navigation: Recognition, Up Next, Field Note, About, Journey, Learning, Toolbox and Contact now use consistent numbering.
+- Audited rendered section IDs: all eleven navigation targets exist and section IDs are unique.
+- Audited image elements and external links in the main application source; no inline image tags are currently used because the artwork is composed from SVG/CSS.
+- Confirmed project cards use the current repository/live links supplied in the project data; the BUSHO project remains marked in development.
+- Confirmed the development PR is open and mergeable, but intentionally still draft.
+- Latest numbering fix is committed; its own CI run is not yet confirmed. Browser/device QA remains a release gate.
+
 ## Current implementation status
 
 | Area | Status | Notes |
