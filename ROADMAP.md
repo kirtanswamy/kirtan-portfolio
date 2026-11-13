@@ -237,6 +237,15 @@ The reference site has been reviewed at the level of its visual concept, content
 - Preserved touch scrolling and the existing previous/next shelf controls.
 - Latest changes are committed; CI and browser/device interaction QA remain required.
 
+### Latest iteration — opening cover and first-screen hierarchy
+
+- Refined the hero into an independent maker's edition cover with an original KS edition seal and volume marker.
+- Added a small scroll invitation beneath the hero action; its nudge animation respects reduced-motion preferences.
+- Updated the hero's chapter marker to reflect the current eleven-part structure.
+- Kept the existing temporary newspaper-style illustration; no personal likeness was generated.
+- The existing GSAP intro choreography remains the entrance animation; new ornament details are static/low-motion.
+- Latest commits are on the feature branch; CI and browser viewport checks are pending.
+
 ## Current implementation status
 
 | Area | Status | Notes |
