@@ -386,6 +386,7 @@ function App() {
             <span className="headline-row headline-second">SWAMY<span className="headline-period">.</span><span className="hero-starburst"><Asterisk /></span></span>
           </h1>
           <div className="hero-bottomline"><span>CURIOUS BY NATURE.</span><span>BUILT BY TRYING.</span><span>GROUNDED IN PURPOSE.</span></div>
+          <div className="hero-edition-mark" aria-hidden="true"><span>INDEPENDENT MAKER'S EDITION</span><strong>KS<span>®</span></strong><i>VOL. 01 / 2026</i></div>
         </div>
         <div className="hero-lower">
           <div className="hero-deck">
@@ -407,9 +408,9 @@ function App() {
             <div className="portrait-caption"><span>AN ORIGINAL ILLUSTRATED IDENTITY</span><span>PERSONAL CHARACTER TO COME ↗</span></div>
           </div>
           <div className="hero-aside">
-            <span className="aside-index">01 / 08</span>
+            <span className="aside-index">01 / 11</span>
             <p>NOT A FINISHED STORY.<br />A RECORD OF WHAT I'M<br />LEARNING TO MAKE.</p>
-            <a href="#work" className="round-arrow" aria-label="Explore selected work"><ArrowDown /></a>
+            <a href="#work" className="round-arrow" aria-label="Explore selected work"><ArrowDown /></a><span className="hero-scroll-note">SCROLL TO EXPLORE <i>↓</i></span>
           </div>
         </div>
       </section>
