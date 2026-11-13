@@ -15,13 +15,13 @@ const projects = [
     id: '01', name: 'BUSHO', category: 'PUBLIC SYSTEMS', type: 'Health-tech · Operations',
     description: 'A frontline healthcare operations platform exploring how health workers and supervisors can move information through a clearer, more accountable workflow.',
     stage: 'IN DEVELOPMENT', year: '2026', tone: 'blue',
-    href: 'https://project1busho.vercel.app/', repo: 'https://github.com/kirtanswamy/BUSHO',
+    href: 'https://busho.de5.net', repo: 'https://github.com/kirtanswamy/BUSHO',
     tags: ['React', 'Supabase', 'Workflow design'],
     note: 'From the field, for the field.',
     contribution: 'PROJECT LEAD · PRODUCT & DEVELOPMENT',
     problem: 'Frontline health information needs a dependable path from the person recording it to the supervisor who reviews and acts on it.',
-    approach: 'Shape a health-worker-to-supervisor workflow, with structured data entry and a clearer review surface. The build is moving toward Supabase-backed records and operational data.',
-    current: 'A working prototype with parts of the workflow in place. The complete end-to-end demonstration and real-data validation are still in progress.',
+    approach: 'Prototype a frontline reporting workflow: capture a report, structure editable draft fields, require human verification, then surface a supervisor review and replenishment draft.',
+    current: 'A browser-based prototype using synthetic sample data, mock rule-based extraction and browser-local storage. It is not connected to live government inventory or a shared production backend; the complete workflow and field validation remain in progress.',
     next: 'Complete the full reporting-to-review loop, validate the data model and test the workflow against realistic field conditions.',
   },
   {
@@ -57,15 +57,28 @@ const projects = [
     href: '', repo: '',
     tags: ['Civic technology', 'Research', 'Public systems'],
     note: 'A small report should start a real response.',
-    contribution: 'CIVIC-TECH CONCEPT & PRESENTATION',
+    contribution: 'CIVIC-TECH CONCEPT',
     problem: 'Local infrastructure concerns can be difficult for residents to report and follow through to a visible response.',
     approach: 'Propose a unified civic action platform for reporting and tracking local issues, with an initial focus on road-related problems and a community-to-public-system feedback loop.',
-    current: 'A civic-tech concept presented at Viksit Bharat Young Leaders Dialogue 2026 under “Innovation with Tradition: Building a Modern Bharat”. It is a proposal, not a deployed government service.',
+    current: 'A civic-tech concept exploring a clearer route for residents to report and follow local infrastructure issues. It is a proposal, not a deployed government service.',
     next: 'Prototype the reporting and resolution journey, test the assumptions with community stakeholders and explore a focused local pilot.',
+  },
+  {
+    id: '05', name: 'CHHUTTI KE BAAD', category: 'INTERACTIVE EXPERIENCE', type: 'Creative coding · Nostalgia',
+    description: 'An interactive time machine for the golden after-school hours of Indian childhood: the room, the CRT, the remote and the little rituals around them.',
+    stage: 'LIVE EXPERIENCE', year: '2026', tone: 'orange',
+    href: 'https://chhutti-ke-baad.vercel.app/', repo: 'https://github.com/kirtanswamy/chhutti-ke-baad',
+    tags: ['React', 'Vite', 'Interactive storytelling'],
+    note: 'School is over. The TV is on.',
+    contribution: 'CONCEPT · DESIGN & DEVELOPMENT',
+    problem: 'A familiar after-school ritual is difficult to capture in a conventional project page. The atmosphere and small interactions are the experience.',
+    approach: 'Build an explorable illustrated room with a CRT television, interactive remote, changing room lighting, a show browser, school-day objects and small surprises.',
+    current: 'A live interactive website. The README documents the CRT video experience, remote controls, afternoon/evening/lights-off ambience, interactive room props and keyboard-friendly controls.',
+    next: 'Bring the room into the portfolio as a miniature playable case study, preserving the original live experience as the primary destination.',
   },
 ]
 
-const categories = ['ALL WORK', 'PUBLIC SYSTEMS', 'CAMPUS LIFE', 'ENGINEERING', 'CIVIC INNOVATION']
+const categories = ['ALL WORK', 'PUBLIC SYSTEMS', 'CAMPUS LIFE', 'ENGINEERING', 'CIVIC INNOVATION', 'INTERACTIVE EXPERIENCE']
 
 const chapterItems = [
   ['01', 'STORY', '#story'], ['02', 'WORK', '#work'], ['03', 'PROCESS', '#process'], ['04', 'RECOGNITION', '#recognition'], ['05', 'UP NEXT', '#up-next'], ['06', 'FIELD NOTE', '#field-notes'], ['07', 'ABOUT', '#about'],
@@ -125,6 +138,23 @@ function ProjectVisual({ project }) {
       <rect x="184" y="133" width="296" height="57" rx="3" fill="#f1e8d8" stroke="currentColor"/>
       <g fill="currentColor" fontFamily="monospace" fontSize="9"><text x="196" y="82">UPCOMING TEST</text><text x="196" y="105" fontSize="13">DLD · UNIT 04</text><text x="347" y="82">STUDY MATERIAL</text><text x="347" y="105" fontSize="13">PYQ ARCHIVE</text><text x="198" y="151">YOUR WEEK / ACADEMIC TIMELINE</text></g>
       <path d="M198 174h38v-7h37v10h38v-14h37v8h37v-6h37v8h38" fill="none" stroke="#254cdb" strokeWidth="2"/>
+    </svg>
+  )
+  if (project.id === '05') return (
+    <svg className="project-visual project-visual-chutti" viewBox="0 0 520 230" role="img" aria-label="Illustration of an after-school room with a CRT television and interactive remote">
+      <rect x="18" y="18" width="484" height="194" rx="4" fill="#e8c58e" fillOpacity=".25" stroke="currentColor"/>
+      <path d="M18 166H502" stroke="currentColor" strokeOpacity=".45"/>
+      <rect x="160" y="48" width="204" height="118" rx="14" fill="#262523" stroke="currentColor" strokeWidth="2"/>
+      <rect x="176" y="61" width="171" height="88" rx="28" fill="#d9d0b9" stroke="#262523" strokeWidth="5"/>
+      <rect x="187" y="70" width="148" height="70" rx="22" fill="#294c83"/>
+      <path d="M197 122c22-35 42-35 62-7s42 22 68-20" fill="none" stroke="#f0d39d" strokeWidth="3"/>
+      <circle cx="353" cy="160" r="3" fill="#c94d34"/>
+      <path d="M210 168v15m105-15v15m-120 0h135" stroke="currentColor" strokeWidth="2"/>
+      <rect x="389" y="84" width="30" height="91" rx="8" fill="#e5dfd0" stroke="currentColor"/>
+      <circle cx="404" cy="98" r="5" fill="#c94d34"/><circle cx="404" cy="116" r="4" fill="#254cdb"/><path d="M399 136h10m-10 10h10" stroke="currentColor"/>
+      <path d="M54 164v-40h48v40m-56 0h64" fill="none" stroke="currentColor" strokeWidth="2"/>
+      <rect x="60" y="108" width="36" height="18" rx="2" fill="#c94d34" fillOpacity=".7"/>
+      <g fill="currentColor" fontFamily="monospace" fontSize="10"><text x="36" y="39">AFTER SCHOOL / 04:15 PM</text><text x="178" y="202">THE CRT IS WAITING</text><text x="386" y="202">REMOTE / 01</text></g>
     </svg>
   )
   if (project.id === '03') return (
@@ -372,7 +402,7 @@ function App() {
           <span className="brand-caption">THE PERSONAL<br />EDITION</span>
         </a>
         <div className="masthead-center"><span className="live-dot" /> INDEPENDENT MIND. COLLABORATIVE SPIRIT.</div>
-        <div className="masthead-meta"><span>CHENNAI, INDIA</span><span>VOL. 01 — 2026</span></div>
+        <div className="masthead-meta"><span>HYDERABAD, INDIA</span><span>VOL. 01 — 2026</span></div>
         <button className="menu-button" onClick={() => setMenuOpen(!menuOpen)} aria-expanded={menuOpen} aria-label={menuOpen ? 'Close navigation' : 'Open navigation'}>
           {menuOpen ? <X /> : <Menu />}
         </button>
@@ -384,7 +414,7 @@ function App() {
       <div className={`mobile-nav ${menuOpen ? 'is-open' : ''}`} aria-hidden={!menuOpen} inert={!menuOpen}>
         <Eyebrow>THE CONTENTS</Eyebrow>
         {navItems.map(([label, href], index) => <a key={href} href={href} onClick={closeMenu}><span>0{index + 1}</span>{label}<ArrowUpRight /></a>)}
-        <p>AN OPEN NOTEBOOK · CHENNAI, INDIA</p>
+        <p>AN OPEN NOTEBOOK · HYDERABAD, INDIA</p>
       </div>
 
       <section className="hero" id="main-content" aria-labelledby="hero-title">
@@ -589,15 +619,12 @@ function App() {
             <div className="about-note"><Asterisk size={28} /><span>STILL FIGURING<br />THINGS OUT.</span></div>
           </div>
           <div className="about-copy reveal">
-            <p className="about-lede">I'm Kirtan—an Electronics & Communication Engineering student at SRMIST, Chennai, a builder who is still learning, and someone who has become very comfortable starting again.</p>
-            <p>My story has not been a straight line. The JEE phase did not go the way I had hoped. For a while, that chapter felt much bigger than an exam; it felt like a verdict on what came next. It wasn't. Coming to SRM gave me a new environment, new people and room to find a direction that felt like mine.</p>
-            <p>That direction grew through experiences I could never have planned on a timetable: representing my state contingent at the Viksit Bharat Young Leaders Dialogue, taking on responsibility in SQAC as an App Development Lead, and working on BUSHO—a project that pushes me to think beyond screens and consider how information moves through real healthcare workflows.</p>
-            <p>Each experience stretched a different part of me. Viksit Bharat made the scale of public problems feel closer. SQAC taught me that leadership is also about helping other people make things happen. BUSHO keeps reminding me that building technology for people means caring about the details behind the interface: roles, data, hand-offs, reliability and what happens after someone presses a button.</p>
-            <p>What drives me most is the feeling of progress. I started with very basic HTML pages and small websites. Since then, I've kept moving toward richer interfaces, API integrations, backend workflows and systems that work with real data. I still have a lot to learn, but looking back at that distance makes me want to keep going—not because I think I've arrived, but because I love coding, learning how things work and solving problems that could make a difference at a much larger scale.</p>
-            <p>I'm drawn to the space where engineering, product thinking, design and public impact overlap. I like the messy middle: asking questions, making a first version, finding what breaks, listening, rebuilding and getting a little better with every iteration. I don't want to stop doing that.</p>
-            <p>And outside the build itself, I care about storytelling, visual communication and communities. I enjoy bringing people together around an idea and making complex things feel more approachable.</p>
+            <p className="about-lede">I'm Kirtan—an Electronics & Communication Engineering student at SRMIST, a builder who learned to begin again and kept choosing to make things.</p>
+            <p>The JEE phase did not go to plan. For a while, it felt like the story had narrowed to one result. It hadn't. SRM became a reset: a new environment, new people and the space to find a direction of my own.</p>
+            <p>That direction took me from small HTML pages to interactive applications, API integrations, backend workflows and systems that work with data. Along the way came Viksit Bharat, responsibility as SQAC's App Development Lead, and projects such as BUSHO that make me think about the people and processes behind a screen.</p>
+            <p>I keep building because I love the work itself: understanding a problem, making a first version, finding what breaks and improving it. I don't want to stop learning—or stop looking for problems where technology can make something genuinely more useful.</p>
             <div className="about-signoff"><span>IN PROGRESS, BY DESIGN.</span><span>— K.S.</span></div>
-          </div>
+          </div>div>
         </div>
         <div className="about-north-star reveal">
           <span>THE THING THAT KEEPS ME BUILDING</span>
@@ -605,7 +632,7 @@ function App() {
           <small>CODE IS THE TOOL. PROGRESS IS THE FEELING. IMPACT IS THE POINT.</small>
         </div>
         <div className="about-facts reveal">
-          <div><span>01 / CURRENT CHAPTER</span><strong>ECE UNDERGRADUATE</strong><small>SRMIST · CHENNAI</small></div>
+          <div><span>01 / CURRENT CHAPTER</span><strong>ECE UNDERGRADUATE</strong><small>SRMIST</small></div>
           <div><span>02 / NATURAL HABIT</span><strong>LEARN BY BUILDING</strong><small>PROTOTYPE · TEST · REFINE</small></div>
           <div><span>03 / BIG INTEREST</span><strong>TECH WITH PURPOSE</strong><small>PRODUCT · PEOPLE · IMPACT</small></div>
         </div>
