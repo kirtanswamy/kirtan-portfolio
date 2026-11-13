@@ -68,8 +68,8 @@ const projects = [
 const categories = ['ALL WORK', 'PUBLIC SYSTEMS', 'CAMPUS LIFE', 'ENGINEERING', 'CIVIC INNOVATION']
 
 const chapterItems = [
-  ['01', 'STORY', '#story'], ['02', 'WORK', '#work'], ['03', 'FIELD NOTE', '#field-notes'], ['04', 'ABOUT', '#about'],
-  ['05', 'JOURNEY', '#journey'], ['06', 'LEARNING', '#learning'], ['07', 'TOOLBOX', '#skills'], ['08', 'CONTACT', '#contact'],
+  ['01', 'STORY', '#story'], ['02', 'WORK', '#work'], ['03', 'PROCESS', '#process'], ['04', 'FIELD NOTE', '#field-notes'], ['05', 'ABOUT', '#about'],
+  ['06', 'JOURNEY', '#journey'], ['07', 'LEARNING', '#learning'], ['08', 'TOOLBOX', '#skills'], ['09', 'CONTACT', '#contact'],
 ]
 
 const learning = [
@@ -88,7 +88,7 @@ const skills = [
 ]
 
 const navItems = [
-  ['STORY', '#story'], ['WORK', '#work'], ['FIELD NOTES', '#field-notes'], ['ABOUT', '#about'],
+  ['STORY', '#story'], ['WORK', '#work'], ['PROCESS', '#process'], ['FIELD NOTES', '#field-notes'], ['ABOUT', '#about'],
   ['JOURNEY', '#journey'], ['LEARNING', '#learning'], ['TOOLBOX', '#skills'], ['CONTACT', '#contact'],
 ]
 
