@@ -205,6 +205,14 @@ The reference site has been reviewed at the level of its visual concept, content
 - Preserved the current illustrated newspaper character.
 - Remaining: a richer full project detail experience, proof/recognition archive, real project imagery, browser QA and release checks.
 
+### Latest iteration — recognition and impact archive
+
+- Added a dedicated recognition chapter for Viksit Bharat Young Leaders Dialogue 2026, SQAC App Development leadership and Mineverse event leadership.
+- Framed these as selected experiences and responsibilities, not fabricated awards or trophy counts.
+- Added editorial feature/card layouts, responsive breakpoints and an eleven-chapter navigation update.
+- The existing newspaper character remains unchanged.
+- Still required: documentary evidence/photos where the user wants them shown, a deeper full-page project detail experience, final factual verification, browser QA and release readiness.
+
 ## Current implementation status
 
 | Area | Status | Notes |
