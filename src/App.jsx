@@ -490,6 +490,17 @@ function App() {
         <div className="process-foot"><span>AN ITERATIVE PRACTICE / NOT A LINEAR FORMULA</span><span>03 / 10</span></div>
       </section>
 
+      <section className="recognition-section section-pad" id="recognition">
+        <div className="section-index reveal"><Eyebrow>RECOGNITION — PEOPLE / PLATFORMS / RESPONSIBILITY</Eyebrow><span>SELECTED RECORD / 2026</span></div>
+        <div className="recognition-heading"><h2>NOT JUST<br/><em>THE WORK.</em></h2><p>Some milestones happen outside the code editor. They come from showing up, representing an idea, working with people and taking responsibility.</p></div>
+        <div className="recognition-grid">
+          <article className="recognition-feature reveal"><span>01 / NATIONAL DIALOGUE</span><strong>VIKSIT<br/>BHARAT.</strong><p>Selected for the Chhattisgarh state contingent at the Viksit Bharat Young Leaders Dialogue 2026; presented the JanSeva One civic-tech concept in New Delhi.</p><b>REPRESENTATION / PRESENTATION</b><i>VB</i></article>
+          <article className="recognition-card reveal"><span>02 / STUDENT LEADERSHIP</span><strong>SQAC</strong><p>Core App Development member and App Development Lead at the Software Quality Assurance Club, SRMIST.</p><b>APP DEVELOPMENT / TEAM LEADERSHIP</b></article>
+          <article className="recognition-card reveal"><span>03 / EVENT OPERATIONS</span><strong>MINEVERSE</strong><p>Organising Committee Lead for the SQAC coding contest, contributing to the planning and execution of a student-led technical event.</p><b>COMMUNITY / EXECUTION</b></article>
+        </div>
+        <div className="recognition-foot"><span>SELECTED EXPERIENCES — NOT AN AWARDS COUNT.</span><span>DETAILS SUBJECT TO FINAL EVIDENCE REVIEW</span></div>
+      </section>
+
       <section className="up-next-section section-pad" id="up-next">
         <div className="section-index reveal"><Eyebrow>UP NEXT — IN THE MAKING</Eyebrow><span>OPEN FILES / NOT FINISHED STORIES</span></div>
         <div className="up-next-heading"><h2>THE NEXT<br/><em>CHAPTERS.</em></h2><p>Some ideas are still on the workbench. These are the directions I'm actively exploring—not finished launches or promises dressed up as products.</p></div>
