@@ -81,8 +81,14 @@ const projects = [
 const categories = ['ALL WORK', 'PUBLIC SYSTEMS', 'CAMPUS LIFE', 'ENGINEERING', 'CIVIC INNOVATION', 'INTERACTIVE EXPERIENCE']
 
 const chapterItems = [
-  ['01', 'STORY', '#story'], ['02', 'WORK', '#work'], ['03', 'PROCESS', '#process'], ['04', 'RECOGNITION', '#recognition'], ['05', 'UP NEXT', '#up-next'], ['06', 'FIELD NOTE', '#field-notes'], ['07', 'ABOUT', '#about'],
-  ['08', 'JOURNEY', '#journey'], ['09', 'LEARNING', '#learning'], ['10', 'TOOLBOX', '#skills'], ['11', 'CONTACT', '#contact'],
+  ['01', 'FRONT PAGE', '#main-content'],
+  ['02', 'WORK', '#work'],
+  ['03', 'MILESTONES', '#recognition'],
+  ['04', 'ABOUT', '#about'],
+  ['05', 'JOURNEY', '#journey'],
+  ['06', 'ARCHIVE', '#learning'],
+  ['07', 'WORKSHOP', '#skills'],
+  ['08', 'CONTACT', '#contact'],
 ]
 
 const learning = [
@@ -101,8 +107,14 @@ const skills = [
 ]
 
 const navItems = [
-  ['STORY', '#story'], ['WORK', '#work'], ['PROCESS', '#process'], ['RECOGNITION', '#recognition'], ['UP NEXT', '#up-next'], ['FIELD NOTES', '#field-notes'], ['ABOUT', '#about'],
-  ['JOURNEY', '#journey'], ['LEARNING', '#learning'], ['TOOLBOX', '#skills'], ['CONTACT', '#contact'],
+  ['FRONT PAGE', '#main-content'],
+  ['WORK', '#work'],
+  ['MILESTONES', '#recognition'],
+  ['ABOUT', '#about'],
+  ['JOURNEY', '#journey'],
+  ['ARCHIVE', '#learning'],
+  ['WORKSHOP', '#skills'],
+  ['CONTACT', '#contact'],
 ]
 
 function Eyebrow({ children, light = false }) {
@@ -324,16 +336,35 @@ function App() {
   useEffect(() => {
     document.body.classList.toggle('menu-open', menuOpen)
     if (!menuOpen) return () => document.body.classList.remove('menu-open')
-    document.querySelector('.mobile-nav a')?.focus()
+    const overlay = document.getElementById('mobile-navigation')
+    const focusable = overlay ? [...overlay.querySelectorAll('a[href], button:not([disabled])')] : []
+    const first = focusable[0]
+    const last = focusable[focusable.length - 1]
+    first?.focus()
+
     const onKeyDown = event => {
-      if (event.key !== 'Escape') return
-      setMenuOpen(false)
-      document.querySelector('.menu-button')?.focus()
+      if (event.key === 'Escape') {
+        event.preventDefault()
+        setMenuOpen(false)
+        return
+      }
+      if (event.key !== 'Tab' || !first || !last) return
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault()
+        last.focus()
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault()
+        first.focus()
+      }
     }
     document.addEventListener('keydown', onKeyDown)
     return () => {
       document.removeEventListener('keydown', onKeyDown)
       document.body.classList.remove('menu-open')
+      const trigger = window.matchMedia('(max-width: 950px)').matches
+        ? document.querySelector('.menu-button')
+        : document.querySelector('.masthead-index-prompt')
+      trigger?.focus()
     }
   }, [menuOpen])
 
@@ -421,7 +452,7 @@ function App() {
         </a>
         <div className="masthead-center"><span className="live-dot" /> INDEPENDENT MIND. COLLABORATIVE SPIRIT.</div>
         <div className="masthead-meta"><span>HYDERABAD, INDIA</span><span>VOL. 01 — 2026</span></div>
-        <button className="menu-button" onClick={() => setMenuOpen(!menuOpen)} aria-expanded={menuOpen} aria-label={menuOpen ? 'Close navigation' : 'Open navigation'}>
+        <button type="button" className="menu-button" onClick={() => setMenuOpen(!menuOpen)} aria-controls="mobile-navigation" aria-expanded={menuOpen} aria-label={menuOpen ? 'Close navigation' : 'Open navigation'}>
           {menuOpen ? <X /> : <Menu />}
         </button>
         <button type="button" className="masthead-index-prompt" onClick={() => setMenuOpen(true)} aria-controls="mobile-navigation" aria-expanded={menuOpen}>OPEN THE INDEX <i>↗</i></button>
@@ -436,7 +467,7 @@ function App() {
         <div className="index-overlay-bottom"><span>AN OPEN NOTEBOOK · HYDERABAD, INDIA</span><span>TURN THE PAGE / FIND THE WORK</span></div>
       </nav>
 
-      <section className="hero" id="main-content" aria-labelledby="hero-title">
+      <section className="hero" id="main-content" tabIndex={-1} aria-labelledby="hero-title">
         <div className="hero-overline">
           <Eyebrow>ENGINEERING / DESIGN / IDEAS</Eyebrow>
           <span className="edition-label">A WORK IN PROGRESS — ALWAYS</span>
@@ -471,7 +502,7 @@ function App() {
             <div className="portrait-caption"><span>AN ORIGINAL ILLUSTRATED IDENTITY</span><span>PERSONAL CHARACTER TO COME ↗</span></div>
           </div>
           <div className="hero-aside">
-            <span className="aside-index">01 / 11</span>
+            <span className="aside-index">01 / 08</span>
             <p>NOT A FINISHED STORY.<br />A RECORD OF WHAT I'M<br />LEARNING TO MAKE.</p>
             <a href="#work" className="round-arrow" aria-label="Explore selected work"><ArrowDown /></a><span className="hero-scroll-note">SCROLL TO EXPLORE <i>↓</i></span>
           </div>
