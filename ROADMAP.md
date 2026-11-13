@@ -137,14 +137,20 @@ The user supplied a 3:09 desktop screen recording at 1920 × 1080. Review findin
 - Improved the project detail artwork's vertical framing.
 - Corrected the Journey chapter label to 05 to match the eight-part INDEX.
 
+**M1 polish pass (13 November 2026)**
+- Added Escape-to-dismiss and Tab focus containment to the opening; the skip action now shares one dismissal path and returns focus to the main content.
+- Corrected the opening dialog's accessible name so it no longer references a heading hidden inside decorative artwork.
+- Corrected the hero illustration's coordinate label to Hyderabad.
+- Removed the second three-card process presentation from About; the dedicated Think / Create / Deliver section remains the single process explanation.
+
 **Still to verify on a fresh preview**
-- Confirm the index has one scrollbar at desktop and remains scrollable on short/mobile viewports.
+- Confirm the INDEX has one scrollbar at desktop and remains scrollable on short/mobile viewports.
 - Confirm focus trapping, Escape close and focus restoration after Lenis stop/start.
+- Confirm the opening-to-page handoff and skip interaction in the rendered preview.
 - Confirm the bookmark is unobtrusive when collapsed and easy to discover.
-- Confirm the Viksit Bharat section no longer contains JanSeva or the presentation topic.
 - Review mobile/tablet behaviour and check console / animation performance.
 
-**M1 exit gate remains open:** review the newest deployed preview before starting M2's WebGL paper shader and book interaction work.
+**M1 exit gate remains open:** source-level polish is in place, but rendered desktop/mobile interaction QA and a user preview review are still required before starting M2's WebGL paper shader and book interaction work.
 
 ### M2 — Material and paper-motion engine
 - Replace/upgrade the CSS tear approximation with a displacement-based WebGL or shader transition, keeping an SVG/CSS fallback.
@@ -207,8 +213,9 @@ See [CONTENT_REGISTRY.md](./CONTENT_REGISTRY.md). That file is the source of tru
 | Milestone | Status |
 |---|---|
 | Specification and direction | Approved |
-| M0 — Foundation and truth audit | In progress |
-| M1–M7 | Not started |
+| M0 — Foundation and truth audit | Complete — content truth register established; pending evidence checks remain deferred |
+| M1 — Newspaper shell and opening | In progress — source polish updated; rendered preview QA pending |
+| M2–M7 | Not started |
 
 ## Repository working agreement
 
