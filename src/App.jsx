@@ -228,6 +228,7 @@ function App() {
   const [activeProjectIndex, setActiveProjectIndex] = useState(0)
   const [activeLearningCategory, setActiveLearningCategory] = useState('ALL ENTRIES')
   const projectShelfRef = useRef(null)
+  const lenisRef = useRef(null)
   const shelfDragRef = useRef({ pointerId: null, startX: 0, scrollLeft: 0, dragged: false })
 
   useEffect(() => {
@@ -256,6 +257,7 @@ function App() {
     }
 
     const lenis = new Lenis({ duration: 1.05, smoothWheel: true, wheelMultiplier: 0.88, touchMultiplier: 1.35 })
+    lenisRef.current = lenis
     lenis.on('scroll', ScrollTrigger.update)
     const tick = time => lenis.raf(time * 1000)
     gsap.ticker.add(tick)
@@ -329,6 +331,7 @@ function App() {
       workbench?.removeEventListener('pointerleave', resetDesk)
       gsap.ticker.remove(tick)
       lenis.destroy()
+      lenisRef.current = null
       animationContext.revert()
     }
   }, [])
@@ -336,7 +339,9 @@ function App() {
   useEffect(() => {
     document.body.classList.toggle('menu-open', menuOpen)
     document.documentElement.classList.toggle('index-open', menuOpen)
-    if (!menuOpen) return () => { document.body.classList.remove('menu-open'); document.documentElement.classList.remove('index-open') }
+    if (menuOpen) lenisRef.current?.stop()
+    else lenisRef.current?.start()
+    if (!menuOpen) return () => { document.body.classList.remove('menu-open'); document.documentElement.classList.remove('index-open'); lenisRef.current?.start() }
     const overlay = document.getElementById('mobile-navigation')
     const focusable = overlay ? [...overlay.querySelectorAll('a[href], button:not([disabled])')] : []
     const first = focusable[0]
@@ -363,6 +368,7 @@ function App() {
       document.removeEventListener('keydown', onKeyDown)
       document.body.classList.remove('menu-open')
       document.documentElement.classList.remove('index-open')
+      lenisRef.current?.start()
       const trigger = window.matchMedia('(max-width: 950px)').matches
         ? document.querySelector('.menu-button')
         : document.querySelector('.masthead-index-prompt')
