@@ -70,6 +70,14 @@ An interactive, cinematic newspaper documenting the evolution of a builder. The 
 
 ## Milestones and exit gates
 
+### User direction update — mock visuals and JanSeva accuracy (13 November 2026)
+
+- Keep all project visuals as mockups / illustrative placeholders for this phase. Real project screenshot collection and the broader portfolio asset database will be a later content pass.
+- A BUSHO visual asset was recovered from the prior BUSHO material in the user's Library: the cinematic “From Field Reports to Actionable Health Insights” banner showing a frontline worker and workflow overlays. The BUSHO repository README also references `assets/busho-github-banner.jpg`; the portfolio now uses that existing repository-hosted banner as the BUSHO card visual. It is a concept/mock visual, not evidence of a live deployed workflow.
+- The BUSHO live URL is `https://busho.de5.net/`.
+- JanSeva One is **ideation only and was never implemented**. It must not be described as a built prototype or a working project. The concept was JanSeva One / UCAP: citizen-first civic transparency and action; a proposed geo-tagged road / PMGSY issue-reporting pilot; issue categories such as potholes, flooding and surface damage; routing to the responsible jurisdiction; public-works context (department, contractor, timelines and milestones); status and repair evidence; repair-history trail; assisted reporting through CSCs, Panchayat offices and youth volunteers. Later concept extensions included drainage, sanitation, PHCs, schools and wider village infrastructure. The suggested MVP was one Gram Panchayat in Chhattisgarh with simulated data only. No app, backend, deployed prototype, pilot or government integration exists.
+- Keep mock visuals for Varsity and other projects until the user supplies or approves updated source material. Ask for Varsity's public website URL and repository URL before writing a more detailed case study; the current project description is provisional.
+
 ### M0 — Foundation and truth audit
 - Review the existing portfolio code and current project data.
 - Inspect project repositories and authoritative READMEs where accessible.
