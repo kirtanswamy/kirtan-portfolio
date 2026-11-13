@@ -264,6 +264,15 @@ The reference site has been reviewed at the level of its visual concept, content
 - Confirmed the development PR is open and mergeable, but intentionally still draft.
 - Latest numbering fix is committed; its own CI run is not yet confirmed. Browser/device QA remains a release gate.
 
+### Latest iteration — source-level navigation and accessibility audit
+
+- Audited the rendered application source: all eleven chapter targets exist, there are no duplicate element IDs, and every in-page hash link resolves to an existing ID.
+- Checked the native button controls for accessible labels; the current nine buttons have explicit labels or visible text.
+- Confirmed the page has a skip-to-content link, document language, viewport metadata, page description, social title/description metadata and a favicon.
+- Confirmed the temporary newspaper character is currently rendered as CSS/SVG artwork rather than an external image; no missing image asset references were found in the application markup.
+- A real browser/device pass is still required for visual overflow, touch behaviour, focus appearance, console errors and performance.
+- Vercel currently has no project connected for this repository in the available account context, so no preview deployment was created. Do not treat the CI build as browser QA.
+
 ## Current implementation status
 
 | Area | Status | Notes |
