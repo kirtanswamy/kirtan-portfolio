@@ -221,6 +221,8 @@ function App() {
       .fromTo('.hero-overline > *', { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.65, stagger: 0.08 }, '-=0.3')
       .fromTo('.hero-headline .headline-row', { yPercent: 110, rotate: 2 }, { yPercent: 0, rotate: 0, duration: 1.15, stagger: 0.1 }, '-=0.25')
       .fromTo('.hero-deck, .hero-aside, .portrait-frame', { y: 22, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, stagger: 0.1 }, '-=0.45')
+      .fromTo('.portrait-art', { scale: 0.94, rotate: -3 }, { scale: 1, rotate: 0, duration: 1.25, ease: 'power3.out' }, '-=0.65')
+      .fromTo('.portrait-caption', { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55 }, '-=0.45')
 
     gsap.utils.toArray('.reveal').forEach(element => {
       gsap.fromTo(element, { y: 34, opacity: 0 }, {
@@ -237,6 +239,18 @@ function App() {
     })
 
     ScrollTrigger.create({ start: 0, end: 'max', onUpdate: self => gsap.set('.reading-progress__bar', { scaleX: self.progress }) })
+    gsap.to('.portrait-art', {
+      yPercent: 9,
+      rotate: 2,
+      ease: 'none',
+      scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 0.8 },
+    })
+    gsap.to('.hero-edition-mark', {
+      y: 24,
+      rotate: 18,
+      ease: 'none',
+      scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1 },
+    })
     gsap.to('.orbit-ring', { rotate: 360, duration: 38, repeat: -1, ease: 'none' })
     gsap.to('.hero-starburst', { rotate: -360, duration: 54, repeat: -1, ease: 'none' })
     })
