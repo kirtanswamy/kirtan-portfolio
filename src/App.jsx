@@ -207,6 +207,8 @@ function ProjectCard({ project, index, onOpen }) {
 }
 
 function App() {
+  const [openingActive, setOpeningActive] = useState(true)
+  const [openingLeaving, setOpeningLeaving] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const [activeCategory, setActiveCategory] = useState('ALL WORK')
   const [activeSection, setActiveSection] = useState('')
@@ -215,6 +217,13 @@ function App() {
   const [activeLearningCategory, setActiveLearningCategory] = useState('ALL ENTRIES')
   const projectShelfRef = useRef(null)
   const shelfDragRef = useRef({ pointerId: null, startX: 0, scrollLeft: 0, dragged: false })
+
+  useEffect(() => {
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const exitTimer = window.setTimeout(() => setOpeningLeaving(true), reduced ? 80 : 2450)
+    const removeTimer = window.setTimeout(() => setOpeningActive(false), reduced ? 180 : 3000)
+    return () => { window.clearTimeout(exitTimer); window.clearTimeout(removeTimer) }
+  }, [])
 
   const visibleLearning = useMemo(
     () => activeLearningCategory === 'ALL ENTRIES' ? learning : learning.filter(item => item.category === activeLearningCategory),
@@ -378,6 +387,19 @@ function App() {
 
   return (
     <main className="site-shell" id="top">
+      {openingActive && <div className={`newspaper-opening ${openingLeaving ? "is-leaving" : ""}`} role="status" aria-label="Opening The Maker's Notebook">
+        <div className="opening-vignette" />
+        <div className="opening-stage" aria-hidden="true">
+          <div className="opening-paper">
+            <div className="opening-paper-under"><span>THE MAKER'S NOTEBOOK</span><strong>K.S.</strong><i>VOL. 01 / 2026</i></div>
+            <div className="opening-leaf opening-leaf-left"><span>INDEPENDENT<br/>MAKER'S EDITION</span><strong>KIRTAN<br/>SWAMY.</strong><i>ENGINEERING / DESIGN / IDEAS</i></div>
+            <div className="opening-leaf opening-leaf-right"><span>FIELD NOTES / 001</span><strong>CURIOUS<br/>BY NATURE.</strong><i>HYDERABAD, INDIA</i></div>
+            <div className="opening-fold" />
+          </div>
+        </div>
+        <div className="opening-caption"><span>AN OPEN NOTEBOOK</span><span>2026 / INDIA</span></div>
+        <button type="button" className="opening-skip" onClick={() => { setOpeningLeaving(true); window.setTimeout(() => setOpeningActive(false), 450) }}>SKIP INTRO <ArrowUpRight size={13}/></button>
+      </div>}
       <a className="skip-link" href="#main-content">SKIP TO CONTENT</a>
       <div className="reading-progress" aria-hidden="true"><span className="reading-progress__bar" /></div>
       <div className="paper-grain" aria-hidden="true" />
@@ -401,16 +423,14 @@ function App() {
         <button className="menu-button" onClick={() => setMenuOpen(!menuOpen)} aria-expanded={menuOpen} aria-label={menuOpen ? 'Close navigation' : 'Open navigation'}>
           {menuOpen ? <X /> : <Menu />}
         </button>
-        <nav className="desktop-nav" aria-label="Main navigation">
-          {navItems.map(([label, href]) => <a key={href} className={activeSection === href ? 'active' : ''} href={href}>{label}<span>↗</span></a>)}
-        </nav>
+        <span className="masthead-index-prompt">OPEN THE INDEX <i>↗</i></span>
       </header>
 
-      <div className={`mobile-nav ${menuOpen ? 'is-open' : ''}`} aria-hidden={!menuOpen} inert={!menuOpen}>
+      <nav id="mobile-navigation" className={`mobile-nav index-overlay ${menuOpen ? 'is-open' : ''}`} aria-label="Global index" aria-hidden={!menuOpen} inert={!menuOpen}>
         <Eyebrow>THE CONTENTS</Eyebrow>
         {navItems.map(([label, href], index) => <a key={href} href={href} onClick={closeMenu}><span>0{index + 1}</span>{label}<ArrowUpRight /></a>)}
         <p>AN OPEN NOTEBOOK · HYDERABAD, INDIA</p>
-      </div>
+      </nav>
 
       <section className="hero" id="main-content" aria-labelledby="hero-title">
         <div className="hero-overline">
