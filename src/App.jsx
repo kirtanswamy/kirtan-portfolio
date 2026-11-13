@@ -52,8 +52,8 @@ const projects = [
   },
   {
     id: '04', name: 'JANSEVA ONE', category: 'CIVIC INNOVATION', type: 'Civic-tech · Public impact',
-    description: 'A unified civic action concept focused on making local infrastructure issues easier to report, track and resolve through community participation.',
-    stage: 'IDEATION / PRESENTED', year: '2026', tone: 'red',
+    description: 'An ideation-stage civic-tech concept for a citizen-first transparency and action platform, initially focused on local roads and infrastructure.',
+    stage: 'IDEATION ONLY', year: '2026', tone: 'red',
     href: '', repo: '',
     tags: ['Civic technology', 'Geo-tagged reporting', 'Public accountability'],
     note: 'A road complaint should not disappear into a file.',
@@ -335,7 +335,8 @@ function App() {
 
   useEffect(() => {
     document.body.classList.toggle('menu-open', menuOpen)
-    if (!menuOpen) return () => document.body.classList.remove('menu-open')
+    document.documentElement.classList.toggle('index-open', menuOpen)
+    if (!menuOpen) return () => { document.body.classList.remove('menu-open'); document.documentElement.classList.remove('index-open') }
     const overlay = document.getElementById('mobile-navigation')
     const focusable = overlay ? [...overlay.querySelectorAll('a[href], button:not([disabled])')] : []
     const first = focusable[0]
@@ -361,6 +362,7 @@ function App() {
     return () => {
       document.removeEventListener('keydown', onKeyDown)
       document.body.classList.remove('menu-open')
+      document.documentElement.classList.remove('index-open')
       const trigger = window.matchMedia('(max-width: 950px)').matches
         ? document.querySelector('.menu-button')
         : document.querySelector('.masthead-index-prompt')
@@ -439,11 +441,11 @@ function App() {
         <span className="chapter-rail-label">THE NOTEBOOK</span>
         {chapterItems.map(([number, label, href]) => <a key={href} href={href} className={activeSection === href ? 'active' : ''} aria-label={label} aria-current={activeSection === href ? 'location' : undefined}><span>{number}</span><i /><small>{label}</small></a>)}
       </nav>
-      <aside className="desk-note" aria-label="Featured project shortcut">
-        <span className="desk-note-kicker">ON THE DESK / CURRENT FILE</span>
-        <strong>{visibleProjects[Math.min(activeProjectIndex, visibleProjects.length - 1)]?.name ?? 'PROJECT ARCHIVE'}</strong>
-        <span className="desk-note-category">{visibleProjects[Math.min(activeProjectIndex, visibleProjects.length - 1)]?.category ?? 'SELECTED WORK'}</span>
-        <button type="button" onClick={() => { const project = visibleProjects[Math.min(activeProjectIndex, visibleProjects.length - 1)]; if (project) setActiveProject(project) }}>OPEN FILE <ArrowUpRight size={12}/></button>
+      <aside className="desk-note" aria-label="Current project file">
+        <span className="desk-note-kicker">CURRENT FILE</span>
+        <strong>{visibleProjects[Math.min(activeProjectIndex, visibleProjects.length - 1)]?.name ?? "PROJECT ARCHIVE"}</strong>
+        <span className="desk-note-category">{visibleProjects[Math.min(activeProjectIndex, visibleProjects.length - 1)]?.category ?? "SELECTED WORK"}</span>
+        <button type="button" aria-label="Open current project file" onClick={() => { const project = visibleProjects[Math.min(activeProjectIndex, visibleProjects.length - 1)]; if (project) setActiveProject(project) }}><span>OPEN FILE</span><ArrowUpRight size={12}/></button>
       </aside>
       <header className="masthead">
         <a className="masthead-brand" href="#top" aria-label="Kirtan Swamy home">
@@ -595,7 +597,7 @@ function App() {
         <div className="section-index reveal"><Eyebrow>03 — MILESTONES / PEOPLE / PLATFORMS</Eyebrow><span>SELECTED RECORD / 2026</span></div>
         <div className="recognition-heading"><h2>NOT JUST<br/><em>THE WORK.</em></h2><p>Some milestones happen outside the code editor. They come from showing up, representing an idea, working with people and taking responsibility.</p></div>
         <div className="recognition-grid">
-          <article className="recognition-feature reveal"><span>01 / NATIONAL DIALOGUE</span><strong>VIKSIT<br/>BHARAT.</strong><p>Selected for the Chhattisgarh state contingent at the Viksit Bharat Young Leaders Dialogue 2026; presented the JanSeva One civic-tech concept in New Delhi.</p><b>REPRESENTATION / PRESENTATION</b><i>VB</i></article>
+          <article className="recognition-feature reveal"><span>01 / NATIONAL DIALOGUE</span><strong>VIKSIT<br/>BHARAT.</strong><p>Selected for the Chhattisgarh state contingent at the Viksit Bharat Young Leaders Dialogue 2026; represented Balod district in New Delhi.</p><b>STATE CONTINGENT / REPRESENTATION</b><i>VB</i></article>
           <article className="recognition-card reveal"><span>02 / STUDENT LEADERSHIP</span><strong>SQAC</strong><p>Core App Development member and App Development Lead at the Software Quality Assurance Club, SRMIST.</p><b>APP DEVELOPMENT / TEAM LEADERSHIP</b></article>
           <article className="recognition-card reveal"><span>03 / EVENT OPERATIONS</span><strong>MINEVERSE</strong><p>Organising Committee Lead for the SQAC coding contest, contributing to the planning and execution of a student-led technical event.</p><b>COMMUNITY / EXECUTION</b></article>
         </div>
@@ -623,41 +625,18 @@ function App() {
             <div className="field-note-date">2026<span>NEW DELHI</span></div>
             <div className="field-note-copy">
               <p className="field-note-overline">VIKSIT BHARAT YOUNG LEADERS DIALOGUE</p>
-              <h2>INNOVATION<br />WITH <em>TRADITION.</em></h2>
-              <p className="field-note-description">Selected to represent the Chhattisgarh state contingent at the Viksit Bharat Young Leaders Dialogue 2026. Presented <strong>JanSeva One</strong>—a civic-tech vision shaped around making local public systems more responsive to the people they serve.</p>
-              <div className="field-note-tags"><span>CHHATTISGARH</span><span>CIVIC TECHNOLOGY</span><span>JANSEVA ONE</span></div>
+              <h2>A NATIONAL<br/><em>CONVERSATION.</em></h2>
+              <p className="field-note-description">Selected to represent the Chhattisgarh state contingent at the Viksit Bharat Young Leaders Dialogue 2026. Represented Balod district in New Delhi, among young leaders from across the country.</p>
+              <div className="field-note-tags"><span>CHHATTISGARH</span><span>BALOD</span><span>NEW DELHI</span></div>
             </div>
-            <div className="field-note-seal" aria-hidden="true"><div className="orbit-ring"><span>IDEAS FOR INDIA · 2026 · </span></div><Asterisk size={100} /></div>
+            <div className="field-note-seal" aria-hidden="true"><div className="orbit-ring"><span>VIKSIT BHARAT · 2026 · </span></div><Asterisk size={100} /></div>
           </div>
-          <div className="field-note-story">
-            <div className="field-note-story-intro"><span>FROM A LOCAL QUESTION TO A NATIONAL ROOM</span><p>A short record of the three parts of this experience that continue to shape how I think about building.</p></div>
-            <article><span>01 / THE ROOT</span><h3>START WITH THE GROUND.</h3><p>Representing Balod district and Chhattisgarh brought the importance of local context into focus: meaningful innovation has to begin with the people and places it is meant to serve.</p></article>
-            <article><span>02 / THE ROOM</span><h3>LISTEN, EXCHANGE, REFRAME.</h3><p>The dialogue created space to share perspectives on the future of India and learn from young leaders working across different contexts.</p></article>
-            <article><span>03 / THE IDEA</span><h3>MAKE PUBLIC SYSTEMS FEEL CLOSER.</h3><p>JanSeva One was my civic-tech concept: a unified way to surface local issues and help communities follow the path from reporting to action.</p></article>
+          <div className="field-note-story field-note-story-compact">
+            <div className="field-note-story-intro"><span>FROM BALOD TO NEW DELHI</span><p>A meaningful opportunity to represent home, listen to different perspectives and take a wider view of India’s future.</p></div>
+            <article><span>01 / REPRESENTING HOME</span><h3>LOCAL ROOTS. NATIONAL ROOM.</h3><p>Representing Balod district and Chhattisgarh made the experience personal: the places we come from shape the questions we bring.</p></article>
+            <article><span>02 / THE DIALOGUE</span><h3>LISTEN, EXCHANGE, LEARN.</h3><p>The gathering created space to meet young leaders from different contexts and hear how they see the country’s opportunities and challenges.</p></article>
           </div>
-          <div className="field-note-artifact">
-            <div className="field-note-artifact-heading"><span>THE IDEA / JANSEVA ONE</span><span>CONCEPT MAP · 001</span></div>
-            <svg viewBox="0 0 900 240" role="img" aria-label="Concept diagram showing local issue reporting moving through a civic response system">
-              <path d="M170 110H360M540 110H730" stroke="#e7e0d2" strokeWidth="2" strokeDasharray="6 7" fill="none"/>
-              <path d="m347 100 13 10-13 10M717 100l13 10-13 10" fill="none" stroke="#d7e27b" strokeWidth="2"/>
-              <g fill="#e7e0d2" fillOpacity=".08" stroke="#e7e0d2" strokeOpacity=".55">
-                <rect x="22" y="36" width="148" height="148" rx="4"/><rect x="376" y="36" width="148" height="148" rx="4"/><rect x="730" y="36" width="148" height="148" rx="4"/>
-              </g>
-              <g fill="#d7e27b" fontFamily="monospace" fontSize="12"><text x="42" y="65">01 / REPORT</text><text x="396" y="65">02 / ROUTE</text><text x="750" y="65">03 / RESPOND</text></g>
-              <g stroke="#e7e0d2" fill="none" strokeWidth="2"><path d="M95 91v42m-20-20h40M449 92h42m-42 18h42m-42 18h28M803 92h42m-42 18h42m-42 18h28"/></g>
-              <g fill="#e7e0d2" fontFamily="monospace" fontSize="10"><text x="42" y="160">COMMUNITY VOICE</text><text x="396" y="160">PUBLIC WORKFLOW</text><text x="750" y="160">VISIBLE FOLLOW-UP</text></g>
-              <text x="450" y="222" textAnchor="middle" fill="#e7e0d2" fillOpacity=".6" fontFamily="monospace" fontSize="10">A PROPOSED CIVIC JOURNEY — NOT A DEPLOYED GOVERNMENT SERVICE</text>
-            </svg>
-          </div>
-          <div className="impact-ledger">
-            <div className="impact-ledger-head"><Eyebrow light>PEOPLE / PLATFORMS / POSSIBILITY</Eyebrow><span>IMPACT LEDGER · 002</span></div>
-            <div className="impact-ledger-grid">
-              <article className="impact-ledger-card"><i>01</i><span>VIKSIT BHARAT / 2026</span><strong>A NATIONAL CONVERSATION.</strong><p>Represented Chhattisgarh's state contingent in New Delhi and presented the JanSeva One civic-tech concept.</p></article>
-              <article className="impact-ledger-card"><i>02</i><span>SQAC / SRMIST</span><strong>BUILDING WITH A TEAM.</strong><p>App Development Lead and core member, contributing to student-led software activity and Mineverse.</p></article>
-              <article className="impact-ledger-card"><i>03</i><span>INDEPENDENT BUILDS</span><strong>FROM IDEA TO WORKFLOW.</strong><p>Taking projects beyond static screens into interfaces, integrations, backend workflows and real-data thinking.</p></article>
-            </div>
-          </div>
-          <div className="field-note-bottom"><span>A MOMENT THAT REMINDED ME WHY BUILDING MATTERS.</span><span>03 / 08</span></div>
+          <div className="field-note-bottom"><span>A MOMENT OF REPRESENTATION, PERSPECTIVE & POSSIBILITY.</span><span>03 / 08</span></div>
         </div>
       </section>
 
@@ -741,7 +720,7 @@ function App() {
           </article>
           <article className="journey-item reveal">
             <span className="journey-count">02</span><span className="journey-date">2026</span>
-            <div><h3>Viksit Bharat Young Leaders Dialogue</h3><p>State contingent representative · New Delhi</p><small>Presented a civic-tech idea focused on community-level problem solving.</small></div>
+            <div><h3>Viksit Bharat Young Leaders Dialogue</h3><p>State contingent representative · New Delhi</p><small>Selected for Chhattisgarh's state contingent and represented Balod district in New Delhi.</small></div>
             <span className="journey-mark"><Compass /></span>
           </article>
           <article className="journey-item reveal">
