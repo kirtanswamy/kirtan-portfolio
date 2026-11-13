@@ -213,6 +213,14 @@ The reference site has been reviewed at the level of its visual concept, content
 - The existing newspaper character remains unchanged.
 - Still required: documentary evidence/photos where the user wants them shown, a deeper full-page project detail experience, final factual verification, browser QA and release readiness.
 
+### Latest iteration — immersive project file detail
+
+- Deepened the project dialog with an editorial thesis statement, clearer project-stage metadata, four-part case-study structure and a Question → Design → Build → Learn sequence.
+- Styled the detail view as a scrollable project feature with responsive case-study layout and clearer external action links.
+- Added mobile-specific dialog sizing and stacked content/actions.
+- Existing project facts and stages remain as previously supplied; no fabricated metrics, user counts or launch claims added.
+- Browser-level interaction testing and real project screenshots remain required before release.
+
 ## Current implementation status
 
 | Area | Status | Notes |
