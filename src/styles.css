@@ -615,3 +615,113 @@ body.menu-open{overflow:hidden}
 @media(max-width:950px){.masthead{display:grid;grid-template-columns:1fr auto auto;gap:14px}.masthead-center{display:none}.masthead-meta{justify-self:end;display:flex}.masthead-index-prompt{display:none}.menu-button{display:grid;place-items:center;border:1px solid var(--line);width:40px;height:40px;background:transparent;justify-self:end;cursor:pointer}.index-overlay{padding:92px 30px 40px}.index-overlay-links{grid-template-columns:1fr 1fr}}
 @media(max-width:600px){.masthead-meta span:first-child{display:none}.index-overlay{padding:84px 20px 38px;justify-content:flex-start}.index-overlay-top{font-size:6px}.index-overlay-top>span:nth-child(2){display:none}.index-overlay-title{padding:35px 0 18px;align-items:start;flex-direction:column;gap:15px}.index-overlay-title>strong{font-size:19vw}.index-overlay-links{grid-template-columns:1fr}.index-overlay-links>a{padding:10px 0;grid-template-columns:30px 1fr 21px}.index-overlay-links>a>strong{font-size:clamp(23px,7.4vw,34px)}.index-overlay-bottom{flex-direction:column;gap:8px;font-size:6px}}
 @media(prefers-reduced-motion:reduce){.index-overlay,.index-overlay.is-open,.index-overlay-links>a,.index-overlay.is-open .index-overlay-links>a,.index-overlay.is-open .index-overlay-title{transition:none!important;animation:none!important}.index-overlay.is-open{clip-path:none;opacity:1}}
+
+
+/* M1 visual QA fixes / persistent project bookmark */
+.desk-note{
+  left:0;
+  top:50%;
+  transform:translateY(-50%);
+  width:36px;
+  min-height:160px;
+  padding:13px 6px 11px;
+  gap:10px;
+  align-items:center;
+  overflow:hidden;
+  transition:width .32s cubic-bezier(.2,.75,.25,1),padding .32s ease,box-shadow .25s ease;
+  border-left:0;
+}
+.desk-note-kicker{
+  writing-mode:vertical-rl;
+  text-orientation:mixed;
+  margin:0;
+  white-space:nowrap;
+  transition:writing-mode .2s ease;
+}
+.desk-note strong,
+.desk-note-category{
+  width:0;
+  max-height:0;
+  opacity:0;
+  overflow:hidden;
+  transition:opacity .18s ease,max-height .25s ease,width .25s ease;
+}
+.desk-note button{
+  width:24px;
+  justify-content:center;
+  border-top:0;
+  padding:2px 0 0;
+}
+.desk-note button span{display:none}
+.desk-note:hover,
+.desk-note:focus-within{
+  width:176px;
+  min-height:150px;
+  padding:14px 12px 11px;
+  align-items:stretch;
+  box-shadow:8px 12px 30px #24241f22;
+}
+.desk-note:hover .desk-note-kicker,
+.desk-note:focus-within .desk-note-kicker{
+  writing-mode:horizontal-tb;
+  white-space:normal;
+  margin-top:5px;
+}
+.desk-note:hover strong,
+.desk-note:focus-within strong{
+  width:auto;
+  max-height:90px;
+  opacity:1;
+}
+.desk-note:hover .desk-note-category,
+.desk-note:focus-within .desk-note-category{
+  width:auto;
+  max-height:45px;
+  opacity:1;
+}
+.desk-note:hover button,
+.desk-note:focus-within button{
+  width:100%;
+  justify-content:space-between;
+  border-top:1px solid var(--line);
+  padding:8px 0 0;
+}
+.desk-note:hover button span,
+.desk-note:focus-within button span{display:inline}
+@media(max-width:1250px){.desk-note{display:none}}
+
+/* The INDEX owns scrolling while open; Lenis and the page behind it are stopped. */
+html.index-open,
+html.index-open body{
+  overflow:hidden!important;
+  overscroll-behavior:none!important;
+}
+.index-overlay{overflow:hidden!important}
+@media(max-height:720px){
+  .index-overlay{overflow-y:auto!important;overscroll-behavior:contain}
+}
+@media(max-width:950px){
+  .index-overlay{overflow-y:auto!important;overscroll-behavior:contain}
+}
+
+/* Compact, genuinely responsive Viksit Bharat field-note spread */
+.field-note-story-compact{
+  grid-template-columns:1.05fr repeat(2,minmax(0,1fr));
+}
+.field-note-story-compact .field-note-story-intro p{max-width:290px}
+@media(max-width:950px){
+  .field-note-story-compact{grid-template-columns:1fr 1fr}
+}
+@media(max-width:600px){
+  .field-note-story-compact{grid-template-columns:1fr}
+}
+
+/* Keep project cover artwork connected to its file title rather than the bottom edge. */
+.project-dialog-art .project-visual{
+  margin-top:12px;
+  max-height:240px;
+  object-fit:contain;
+}
+.project-dialog-art .project-visual-busho-photo{
+  object-fit:cover;
+}
