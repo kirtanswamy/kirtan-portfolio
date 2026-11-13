@@ -221,6 +221,14 @@ The reference site has been reviewed at the level of its visual concept, content
 - Existing project facts and stages remain as previously supplied; no fabricated metrics, user counts or launch claims added.
 - Browser-level interaction testing and real project screenshots remain required before release.
 
+### Latest iteration — About chapter art direction
+
+- Added a distinctive cobalt-blue “north star” pull quote to give the personal story an emotional centre: the joy of turning difficult problems into something useful.
+- Kept the longer JEE → SRM → Viksit Bharat → SQAC → BUSHO story and the build-evolution timeline intact.
+- Styled the statement as a responsive editorial feature with decorative orbit detail and no additional unsupported personal claims.
+- The immersive project-file detail and recognition chapters remain in place.
+- Browser QA, real project imagery, credential evidence and final factual review remain release gates.
+
 ## Current implementation status
 
 | Area | Status | Notes |
