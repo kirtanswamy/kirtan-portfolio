@@ -162,6 +162,9 @@ The user supplied a 1:56 desktop screen recording at 1920 × 1080. Review findin
 - Kept the paper treatment isolated to decorative layers so chapter text and controls remain crisp and selectable.
 - Kept the implementation dependency-free; this is an SVG filter enhancement, not a WebGL shader or a Three.js scene.
 
+- Added slow, low-amplitude SVG turbulence animation to the displacement map and applied the same organic edge response to the opening's decorative page stack.
+- Added a restrained moving highlight along the centre fold; reduced-motion mode disables both animated material treatments and keeps the unfiltered paper fallback.
+
 **Next in M2**
 - Replace/upgrade the CSS tear approximation with a displacement-based WebGL or shader transition, keeping an SVG/CSS fallback.
 - Refine paper thickness, fold shading, grain, edge distortion and perspective based on browser review.
