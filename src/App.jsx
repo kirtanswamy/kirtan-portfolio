@@ -111,17 +111,12 @@ function Eyebrow({ children, light = false }) {
 
 function ProjectVisual({ project }) {
   if (project.id === '01') return (
-    <svg className="project-visual project-visual-busho" viewBox="0 0 520 230" role="img" aria-label="Conceptual health worker to supervisor reporting workflow">
-      <path d="M130 108H190M330 108H390" stroke="currentColor" strokeWidth="1.5" strokeDasharray="5 5" fill="none" />
-      <path d="m180 101 10 7-10 7M380 101l10 7-10 7" stroke="currentColor" fill="none" strokeWidth="1.5"/>
-      <rect x="14" y="45" width="116" height="125" rx="4" fill="#f1e8d8" fillOpacity=".5" stroke="currentColor"/>
-      <rect x="202" y="45" width="116" height="125" rx="4" fill="#f1e8d8" fillOpacity=".5" stroke="currentColor"/>
-      <rect x="390" y="45" width="116" height="125" rx="4" fill="#f1e8d8" fillOpacity=".5" stroke="currentColor"/>
-      <g fill="currentColor" fontFamily="monospace" fontSize="11"><text x="26" y="67">01 / FIELD</text><text x="214" y="67">02 / RECORD</text><text x="402" y="67">03 / REVIEW</text></g>
-      <g stroke="currentColor" fill="none"><circle cx="72" cy="102" r="16"/><path d="M45 145c3-18 51-18 54 0M229 91h62M229 108h62M229 125h42M417 91h62M417 108h62M417 125h42" strokeWidth="2"/></g>
-      <g fill="#254cdb"><circle cx="72" cy="102" r="5"/><circle cx="260" cy="91" r="3"/><circle cx="448" cy="91" r="3"/></g>
-      <g fill="currentColor" fontFamily="monospace" fontSize="9"><text x="27" y="190">HEALTH WORKER</text><text x="217" y="190">STRUCTURED DATA</text><text x="414" y="190">SUPERVISOR</text></g>
-    </svg>
+    <img
+      className="project-visual project-visual-busho-photo"
+      src="https://raw.githubusercontent.com/kirtanswamy/BUSHO/main/assets/busho-github-banner.jpg"
+      alt="BUSHO concept banner showing a frontline health worker, report capture and supervisor workflow"
+      loading="lazy"
+    />
   )
   if (project.id === '02') return (
     <svg className="project-visual project-visual-varsity" viewBox="0 0 520 230" role="img" aria-label="Illustrative student campus dashboard concept; values are placeholders, not live student data">
