@@ -118,6 +118,34 @@ An interactive, cinematic newspaper documenting the evolution of a builder. The 
 
 **M1 exit gate:** user-reviewed preview; no hidden/blocked content, no navigation regressions, responsive index and opening, reduced-motion fallback, CI pass.
 
+### M1 — User preview recording review / polish pass (13 November 2026)
+
+The user supplied a 3:09 desktop screen recording at 1920 × 1080. Review findings from the recording:
+- The INDEX's content produced a second vertical scrollbar in the desktop preview. Root/page scroll and Lenis were both able to compete with the full-screen overlay.
+- The persistent current-project note obscured the reading area while the visitor scrolled.
+- The Viksit Bharat feature still used the presentation-topic headline and repeatedly linked JanSeva One to the event.
+- JanSeva One's own project status must be visibly ideation-only.
+- The opening and hero after the opening still need a much more expressive character-led visual treatment; the current CSS page unfold is a first-pass structural prototype, not the finished 3D opening.
+- The floating round control over the chapter rail in the recording appears to be a Vercel preview toolbar/inspection UI, not an application control; do not change the chapter rail to compensate for injected tooling.
+
+**Corrections committed after the recording**
+- Replaced the Viksit Bharat headline with “A NATIONAL CONVERSATION.” and removed the presentation-topic phrase.
+- Removed JanSeva One from the Viksit Bharat field note entirely. The field note now focuses on representing Balod/Chhattisgarh and the dialogue.
+- Re-labelled the JanSeva One project as **IDEATION ONLY** and made its project-card description explicit that it is a concept, never an implemented app or pilot.
+- Collapsed the persistent current-project note into a narrow edge bookmark; it expands only on hover/focus so it no longer permanently sits over body copy.
+- Stopped Lenis while the global INDEX is open and locked root/body scroll to prevent competing scrollbars. The overlay itself only scrolls when its content cannot fit the viewport.
+- Improved the project detail artwork's vertical framing.
+- Corrected the Journey chapter label to 05 to match the eight-part INDEX.
+
+**Still to verify on a fresh preview**
+- Confirm the index has one scrollbar at desktop and remains scrollable on short/mobile viewports.
+- Confirm focus trapping, Escape close and focus restoration after Lenis stop/start.
+- Confirm the bookmark is unobtrusive when collapsed and easy to discover.
+- Confirm the Viksit Bharat section no longer contains JanSeva or the presentation topic.
+- Review mobile/tablet behaviour and check console / animation performance.
+
+**M1 exit gate remains open:** review the newest deployed preview before starting M2's WebGL paper shader and book interaction work.
+
 ### M2 — Material and paper-motion engine
 - Replace/upgrade the CSS tear approximation with a displacement-based WebGL or shader transition, keeping an SVG/CSS fallback.
 - Refine paper thickness, fold shading, grain, edge distortion and perspective based on browser review.
