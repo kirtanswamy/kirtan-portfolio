@@ -196,6 +196,15 @@ The reference site has been reviewed at the level of its visual concept, content
 - Still to build: an upcoming-work feature, richer full-width project storytelling, and genuine proof/recognition material where supplied.
 - This is a structural and visual iteration, not a pixel-perfect copy of proprietary reference assets or animations.
 
+### Latest iteration — upcoming work / open notebook
+
+- Added a dedicated **Up Next** chapter with BUSHO as the lead feature and follow-on work directions for ElectroLab and Varsity.
+- The section is explicitly labelled as work in progress; it does not imply unfinished features are shipped or that future plans are completed achievements.
+- Added an original dark editorial feature spread, project status language and responsive stacked layout.
+- Added the new chapter to persistent navigation and updated the chapter count to ten.
+- Preserved the current illustrated newspaper character.
+- Remaining: a richer full project detail experience, proof/recognition archive, real project imagery, browser QA and release checks.
+
 ## Current implementation status
 
 | Area | Status | Notes |
