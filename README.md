@@ -1,6 +1,6 @@
 # Kirtan Swamy — The Maker's Notebook
 
-An original editorial portfolio built as a living newspaper / maker's notebook. The visual system uses warm paper, ink, cobalt and vermilion, oversized typography, field notes, project covers, and a character-artwork placeholder reserved for a future custom illustration.
+An original editorial portfolio planned as a living newspaper / maker's notebook: cinematic 3D opening, torn-paper global index, tactile project bookshelf and a visual autobiography. The current build is the foundation; the approved motion-led redesign will be delivered milestone by milestone.
 
 ## Stack
 
@@ -26,37 +26,39 @@ npm run build
 npm run preview
 ```
 
-## Sections
+## Approved experience architecture
 
-1. Opening cover and maker's manifesto
-2. Selected work / horizontal project archive
-3. Think · Create · Deliver
-4. Recognition archive
-5. Up Next / active work notebook
-6. Viksit Bharat field note
-7. About / personal story
-8. Journey / education and community
-9. Learning archive
-10. Skills and tools
-11. Contact and footer
+1. Cinematic newspaper opening and front page
+2. Horizontal project bookshelf and individual case studies
+3. Recognition and leadership milestones
+4. Cinematic About autobiography
+5. Education and journey
+6. Verified learning and certification archive
+7. Skills and workshop
+8. Contact and closing page
+
+Featured projects: BUSHO, Varsity, ElectroLab, JanSeva One and Chhutti Ke Baad.
+
+Global navigation is planned as a torn-paper INDEX; project navigation remains a separate tactile bookshelf. The existing newspaper-style character artwork is temporary until a custom likeness is created from a user-supplied portrait.
 
 ## Interactions and accessibility
 
-- Desktop chapter rail and mobile chapter navigation.
-- Horizontal project archive with pointer drag, touch scrolling, keyboard arrows, Home and End.
+- Current build: desktop chapter rail and mobile chapter navigation. Approved redesign: full-screen torn-paper INDEX.
+- Current build: horizontal project archive with pointer drag, touch scrolling, keyboard arrows, Home and End. Approved redesign: tactile bookshelf and book-open transitions.
 - Project detail dialogs with Escape-to-close, focus trapping, focus restoration and backdrop dismissal.
 - Scroll progress, GSAP section reveals and restrained hero parallax.
 - Reduced-motion handling and keyboard-visible focus styles.
 
 ## Personal data accuracy
 
-Some credential records are deliberately labelled as courses, simulations or items to verify. Do not relabel them as professional certifications until the certificate / credential itself has been checked. Academic grades and current semester are not published until the latest values are confirmed. The hero illustration is a designed placeholder and is not presented as a portrait; replace it with the original newspaper-style character artwork when ready.
+Some credential records are deliberately labelled as courses, simulations or items to verify. Do not relabel them as professional certifications until the certificate / credential itself has been checked. Academic grades and current semester are not published until the latest values are confirmed. The current newspaper-style character illustration is a temporary placeholder; the personal likeness version is deferred until a portrait is supplied.
 
 Before launch:
 - Verify current academic year / semester and CGPA if you want to publish them.
 - Verify credential names, issue dates and certificate URLs.
 - Add the exact LinkedIn profile URL and a public contact email.
 - Confirm the current BUSHO and Varsity project status and live links.
+- Supply real screenshots and evidence for BUSHO, Varsity, ElectroLab, JanSeva One and Chhutti Ke Baad.
 - Replace the reserved hero illustration with the approved custom character.
 
 ## Deployment
@@ -65,4 +67,4 @@ Vercel defaults:
 - Build command: `npm run build`
 - Output directory: `dist`
 
-The portfolio takes broad inspiration from experimental editorial web design, but its copy, layout, illustrations and styling are implemented as an original identity.
+The portfolio takes interaction inspiration from the live Niccolò Miranda website, but its copy, layout, illustrations and styling are implemented as an original identity. The approved roadmap is in `ROADMAP.md`.
