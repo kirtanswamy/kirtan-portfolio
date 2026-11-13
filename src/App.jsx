@@ -713,7 +713,7 @@ function App() {
       </section>
 
       <section className="journey-section section-pad" id="journey">
-        <div className="section-index reveal"><Eyebrow>06 — THE LEARNING CURVE</Eyebrow><span>EDUCATION / COMMUNITY / PRACTICE</span></div>
+        <div className="section-index reveal"><Eyebrow>05 — THE JOURNEY</Eyebrow><span>EDUCATION / COMMUNITY / PRACTICE</span></div>
         <div className="section-heading section-title">
           <h2><span className="title-mask"><span>IN THE</span></span><span className="title-mask"><span>MAKING<span className="blue-period">.</span></span></span></h2>
           <p>A timeline, not a finish line.<br />More chapters are being written.</p>
