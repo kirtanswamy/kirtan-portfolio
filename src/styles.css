@@ -530,3 +530,10 @@ body.dialog-open{overflow:hidden}
 @keyframes scroll-nudge{0%,100%{transform:translateY(-2px)}50%{transform:translateY(4px)}}
 @media(max-width:700px){.hero-edition-mark{right:2px;bottom:0;width:82px}.hero-edition-mark>span,.hero-edition-mark>i{font-size:4px}.hero-edition-mark>strong{font-size:25px}.hero-scroll-note{margin-top:12px}}
 @media(prefers-reduced-motion:reduce){.hero-scroll-note i{animation:none}}
+
+/* Hero art choreography — restrained depth on the printed illustration */
+.portrait-art{transform-origin:50% 54%;will-change:transform}
+.portrait-frame{perspective:900px}
+.portrait-art .portrait-orbit{transform-origin:center}
+@media(max-width:700px){.portrait-art{will-change:auto}}
+@media(prefers-reduced-motion:reduce){.portrait-art{will-change:auto}}
