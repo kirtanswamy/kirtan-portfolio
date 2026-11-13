@@ -578,6 +578,11 @@ function App() {
             <div className="about-signoff"><span>IN PROGRESS, BY DESIGN.</span><span>— K.S.</span></div>
           </div>
         </div>
+        <div className="about-north-star reveal">
+          <span>THE THING THAT KEEPS ME BUILDING</span>
+          <p>I love the moment a difficult problem starts becoming <em>something useful.</em></p>
+          <small>CODE IS THE TOOL. PROGRESS IS THE FEELING. IMPACT IS THE POINT.</small>
+        </div>
         <div className="about-facts reveal">
           <div><span>01 / CURRENT CHAPTER</span><strong>ECE UNDERGRADUATE</strong><small>SRMIST · CHENNAI</small></div>
           <div><span>02 / NATURAL HABIT</span><strong>LEARN BY BUILDING</strong><small>PROTOTYPE · TEST · REFINE</small></div>
