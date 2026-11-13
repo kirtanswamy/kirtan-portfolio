@@ -120,7 +120,7 @@ An interactive, cinematic newspaper documenting the evolution of a builder. The 
 
 ### M1 — User preview recording review / polish pass (13 November 2026)
 
-The user supplied a 3:09 desktop screen recording at 1920 × 1080. Review findings from the recording:
+The user supplied a 1:56 desktop screen recording at 1920 × 1080. Review findings from the recording:
 - The INDEX's content produced a second vertical scrollbar in the desktop preview. Root/page scroll and Lenis were both able to compete with the full-screen overlay.
 - The persistent current-project note obscured the reading area while the visitor scrolled.
 - The Viksit Bharat feature still used the presentation-topic headline and repeatedly linked JanSeva One to the event.
@@ -150,7 +150,7 @@ The user supplied a 3:09 desktop screen recording at 1920 × 1080. Review findin
 - Confirm the bookmark is unobtrusive when collapsed and easy to discover.
 - Review mobile/tablet behaviour and check console / animation performance.
 
-**M1 exit gate remains open:** source-level polish is in place, but rendered desktop/mobile interaction QA and a user preview review are still required before starting M2's WebGL paper shader and book interaction work.
+**M1 review outcome (13 November 2026):** desktop opening, front-page handoff, INDEX open/close and chapter navigation, plus the About/autobiography content were visually reviewed in the supplied recording. Desktop visual review is accepted. The recording did not verify INDEX overflow scrolling at short heights or any narrow/mobile viewport, so responsive QA remains explicitly open for M6. No claim is made that keyboard focus trapping or screen-reader behavior was validated by the recording.
 
 ### M2 — Material and paper-motion engine
 
