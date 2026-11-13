@@ -719,12 +719,14 @@ function App() {
             <div className="project-dialog-art"><span>{activeProject.id} / SYSTEM SKETCH</span><strong>{activeProject.name}</strong><small>{activeProject.note}</small><ProjectVisual project={activeProject} /></div>
             <div className="project-dialog-copy"><Eyebrow>{activeProject.category} · {activeProject.year}</Eyebrow><h2 id="project-dialog-title">{activeProject.name}<span>.</span></h2><p className="project-dialog-type">{activeProject.type}</p><p className="project-dialog-description">{activeProject.description}</p>
               <div className="project-dialog-meta"><div><span>CONTRIBUTION</span><strong>{activeProject.contribution}</strong></div><div><span>STAGE</span><strong>{activeProject.stage}</strong></div><div><span>FOCUS AREAS</span><strong>{activeProject.tags.join(' · ')}</strong></div><div><span>FILED</span><strong>{activeProject.year} / {activeProject.category}</strong></div></div>
+              <div className="project-manifesto"><span>THE CENTRAL IDEA</span><strong>“{activeProject.note}”</strong><small>PROJECT FILE / {activeProject.id} — {activeProject.stage}</small></div>
               <div className="project-case-grid">
                 <article><span>01 / THE QUESTION</span><p>{activeProject.problem}</p></article>
                 <article><span>02 / THE APPROACH</span><p>{activeProject.approach}</p></article>
                 <article><span>03 / WHERE IT STANDS</span><p>{activeProject.current}</p></article>
                 <article><span>04 / NEXT ITERATION</span><p>{activeProject.next}</p></article>
               </div>
+              <div className="project-process-strip" aria-label="Project development sequence"><span>QUESTION</span><i>→</i><span>DESIGN</span><i>→</i><span>BUILD</span><i>→</i><span>LEARN</span></div>
               <div className="project-dialog-actions">{activeProject.href && <a href={activeProject.href} target="_blank" rel="noreferrer">OPEN PROJECT / PUBLIC PAGE <ArrowUpRight size={15} /></a>}{activeProject.repo && <a href={activeProject.repo} target="_blank" rel="noreferrer">VIEW SOURCE <Code2 size={15} /></a>}</div>
             </div>
           </div>
