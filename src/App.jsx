@@ -624,7 +624,7 @@ function App() {
             <p>That direction took me from small HTML pages to interactive applications, API integrations, backend workflows and systems that work with data. Along the way came Viksit Bharat, responsibility as SQAC's App Development Lead, and projects such as BUSHO that make me think about the people and processes behind a screen.</p>
             <p>I keep building because I love the work itself: understanding a problem, making a first version, finding what breaks and improving it. I don't want to stop learning—or stop looking for problems where technology can make something genuinely more useful.</p>
             <div className="about-signoff"><span>IN PROGRESS, BY DESIGN.</span><span>— K.S.</span></div>
-          </div>div>
+          </div>
         </div>
         <div className="about-north-star reveal">
           <span>THE THING THAT KEEPS ME BUILDING</span>
@@ -686,12 +686,12 @@ function App() {
         <div className="journey-list">
           <article className="journey-item reveal">
             <span className="journey-count">01</span><span className="journey-date">PRESENT</span>
-            <div><h3>Electronics & Communication Engineering</h3><p>SRM Institute of Science and Technology · Chennai</p><small>Exploring electronics, computing, software and the systems that connect them.</small></div>
+            <div><h3>Electronics & Communication Engineering</h3><p>SRM Institute of Science and Technology</p><small>Exploring electronics, computing, software and the systems that connect them.</small></div>
             <span className="journey-mark"><Cpu /></span>
           </article>
           <article className="journey-item reveal">
             <span className="journey-count">02</span><span className="journey-date">2026</span>
-            <div><h3>Viksit Bharat Young Leaders Dialogue</h3><p>State contingent representative · New Delhi</p><small>Presented the JanSeva One civic-tech idea under “Innovation with Tradition: Building a Modern Bharat”.</small></div>
+            <div><h3>Viksit Bharat Young Leaders Dialogue</h3><p>State contingent representative · New Delhi</p><small>Presented a civic-tech idea focused on community-level problem solving.</small></div>
             <span className="journey-mark"><Compass /></span>
           </article>
           <article className="journey-item reveal">
@@ -759,7 +759,7 @@ function App() {
           </div>
         </div>
         <footer className="footer">
-          <a className="footer-brand" href="#top"><span className="brand-monogram">KS<span>®</span></span><span>THE PERSONAL EDITION<br />CHENNAI, INDIA</span></a>
+          <a className="footer-brand" href="#top"><span className="brand-monogram">KS<span>®</span></span><span>THE PERSONAL EDITION<br />HYDERABAD, INDIA</span></a>
           <div className="footer-links"><a href="https://github.com/kirtanswamy" target="_blank" rel="noreferrer"><Code2 size={16} /> GITHUB <ExternalLink size={12} /></a><a href="#work">SELECTED WORK <ArrowUpRight size={12} /></a><a href="#top">BACK TO TOP <ArrowUp size={12} /></a></div>
           <span className="footer-copy">© 2026 KIRTAN SWAMY<br />PRINTED ON THE INTERNET.</span>
         </footer>
