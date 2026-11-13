@@ -238,6 +238,32 @@ function App() {
     const removeTimer = window.setTimeout(() => { setOpeningActive(false); document.getElementById('main-content')?.focus({ preventScroll: true }) }, 3000)
     return () => { window.clearTimeout(exitTimer); window.clearTimeout(removeTimer) }
   }, [])
+  useEffect(() => {
+    if (!openingActive) return undefined
+    const overlay = document.querySelector('.newspaper-opening')
+    const focusable = overlay ? [...overlay.querySelectorAll('button:not([disabled]), a[href]')] : []
+    const first = focusable[0]
+    const last = focusable[focusable.length - 1]
+    first?.focus()
+
+    const onKeyDown = event => {
+      if (event.key === 'Escape') {
+        event.preventDefault()
+        first?.click()
+        return
+      }
+      if (event.key !== 'Tab' || !first || !last) return
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault()
+        last.focus()
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault()
+        first.focus()
+      }
+    }
+    document.addEventListener('keydown', onKeyDown)
+    return () => document.removeEventListener('keydown', onKeyDown)
+  }, [openingActive])
 
   const visibleLearning = useMemo(
     () => activeLearningCategory === 'ALL ENTRIES' ? learning : learning.filter(item => item.category === activeLearningCategory),
@@ -388,6 +414,14 @@ function App() {
 
   const closeMenu = () => setMenuOpen(false)
 
+  const finishOpening = () => {
+    setOpeningLeaving(true)
+    window.setTimeout(() => {
+      setOpeningActive(false)
+      document.getElementById('main-content')?.focus({ preventScroll: true })
+    }, 450)
+  }
+
   const moveProjectShelf = direction => {
     const shelf = projectShelfRef.current
     if (!shelf) return
@@ -427,7 +461,7 @@ function App() {
 
   return (
     <main className="site-shell" id="top">
-      {openingActive && <div className={`newspaper-opening ${openingLeaving ? "is-leaving" : ""}`} role="dialog" aria-modal="true" aria-labelledby="opening-title">
+      {openingActive && <div className={`newspaper-opening ${openingLeaving ? "is-leaving" : ""}`} role="dialog" aria-modal="true" aria-label="The Maker's Notebook opening">
         <div className="opening-vignette" />
         <div className="opening-stage" aria-hidden="true">
           <div className="opening-paper">
@@ -438,7 +472,7 @@ function App() {
           </div>
         </div>
         <div className="opening-caption"><span>AN OPEN NOTEBOOK</span><span>2026 / INDIA</span></div>
-        <button type="button" className="opening-skip" autoFocus onClick={() => { setOpeningLeaving(true); window.setTimeout(() => { setOpeningActive(false); document.getElementById("main-content")?.focus({ preventScroll: true }) }, 450) }}>SKIP INTRO <ArrowUpRight size={13}/></button>
+        <button type="button" className="opening-skip" onClick={finishOpening}>SKIP INTRO <ArrowUpRight size={13}/></button>
       </div>}
       <a className="skip-link" href="#main-content">SKIP TO CONTENT</a>
       <div className="reading-progress" aria-hidden="true"><span className="reading-progress__bar" /></div>
@@ -505,7 +539,7 @@ function App() {
               <div className="portrait-orbit orbit-one" />
               <div className="portrait-orbit orbit-two" />
               <div className="portrait-star">✳</div>
-              <span className="portrait-coordinates">13°04' N<br />80°16' E</span>
+              <span className="portrait-coordinates">17°23' N<br />78°29' E</span>
             </div>
             <div className="portrait-caption"><span>AN ORIGINAL ILLUSTRATED IDENTITY</span><span>PERSONAL CHARACTER TO COME ↗</span></div>
           </div>
@@ -702,14 +736,7 @@ function App() {
           </div>
           <p className="intersection-caption">I don't see these as separate interests. The most interesting work, for me, happens when they meet.</p>
         </div>
-        <div className="about-method reveal">
-          <div className="about-method-heading"><Eyebrow>THE WAY I LIKE TO WORK</Eyebrow><span>AN OPEN OPERATING MANUAL / 001</span></div>
-          <div className="about-method-grid">
-            <article><span>01</span><h3>NOTICE THE FRICTION.</h3><p>Look beyond the obvious request. Understand the people, constraints and small moments that make a problem worth solving.</p><i>OBSERVE / QUESTION</i></article>
-            <article><span>02</span><h3>MAKE AN IDEA TANGIBLE.</h3><p>Move from a rough sketch to a prototype, interface, simulation or working flow that someone can actually react to.</p><i>DESIGN / BUILD</i></article>
-            <article><span>03</span><h3>LEARN IN THE OPEN.</h3><p>Test assumptions, listen to feedback and improve the thing. Progress matters more when it can be examined and shared.</p><i>TEST / REFINE</i></article>
-          </div>
-        </div>
+
       </section>
 
       <section className="journey-section section-pad" id="journey">
