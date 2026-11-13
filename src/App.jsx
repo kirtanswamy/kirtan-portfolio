@@ -449,7 +449,13 @@ function App() {
             <button type="button" onClick={() => moveProjectShelf(1)} disabled={activeProjectIndex >= visibleProjects.length - 1} aria-label="Next project"><ArrowRight size={16} /></button>
           </div>
         </div>
-        <div className="projects-grid projects-shelf" ref={projectShelfRef} aria-live="polite"
+        <div className="projects-grid projects-shelf" ref={projectShelfRef} role="region" aria-label="Horizontally browsable featured project archive" tabIndex={0} aria-live="polite"
+          onKeyDown={event => {
+            if (event.key === 'ArrowRight') { event.preventDefault(); moveProjectShelf(1) }
+            if (event.key === 'ArrowLeft') { event.preventDefault(); moveProjectShelf(-1) }
+            if (event.key === 'Home') { event.preventDefault(); projectShelfRef.current?.scrollTo({ left: 0, behavior: 'smooth' }) }
+            if (event.key === 'End') { event.preventDefault(); projectShelfRef.current?.scrollTo({ left: projectShelfRef.current.scrollWidth, behavior: 'smooth' }) }
+          }}
           onPointerDown={event => {
             if (event.pointerType !== 'mouse' || event.button !== 0) return
             const drag = shelfDragRef.current
