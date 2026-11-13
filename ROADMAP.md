@@ -79,6 +79,14 @@ An interactive, cinematic newspaper documenting the evolution of a builder. The 
 - Keep mock visuals for Varsity and other projects until the user supplies or approves updated source material. Ask for Varsity's public website URL and repository URL before writing a more detailed case study; the current project description is provisional.
 
 ### M0 — Foundation and truth audit
+
+**Status:** Core content corrections and mockup policy recorded; remaining user evidence and visual preview review are carried as later content/QA tasks.
+- Five selected projects now include Chhutti Ke Baad.
+- BUSHO uses the user-approved live URL and repository visual asset as a mock hero banner.
+- Varsity remains an in-development project with mock visuals and repository-only action; no public deployment is implied.
+- ElectroLab uses repository-only action unless a public demo is later confirmed.
+- JanSeva One is explicitly ideation-only and never implemented.
+- About narrative and Hyderabad location are corrected.
 - Review the existing portfolio code and current project data.
 - Inspect project repositories and authoritative READMEs where accessible.
 - Create a content registry separating verified facts, user-supplied claims and items needing confirmation.
@@ -89,22 +97,35 @@ An interactive, cinematic newspaper documenting the evolution of a builder. The 
 
 **Exit gate:** approved project inventory and content/evidence checklist; no unsupported claims silently promoted to fact.
 
-### M1 — Editorial system and responsive shell
-- Define colour, typography, grid, spacing, paper texture, borders and material tokens.
-- Build masthead, front-page layout, reusable editorial primitives and responsive foundations.
-- Replace the conventional nav with the INDEX entry point and full-screen overlay shell.
-- Keep the existing character placeholder.
-- Establish accessible focus, keyboard, loading, active and reduced-motion states.
+### M1 — Newspaper shell and opening prototype
 
-**Exit gate:** complete responsive shell and navigation structure, without the full 3D opening yet.
+<badge>In progress</badge>
 
-### M2 — Newspaper opening and paper-motion engine
-- Build the 3D cover/opening sequence.
-- Implement torn-paper INDEX reveal and close.
-- Prototype paper displacement, grain, fold and optional charred/burning edge as a rare effect.
-- Tune timing, easing, material response and fallback behaviour.
+**Implemented on `feature/editorial-world-rebuild`:**
+- Added a cinematic opening overlay with two independently animated paper leaves, perspective rotation, central fold, paper-grid texture, dark vignette and the masthead revealed across the spread.
+- Added a clear Skip Intro control. Visitors are not forced to wait for the full sequence.
+- Users with `prefers-reduced-motion` bypass the opening rather than seeing a fast, unnecessary animation.
+- Replaced the conventional desktop navigation with an INDEX trigger; the mobile menu button opens the same global INDEX.
+- Rebuilt the INDEX as a full-screen dark editorial spread with an irregular torn lower edge, animated chapter rows and eight top-level destinations.
+- Added Escape-to-close, Tab focus trapping, focus restoration, inert/aria-hidden closed state and body-scroll locking.
+- Consolidated the global navigation into eight chapters: Front Page, Work, Milestones, About, Journey, Archive, Workshop and Contact. Process, Up Next and Field Note remain supporting content within those larger chapters.
+- Updated the project counters and archive index from four to five projects.
+- Kept the existing illustrated newspaper character; the custom likeness remains deferred.
 
-**Exit gate:** polished opening and navigation transitions, smooth on target devices and usable without WebGL.
+**Implementation boundary:** this opening is a CSS perspective / transform prototype. It establishes the timing, structure and interaction contract; it is not yet a Three.js scene or a WebGL paper simulation. The torn edge is currently a CSS clip-path approximation, not the final displacement shader.
+
+**Still to validate:** actual rendered preview, desktop/tablet/mobile layout, focus behaviour, intro-to-page handoff, keyboard and touch, console errors and performance.
+
+**M1 exit gate:** user-reviewed preview; no hidden/blocked content, no navigation regressions, responsive index and opening, reduced-motion fallback, CI pass.
+
+### M2 — Material and paper-motion engine
+- Replace/upgrade the CSS tear approximation with a displacement-based WebGL or shader transition, keeping an SVG/CSS fallback.
+- Refine paper thickness, fold shading, grain, edge distortion and perspective based on browser review.
+- Prototype the rare charred/burning edge as an optional chapter transition; do not use it on every navigation.
+- Add the richer camera/scene motion only after the initial page shell has been measured on desktop and mobile.
+- Tune timing, easing, material response, asset loading and fallback behaviour.
+
+**Exit gate:** polished, tested opening and navigation transitions that remain smooth on target devices and usable without WebGL.
 
 ### M3 — Bookshelf and five project worlds
 - Build five individual book covers and tactile horizontal bookshelf.
