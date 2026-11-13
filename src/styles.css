@@ -507,3 +507,12 @@ body.dialog-open{overflow:hidden}
 .about-north-star>p em{font-style:italic;color:var(--acid)}
 .about-north-star>small{color:#eee7d9b8}
 @media(max-width:650px){.about-north-star{padding:26px 22px}.about-north-star>p{font-size:clamp(36px,10vw,58px);max-width:15ch}.about-north-star:after{right:-35%;opacity:.6}}
+
+/* Featured work shelf — tactile drag affordance and keyboard parity */
+.projects-shelf{cursor:grab;scrollbar-width:thin;scrollbar-color:var(--red) transparent;overscroll-behavior-x:contain;scroll-snap-type:x mandatory}
+.projects-shelf:active{cursor:grabbing}
+.projects-shelf:focus-visible{outline:2px solid var(--blue);outline-offset:5px}
+.projects-shelf>.project-card{scroll-snap-align:start}
+.shelf-controls button:focus-visible,.project-filters button:focus-visible{outline:2px solid var(--blue);outline-offset:4px}
+@media(hover:hover){.projects-shelf::-webkit-scrollbar{height:5px}.projects-shelf::-webkit-scrollbar-thumb{background:var(--red)}}
+@media(prefers-reduced-motion:reduce){.projects-shelf{scroll-behavior:auto;scroll-snap-type:x proximity}}
