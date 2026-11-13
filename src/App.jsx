@@ -512,7 +512,7 @@ function App() {
       </section>
 
       <section className="recognition-section section-pad" id="recognition">
-        <div className="section-index reveal"><Eyebrow>RECOGNITION — PEOPLE / PLATFORMS / RESPONSIBILITY</Eyebrow><span>SELECTED RECORD / 2026</span></div>
+        <div className="section-index reveal"><Eyebrow>04 — RECOGNITION / PEOPLE / PLATFORMS</Eyebrow><span>SELECTED RECORD / 2026</span></div>
         <div className="recognition-heading"><h2>NOT JUST<br/><em>THE WORK.</em></h2><p>Some milestones happen outside the code editor. They come from showing up, representing an idea, working with people and taking responsibility.</p></div>
         <div className="recognition-grid">
           <article className="recognition-feature reveal"><span>01 / NATIONAL DIALOGUE</span><strong>VIKSIT<br/>BHARAT.</strong><p>Selected for the Chhattisgarh state contingent at the Viksit Bharat Young Leaders Dialogue 2026; presented the JanSeva One civic-tech concept in New Delhi.</p><b>REPRESENTATION / PRESENTATION</b><i>VB</i></article>
@@ -523,7 +523,7 @@ function App() {
       </section>
 
       <section className="up-next-section section-pad" id="up-next">
-        <div className="section-index reveal"><Eyebrow>UP NEXT — IN THE MAKING</Eyebrow><span>OPEN FILES / NOT FINISHED STORIES</span></div>
+        <div className="section-index reveal"><Eyebrow>05 — UP NEXT / IN THE MAKING</Eyebrow><span>OPEN FILES / NOT FINISHED STORIES</span></div>
         <div className="up-next-heading"><h2>THE NEXT<br/><em>CHAPTERS.</em></h2><p>Some ideas are still on the workbench. These are the directions I'm actively exploring—not finished launches or promises dressed up as products.</p></div>
         <div className="up-next-feature reveal">
           <div className="up-next-feature-mark"><span>IN PROGRESS / 001</span><strong>BUSHO</strong><i>↗</i></div>
@@ -538,7 +538,7 @@ function App() {
 
       <section className="field-note" id="field-notes">
         <div className="field-note-inner">
-          <div className="field-note-label"><Eyebrow light>04 — OUTSIDE THE WORKSHOP</Eyebrow><span>FIELD NOTE / 001</span></div>
+          <div className="field-note-label"><Eyebrow light>06 — OUTSIDE THE WORKSHOP</Eyebrow><span>FIELD NOTE / 001</span></div>
           <div className="field-note-layout">
             <div className="field-note-date">2026<span>NEW DELHI</span></div>
             <div className="field-note-copy">
@@ -582,7 +582,7 @@ function App() {
       </section>
 
       <section className="about-section section-pad" id="about">
-        <div className="section-index reveal"><Eyebrow>05 — THE PERSON BEHIND THE PROJECTS</Eyebrow><span>A LITTLE CONTEXT</span></div>
+        <div className="section-index reveal"><Eyebrow>07 — THE PERSON BEHIND THE PROJECTS</Eyebrow><span>A LITTLE CONTEXT</span></div>
         <div className="about-layout">
           <div className="about-heading section-title">
             <h2><span className="title-mask"><span>MORE</span></span><span className="title-mask"><span>THAN</span></span><span className="title-mask"><span>THE <em>CODE.</em></span></span></h2>
@@ -651,7 +651,7 @@ function App() {
       </section>
 
       <section className="journey-section section-pad" id="journey">
-        <div className="section-index reveal"><Eyebrow>05 — THE LEARNING CURVE</Eyebrow><span>EDUCATION / COMMUNITY / PRACTICE</span></div>
+        <div className="section-index reveal"><Eyebrow>08 — THE LEARNING CURVE</Eyebrow><span>EDUCATION / COMMUNITY / PRACTICE</span></div>
         <div className="section-heading section-title">
           <h2><span className="title-mask"><span>IN THE</span></span><span className="title-mask"><span>MAKING<span className="blue-period">.</span></span></span></h2>
           <p>A timeline, not a finish line.<br />More chapters are being written.</p>
@@ -691,7 +691,7 @@ function App() {
       </section>
 
       <section className="learning-section section-pad" id="learning">
-        <div className="section-index reveal"><Eyebrow>06 — THE READING ROOM</Eyebrow><span>COURSES / SIMULATIONS / CONTINUOUS LEARNING</span></div>
+        <div className="section-index reveal"><Eyebrow>09 — THE READING ROOM</Eyebrow><span>COURSES / SIMULATIONS / CONTINUOUS LEARNING</span></div>
         <div className="learning-intro reveal"><div><h2>ALWAYS<br /><em>LEARNING.</em></h2></div><p>Not every useful lesson comes with a certificate. This is a growing record of courses, simulations and learning paths. Credential links will be added when each record is verified.</p></div>
         <div className="learning-archive-bar">
           <div className="learning-filters" role="group" aria-label="Filter learning records">
@@ -712,7 +712,7 @@ function App() {
 
       <section className="skills-section" id="skills">
         <div className="skills-inner section-pad">
-          <div className="section-index reveal"><Eyebrow light>07 — THINGS I WORK WITH</Eyebrow><span>TOOLS ARE MEANS, NOT THE POINT.</span></div>
+          <div className="section-index reveal"><Eyebrow light>10 — THINGS I WORK WITH</Eyebrow><span>TOOLS ARE MEANS, NOT THE POINT.</span></div>
           <div className="skills-heading"><h2>THE<br /><em>TOOLBOX.</em></h2><p>My toolkit keeps changing.<br />The curiosity doesn't.</p></div>
           <div className="skills-groups">
             {skills.map(group => <div className="skill-group reveal" key={group.group}><span>{group.group}</span><div>{group.items.map(item => <span key={item}>{item}</span>)}</div></div>)}
@@ -721,7 +721,7 @@ function App() {
       </section>
 
       <section className="contact-section section-pad" id="contact">
-        <div className="section-index reveal"><Eyebrow>09 — THE NEXT PAGE IS OPEN</Eyebrow><span>LET'S MAKE SOMETHING USEFUL</span></div>
+        <div className="section-index reveal"><Eyebrow>11 — THE NEXT PAGE IS OPEN</Eyebrow><span>LET'S MAKE SOMETHING USEFUL</span></div>
         <div className="contact-main">
           <div className="contact-copy"><p>HAVE A QUESTION, AN IDEA<br />OR A GOOD PROBLEM?</p><h2>LET'S<br /><em>MAKE IT.</em></h2><span className="contact-footnote">GOOD CONVERSATIONS CAN START ANYWHERE.</span></div>
           <div className="contact-action">
