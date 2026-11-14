@@ -101,7 +101,8 @@ Motion uses eased transforms and opacity. The camera eases to selected objects; 
 - [x] Desktop/mobile interaction contract defined.
 - [x] Motion, accessibility, fallback and performance constraints defined.
 - [x] Existing React application and project content audited.
-- [ ] M1 prototype visually and functionally verified.
+- [x] M1 prototype implemented and production build completed on Vercel Preview.
+- [ ] M1 prototype visually and functionally verified on desktop and mobile by browser/device QA.
 
 ## M1 acceptance checklist
 
@@ -111,5 +112,13 @@ Motion uses eased transforms and opacity. The camera eases to selected objects; 
 - [ ] Selection moves the camera and opens an accessible HTML summary.
 - [ ] Reduced-motion mode disables camera and ambient movement.
 - [ ] WebGL fallback remains navigable.
-- [ ] Production build succeeds and no console/runtime errors are observed in tested environments.
+- [x] Production build succeeds on Vercel Preview.
+- [ ] No console/runtime errors are observed in tested browsers (interactive browser QA still pending).
 - [ ] Preview is shared for user review; no merge or production deployment.
+
+## M1 build note
+
+The Vercel Preview build completed successfully. Vite reports a 929.26 kB minified workshop scene chunk (245.63 kB gzip), above its default 500 kB warning threshold. The scene is a separate lazy-loaded component, but because it is the landing hero it is requested immediately after initial render. This is a known optimisation item for the M1 review; do not hide the warning by simply raising the threshold.
+
+Preview deployment: https://kirtan-portfolio-5tv21xhjr-saturn-789b.vercel.app/
+Deployment commit: `74aaffc16e64ef6f3632465de740c99ff4ce4d76`
