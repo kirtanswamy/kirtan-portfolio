@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Lenis from 'lenis'
@@ -245,7 +245,6 @@ function ProjectCard({ project, index, onOpen }) {
 
 function App() {
   const [openingActive, setOpeningActive] = useState(true)
-  const [openingLeaving, setOpeningLeaving] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const [activeCategory, setActiveCategory] = useState('ALL WORK')
   const [activeSection, setActiveSection] = useState('')
@@ -258,7 +257,7 @@ function App() {
   const lenisRef = useRef(null)
   const shelfDragRef = useRef({ pointerId: null, startX: 0, scrollLeft: 0, dragged: false })
 
-  const finishOpening = () => {
+  const finishOpening = useCallback(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       setOpeningActive(false)
       document.getElementById('main-content')?.focus({ preventScroll: true })
@@ -272,7 +271,7 @@ function App() {
       document.getElementById('main-content')?.focus({ preventScroll: true })
       sectionTransitionTimer.current = window.setTimeout(() => setSectionTransition(false), 980)
     }, 420)
-  }
+  }, [])
 
   useEffect(() => {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -283,7 +282,7 @@ function App() {
     }
     const exitTimer = window.setTimeout(finishOpening, 3800)
     return () => window.clearTimeout(exitTimer)
-  }, [])
+  }, [finishOpening])
   useEffect(() => {
     if (!openingActive || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined
     const overlay = document.querySelector('.newspaper-opening')
@@ -554,7 +553,7 @@ function App() {
           </filter>
         </defs>
       </svg>
-      {openingActive && <div className={`newspaper-opening ${openingLeaving ? "is-leaving" : ""}`} role="dialog" aria-modal="true" aria-label="The Maker's Notebook opening">
+      {openingActive && <div className="newspaper-opening" role="dialog" aria-modal="true" aria-label="The Maker's Notebook opening">
         <div className="opening-vignette" />
         <div className="opening-stage" aria-hidden="true">
           <div className="opening-paper">
