@@ -1580,3 +1580,76 @@ html.index-open body{
   .opening-leaf-left>strong{font-size:clamp(22px,7vw,30px)}
   .opening-leaf-right>strong{font-size:clamp(19px,5.8vw,25px)}
 }
+
+
+/* M1 — cinematic editorial atmosphere: responsive light, layered print and a more dimensional spread. */
+.newspaper-opening{
+  --pointer-x:50%;
+  --pointer-y:45%;
+  background:
+    radial-gradient(ellipse at var(--pointer-x) var(--pointer-y),rgba(103,119,153,.22),transparent 31%),
+    radial-gradient(ellipse at 50% 46%,#5c574b 0%,#292923 42%,#11120f 100%);
+}
+.newspaper-opening:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  opacity:.22;
+  background:
+    linear-gradient(115deg,transparent 0 43%,rgba(236,224,201,.08) 50%,transparent 57%),
+    radial-gradient(circle at 50% 50%,transparent 0 34%,rgba(0,0,0,.42) 100%);
+  mix-blend-mode:screen;
+}
+.opening-stage{
+  filter:drop-shadow(0 38px 44px rgba(0,0,0,.52)) drop-shadow(0 7px 12px rgba(0,0,0,.28));
+}
+.opening-paper{
+  isolation:isolate;
+  transform:rotateX(5deg) rotateZ(-1.25deg);
+}
+.opening-paper:before{
+  box-shadow:inset 0 0 0 1px rgba(28,25,20,.34),inset 0 0 46px rgba(65,51,32,.12);
+}
+.opening-paper:after{
+  top:5px;right:4px;bottom:-10px;left:4px;
+  background:
+    repeating-linear-gradient(180deg,#a99e8c 0 1px,#e8dfd0 1px 3px),
+    linear-gradient(90deg,#c4b9a7,#eee5d6);
+  box-shadow:0 20px 28px rgba(0,0,0,.34),0 3px 0 rgba(255,255,255,.3);
+}
+.opening-leaf{
+  background-image:
+    linear-gradient(rgba(41,39,31,.045) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(41,39,31,.035) 1px,transparent 1px),
+    radial-gradient(ellipse at 18% 10%,rgba(255,255,255,.66),transparent 52%),
+    linear-gradient(135deg,#f1e9dc 0%,#e3d9c9 100%);
+  box-shadow:inset 0 0 0 1px rgba(44,37,27,.12);
+}
+.opening-leaf-left>strong{
+  text-shadow:0 1px 0 rgba(255,255,255,.6),0 3px 0 rgba(71,61,47,.12);
+}
+.opening-leaf-right>strong{
+  text-shadow:0 1px 0 rgba(255,255,255,.7),0 3px 0 rgba(37,76,219,.12);
+}
+.opening-fold{
+  width:42px;
+  background:linear-gradient(90deg,rgba(36,29,20,.28),rgba(36,29,20,.08) 28%,rgba(255,255,255,.58) 49%,rgba(27,23,18,.18) 59%,transparent 100%);
+}
+.opening-caption{
+  text-shadow:0 1px 8px rgba(0,0,0,.35);
+}
+.opening-skip{
+  border-color:rgba(238,232,220,.58);
+  background:rgba(15,16,14,.38);
+  box-shadow:0 8px 24px rgba(0,0,0,.14);
+}
+.opening-skip:active{transform:translateY(1px)}
+@media(max-width:700px){
+  .opening-stage{filter:drop-shadow(0 24px 28px rgba(0,0,0,.48))}
+  .opening-fold{width:18px}
+}
+@media(prefers-reduced-motion:reduce){
+  .newspaper-opening{background:#292923}
+  .newspaper-opening:before{display:none}
+}
