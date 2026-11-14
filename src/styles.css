@@ -1807,3 +1807,88 @@ html.index-open body{
   }
   .project-art-button:before{transform:none}
 }
+
+
+/* Opening stability pass — one composited page sequence, no nested curl layers or opening WebGL canvas. */
+.newspaper-opening{
+  perspective:1600px;
+  overflow:hidden;
+  isolation:isolate;
+}
+.opening-stage{
+  perspective:1600px;
+  transform-style:preserve-3d;
+  filter:none!important;
+  will-change:transform,opacity;
+}
+.opening-paper{
+  isolation:isolate;
+  transform-style:preserve-3d;
+  transform:translate3d(0,0,0);
+  filter:none!important;
+  animation:opening-float 1.12s cubic-bezier(.2,.72,.18,1) both;
+}
+.opening-paper:after{
+  transform:none;
+  top:3px;right:2px;bottom:-5px;left:2px;
+  box-shadow:0 14px 22px rgba(0,0,0,.24);
+}
+.opening-leaf{
+  clip-path:none!important;
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;
+  will-change:transform;
+}
+.opening-leaf-left{
+  transform-origin:100% 50%;
+  animation:opening-left-page 1.16s cubic-bezier(.22,.72,.2,1) .08s both;
+}
+.opening-leaf-right{
+  transform-origin:0% 50%;
+  animation:opening-right-page 1.2s cubic-bezier(.22,.72,.2,1) .12s both;
+}
+.opening-fold:after{display:none!important}
+.opening-curl{display:none!important}
+@keyframes opening-float{
+  0%{opacity:0;transform:translate3d(0,22px,0) scale(.965)}
+  100%{opacity:1;transform:translate3d(0,0,0) scale(1)}
+}
+@keyframes opening-left-page{
+  0%{transform:perspective(1600px) rotateY(76deg) translateZ(0)}
+  68%{transform:perspective(1600px) rotateY(-2deg) translateZ(1px)}
+  100%{transform:perspective(1600px) rotateY(0) translateZ(0)}
+}
+@keyframes opening-right-page{
+  0%{transform:perspective(1600px) rotateY(-76deg) translateZ(0)}
+  68%{transform:perspective(1600px) rotateY(2deg) translateZ(1px)}
+  100%{transform:perspective(1600px) rotateY(0) translateZ(0)}
+}
+.newspaper-opening.is-leaving .opening-stage{
+  opacity:0;
+  transform:translate3d(0,-16px,0) scale(1.015);
+  transition:transform .62s cubic-bezier(.22,.72,.2,1),opacity .56s ease;
+}
+.newspaper-opening.is-leaving .opening-caption,
+.newspaper-opening.is-leaving .opening-skip{
+  opacity:0;
+  transition:opacity .3s ease;
+}
+.opening-caption,.opening-skip{transition:opacity .3s ease}
+@media(max-width:700px){
+  .opening-stage{width:min(92vw,620px)}
+  .opening-paper{animation-duration:.96s}
+  .opening-leaf-left{animation-duration:1.02s}
+  .opening-leaf-right{animation-duration:1.06s}
+  .opening-fold{width:14px}
+}
+@media(prefers-reduced-motion:reduce){
+  .opening-stage,.opening-paper,.opening-leaf-left,.opening-leaf-right{
+    animation:none!important;
+    transition:none!important;
+    transform:none!important;
+    filter:none!important;
+    will-change:auto;
+  }
+  .opening-stage{opacity:1}
+  .opening-curl,.opening-fold:after{display:none!important}
+}
