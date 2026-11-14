@@ -195,13 +195,26 @@ The user supplied a 1:56 desktop screen recording at 1920 × 1080. Review findin
 **Exit gate:** polished, tested opening and navigation transitions that remain smooth on target devices and usable without WebGL.
 
 ### M3 — Bookshelf and five project worlds
-- Build five individual book covers and tactile horizontal bookshelf.
-- Implement pointer, touch and keyboard browsing.
-- Implement pull-forward, book-open and return-to-shelf transitions.
-- Build individual case studies for BUSHO, VARSITY, ELECTROLAB, JANSEVA ONE and CHHUTTI KE BAAD.
-- Use real product evidence where available; label conceptual artwork honestly.
 
-**Exit gate:** all five projects are navigable, factually accurate and have working, verified links or clear link-pending states.
+**Status: implementation in progress; visual acceptance pending.**
+
+**Implemented in the current preview (14 November 2026):**
+- Added individual editorial book-cover details to the five project cards, including field-file numbering, category/year kicker and notebook edition mark.
+- Added layered page-edge treatment, book-like shadows, perspective and pointer-reactive cover tilt/highlighting for mouse users.
+- Added responsive shelf sizing, focus-visible treatment and reduced-motion overrides.
+- Added a perspective book-opening entrance to the existing project detail dialog.
+- Preserved horizontal touch scrolling, mouse drag, arrow-key navigation, shelf controls and the existing dialog's Escape handling, focus containment and focus restoration.
+- Existing project notes remain the case-study content source. Project links and repository links are shown only where already recorded; JanSeva One remains ideation-only.
+
+**Not yet visually verified:** cover depth and layering across browsers, touch behaviour on physical devices, reduced-motion presentation, the perceived pull-forward/open/return choreography, and the shelf's visual quality at narrow widths. The current interaction opens the existing detail dialog; it is not yet a true animated 3D book mesh or a physically simulated page turn.
+
+**Next review pass:**
+- Verify all five covers and all five detail views.
+- Confirm opening and closing returns focus to the same cover and preserves shelf position.
+- Inspect desktop, tablet and mobile widths, plus keyboard and touch navigation.
+- Refine only where the rendered preview demonstrates a visible issue.
+
+**Exit gate:** all five projects are navigable, factually accurate and have working, verified links or clear link-pending states; the user approves the rendered preview.
 
 ### M4 — Milestones and cinematic autobiography
 - Build Viksit Bharat, SQAC and Mineverse recognition modules.
