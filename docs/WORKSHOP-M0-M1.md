@@ -1,6 +1,6 @@
 # The Maker's Notebook — Workshop Foundation (M0)
 
-Status: approved direction; implementation foundation  
+Status: approved direction; M0 complete; M1 correction pass in progress  
 Branch: `feature/editorial-world-rebuild`  
 Scope: M0 visual foundation and M1 workshop prototype only  
 Release policy: preview-only; no merge or production deployment without explicit approval.
@@ -11,10 +11,20 @@ Release policy: preview-only; no merge or production deployment without explicit
 
 Immersion is intentional, but the experience is not a game. No mandatory movement controls, no forced intro, no audio requirement, no scroll trap, and no essential hover-only interactions.
 
+## M1 correction pass
+
+The first desktop recording established that the scene and interactions render, but the scene lacked the visual weight and object specificity promised by the approved direction. The correction pass therefore:
+- Enlarges the workbench and increases visible material depth, desk edging and supporting structure.
+- Rebuilds the notebook as an open two-page object with a visible spine, cover thickness, page layers and restrained annotations.
+- Gives the five artifacts distinct silhouettes: healthcare report folder, campus planner, electronics breadboard, civic map and CRT television with remote.
+- Adds a practical desk lamp and a more legible monitor, with warmer key lighting and restrained cool fill.
+- Improves overview framing and selection focus, keeps HTML project shortcuts as the keyboard/touch equivalent, and supports Escape to dismiss the notebook index.
+
+These are procedural scene assets for the M1 prototype, not claims that the underlying project concepts are implemented.
+
 ## Reference board
 
 These references are used for principles, not copied assets or layouts:
-
 - Bruno Simon — interaction clarity and discoverable 3D navigation: https://bruno-simon.com/
 - Active Theory — visual craft, spatial storytelling and motion restraint: https://activetheory.net/
 - Lusion — integrated 3D art direction and digital storytelling: https://lusion.co/
@@ -35,90 +45,41 @@ Original visual language: dark walnut, charcoal, warm paper, aged brass, glass, 
 | Metadata typography | Existing DM Mono |
 | Display typography | Existing Space Grotesk, with serif accents where appropriate |
 
-The accent is reserved for active selection, focus, and a few navigation details. The workshop should not become a blue UI with decorative 3D objects.
-
-## Scene composition
-
-The initial workshop scene uses a three-quarter camera view over a dark workbench:
-
-1. Open notebook at the visual centre — brand and index.
-2. Five distinct project artifacts — the work archive.
-3. Monitor / technical note area — current experiments and maker context.
-4. Desk lamp and warm practical lighting — scene focus.
-5. A few quiet personal artifacts — secondary details only.
-
-M1 uses carefully composed procedural geometry and materials to prove the scene, camera, responsive composition and interaction. It does not attempt final photorealistic Blender assets or the five fully developed project dioramas; those belong to later project-archive work.
-
-## Project artifact language
-
-- BUSHO: field folder / report clipboard.
-- VARSITY: campus planner / course notebook.
-- ELECTROLAB: breadboard / diode / test instrument.
-- JANSEVA ONE: civic blueprint / road map.
-- CHHUTTI KE BAAD: CRT television / remote.
-
-All status and project claims remain sourced from the existing project records in `src/App.jsx`. A concept render is never presented as evidence that a feature has been implemented.
-
-## Interaction contract
+## Interaction and accessibility
 
 - Pointer: subtle parallax with a strict motion cap.
-- Hover / focus: object lift, material highlight and visible label.
-- Click / tap: select object, move camera toward it, expose a concise HTML detail panel.
-- Notebook: opens a real HTML chapter index.
-- Keyboard: Tab / Shift+Tab, Enter / Space, Escape to dismiss; visible focus.
-- Mobile: same object set and destinations, touch-friendly controls and a vertically composed camera. No hover dependency.
-- Reduced motion: static camera, no ambient movement, immediate selection state.
-- Fallback: semantic HTML workshop index and project buttons remain usable if WebGL is unavailable.
+- Hover / focus: object lift and material highlight; labels remain visible.
+- Click / tap: select an object, ease the camera toward it and expose an HTML detail panel.
+- Notebook index: semantic HTML dialog; Escape and close button dismiss it.
+- Keyboard and touch: native project shortcut buttons provide equivalent selection and opening.
+- Reduced motion: static camera and no pointer parallax.
+- Fallback: semantic HTML project list remains navigable if WebGL is unavailable.
+- Focus-visible outlines are provided for interactive controls.
 
-## Motion language
+## Performance architecture
 
-| Class | Target |
-| --- | ---: |
-| Micro feedback | 140–220 ms |
-| UI panel | 260–420 ms |
-| Editorial reveal | 650–1,000 ms |
-| Camera focus | 800–1,200 ms |
-| Chapter transition | 900–1,400 ms |
-
-Motion uses eased transforms and opacity. The camera eases to selected objects; it does not orbit indefinitely or hijack page scroll.
-
-## Technical architecture
-
-- Keep the existing React 19 / Vite 8 application.
-- Add stable React Three Fiber v9 (React 19 pairing) and Three.js.
-- Keep the 3D scene in a lazily loaded component, separate from project content and page navigation.
-- Keep project data in the existing React data model; the scene receives records and emits selected project IDs.
-- Keep all headings, labels, links, panels and chapter navigation in semantic HTML.
-- Use a device-aware pixel ratio and restrained lighting; avoid heavy post-processing in M1.
-- Provide a 2D fallback and respect `prefers-reduced-motion`.
-- Defer external GLB models and texture pipeline until the scene prototype is approved.
-
-## M0 acceptance checklist
-
-- [x] Creative direction and interaction principles recorded.
-- [x] Visual tokens and material palette defined.
-- [x] Scene composition and project artifact language defined.
-- [x] Desktop/mobile interaction contract defined.
-- [x] Motion, accessibility, fallback and performance constraints defined.
-- [x] Existing React application and project content audited.
-- [x] M1 prototype implemented and production build completed on Vercel Preview.
-- [ ] M1 prototype visually and functionally verified on desktop and mobile by browser/device QA.
+- React Three Fiber v9 / Three.js remain isolated in a lazy-loaded workshop component.
+- Vite manual chunks separate Three.js core and React Three Fiber from the workshop application code; validate actual output sizes in the next preview build.
+- Device pixel ratio is capped at 1.25.
+- No external GLB models, large textures or post-processing in M1.
+- The scene uses procedural geometry and a limited number of lights.
 
 ## M1 acceptance checklist
 
 - [ ] Workshop scene renders in supported desktop and mobile browsers.
 - [ ] Notebook opens a real HTML chapter index.
-- [ ] Five project artifacts are selectable with mouse, touch and keyboard.
+- [ ] Five project artifacts are selectable with mouse, touch and keyboard-equivalent controls.
 - [ ] Selection moves the camera and opens an accessible HTML summary.
-- [ ] Reduced-motion mode disables camera and ambient movement.
+- [ ] Reduced-motion mode disables camera and pointer movement.
 - [ ] WebGL fallback remains navigable.
-- [x] Production build succeeds on Vercel Preview.
+- [x] Vercel Preview build succeeds for the previous prototype.
+- [ ] New preview build succeeds with chunk sizes reviewed.
 - [ ] No console/runtime errors are observed in tested browsers (interactive browser QA still pending).
+- [ ] Mobile visual QA completed (not yet evidenced by the supplied desktop-only recording).
 - [ ] Preview is shared for user review; no merge or production deployment.
 
-## M1 build note
+## Verification record
 
-The Vercel Preview build completed successfully. Vite reports a 929.26 kB minified workshop scene chunk (245.63 kB gzip), above its default 500 kB warning threshold. The scene is a separate lazy-loaded component, but because it is the landing hero it is requested immediately after initial render. This is a known optimisation item for the M1 review; do not hide the warning by simply raising the threshold.
+The supplied 37-second desktop recording demonstrated the previous prototype's render, notebook-index opening, artifact selection/camera movement, selected-project panel and page scrolling. It did not establish mobile behavior, console cleanliness or the visual quality of this correction pass.
 
-Preview deployment: https://kirtan-portfolio-5tv21xhjr-saturn-789b.vercel.app/
-Deployment commit: `74aaffc16e64ef6f3632465de740c99ff4ce4d76`
+The previous preview build succeeded but emitted a 929.26 kB minified workshop chunk (245.63 kB gzip). The correction pass adds explicit vendor chunking; the new build output must be inspected rather than assuming the warning is resolved.
