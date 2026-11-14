@@ -196,9 +196,11 @@ function ProjectCard({ project, index, onOpen }) {
       </div>
       <button type="button" className="project-art project-art-button" onClick={() => onOpen(project)} aria-label={`Read the ${project.name} project note`}>
         <div className="project-art-grid" aria-hidden="true" />
-        <span className="project-art-index">{project.id}</span>
+        <span className="project-art-index">{project.id} / FIELD FILE</span>
+        <span className="project-cover-kicker">{project.category} · {project.year}</span>
         <span className="project-art-name">{project.name}</span>
         <span className="project-art-note">{project.note}</span>
+        <span className="project-cover-edition" aria-hidden="true">THE MAKER'S NOTEBOOK <i>— VOL. 01</i></span>
         <span className="project-art-arrow"><ArrowUpRight size={24} /></span>
         {index === 0 && <div className="art-orbit" aria-hidden="true"><i /><i /><i /></div>}
         {index === 1 && <div className="art-stack" aria-hidden="true"><i /><i /><i /></div>}
