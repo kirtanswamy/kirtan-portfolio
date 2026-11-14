@@ -164,6 +164,14 @@ The user supplied a 1:56 desktop screen recording at 1920 × 1080. Review findin
 - This remains a lightweight CSS clip-path plus SVG displacement treatment, not a physically simulated paper surface or a WebGL shader.
 - Vercel preview for commit `1afbd26ccc68db274730d12f68aee34937d88418` reached **READY**. Visual acceptance remains pending a fresh browser review; build readiness is not a visual sign-off.
 
+**Procedural WebGL shader pass (14 November 2026)**
+
+- Added a standalone React WebGL material component at `src/components/PaperShader.jsx`; it compiles a custom vertex/fragment shader and uses procedural multi-octave noise for paper grain, fibre variation, fold shading and irregular tear contours.
+- Integrated the shader as a transparent material overlay on the opening spread and as a shader-generated paper lip on the global INDEX. Existing page text and controls remain HTML.
+- Kept the SVG turbulence filter and CSS torn-edge treatment as a fallback when WebGL is unavailable; the shader canvas is decorative, non-interactive and hidden from assistive technology.
+- Caps device pixel ratio, pauses rendering when offscreen, uses a single animation frame loop, and renders a static frame when reduced motion is requested.
+- This is a first WebGL material implementation, not a full physical cloth simulation, depth-aware page mesh, or Three.js scene. Browser/device visual QA and GPU/performance measurements remain outstanding.
+
 **First implementation pass**
 - Added a lightweight SVG turbulence/displacement filter to roughen the INDEX's torn paper lip, with the existing CSS clip-path retained as the no-filter fallback.
 - Added visible page-stack thickness, inner-edge shading and a deeper central crease to the opening spread.
