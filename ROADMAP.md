@@ -156,6 +156,14 @@ The user supplied a 1:56 desktop screen recording at 1920 × 1080. Review findin
 
 **Status:** In progress — first material pass added on 13 November 2026.
 
+**Contour refinement pass (14 November 2026)**
+
+- Replaced the evenly spaced triangular INDEX lower silhouette with a finer, irregular multi-scale contour; retained the existing displacement filter and a crisp text layer.
+- Added a subtle torn lip with layered paper tone and a restrained edge shadow so the edge reads as a sheet rather than a flat geometric cutout.
+- Introduced very small asymmetries along the opening leaves and page-stack edges while keeping the centre fold stable.
+- This remains a lightweight CSS clip-path plus SVG displacement treatment, not a physically simulated paper surface or a WebGL shader.
+- Vercel preview for commit `1afbd26ccc68db274730d12f68aee34937d88418` reached **READY**. Visual acceptance remains pending a fresh browser review; build readiness is not a visual sign-off.
+
 **First implementation pass**
 - Added a lightweight SVG turbulence/displacement filter to roughen the INDEX's torn paper lip, with the existing CSS clip-path retained as the no-filter fallback.
 - Added visible page-stack thickness, inner-edge shading and a deeper central crease to the opening spread.
