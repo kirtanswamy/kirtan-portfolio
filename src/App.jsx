@@ -568,10 +568,20 @@ function App() {
             </div>
             <div className="opening-fold" />
             <div className="opening-cover">
-              <span>THE MAKER'S NOTEBOOK</span>
-              <strong>K.S.</strong>
-              <i>VOL. 01 / 2026</i>
-              <small>OPEN TO BEGIN <ArrowUpRight size={12} /></small>
+              <div className="cover-topline"><span>FIELD NOTES</span><span>NO. 001 / 2026</span></div>
+              <div className="cover-art" aria-hidden="true">
+                <span className="cover-orbit cover-orbit-one" />
+                <span className="cover-orbit cover-orbit-two" />
+                <span className="cover-orbit cover-orbit-three" />
+                <span className="cover-spark">✳</span>
+                <strong>KS<span>.</span></strong>
+                <i>IDEAS IN MOTION</i>
+              </div>
+              <div className="cover-bottomline">
+                <span>THE MAKER'S<br/>NOTEBOOK</span>
+                <small>ENGINEERING<br/>DESIGN / IDEAS</small>
+                <b>OPEN<br/>TO EXPLORE ↗</b>
+              </div>
             </div>
           </div>
         </div>
