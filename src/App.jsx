@@ -194,7 +194,28 @@ function ProjectCard({ project, index, onOpen }) {
         <span className="project-number">{project.id} / {String(projects.length).padStart(2, '0')}</span>
         <span className="project-stage"><span />{project.stage}</span>
       </div>
-      <button type="button" className="project-art project-art-button" onClick={() => onOpen(project)} aria-label={`Read the ${project.name} project note`}>
+      <button
+        type="button"
+        className="project-art project-art-button"
+        onClick={() => onOpen(project)}
+        aria-label={`Open the ${project.name} project book`}
+        onPointerMove={event => {
+          if (event.pointerType !== 'mouse' || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+          const bounds = event.currentTarget.getBoundingClientRect()
+          const x = (event.clientX - bounds.left) / bounds.width
+          const y = (event.clientY - bounds.top) / bounds.height
+          event.currentTarget.style.setProperty('--book-rotate-y', `${(x - 0.5) * 9}deg`)
+          event.currentTarget.style.setProperty('--book-rotate-x', `${(0.5 - y) * 7}deg`)
+          event.currentTarget.style.setProperty('--book-light-x', `${x * 100}%`)
+          event.currentTarget.style.setProperty('--book-light-y', `${y * 100}%`)
+        }}
+        onPointerLeave={event => {
+          event.currentTarget.style.setProperty('--book-rotate-y', '0deg')
+          event.currentTarget.style.setProperty('--book-rotate-x', '0deg')
+          event.currentTarget.style.setProperty('--book-light-x', '50%')
+          event.currentTarget.style.setProperty('--book-light-y', '45%')
+        }}
+      >
         <div className="project-art-grid" aria-hidden="true" />
         <span className="project-art-index">{project.id} / FIELD FILE</span>
         <span className="project-cover-kicker">{project.category} · {project.year}</span>
