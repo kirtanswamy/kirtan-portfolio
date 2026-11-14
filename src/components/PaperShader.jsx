@@ -47,7 +47,7 @@ void main() {
     float edge = 0.37 + (broad - 0.5) * 0.22 + (torn - 0.5) * 0.13;
     edge += (fibers - 0.5) * 0.018;
     float distanceToTear = uv.y - edge;
-    float aa = max(fwidth(distanceToTear), px.y * 1.25);
+    float aa = px.y * 1.5;
     float paperMask = 1.0 - smoothstep(-aa, aa, distanceToTear);
     float raggedShadow = smoothstep(-0.035, 0.004, distanceToTear) * (1.0 - smoothstep(0.004, 0.025, distanceToTear));
     float grain = (hash(gl_FragCoord.xy + floor(t * 8.0)) - 0.5) * 0.045;
