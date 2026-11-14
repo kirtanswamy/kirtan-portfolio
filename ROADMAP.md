@@ -296,3 +296,22 @@ See [CONTENT_REGISTRY.md](./CONTENT_REGISTRY.md). That file is the source of tru
 2. Confirm the cover is composed well at desktop and mobile sizes, including short-height screens.
 3. Replace the current CSS page-leaf illusion with true deforming page geometry only if the performance budget supports it; current work remains CSS 3D transforms and layered stock, not a mesh simulation.
 4. Profile real-device frame pacing and first-load performance; no performance numbers claimed from source inspection alone.
+
+
+### M2 review — 14 Nov 2026 recording and first-viewport correction
+
+**Recording reviewed:** user-provided `2026-11-14 14-21-21.mp4` (49.5 seconds, 1920×1080, 60 fps). It shows the preview URL for commit `805abbb`.
+
+**Observed in the recording:**
+- Initial route capture shows a blank beige screen for several seconds before the opening spread appears. The video alone cannot determine whether this is network startup, JavaScript loading, font loading or recording delay; it is treated as a first-paint issue to investigate, not diagnosed as a specific cause.
+- Opening spread is attractive as a printed composition but the two leaves mostly resolve into a flat spread with a static central spine. No convincing page curl/deformation is visible in the settled spread.
+- First page still devotes most of the first viewport to the large KIRTAN / SWAMY headline; supporting introduction and illustrated portrait begin below the fold.
+- The projects section is legible and browsable. JanSeva One and Chhutti Ke Baad have distinct color treatments, though their art direction could become more bespoke.
+- INDEX is clear and readable, and the chapter links are visually easy to identify.
+- Later sections appear cohesive, but this desktop recording does not establish mobile, keyboard, reduced-motion or real-device performance quality.
+
+**Changes after the recording:**
+- Commit `6ca32dc` reduces headline scale again, brings the intro/illustration area higher, and adds a deliberate branded fallback for the empty root before React mounts. This does not guarantee the blank interval is eliminated; the browser's actual first-paint path still needs testing.
+- Earlier commit `805abbb` refined the CSS 3D opening choreography. The video shows that it has not yet delivered true paper curl.
+
+**Next technical gate:** instrument and test startup / first paint; inspect actual browser console and network behavior; assess whether the loading interval persists. For paper, prototype a bounded, lightweight page-curl surface rather than adding more overlay effects. Do not claim physically simulated geometry until a deforming mesh or equivalent surface is actually implemented and verified.
