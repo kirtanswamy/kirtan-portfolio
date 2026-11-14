@@ -733,3 +733,44 @@ html.index-open body{
 .project-dialog-art .project-visual-busho-photo{
   object-fit:cover;
 }
+
+
+/* M2 advanced procedural WebGL paper material */
+.paper-shader{
+  position:absolute;
+  display:block;
+  pointer-events:none;
+  user-select:none;
+  z-index:1;
+  opacity:1;
+}
+.paper-shader--spread{
+  inset:0;
+  width:100%;
+  height:100%;
+  mix-blend-mode:multiply;
+  opacity:.72;
+}
+.opening-paper{isolation:isolate}
+.opening-paper-under,.opening-leaf{z-index:2}
+.opening-fold{z-index:5}
+.paper-shader--index-edge{
+  z-index:3;
+  left:0;
+  right:0;
+  bottom:0;
+  width:100%;
+  height:58px;
+  mix-blend-mode:normal;
+}
+.index-overlay:has(.paper-shader[data-shader="ready"]):after{display:none}
+.index-overlay:has(.paper-shader[data-shader="ready"]).is-open{
+  clip-path:polygon(0 0,100% 0,100% 100%,0 100%);
+}
+.paper-shader[data-shader="fallback"]{display:none}
+@media(prefers-reduced-motion:reduce){
+  .paper-shader{animation:none!important}
+}
+@media(max-width:700px){
+  .paper-shader--index-edge{height:48px}
+}
