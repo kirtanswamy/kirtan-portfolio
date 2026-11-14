@@ -315,3 +315,14 @@ See [CONTENT_REGISTRY.md](./CONTENT_REGISTRY.md). That file is the source of tru
 - Earlier commit `805abbb` refined the CSS 3D opening choreography. The video shows that it has not yet delivered true paper curl.
 
 **Next technical gate:** instrument and test startup / first paint; inspect actual browser console and network behavior; assess whether the loading interval persists. For paper, prototype a bounded, lightweight page-curl surface rather than adding more overlay effects. Do not claim physically simulated geometry until a deforming mesh or equivalent surface is actually implemented and verified.
+
+
+### M2 continuation — lightweight corner-curl prototype (14 November 2026)
+
+- Added two decorative corner-curl elements to the opening spread, one on each outer lower corner.
+- Curl animation is a single short transform-only sequence with perspective rotation and layered gradients/shadow; it does not continuously loop.
+- Reduced-motion users receive a static folded-corner treatment.
+- This is a lightweight CSS corner-fold illusion, **not** a deforming page mesh or full paper simulation.
+- Commits: `9d0eaa9` adds curl elements to the opening markup; `88853a1` styles the one-shot folded corners.
+- Vercel preview for `88853a1`: deployment `dpl_DAZyGaXs1e7ePqarTUQ1W2T4Ltbi`, currently BUILDING at the time of this note. Verify READY before review.
+- Next: test the curl's legibility and frame pacing in browser at desktop/mobile, then decide whether to advance to a proper mesh-based page curl. Do not claim the current CSS corner fold is full 3D deformation.
