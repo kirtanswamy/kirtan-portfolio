@@ -1322,3 +1322,70 @@ html.index-open body{
 @media(prefers-reduced-motion:reduce){
   .opening-curl{animation:none!important;opacity:.72;transform:none;will-change:auto}
 }
+
+
+/* M2 refinement — make the fold readable, directional and non-looping */
+.opening-fold:after{
+  animation:paper-fold-sheen-once 1.65s cubic-bezier(.22,.68,.18,1) 1.85s 1 both;
+  background-size:100% 100%;
+  opacity:0;
+}
+@keyframes paper-fold-sheen-once{
+  0%{opacity:0;transform:translateX(12px)}
+  22%{opacity:.5}
+  62%{opacity:.34;transform:translateX(-8px)}
+  100%{opacity:0;transform:translateX(-14px)}
+}
+.opening-curl{
+  width:clamp(82px,22%,156px);
+  height:clamp(82px,23%,150px);
+  opacity:0;
+  background:
+    linear-gradient(135deg,rgba(31,27,21,.46),rgba(31,27,21,0) 43%),
+    linear-gradient(315deg,#9e9382 0%,#e8dfd0 27%,#fff8eb 47%,#d9cfbf 72%,#b7ab99 100%);
+  filter:drop-shadow(0 -3px 5px rgba(35,29,21,.24));
+  backface-visibility:hidden;
+}
+.opening-curl:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(145deg,rgba(35,29,21,.28),transparent 55%);
+  clip-path:polygon(0 100%,100% 0,100% 100%);
+  opacity:.8;
+}
+.opening-curl:after{
+  inset:1px;
+  background:
+    linear-gradient(135deg,rgba(255,255,255,.92) 0%,rgba(255,255,255,.26) 34%,transparent 54%),
+    linear-gradient(315deg,rgba(43,35,25,.26),transparent 48%);
+  clip-path:polygon(100% 0,100% 100%,0 100%);
+  opacity:.88;
+}
+.opening-curl-right{
+  animation:curl-right-once 1.2s cubic-bezier(.2,.72,.2,1) 1.52s both;
+}
+.opening-curl-left{
+  animation:curl-left-once 1.2s cubic-bezier(.2,.72,.2,1) 1.42s both;
+}
+@keyframes curl-right-once{
+  0%{opacity:0;transform:perspective(620px) rotateX(0) rotateY(0) rotateZ(0) translateZ(0)}
+  16%{opacity:1}
+  48%{opacity:1;transform:perspective(620px) rotateX(-34deg) rotateY(-38deg) rotateZ(-3deg) translateZ(13px)}
+  72%{opacity:1;transform:perspective(620px) rotateX(-13deg) rotateY(-21deg) rotateZ(-1deg) translateZ(5px)}
+  100%{opacity:1;transform:perspective(620px) rotateX(-17deg) rotateY(-25deg) rotateZ(-1.5deg) translateZ(4px)}
+}
+@keyframes curl-left-once{
+  0%{opacity:0;transform:perspective(620px) rotateX(0) rotateY(0) rotateZ(0) translateZ(0)}
+  16%{opacity:1}
+  48%{opacity:1;transform:perspective(620px) rotateX(-34deg) rotateY(38deg) rotateZ(3deg) translateZ(13px)}
+  72%{opacity:1;transform:perspective(620px) rotateX(-13deg) rotateY(21deg) rotateZ(1deg) translateZ(5px)}
+  100%{opacity:1;transform:perspective(620px) rotateX(-17deg) rotateY(25deg) rotateZ(1.5deg) translateZ(4px)}
+}
+@media(max-width:700px){
+  .opening-curl{width:clamp(58px,24%,92px);height:clamp(58px,25%,90px)}
+}
+@media(prefers-reduced-motion:reduce){
+  .opening-fold:after{animation:none!important;opacity:0}
+  .opening-curl{animation:none!important;opacity:.82;transform:none;will-change:auto}
+}
