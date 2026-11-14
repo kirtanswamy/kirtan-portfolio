@@ -774,3 +774,5 @@ html.index-open body{
 @media(max-width:700px){
   .paper-shader--index-edge{height:48px}
 }
+
+.paper-shader--spread{z-index:3;opacity:.42}
