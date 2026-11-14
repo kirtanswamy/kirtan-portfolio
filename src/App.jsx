@@ -262,8 +262,8 @@ function App() {
       document.getElementById('main-content')?.focus({ preventScroll: true })
       return undefined
     }
-    const exitTimer = window.setTimeout(() => setOpeningLeaving(true), 3050)
-    const removeTimer = window.setTimeout(() => { setOpeningActive(false); document.getElementById('main-content')?.focus({ preventScroll: true }) }, 3650)
+    const exitTimer = window.setTimeout(() => setOpeningLeaving(true), 5400)
+    const removeTimer = window.setTimeout(() => { setOpeningActive(false); document.getElementById('main-content')?.focus({ preventScroll: true }) }, 6250)
     return () => { window.clearTimeout(exitTimer); window.clearTimeout(removeTimer) }
   }, [])
   useEffect(() => {
@@ -475,7 +475,7 @@ function App() {
     window.setTimeout(() => {
       setOpeningActive(false)
       document.getElementById('main-content')?.focus({ preventScroll: true })
-    }, 650)
+    }, 850)
   }
 
   const moveProjectShelf = direction => {
