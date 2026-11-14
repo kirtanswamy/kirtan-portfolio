@@ -3,7 +3,7 @@
 Use these checks before declaring a design or implementation task complete. Report any item not tested.
 
 ## Visual quality
-- [ ] The result supports the notebook/workshop creative premise.
+- [ ] The result supports the cinematic newspaper, torn-paper INDEX and project-bookshelf creative premise.
 - [ ] Hierarchy, spacing, typography, and alignment are consistent.
 - [ ] No accidental clipping, overlap, awkward wrapping, or layout shift.
 - [ ] Surfaces, shadows, textures, and accents are restrained and coherent.

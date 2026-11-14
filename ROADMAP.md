@@ -4,6 +4,10 @@
 **Branch:** `feature/editorial-world-rebuild`
 **Working rule:** Do not merge to the production branch or deploy a release until the user reviews the milestone previews and final QA passes.
 
+### Direction recovery — 14 November 2026
+
+The workbench experiment has been rejected and is not part of the approved site direction. The active feature branch has been returned to the newspaper implementation at checkpoint `516c4a3bca83888b29bebf88c59bb7b701941d97` while preserving all later Git history. The six portfolio guidance files are now present on this branch; their creative premise is aligned to the cinematic newspaper, torn-paper INDEX and project bookshelf. The restored application shell includes the CSS newspaper opening, global INDEX and paper shader, but **does not yet include the completed five-book bookshelf**. M1 visual and responsive QA remains open.
+
 ## North star
 
 An interactive, cinematic newspaper documenting the evolution of a builder. The experience combines editorial paper design, tactile book navigation, deliberate 3D scenes and concise personal storytelling. It is inspired by the interaction principles of Niccolò Miranda's live portfolio, but must use an original identity, artwork, content and implementation.
