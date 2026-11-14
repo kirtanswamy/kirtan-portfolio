@@ -220,7 +220,7 @@ function ProjectCard({ project, index, onOpen }) {
 }
 
 function App() {
-  const [openingActive, setOpeningActive] = useState(() => !window.matchMedia('(prefers-reduced-motion: reduce)').matches)
+  const [openingActive, setOpeningActive] = useState(false)
   const [openingLeaving, setOpeningLeaving] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const [activeCategory, setActiveCategory] = useState('ALL WORK')
