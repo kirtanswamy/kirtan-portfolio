@@ -1547,3 +1547,36 @@ html.index-open body{
 @media(prefers-reduced-motion:reduce){
   .hero *{scroll-behavior:auto}
 }
+
+
+/* M1 refinement — make the opening read as a composed newspaper object. */
+.newspaper-opening{background:radial-gradient(ellipse at 50% 44%,#5c574b 0%,#292923 42%,#11120f 100%)}
+.opening-stage{width:min(86vw,1180px);filter:drop-shadow(0 34px 42px #0005)}
+.opening-paper{aspect-ratio:1.62;filter:drop-shadow(0 28px 34px #0008)}
+.opening-paper-under{background:linear-gradient(112deg,#eee6d7 0%,#d8cebd 48%,#c7bcaa 100%)}
+.opening-paper-under>span,.opening-paper-under>i{font-size:clamp(7px,.72vw,10px);letter-spacing:.16em}
+.opening-paper-under strong{font-size:clamp(76px,13vw,176px);text-shadow:0 1px 0 #fff8,0 3px 0 #8e8372}
+.opening-leaf{background-color:#eee6d8;background-image:linear-gradient(#29271f09 1px,transparent 1px),linear-gradient(90deg,#29271f09 1px,transparent 1px),radial-gradient(ellipse at 18% 12%,#fff9,transparent 54%),linear-gradient(135deg,#f0e9dc,#e0d7c8)}
+.opening-leaf-left>strong{font-size:clamp(40px,7.1vw,102px);line-height:.8;letter-spacing:-.09em}
+.opening-leaf-right>strong{font-size:clamp(32px,5.6vw,78px);line-height:.86}
+.opening-caption{align-items:center;gap:22px;color:#eee8dccc}
+.opening-caption span+span{color:#eee8dc82}
+.opening-skip{backdrop-filter:blur(8px)}
+.opening-skip:focus-visible{outline:2px solid #f0e8da;outline-offset:4px}
+@media(max-width:700px){
+  .opening-stage{width:min(92vw,620px)}
+  .opening-paper{aspect-ratio:1.18}
+  .opening-leaf{padding:7% 6%}
+  .opening-leaf-left>strong{font-size:clamp(25px,7.4vw,52px)}
+  .opening-leaf-right>strong{font-size:clamp(22px,6vw,44px)}
+  .opening-paper-under strong{font-size:clamp(54px,16vw,100px)}
+  .opening-paper-under>span,.opening-paper-under>i{font-size:5px;letter-spacing:.08em}
+  .opening-caption{left:18px;bottom:78px;gap:10px;font-size:6px}
+  .opening-skip{right:18px;bottom:18px}
+}
+@media(max-width:380px){
+  .opening-stage{width:94vw}
+  .opening-leaf>span,.opening-leaf>i{font-size:5px;letter-spacing:.035em}
+  .opening-leaf-left>strong{font-size:clamp(22px,7vw,30px)}
+  .opening-leaf-right>strong{font-size:clamp(19px,5.8vw,25px)}
+}

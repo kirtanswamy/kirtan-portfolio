@@ -220,7 +220,7 @@ function ProjectCard({ project, index, onOpen }) {
 }
 
 function App() {
-  const [openingActive, setOpeningActive] = useState(false)
+  const [openingActive, setOpeningActive] = useState(true)
   const [openingLeaving, setOpeningLeaving] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const [activeCategory, setActiveCategory] = useState('ALL WORK')
@@ -234,9 +234,13 @@ function App() {
 
   useEffect(() => {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    if (reduced) return undefined
-    const exitTimer = window.setTimeout(() => setOpeningLeaving(true), 2450)
-    const removeTimer = window.setTimeout(() => { setOpeningActive(false); document.getElementById('main-content')?.focus({ preventScroll: true }) }, 3000)
+    if (reduced) {
+      setOpeningActive(false)
+      document.getElementById('main-content')?.focus({ preventScroll: true })
+      return undefined
+    }
+    const exitTimer = window.setTimeout(() => setOpeningLeaving(true), 3050)
+    const removeTimer = window.setTimeout(() => { setOpeningActive(false); document.getElementById('main-content')?.focus({ preventScroll: true }) }, 3650)
     return () => { window.clearTimeout(exitTimer); window.clearTimeout(removeTimer) }
   }, [])
   useEffect(() => {
