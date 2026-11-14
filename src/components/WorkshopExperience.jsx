@@ -101,7 +101,7 @@ function CameraRig({selectedIndex,pointer,reduced}) {
   })
   return null
 }
-function Scene({projects,selected,hovered,onSelect,onHover,pointer,reduced}) {
+function Scene({projects,selected,hovered,onSelect,onHover,onNotebook,pointer,reduced}) {
   const index=projects.findIndex(p=>p.id===selected)
   return <>
     <color attach="background" args={['#171817']}/><fog attach="fog" args={['#171817',11,22]}/>
@@ -109,7 +109,7 @@ function Scene({projects,selected,hovered,onSelect,onHover,pointer,reduced}) {
     <directionalLight castShadow position={[-3,9,5]} intensity={2.25} color="#ffe3bd" shadow-mapSize-width={1024} shadow-mapSize-height={1024}/>
     <pointLight position={[4,4,-3]} intensity={18} distance={11} color="#557bff"/>
     <pointLight position={[-4,3,1]} intensity={12} distance={9} color="#d3a66f"/>
-    <Desk/><Lamp/><Monitor/><Notebook onOpen={()=>{}}/>
+    <Desk/><Lamp/><Monitor/><Notebook onOpen={onNotebook}/>
     {projects.map((p,i)=><Artifact key={p.id} project={p} index={i} selected={selected===p.id} hovered={hovered===p.id} onSelect={onSelect} onHover={onHover}/>)}
     <CameraRig selectedIndex={index} pointer={pointer} reduced={reduced}/>
   </>
@@ -131,7 +131,7 @@ export default function WorkshopExperience({projects,onOpenProject}) {
     <div className="workshop-topline"><span>THE MAKER'S NOTEBOOK / VOL. 01</span><span>HYDERABAD, INDIA · 2026</span><span>ENGINEERING / DESIGN / IDEAS</span></div>
     <div className="workshop-intro"><div><span className="workshop-kicker">AN INDEPENDENT MAKER'S WORKSPACE</span><h1 id="workshop-title">KIRTAN <em>SWAMY.</em></h1><p>Engineering, design and ideas in progress. Step into the workshop.</p></div><button className="workshop-index-trigger" type="button" onClick={openIndex}>OPEN THE NOTEBOOK <b>↗</b></button></div>
     <div className="workshop-stage"><div className="workshop-scene-glow"/><Canvas shadows dpr={[1,1.25]} camera={{position:[0,6.5,11.8],fov:35,near:.1,far:45}} fallback={<Fallback projects={projects} onSelect={p=>{setSelected(p.id);onOpenProject(p)}} onNotebook={openIndex}/>}>
-      <Suspense fallback={null}><Scene projects={projects} selected={selected} hovered={hovered} onSelect={selectProject} onHover={setHovered} pointer={reduced?{x:0,y:0}:pointer} reduced={reduced}/></Suspense>
+      <Suspense fallback={null}><Scene projects={projects} selected={selected} hovered={hovered} onSelect={selectProject} onHover={setHovered} onNotebook={openIndex} pointer={reduced?{x:0,y:0}:pointer} reduced={reduced}/></Suspense>
     </Canvas>
     <div className="workshop-object-labels" aria-hidden="true">{projects.map((p,i)=><span key={p.id} data-index={i} className={selected===p.id||hovered===p.id?'is-active':''}>{p.name}</span>)}<span className="notebook-label">THE NOTEBOOK</span></div>
     <div className="workshop-scene-caption"><span>FIG. 001 / THE WORKBENCH</span><span>{selectedProject?'SELECTED / '+selectedProject.name:'SELECT AN ARTIFACT TO EXPLORE'}</span></div></div>
