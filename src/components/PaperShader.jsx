@@ -41,19 +41,19 @@ void main() {
   float t = u_time;
 
   if (u_mode > 0.5) {
-    float broad = fbm(vec2(uv.x * 5.2, 2.4 + t * 0.018));
-    float torn = fbm(vec2(uv.x * 34.0, 8.0 + t * 0.025));
-    float fibers = noise(vec2(uv.x * 190.0, uv.y * 90.0));
-    float edge = 0.37 + (broad - 0.5) * 0.22 + (torn - 0.5) * 0.13;
-    edge += (fibers - 0.5) * 0.018;
+    float broad = fbm(vec2(uv.x * 4.0, 2.4 + t * 0.012));
+    float torn = fbm(vec2(uv.x * 19.0, 8.0 + t * 0.018));
+    float fibers = noise(vec2(uv.x * 82.0, 13.0));
+    float edge = 0.42 + (broad - 0.5) * 0.30 + (torn - 0.5) * 0.24;
+    edge += (fibers - 0.5) * 0.10;
     float distanceToTear = uv.y - edge;
     float aa = px.y * 1.5;
     float paperMask = 1.0 - smoothstep(-aa, aa, distanceToTear);
-    float raggedShadow = smoothstep(-0.035, 0.004, distanceToTear) * (1.0 - smoothstep(0.004, 0.025, distanceToTear));
+    float raggedShadow = smoothstep(-0.05, 0.002, distanceToTear) * (1.0 - smoothstep(0.002, 0.032, distanceToTear));
     float grain = (hash(gl_FragCoord.xy + floor(t * 8.0)) - 0.5) * 0.045;
     vec3 paper = vec3(0.88, 0.85, 0.78);
     paper += (broad - 0.5) * 0.035 + grain;
-    paper -= raggedShadow * 0.17;
+    paper -= raggedShadow * 0.24;
     float fiberLine = smoothstep(0.92, 1.0, noise(vec2(uv.x * 270.0, uv.y * 110.0)));
     paper += fiberLine * 0.025;
     gl_FragColor = vec4(paper, paperMask);
