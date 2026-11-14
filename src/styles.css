@@ -1090,3 +1090,95 @@ html.index-open body{
   .headline-second{padding-left:4vw}
   .hero-lower{padding-top:24px;gap:24px}
 }
+
+
+/* M2 physical page choreography — transform-only, layered and deliberately paced */
+.newspaper-opening{
+  background:#171815;
+  perspective:1900px;
+}
+.opening-stage{
+  perspective:1900px;
+  transform-style:preserve-3d;
+}
+.opening-paper{
+  transform-style:preserve-3d;
+  transform:rotateX(3deg) rotateZ(-1.2deg);
+  filter:drop-shadow(0 28px 36px rgba(0,0,0,.42));
+  animation:opening-float 1.35s cubic-bezier(.2,.78,.18,1) both;
+}
+.opening-paper:after{
+  top:3px;
+  right:2px;
+  bottom:-9px;
+  left:2px;
+  background:
+    repeating-linear-gradient(180deg,#a99f90 0 1px,#eee6d8 1px 2px,#c9bfaf 2px 3px);
+  box-shadow:0 18px 26px rgba(0,0,0,.28),0 3px 0 #f4ecdf;
+  transform:translateZ(-3px);
+}
+.opening-leaf{
+  transform-style:preserve-3d;
+  transform-origin:center center;
+  background-color:#e9e0d2;
+  box-shadow:inset 0 0 0 1px rgba(43,37,28,.08);
+  will-change:transform;
+}
+.opening-leaf-left{
+  transform-origin:100% 50%;
+  animation:opening-left-page 1.42s cubic-bezier(.18,.78,.2,1) .12s both;
+  box-shadow:inset -12px 0 18px -18px rgba(0,0,0,.9),inset 0 0 0 1px rgba(43,37,28,.08);
+}
+.opening-leaf-right{
+  transform-origin:0% 50%;
+  animation:opening-right-page 1.48s cubic-bezier(.18,.78,.2,1) .2s both;
+  box-shadow:inset 12px 0 18px -18px rgba(0,0,0,.9),inset 0 0 0 1px rgba(43,37,28,.08);
+}
+.opening-leaf-left:before,.opening-leaf-right:before{
+  transition:opacity .2s linear;
+}
+.opening-fold{
+  width:34px;
+  background:linear-gradient(90deg,rgba(24,20,15,.28),rgba(24,20,15,.08) 28%,rgba(255,250,238,.58) 49%,rgba(24,20,15,.14) 61%,transparent);
+  box-shadow:0 0 18px rgba(28,24,18,.12);
+}
+.opening-fold:after{
+  animation:none;
+  background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,.12) 42%,rgba(255,255,255,.38) 50%,rgba(255,255,255,.08) 58%,transparent 100%);
+  background-size:100% 100%;
+  opacity:.62;
+}
+.newspaper-opening.is-leaving .opening-stage{
+  opacity:0;
+  transform:translate3d(0,-3vh,0) scale(1.035);
+  transition:transform .58s cubic-bezier(.2,.72,.2,1),opacity .48s ease;
+}
+@keyframes opening-float{
+  0%{transform:translate3d(0,5vh,0) rotateX(12deg) rotateZ(-3deg) scale(.9);opacity:.25}
+  65%{transform:translate3d(0,-.5vh,0) rotateX(2deg) rotateZ(-1deg) scale(1.005);opacity:1}
+  100%{transform:translate3d(0,0,0) rotateX(3deg) rotateZ(-1.2deg) scale(1);opacity:1}
+}
+@keyframes opening-left-page{
+  0%{transform:perspective(1500px) rotateY(82deg) translateZ(16px) scaleY(.965)}
+  58%{transform:perspective(1500px) rotateY(13deg) translateZ(24px) scaleY(.988)}
+  78%{transform:perspective(1500px) rotateY(-2deg) translateZ(3px) scaleY(1.002)}
+  100%{transform:perspective(1500px) rotateY(0deg) translateZ(0) scaleY(1)}
+}
+@keyframes opening-right-page{
+  0%{transform:perspective(1500px) rotateY(-82deg) translateZ(16px) scaleY(.965)}
+  58%{transform:perspective(1500px) rotateY(-13deg) translateZ(24px) scaleY(.988)}
+  78%{transform:perspective(1500px) rotateY(2deg) translateZ(3px) scaleY(1.002)}
+  100%{transform:perspective(1500px) rotateY(0deg) translateZ(0) scaleY(1)}
+}
+@media(max-width:700px){
+  .opening-paper{animation-duration:1.15s}
+  .opening-leaf-left{animation-duration:1.22s}
+  .opening-leaf-right{animation-duration:1.28s}
+  .opening-fold{width:15px}
+}
+@media(prefers-reduced-motion:reduce){
+  .opening-paper,.opening-leaf-left,.opening-leaf-right{animation:none!important;will-change:auto}
+  .opening-paper{transform:none}
+  .opening-leaf-left,.opening-leaf-right{transform:none}
+  .opening-fold:after{display:none}
+}
