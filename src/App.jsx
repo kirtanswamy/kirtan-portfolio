@@ -500,7 +500,7 @@ function App() {
     setSectionTransition(true)
     sectionTransitionTimer.current = window.setTimeout(() => {
       target.scrollIntoView({ behavior: 'auto', block: 'start' })
-      sectionTransitionTimer.current = window.setTimeout(() => setSectionTransition(false), 820)
+      sectionTransitionTimer.current = window.setTimeout(() => setSectionTransition(false), 1000)
     }, 420)
   }
 
