@@ -288,7 +288,7 @@ function App() {
     lenis.on('scroll', ScrollTrigger.update)
     const tick = time => lenis.raf(time * 1000)
     gsap.ticker.add(tick)
-    gsap.ticker.lagSmoothing(0)
+    gsap.ticker.lagSmoothing(500, 33)
 
     const animationContext = gsap.context(() => {
     const intro = gsap.timeline({ defaults: { ease: 'power4.out' } })
@@ -316,19 +316,16 @@ function App() {
 
     ScrollTrigger.create({ start: 0, end: 'max', onUpdate: self => gsap.set('.reading-progress__bar', { scaleX: self.progress }) })
     gsap.to('.portrait-art', {
-      yPercent: 9,
-      rotate: 2,
+      yPercent: 4,
       ease: 'none',
-      scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 0.8 },
+      scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1.2 },
     })
     gsap.to('.hero-edition-mark', {
-      y: 24,
-      rotate: 18,
+      y: 12,
+      rotate: 11,
       ease: 'none',
-      scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1 },
+      scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1.2 },
     })
-    gsap.to('.orbit-ring', { rotate: 360, duration: 38, repeat: -1, ease: 'none' })
-    gsap.to('.hero-starburst', { rotate: -360, duration: 54, repeat: -1, ease: 'none' })
     })
 
     const workbench = document.querySelector('.portrait-frame')
@@ -465,12 +462,8 @@ function App() {
       <svg className="paper-filter-defs" aria-hidden="true" focusable="false">
         <defs>
           <filter id="paper-edge-displacement" x="-20%" y="-80%" width="140%" height="260%" colorInterpolationFilters="sRGB">
-            <feTurbulence type="fractalNoise" baseFrequency="0.018 0.32" numOctaves="2" seed="17" result="paper-grain">
-              <animate attributeName="baseFrequency" values="0.016 0.28;0.022 0.38;0.016 0.28" dur="8s" repeatCount="indefinite" />
-            </feTurbulence>
-            <feDisplacementMap in="SourceGraphic" in2="paper-grain" scale="9" xChannelSelector="R" yChannelSelector="G">
-              <animate attributeName="scale" values="7;13;7" dur="8s" repeatCount="indefinite" />
-            </feDisplacementMap>
+            <feTurbulence type="fractalNoise" baseFrequency="0.018 0.32" numOctaves="2" seed="17" result="paper-grain" />
+            <feDisplacementMap in="SourceGraphic" in2="paper-grain" scale="8" xChannelSelector="R" yChannelSelector="G" />
           </filter>
         </defs>
       </svg>
@@ -478,7 +471,7 @@ function App() {
         <div className="opening-vignette" />
         <div className="opening-stage" aria-hidden="true">
           <div className="opening-paper">
-            <PaperShader variant="spread" />
+            <PaperShader variant="spread" active={false} />
             <div className="opening-paper-under"><span>THE MAKER'S NOTEBOOK</span><strong>K.S.</strong><i>VOL. 01 / 2026</i></div>
             <div className="opening-leaf opening-leaf-left"><span>INDEPENDENT<br/>MAKER'S EDITION</span><strong id="opening-title">KIRTAN<br/>SWAMY.</strong><i>ENGINEERING / DESIGN / IDEAS</i></div>
             <div className="opening-leaf opening-leaf-right"><span>FIELD NOTES / 001</span><strong>CURIOUS<br/>BY NATURE.</strong><i>HYDERABAD, INDIA</i></div>
