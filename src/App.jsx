@@ -262,8 +262,8 @@ function App() {
       document.getElementById('main-content')?.focus({ preventScroll: true })
       return undefined
     }
-    const exitTimer = window.setTimeout(() => setOpeningLeaving(true), 5400)
-    const removeTimer = window.setTimeout(() => { setOpeningActive(false); document.getElementById('main-content')?.focus({ preventScroll: true }) }, 6250)
+    const exitTimer = window.setTimeout(() => setOpeningLeaving(true), 3800)
+    const removeTimer = window.setTimeout(() => { setOpeningActive(false); document.getElementById('main-content')?.focus({ preventScroll: true }) }, 4650)
     return () => { window.clearTimeout(exitTimer); window.clearTimeout(removeTimer) }
   }, [])
   useEffect(() => {
@@ -652,7 +652,7 @@ function App() {
             <button type="button" onClick={() => moveProjectShelf(1)} disabled={activeProjectIndex >= visibleProjects.length - 1} aria-label="Next project"><ArrowRight size={16} /></button>
           </div>
         </div>
-        <div className="projects-grid projects-shelf" ref={projectShelfRef} role="region" aria-label="Horizontally browsable featured project archive" tabIndex={0} aria-live="polite"
+        <div key={activeCategory} className="projects-grid projects-shelf" ref={projectShelfRef} role="region" aria-label="Horizontally browsable featured project archive" tabIndex={0} aria-live="polite"
           onKeyDown={event => {
             if (event.key === 'ArrowRight') { event.preventDefault(); moveProjectShelf(1) }
             if (event.key === 'ArrowLeft') { event.preventDefault(); moveProjectShelf(-1) }
@@ -854,7 +854,7 @@ function App() {
           </div>
           <span className="learning-archive-count" aria-live="polite">SHOWING {String(visibleLearning.length).padStart(2, '0')} / {String(learning.length).padStart(2, '0')}</span>
         </div>
-        <div className="learning-grid" aria-live="polite">
+        <div key={activeLearningCategory} className="learning-grid" aria-live="polite">
           {visibleLearning.map((item, index) => <article className="learning-card reveal" key={item.name}>
             <div className="learning-card-top"><span>0{learning.indexOf(item) + 1} / LEARNING LOG</span><span className="learning-record-type">{item.record}</span></div>
             <p>{item.kind}</p><h3>{item.name}</h3><h4>{item.detail}</h4><span className="learning-status">{item.status}</span>
