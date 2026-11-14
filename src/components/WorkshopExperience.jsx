@@ -23,7 +23,7 @@ function Notebook({ onOpen }) {
 }
 function Artifact({project,index,selected,hovered,onSelect,onHover}) {
   const group=useRef()
-  useFrame((_,dt)=>{if(group.current){const lift=selected?.22:hovered?.12:0;group.current.position.y=THREE.MathUtils.damp(group.current.position.y,.2+lift,5,dt)}})
+  useFrame((_,dt)=>{if(group.current){const lift=selected ? 0.22 : hovered ? 0.12 : 0;group.current.position.y=THREE.MathUtils.damp(group.current.position.y,.2+lift,5,dt)}})
   const color=colors[index]
   return <group ref={group} position={positions[index]} onClick={e=>{e.stopPropagation();onSelect(project)}} onPointerOver={e=>{e.stopPropagation();onHover(project.id)}} onPointerOut={()=>onHover(null)}>
     {index===0 && <><mesh castShadow><boxGeometry args={[1.05,.14,1.35]}/><meshStandardMaterial color="#d8d0bf"/></mesh><mesh position={[0,.09,0]}><boxGeometry args={[.92,.035,1.2]}/><meshStandardMaterial color={color}/></mesh></>}
@@ -37,8 +37,9 @@ function Artifact({project,index,selected,hovered,onSelect,onHover}) {
 function CameraRig({selectedIndex,pointer,reduced}) {
   const {camera}=useThree()
   useFrame((_,dt)=>{
+    if(reduced) return
     const p=selectedIndex<0?[0,5.7,9.8]:[positions[selectedIndex][0],3.8,5.6]
-    const drift=reduced?0:.22
+    const drift=.22
     camera.position.lerp(new THREE.Vector3(p[0]+pointer.x*drift,p[1]-pointer.y*drift,p[2]),1-Math.exp(-dt*2.4))
     camera.lookAt(selectedIndex<0?0:positions[selectedIndex][0]*.42,0,selectedIndex<0?0:-.3)
   })
@@ -58,7 +59,7 @@ function Scene({projects,selected,hovered,onSelect,onHover,onNotebook,pointer,re
   </>
 }
 function Fallback({projects,onSelect,onNotebook}) {
-  return <div className="workshop-fallback"><div><span>THE MAKER'S WORKSHOP</span><h2>THE DESK IS OPEN.</h2><p>This device is showing the accessible index instead of the 3D scene.</p><button onClick={onNotebook}>OPEN NOTEBOOK INDEX ↗</button></div><div>{projects.map(p=><button key={p.id} onClick={()=>onSelect(p)}><span>{p.id}</span><strong>{p.name}</strong><i>OPEN FILE ↗</i></button>)}</div></div>
+  return <div className="workshop-fallback"><div className="workshop-fallback-copy"><span>THE MAKER'S WORKSHOP</span><h2>THE DESK IS OPEN.</h2><p>This device is showing the accessible index instead of the 3D scene.</p><button onClick={onNotebook}>OPEN NOTEBOOK INDEX ↗</button></div><div className="workshop-fallback-list">{projects.map(p=><button key={p.id} onClick={()=>onSelect(p)}><span>{p.id}</span><strong>{p.name}</strong><i>OPEN FILE ↗</i></button>)}</div></div>
 }
 export default function WorkshopExperience({projects,onOpenProject}) {
   const [selected,setSelected]=useState(null),[hovered,setHovered]=useState(null),[indexOpen,setIndexOpen]=useState(false)
