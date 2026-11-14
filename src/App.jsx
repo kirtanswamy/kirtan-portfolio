@@ -6,7 +6,7 @@ import PaperShader from './components/PaperShader.jsx'
 import {
   ArrowDown, ArrowDownRight, ArrowLeft, ArrowRight, ArrowUpRight, Asterisk,
   ArrowUp, ExternalLink, Code2, Menu, MoveUpRight, X,
-  CircleDot, Sparkles, BookOpen, Cpu, Layers3, Compass, Send,
+  CircleDot, Sparkles, BookOpen, Cpu, Layers3, Compass, Send, Tv,
 } from 'lucide-react'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -227,6 +227,7 @@ function ProjectCard({ project, index, onOpen }) {
         {index === 1 && <div className="art-stack" aria-hidden="true"><i /><i /><i /></div>}
         {index === 2 && <div className="art-circuit" aria-hidden="true"><i /><i /><i /><i /><i /></div>}
         {index === 3 && <div className="art-sun" aria-hidden="true"><Asterisk size={150} strokeWidth={0.7} /></div>}
+        {index === 4 && <div className="art-television" aria-hidden="true"><Tv size={142} strokeWidth={1.1} /><span>AFTER SCHOOL / 04:15</span></div>}
       </button>
       <div className="project-info">
         <div className="project-title-line">
@@ -484,9 +485,9 @@ function App() {
     window.clearTimeout(sectionTransitionTimer.current)
     setSectionTransition(true)
     sectionTransitionTimer.current = window.setTimeout(() => {
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' })
-      sectionTransitionTimer.current = window.setTimeout(() => setSectionTransition(false), 720)
-    }, 520)
+      target.scrollIntoView({ behavior: 'auto', block: 'start' })
+      sectionTransitionTimer.current = window.setTimeout(() => setSectionTransition(false), 820)
+    }, 420)
   }
 
   useEffect(() => () => window.clearTimeout(sectionTransitionTimer.current), [])
@@ -552,8 +553,19 @@ function App() {
           <div className="opening-paper">
             
             <div className="opening-paper-under"><span>THE MAKER'S NOTEBOOK</span><strong>K.S.</strong><i>VOL. 01 / 2026</i></div>
-            <div className="opening-leaf opening-leaf-left"><span>INDEPENDENT<br/>MAKER'S EDITION</span><strong id="opening-title">KIRTAN<br/>SWAMY.</strong><i>ENGINEERING / DESIGN / IDEAS</i></div>
-            <div className="opening-leaf opening-leaf-right"><span>FIELD NOTES / 001</span><strong>CURIOUS<br/>BY NATURE.</strong><i>HYDERABAD, INDIA</i></div>
+            <div className="opening-leaf opening-leaf-left">
+              <span>INDEPENDENT / MAKER'S EDITION</span>
+              <strong id="opening-title">KIRTAN<br/>SWAMY.</strong>
+              <p>Engineering student. Creative builder. Interested in the space where technology, design and people meet.</p>
+              <i><b>01</b> ENGINEERING / DESIGN / IDEAS</i>
+            </div>
+            <div className="opening-leaf opening-leaf-right">
+              <span>FIELD NOTES / 001</span>
+              <strong>CURIOUS<br/>BY NATURE.</strong>
+              <p>I like turning questions into prototypes — and prototypes into things that matter.</p>
+              <div className="opening-page-stamp"><Asterisk size={42}/><small>THOUGHT<br/>INTO ACTION</small></div>
+              <i><b>02</b> HYDERABAD, INDIA <b>VOL. 01</b></i>
+            </div>
             <div className="opening-fold" />
             <div className="opening-cover">
               <span>THE MAKER'S NOTEBOOK</span>
@@ -577,7 +589,7 @@ function App() {
         </div>
         <span className="spiral-rail-foot">TURN / PAGE</span>
       </nav>
-      {sectionTransition && <div className="section-burn-transition" aria-hidden="true"><span>TURNING THE PAGE</span></div>}
+      {sectionTransition && <div className="section-burn-transition" aria-hidden="true" />}
       <header className="masthead">
         <a className="masthead-brand" href="#top" aria-label="Kirtan Swamy home">
           <span className="brand-monogram">KS<span>®</span></span>
@@ -714,15 +726,33 @@ function App() {
         <div className="work-foot reveal"><span>MORE EXPERIMENTS ARE ALWAYS IN THE WORKS.</span><a href="https://github.com/kirtanswamy" target="_blank" rel="noreferrer">EXPLORE GITHUB <ArrowUpRight size={14} /></a></div>
       </section>
 
-      <section className="process-section section-pad" id="process">
-        <div className="section-index reveal"><Eyebrow>HOW I APPROACH THE WORK</Eyebrow><span>THINK / CREATE / DELIVER</span></div>
-        <div className="process-heading"><h2>THINK.<br/><em>CREATE.</em><br/>DELIVER<span>.</span></h2><p>Good work is rarely a straight line from brief to launch. It takes curiosity, craft, iteration and care for the person on the other side.</p></div>
-        <div className="process-grid">
-          <article className="process-card reveal"><span>01 / THINK</span><strong>FIND THE REAL QUESTION.</strong><p>Understand the context before reaching for a solution. Ask who the problem affects, what already exists and what would make a meaningful difference.</p><i>OBSERVE → QUESTION → FRAME</i></article>
-          <article className="process-card reveal"><span>02 / CREATE</span><strong>MAKE THE IDEA TANGIBLE.</strong><p>Explore the experience, shape the interface and build a working version. Move between design and engineering until the pieces make sense together.</p><i>EXPLORE → DESIGN → BUILD</i></article>
-          <article className="process-card reveal"><span>03 / DELIVER</span><strong>MAKE IT WORK IN CONTEXT.</strong><p>Test the details, connect the systems and learn from what happens in use. A useful product has to work beyond the presentation.</p><i>TEST → REFINE → LEARN</i></article>
+      <section className="process-section practice-section section-pad" id="process">
+        <div className="section-index reveal"><Eyebrow>03 — THE MAKING PRACTICE</Eyebrow><span>A LOOP, NOT A LADDER</span></div>
+        <div className="practice-intro">
+          <div><span className="practice-overline">A FIELD METHOD / IN THREE MOVEMENTS</span><h2>FROM QUESTION<br/>TO <em>SOMETHING REAL.</em></h2></div>
+          <p>Every project starts by understanding the people and the context. Then I make the idea tangible, test it, and keep refining until it works beyond the screen.</p>
         </div>
-        <div className="process-foot"><span>AN ITERATIVE PRACTICE / NOT A LINEAR FORMULA</span><span>03 / 11</span></div>
+        <div className="practice-flow">
+          <article className="practice-step reveal">
+            <div className="practice-step-top"><span>01</span><Compass size={34} strokeWidth={1.25}/><i>OBSERVE / FRAME</i></div>
+            <h3>Understand<br/>the context.</h3>
+            <p>Find the real question before reaching for an answer. Who is affected? What already exists? What would actually help?</p>
+            <div className="practice-step-mark"><span>01</span><b>LISTEN</b><b>QUESTION</b><b>FOCUS</b></div>
+          </article>
+          <article className="practice-step reveal">
+            <div className="practice-step-top"><span>02</span><Layers3 size={34} strokeWidth={1.25}/><i>EXPLORE / BUILD</i></div>
+            <h3>Make the idea<br/>tangible.</h3>
+            <p>Shape the experience, design the interface and build a working version. Move between craft and engineering as the idea takes form.</p>
+            <div className="practice-step-mark"><span>02</span><b>SKETCH</b><b>PROTOTYPE</b><b>CONNECT</b></div>
+          </article>
+          <article className="practice-step reveal">
+            <div className="practice-step-top"><span>03</span><Send size={34} strokeWidth={1.25}/><i>TEST / REFINE</i></div>
+            <h3>Make it work<br/>in context.</h3>
+            <p>Test the details, connect the systems and learn from real use. A useful product has to hold up outside the presentation.</p>
+            <div className="practice-step-mark"><span>03</span><b>VALIDATE</b><b>IMPROVE</b><b>LEARN</b></div>
+          </article>
+        </div>
+        <div className="practice-foot"><span>THE WORK IS ITERATIVE. THE PEOPLE STAY AT THE CENTRE.</span><span>03 / 08</span></div>
       </section>
 
       <section className="recognition-section section-pad" id="recognition">
