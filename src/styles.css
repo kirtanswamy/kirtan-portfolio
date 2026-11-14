@@ -1653,3 +1653,157 @@ html.index-open body{
   .newspaper-opening{background:#292923}
   .newspaper-opening:before{display:none}
 }
+
+
+/* M2 — five tactile project books, with physical page depth and pointer-led cover lighting. */
+.projects-shelf{
+  grid-auto-columns:clamp(310px,37.5%,520px);
+  gap:clamp(20px,2.2vw,34px);
+  padding:24px 16px 34px;
+  margin:0 -16px;
+  perspective:1800px;
+  perspective-origin:50% 42%;
+  scrollbar-color:var(--blue) transparent;
+}
+.projects-shelf .project-card{
+  position:relative;
+  transform-style:preserve-3d;
+  padding:0 2px 14px;
+  transition:transform .42s cubic-bezier(.2,.75,.25,1);
+}
+.projects-shelf .project-card:hover{
+  transform:translateY(-7px) rotateY(-1deg);
+}
+.project-art-button{
+  --book-rotate-x:0deg;
+  --book-rotate-y:0deg;
+  --book-light-x:50%;
+  --book-light-y:45%;
+  position:relative;
+  isolation:isolate;
+  transform-style:preserve-3d;
+  transform:rotateX(var(--book-rotate-x)) rotateY(var(--book-rotate-y)) translateZ(0);
+  transform-origin:50% 55%;
+  box-shadow:
+    1px 1px 0 rgba(40,34,26,.22),
+    3px 4px 0 rgba(40,34,26,.13),
+    6px 8px 0 rgba(40,34,26,.10),
+    10px 15px 25px rgba(35,30,24,.20);
+  transition:transform .38s cubic-bezier(.2,.75,.25,1),box-shadow .38s ease,filter .38s ease;
+  will-change:transform;
+}
+.project-art-button:before{
+  content:"";
+  position:absolute;
+  z-index:-1;
+  inset:5px -8px -10px 8px;
+  pointer-events:none;
+  transform:translateZ(-13px);
+  background:
+    repeating-linear-gradient(180deg,#b9ad9a 0 1px,#f1e8d8 1px 3px),
+    linear-gradient(90deg,#c7bba8,#eee5d6);
+  clip-path:polygon(0 0,100% 0,99.4% 100%,1% 100%);
+  box-shadow:8px 13px 18px rgba(31,27,22,.17);
+}
+.project-art-button:after{
+  content:"";
+  position:absolute;
+  z-index:6;
+  inset:0;
+  width:auto;
+  pointer-events:none;
+  opacity:.48;
+  background:
+    linear-gradient(110deg,transparent 24%,rgba(255,255,255,.22) 48%,transparent 72%),
+    radial-gradient(ellipse at var(--book-light-x) var(--book-light-y),rgba(255,255,255,.34),transparent 45%);
+  mix-blend-mode:screen;
+  transition:opacity .3s ease;
+}
+.project-art-button:hover{
+  box-shadow:
+    1px 1px 0 rgba(40,34,26,.22),
+    4px 5px 0 rgba(40,34,26,.13),
+    8px 11px 0 rgba(40,34,26,.10),
+    18px 25px 34px rgba(35,30,24,.25);
+}
+.project-art-button:focus-visible{
+  outline:2px solid var(--blue);
+  outline-offset:7px;
+}
+.project-art-button .project-art-index,
+.project-art-button .project-cover-kicker,
+.project-art-button .project-art-name,
+.project-art-button .project-art-note,
+.project-art-button .project-cover-edition,
+.project-art-button .project-art-arrow{
+  text-shadow:0 1px 0 rgba(255,255,255,.16);
+}
+.project-art-button .project-cover-edition{
+  position:absolute;
+  z-index:3;
+  left:18px;
+  bottom:18px;
+  font:7px var(--mono);
+  letter-spacing:.12em;
+  opacity:.78;
+}
+.project-art-button .project-cover-edition i{font-style:normal;opacity:.65}
+.project-art-button .project-cover-kicker{
+  position:absolute;
+  z-index:3;
+  left:18px;
+  top:42px;
+  font:8px var(--mono);
+  letter-spacing:.1em;
+}
+.project-art-button .project-art-name{
+  max-width:88%;
+  overflow-wrap:anywhere;
+  text-wrap:balance;
+  transition:transform .42s cubic-bezier(.2,.75,.25,1);
+}
+.project-art-button:hover .project-art-name{transform:translate3d(0,-5px,12px)}
+.project-art-button .project-art-arrow{
+  box-shadow:0 4px 14px rgba(0,0,0,.12);
+  transition:transform .32s ease,background .25s,color .25s;
+}
+.project-card-top{
+  margin-bottom:14px;
+}
+.project-info{
+  position:relative;
+  padding:18px 5px 0;
+}
+.project-info:before{
+  content:"";
+  position:absolute;
+  top:0;left:5px;right:5px;
+  height:1px;
+  background:linear-gradient(90deg,var(--line),transparent);
+}
+.project-dialog-backdrop{perspective:1600px}
+.project-dialog{
+  transform-origin:12% 50%;
+  animation:project-book-open .58s cubic-bezier(.18,.72,.2,1) both;
+}
+@keyframes project-book-open{
+  0%{opacity:0;transform:translate3d(7vw,1vh,0) rotateY(-13deg) rotateX(2deg) scale(.965);filter:blur(2px)}
+  65%{opacity:1;transform:translate3d(-4px,0,0) rotateY(1deg) rotateX(0) scale(1)}
+  100%{opacity:1;transform:translate3d(0,0,0) rotateY(0) rotateX(0) scale(1);filter:blur(0)}
+}
+@media(max-width:950px){
+  .projects-shelf{grid-auto-columns:clamp(300px,58%,460px);gap:20px}
+}
+@media(max-width:600px){
+  .projects-shelf{grid-auto-columns:86%;gap:16px;padding:18px 10px 28px;margin:0 -10px}
+  .project-art{height:clamp(290px,88vw,360px)}
+  .project-art-button .project-cover-edition{font-size:6px;left:13px;bottom:14px}
+  .project-art-button .project-cover-kicker{left:13px;top:35px;font-size:7px}
+  .project-art-button:before{inset:4px -5px -7px 5px}
+}
+@media(prefers-reduced-motion:reduce){
+  .projects-shelf .project-card,.project-art-button,.project-art-button .project-art-name,.project-dialog{
+    transition:none!important;animation:none!important;transform:none!important;filter:none!important;will-change:auto;
+  }
+  .project-art-button:before{transform:none}
+}
