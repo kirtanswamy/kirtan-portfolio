@@ -462,6 +462,18 @@ function App() {
 
   return (
     <main className="site-shell" id="top">
+      <svg className="paper-filter-defs" aria-hidden="true" focusable="false">
+        <defs>
+          <filter id="paper-edge-displacement" x="-20%" y="-80%" width="140%" height="260%" colorInterpolationFilters="sRGB">
+            <feTurbulence type="fractalNoise" baseFrequency="0.018 0.32" numOctaves="2" seed="17" result="paper-grain">
+              <animate attributeName="baseFrequency" values="0.016 0.28;0.022 0.38;0.016 0.28" dur="8s" repeatCount="indefinite" />
+            </feTurbulence>
+            <feDisplacementMap in="SourceGraphic" in2="paper-grain" scale="9" xChannelSelector="R" yChannelSelector="G">
+              <animate attributeName="scale" values="7;13;7" dur="8s" repeatCount="indefinite" />
+            </feDisplacementMap>
+          </filter>
+        </defs>
+      </svg>
       {openingActive && <div className={`newspaper-opening ${openingLeaving ? "is-leaving" : ""}`} role="dialog" aria-modal="true" aria-label="The Maker's Notebook opening">
         <div className="opening-vignette" />
         <div className="opening-stage" aria-hidden="true">
