@@ -2344,3 +2344,187 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible{
   .opening-cover{display:none}
   .section-burn-transition{display:none}
 }
+
+
+/* M6 — correct the opening into a hinged book reveal, not a sliding cover. */
+.opening-paper{transform-style:preserve-3d;overflow:visible}
+.opening-cover{
+  z-index:12;
+  transform-origin:0% 50%;
+  transform-style:preserve-3d;
+  background:
+    radial-gradient(ellipse at 76% 22%,rgba(255,255,255,.12),transparent 38%),
+    repeating-linear-gradient(0deg,rgba(255,255,255,.025) 0 1px,transparent 1px 3px),
+    linear-gradient(135deg,#293247,#1d2538 58%,#141a29);
+  border:1px solid rgba(223,205,169,.82);
+  box-shadow:inset 0 0 0 5px rgba(14,20,32,.72),inset 0 0 0 6px rgba(223,205,169,.25),0 22px 42px rgba(0,0,0,.42);
+  animation:opening-cover-hinge 1.85s cubic-bezier(.62,.02,.22,1) .8s both;
+}
+.opening-cover:after{
+  content:"";
+  position:absolute;inset:0;
+  transform:rotateY(180deg);
+  transform-origin:center;
+  backface-visibility:hidden;
+  background:
+    radial-gradient(circle at 18% 18%,rgba(255,255,255,.65),transparent 40%),
+    linear-gradient(135deg,#e9e0d2,#cfc4b3);
+  box-shadow:inset 0 0 0 1px rgba(36,33,27,.18);
+}
+.opening-cover>span,.opening-cover>strong,.opening-cover>i,.opening-cover>small{z-index:1}
+.opening-cover>strong{color:#eee5d4;text-shadow:0 3px 0 rgba(0,0,0,.25),0 14px 26px rgba(0,0,0,.25)}
+.opening-cover>small{color:#e8d7b8}
+@keyframes opening-cover-hinge{
+  0%{transform:rotateY(0deg)}
+  12%{transform:rotateY(-8deg)}
+  100%{transform:rotateY(-178deg)}
+}
+.opening-leaf{
+  z-index:3;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  color:#252923;
+  transform:none!important;
+  animation:none!important;
+  padding:clamp(18px,3.5vw,46px);
+  background:
+    linear-gradient(rgba(41,39,31,.035) 1px,transparent 1px),
+    radial-gradient(ellipse at 18% 10%,rgba(255,255,255,.8),transparent 48%),
+    linear-gradient(135deg,#f4ecdf,#e4dacb);
+  background-size:26px 26px,auto,auto;
+}
+.opening-leaf>span{font:clamp(7px,.7vw,10px) var(--mono);letter-spacing:.13em;color:#6d6558;border-bottom:1px solid rgba(49,43,34,.25);padding-bottom:12px}
+.opening-leaf>strong{font-size:clamp(36px,6.5vw,96px);line-height:.82;letter-spacing:-.09em}
+.opening-leaf>p{max-width:34ch;margin:0;font:clamp(10px,1.15vw,15px)/1.5 var(--serif);color:#575247}
+.opening-leaf>i{display:flex;align-items:center;justify-content:space-between;gap:8px;font:7px var(--mono);font-style:normal;letter-spacing:.07em;color:#6d6558;border-top:1px solid rgba(49,43,34,.25);padding-top:10px}
+.opening-leaf>i b{font-weight:400;color:#254cdb}
+.opening-page-stamp{display:flex;align-items:center;gap:12px;color:#c94d34;margin-left:auto}
+.opening-page-stamp small{font:7px/1.4 var(--mono);letter-spacing:.12em}
+.opening-fold{z-index:5}
+.opening-caption{z-index:14}
+.opening-skip{z-index:15}
+@media(max-width:700px){
+  .opening-leaf{padding:7% 5%}
+  .opening-leaf>p{font-size:9px;line-height:1.35}
+  .opening-leaf>strong{font-size:clamp(26px,7vw,48px)}
+  .opening-leaf>span{font-size:6px}
+  .opening-page-stamp svg{width:26px;height:26px}
+}
+@media(prefers-reduced-motion:reduce){
+  .opening-cover{display:none!important;animation:none!important}
+}
+
+/* A fifth, unmistakable project mark: a little television from the after-school room. */
+.art-television{
+  position:absolute;right:12%;top:13%;width:48%;height:58%;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;
+  color:#24241f;transform:rotate(-5deg);
+}
+.art-television:before{
+  content:"";position:absolute;inset:9% 3% 18%;
+  border:2px solid #24241f;border-radius:18px 18px 13px 13px;
+  background:linear-gradient(145deg,#e8ddc9,#c7bba7);
+  box-shadow:8px 10px 0 rgba(36,36,31,.18),inset 0 0 0 5px rgba(36,36,31,.1);
+}
+.art-television svg{position:relative;z-index:1;width:72%;height:72%;color:#254cdb;filter:drop-shadow(2px 3px 0 rgba(36,36,31,.12))}
+.art-television span{position:relative;z-index:1;font:7px var(--mono);letter-spacing:.08em;color:#24241f}
+
+/* M7 — replace the disconnected dark/orange process chapter with a paper-led practice spread. */
+.practice-section{
+  background:
+    radial-gradient(circle at 88% 10%,rgba(37,76,219,.06),transparent 25%),
+    linear-gradient(135deg,#eee7da,#e7dece);
+  color:#25241f;
+  padding-top:clamp(76px,10vw,132px);
+  padding-bottom:clamp(70px,9vw,118px);
+}
+.practice-section:before{
+  content:"";position:absolute;inset:0;pointer-events:none;opacity:.24;
+  background-image:linear-gradient(rgba(40,35,27,.05) 1px,transparent 1px);
+  background-size:100% 34px;
+}
+.practice-section>*{position:relative;z-index:1}
+.practice-section .section-index{border-color:rgba(36,36,31,.22)}
+.practice-section .section-index>span{color:#777064}
+.practice-intro{
+  display:grid;grid-template-columns:1.25fr .75fr;align-items:end;gap:6vw;
+  margin:clamp(38px,6vw,76px) 0 clamp(34px,5vw,58px);
+}
+.practice-overline{font:8px var(--mono);letter-spacing:.16em;color:var(--blue)}
+.practice-intro h2{
+  margin:18px 0 0;font:clamp(48px,8.2vw,112px)/.88 var(--display);
+  letter-spacing:-.075em;max-width:12ch;
+}
+.practice-intro h2 em{font-family:var(--serif);font-weight:400;color:var(--blue)}
+.practice-intro>p{font:clamp(15px,1.4vw,18px)/1.55 var(--serif);color:#625d53;max-width:38ch;margin:0 0 5px}
+.practice-flow{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  border:1px solid rgba(36,36,31,.24);
+  background:rgba(247,241,230,.52);
+  box-shadow:7px 8px 0 rgba(36,36,31,.06);
+}
+.practice-step{
+  position:relative;min-height:340px;padding:clamp(20px,2.5vw,34px);
+  display:flex;flex-direction:column;gap:18px;
+}
+.practice-step+.practice-step{border-left:1px solid rgba(36,36,31,.2)}
+.practice-step-top{display:flex;align-items:center;gap:13px;color:var(--blue)}
+.practice-step-top>span{font:10px var(--mono);color:#777064;margin-right:auto}
+.practice-step-top>i{font:7px var(--mono);font-style:normal;letter-spacing:.08em;color:#777064}
+.practice-step h3{font:clamp(27px,3vw,40px)/.96 var(--display);letter-spacing:-.055em;margin:12px 0 0}
+.practice-step p{font:12px/1.65 var(--body);color:#625d53;max-width:38ch;margin:0}
+.practice-step-mark{
+  display:flex;flex-wrap:wrap;align-items:center;gap:7px;
+  margin-top:auto;padding-top:18px;border-top:1px solid rgba(36,36,31,.18);
+}
+.practice-step-mark span{font:8px var(--mono);color:var(--red);margin-right:6px}
+.practice-step-mark b{font:6px var(--mono);font-weight:400;letter-spacing:.08em;padding:6px 7px;border:1px solid rgba(36,36,31,.2);color:#625d53}
+.practice-foot{
+  display:flex;justify-content:space-between;gap:18px;padding-top:16px;
+  font:7px var(--mono);letter-spacing:.1em;color:#777064;
+}
+@media(max-width:760px){
+  .practice-intro{grid-template-columns:1fr;gap:22px}
+  .practice-intro h2{font-size:clamp(48px,12vw,82px)}
+  .practice-flow{grid-template-columns:1fr}
+  .practice-step{min-height:0;padding:24px}
+  .practice-step+.practice-step{border-left:0;border-top:1px solid rgba(36,36,31,.2)}
+  .practice-step-mark{margin-top:4px}
+}
+@media(prefers-reduced-motion:reduce){
+  .practice-step{animation:none!important;transition:none!important}
+}
+
+/* M8 — an actual scorched-paper wipe, not a caption announcing a page turn. */
+.section-burn-transition{
+  position:fixed;inset:-1px;z-index:230;pointer-events:none;
+  display:block;
+  background:
+    radial-gradient(ellipse at 52% 45%,rgba(255,255,255,.5),transparent 54%),
+    repeating-linear-gradient(0deg,rgba(74,57,36,.045) 0 1px,transparent 1px 4px),
+    linear-gradient(135deg,#f0e7d8,#d9cbb7);
+  clip-path:polygon(0 0,18% 0,38% 0,58% 0,78% 0,100% 0,100% 22%,100% 44%,100% 66%,100% 88%,100% 100%,80% 100%,60% 100%,40% 100%,20% 100%,0 100%,0 78%,0 56%,0 34%,0 12%);
+  filter:drop-shadow(0 0 4px rgba(255,176,91,.95)) drop-shadow(0 0 13px rgba(174,58,31,.82));
+  animation:paper-burn-collapse 1.28s cubic-bezier(.72,0,.2,1) both;
+}
+.section-burn-transition:before{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse at 50% 48%,transparent 0 35%,rgba(53,38,27,.06) 50%,rgba(54,37,24,.24) 100%),
+    repeating-radial-gradient(ellipse at 48% 52%,transparent 0 12px,rgba(96,69,43,.035) 13px 14px);
+  mix-blend-mode:multiply;
+}
+.section-burn-transition:after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse at 50% 50%,transparent 0 28%,rgba(35,26,20,.18) 38%,rgba(205,89,39,.24) 42%,transparent 48%),
+    repeating-conic-gradient(from 0deg at 50% 50%,rgba(246,173,93,.28) 0deg 1deg,transparent 2deg 7deg);
+  mix-blend-mode:multiply;opacity:.8;
+}
+@keyframes paper-burn-collapse{
+  0%{clip-path:polygon(0 0,18% 0,38% 0,58% 0,78% 0,100% 0,100% 22%,100% 44%,100% 66%,100% 88%,100% 100%,80% 100%,60% 100%,40% 100%,20% 100%,0 100%,0 78%,0 56%,0 34%,0 12%);opacity:1}
+  25%{clip-path:polygon(0 0,18% 0,38% 0,58% 0,78% 0,100% 0,100% 22%,100% 44%,100% 66%,100% 88%,100% 100%,80% 100%,60% 100%,40% 100%,20% 100%,0 100%,0 78%,0 56%,0 34%,0 12%);opacity:1}
+  100%{clip-path:polygon(48% 48%,50% 45%,52% 47%,55% 48%,54% 51%,52% 53%,50% 55%,47% 54%,45% 52%,44% 49%,46% 47%,48% 48%,50% 46%,52% 48%,54% 50%,52% 52%,50% 54%,48% 52%,46% 50%,48% 48%);opacity:0}
+}
+@media(prefers-reduced-motion:reduce){.section-burn-transition{display:none!important;animation:none!important}}
