@@ -2611,3 +2611,10 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible{
   .cover-art,.cover-orbit,.cover-spark{animation:none!important}
   .section-burn-transition{display:none!important}
 }
+
+
+/* M10 — the opening now exits through the same scorched-paper reveal used by chapter navigation. */
+.section-burn-transition{z-index:260}
+.newspaper-opening.is-leaving .opening-stage{opacity:1;transform:none}
+.newspaper-opening.is-leaving .opening-caption,
+.newspaper-opening.is-leaving .opening-skip{opacity:0;transition:opacity .18s ease}
