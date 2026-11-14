@@ -1182,3 +1182,85 @@ html.index-open body{
   .opening-leaf-left,.opening-leaf-right{transform:none}
   .opening-fold:after{display:none}
 }
+
+
+/* M2 recording review — first-screen composition and intentional boot state */
+#root:empty{
+  min-height:100vh;
+  display:grid;
+  place-items:center;
+  background:#171815;
+  color:#e9e0d2;
+}
+#root:empty:before{
+  content:"THE MAKER'S NOTEBOOK";
+  display:block;
+  padding:18px 22px;
+  border-top:1px solid rgba(233,224,210,.28);
+  border-bottom:1px solid rgba(233,224,210,.28);
+  color:#e9e0d2;
+  font:500 10px/1.4 "DM Mono",monospace;
+  letter-spacing:.2em;
+}
+#root:empty:after{
+  content:"FIELD EDITION  /  2026";
+  position:absolute;
+  top:calc(50% + 34px);
+  color:rgba(233,224,210,.48);
+  font:8px/1.4 "DM Mono",monospace;
+  letter-spacing:.16em;
+}
+.hero{
+  padding-top:18px;
+  padding-bottom:42px;
+}
+.hero-headline{
+  padding:30px 0 10px;
+}
+.hero-headline h1{
+  font-size:clamp(112px,10.4vw,180px);
+  line-height:.82;
+  letter-spacing:-.115em;
+}
+.headline-second{
+  padding-left:6vw;
+}
+.hero-bottomline{
+  padding-top:9px;
+}
+.hero-lower{
+  grid-template-columns:minmax(190px,.78fr) minmax(280px,1.1fr) minmax(112px,.36fr);
+  gap:clamp(20px,3vw,44px);
+  padding-top:22px;
+}
+.hero-deck p{
+  font-size:clamp(15px,1.12vw,18px);
+  line-height:1.48;
+}
+.portrait-art{
+  height:clamp(210px,18vw,270px);
+}
+.hero-aside{
+  gap:11px;
+}
+@media(max-width:1200px) and (min-width:951px){
+  .hero-headline h1{font-size:clamp(112px,12.5vw,150px)}
+  .hero-lower{grid-template-columns:minmax(180px,.8fr) minmax(250px,1.2fr);gap:25px}
+  .hero-aside{display:none}
+  .portrait-art{height:clamp(210px,23vw,260px)}
+}
+@media(max-width:950px) and (min-width:601px){
+  .hero-headline{padding-top:36px}
+  .hero-headline h1{font-size:clamp(100px,15vw,142px);line-height:.84}
+  .headline-second{padding-left:5vw}
+  .hero-lower{padding-top:24px}
+}
+@media(max-width:600px){
+  .hero{padding-top:18px;padding-bottom:42px}
+  .hero-headline{padding:36px 0 12px}
+  .hero-headline h1{font-size:clamp(76px,18vw,112px);line-height:.86;letter-spacing:-.11em}
+  .headline-second{padding-left:4vw}
+  .hero-bottomline{font-size:5px;letter-spacing:.04em}
+  .hero-lower{padding-top:22px;gap:22px}
+  .portrait-art{height:clamp(220px,65vw,280px)}
+}
