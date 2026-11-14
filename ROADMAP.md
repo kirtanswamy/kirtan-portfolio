@@ -277,3 +277,22 @@ See [CONTENT_REGISTRY.md](./CONTENT_REGISTRY.md). That file is the source of tru
 4. Re-run interaction, keyboard, reduced-motion, mobile and performance checks. The user must approve the M2 preview before M3 begins.
 
 **Quality rule:** no more shader complexity or decorative animation unless it creates a visible, meaningful improvement at stable performance. Prefer one convincing, well-composed transition over several continuously running effects.
+
+
+### M2 implementation pass — physical opening choreography (14 November 2026)
+
+**Latest review input:** a 30.47-second desktop recording of preview commit `cad5b565`. The opening spread showed the two leaves as flat panels with a prominent center spine; the first page still had an oversized headline consuming most of the viewport. This recording predates the subsequent headline rebalance and opening choreography updates, so it is evidence about the older preview only.
+
+**Changes now committed:**
+- Rebalanced the first page headline size and supporting content layout in commit `693d783`.
+- Reworked opening page choreography in commit `805abbb`: lower-cost transform/opacity-only motion, shorter staged leaf opening, controlled overshoot, stronger layered page-stock shadow, static fold shading, reduced blur/filter use and mobile-specific timing.
+- Removed the continuously animated fold sheen from the opening; retained a static light/shadow profile to avoid needless perpetual animation.
+- Kept reduced-motion rules for the opening.
+
+**Preview:** Vercel deployment `dpl_9FVHujCT9y3SQnrHjLZ1XQA5ds8s` is READY for commit `805abbb` at `https://kirtan-portfolio-ma8cslkwi-saturn-789b.vercel.app/`. Preview only; no production target.
+
+**Remaining M2 acceptance gates:**
+1. User review of the current build for motion smoothness and opening-page visual quality.
+2. Confirm the cover is composed well at desktop and mobile sizes, including short-height screens.
+3. Replace the current CSS page-leaf illusion with true deforming page geometry only if the performance budget supports it; current work remains CSS 3D transforms and layered stock, not a mesh simulation.
+4. Profile real-device frame pacing and first-load performance; no performance numbers claimed from source inspection alone.
