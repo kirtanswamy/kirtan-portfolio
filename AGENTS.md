@@ -4,9 +4,9 @@ This repository contains **THE MAKER'S NOTEBOOK**, an immersive, tactile portfol
 
 For design, frontend, 3D, animation, interaction, responsive, or visual QA tasks, consult the `portfolio-studio` skill at:
 
-`/.agents/skills/portfolio-studio/SKILL.md`
+`.agents/skills/portfolio-studio/SKILL.md`
 
-Read the relevant references under `/.agents/skills/portfolio-studio/references/` before making substantial design or implementation decisions:
+Read the relevant references under `.agents/skills/portfolio-studio/references/` before making substantial design or implementation decisions:
 - `visual-language.md`
 - `motion-system.md`
 - `3d-guidelines.md`
