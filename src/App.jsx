@@ -258,6 +258,22 @@ function App() {
   const lenisRef = useRef(null)
   const shelfDragRef = useRef({ pointerId: null, startX: 0, scrollLeft: 0, dragged: false })
 
+  const finishOpening = () => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setOpeningActive(false)
+      document.getElementById('main-content')?.focus({ preventScroll: true })
+      return
+    }
+    window.clearTimeout(sectionTransitionTimer.current)
+    setSectionTransition(true)
+    // Let the scorched sheet cover the open book before removing the intro beneath it.
+    sectionTransitionTimer.current = window.setTimeout(() => {
+      setOpeningActive(false)
+      document.getElementById('main-content')?.focus({ preventScroll: true })
+      sectionTransitionTimer.current = window.setTimeout(() => setSectionTransition(false), 980)
+    }, 420)
+  }
+
   useEffect(() => {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     if (reduced) {
@@ -265,9 +281,8 @@ function App() {
       document.getElementById('main-content')?.focus({ preventScroll: true })
       return undefined
     }
-    const exitTimer = window.setTimeout(() => setOpeningLeaving(true), 3800)
-    const removeTimer = window.setTimeout(() => { setOpeningActive(false); document.getElementById('main-content')?.focus({ preventScroll: true }) }, 4650)
-    return () => { window.clearTimeout(exitTimer); window.clearTimeout(removeTimer) }
+    const exitTimer = window.setTimeout(finishOpening, 3800)
+    return () => window.clearTimeout(exitTimer)
   }, [])
   useEffect(() => {
     if (!openingActive || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined
@@ -491,14 +506,6 @@ function App() {
   }
 
   useEffect(() => () => window.clearTimeout(sectionTransitionTimer.current), [])
-
-  const finishOpening = () => {
-    setOpeningLeaving(true)
-    window.setTimeout(() => {
-      setOpeningActive(false)
-      document.getElementById('main-content')?.focus({ preventScroll: true })
-    }, 850)
-  }
 
   const moveProjectShelf = direction => {
     const shelf = projectShelfRef.current
