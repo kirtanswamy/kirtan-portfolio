@@ -515,7 +515,7 @@ function App() {
       </header>
 
       <nav id="mobile-navigation" className={`mobile-nav index-overlay ${menuOpen ? 'is-open' : ''}`} aria-label="Global index" aria-hidden={!menuOpen} inert={!menuOpen}>
-        <PaperShader variant="index-edge" />
+        <PaperShader variant="index-edge" active={menuOpen} />
         <div className="index-overlay-top"><span>THE MAKER'S NOTEBOOK / INDEX</span><span>VOL. 01 — 2026</span><button type="button" onClick={closeMenu} aria-label="Close index"><X size={19}/><span>CLOSE</span></button></div>
         <div className="index-overlay-title"><span>CONTENTS / 08 CHAPTERS</span><strong>INDEX<span>.</span></strong></div>
         <div className="index-overlay-links">
