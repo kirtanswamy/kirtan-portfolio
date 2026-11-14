@@ -254,3 +254,26 @@ See [CONTENT_REGISTRY.md](./CONTENT_REGISTRY.md). That file is the source of tru
 - Run CI after each meaningful change.
 - Preserve a preview link for milestone review when available.
 - Do not merge or publish a production release without the user's explicit approval.
+
+
+### Quality reset — performance and front-page art direction (14 November 2026)
+
+**User review:** the current motion feels laggy and does not deliver a sufficiently extraordinary physical-paper effect. The first page revealed after the opening also needs a major visual redesign. M2 is not signed off.
+
+**Performance correction committed:**
+- Reduced shader fragment precision to `mediump` for broader mobile GPU efficiency.
+- Reduced procedural noise work from five FBM octaves to three and simplified the index-edge sampling.
+- Reduced the maximum shader backing resolution from 1.5× to 1.15× device pixel ratio.
+- Capped animated shader updates at 30 fps rather than scheduling a full-resolution draw on every display refresh.
+- Cached shader uniform locations instead of looking them up every frame.
+- Removed time-varying per-pixel grain hashing; grain is now stable rather than shimmering.
+- Added an `active` control so the shader can be rendered statically or animated only during a deliberate transition.
+- Preserved offscreen pausing and reduced-motion handling.
+
+**Next implementation gates (before M2 acceptance):**
+1. Inspect the new preview on desktop and mobile; check frame pacing, visual artifacts, GPU load and WebGL fallback.
+2. Replace the current texture-overlay-only approach with an edge/silhouette system that visibly changes the paper boundary and communicates actual depth. Do not describe an overlay as physical page geometry.
+3. Re-art-direct the first revealed page as a complete editorial cover: stronger composition, hierarchy, image/illustration treatment, whitespace, typography and responsive balance. The placeholder character remains until a real portrait is supplied.
+4. Re-run interaction, keyboard, reduced-motion, mobile and performance checks. The user must approve the M2 preview before M3 begins.
+
+**Quality rule:** no more shader complexity or decorative animation unless it creates a visible, meaningful improvement at stable performance. Prefer one convincing, well-composed transition over several continuously running effects.
