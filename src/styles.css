@@ -1826,7 +1826,7 @@ html.index-open body{
   transform-style:preserve-3d;
   transform:translate3d(0,0,0);
   filter:none!important;
-  animation:opening-float 1.12s cubic-bezier(.2,.72,.18,1) both;
+  animation:opening-float 2.15s cubic-bezier(.2,.72,.18,1) both;
 }
 .opening-paper:after{
   transform:none;
@@ -1841,11 +1841,11 @@ html.index-open body{
 }
 .opening-leaf-left{
   transform-origin:100% 50%;
-  animation:opening-left-page 1.16s cubic-bezier(.22,.72,.2,1) .08s both;
+  animation:opening-left-page 2.35s cubic-bezier(.22,.72,.2,1) .12s both;
 }
 .opening-leaf-right{
   transform-origin:0% 50%;
-  animation:opening-right-page 1.2s cubic-bezier(.22,.72,.2,1) .12s both;
+  animation:opening-right-page 2.5s cubic-bezier(.22,.72,.2,1) .2s both;
 }
 .opening-fold:after{display:none!important}
 .opening-curl{display:none!important}
@@ -1866,19 +1866,19 @@ html.index-open body{
 .newspaper-opening.is-leaving .opening-stage{
   opacity:0;
   transform:translate3d(0,-16px,0) scale(1.015);
-  transition:transform .62s cubic-bezier(.22,.72,.2,1),opacity .56s ease;
+  transition:transform .82s cubic-bezier(.22,.72,.2,1),opacity .76s ease;
 }
 .newspaper-opening.is-leaving .opening-caption,
 .newspaper-opening.is-leaving .opening-skip{
   opacity:0;
   transition:opacity .3s ease;
 }
-.opening-caption,.opening-skip{transition:opacity .3s ease}
+.opening-caption,.opening-skip{transition:opacity .42s ease}
 @media(max-width:700px){
   .opening-stage{width:min(92vw,620px)}
-  .opening-paper{animation-duration:.96s}
-  .opening-leaf-left{animation-duration:1.02s}
-  .opening-leaf-right{animation-duration:1.06s}
+  .opening-paper{animation-duration:1.9s}
+  .opening-leaf-left{animation-duration:2.15s}
+  .opening-leaf-right{animation-duration:2.3s}
   .opening-fold{width:14px}
 }
 @media(prefers-reduced-motion:reduce){
