@@ -1,15 +1,14 @@
-# Kirtan Swamy — Portfolio
+# Kirtan Swamy — The Maker's Notebook
 
-An editorial, paper-inspired portfolio experience built with React, Vite, GSAP and Lenis. The visual direction takes cues from the magazine-like composition and oversized typography of the Niccolo Miranda reference while using original content, a responsive layout and a distinct identity.
+An original editorial portfolio built as a living newspaper / maker's notebook: a CSS-perspective opening, torn-paper global index, a project archive evolving into a tactile bookshelf, and a visual autobiography. The current build is the M1 newspaper-shell prototype; the WebGL paper engine and five-book shelf remain later milestones.
 
 ## Stack
 
-- React 19
-- Vite 8
-- GSAP + ScrollTrigger
-- Lenis smooth scrolling
+- React 19 + Vite 8
+- GSAP + ScrollTrigger for entrance and scroll reveals
+- Lenis for smooth scrolling
 - Lucide React icons
-- DM Sans, DM Mono and Playfair Display
+- Space Grotesk, Playfair Display and DM Mono
 
 ## Run locally
 
@@ -20,31 +19,50 @@ npm install
 npm run dev
 ```
 
-Create a production build:
+Production build:
 
 ```bash
 npm run build
 npm run preview
 ```
 
-## Project structure
+## Approved experience architecture
 
-```
-.
-├── index.html
-├── public/
-│   └── favicon.svg
-├── src/
-│   ├── App.jsx
-│   ├── main.jsx
-│   └── styles.css
-├── package.json
-└── vite.config.js
-```
+1. Cinematic newspaper opening and front page
+2. Horizontal project bookshelf and individual case studies
+3. Recognition and leadership milestones
+4. Cinematic About autobiography
+5. Education and journey
+6. Verified learning and certification archive
+7. Skills and workshop
+8. Contact and closing page
 
-## Personalization
+Featured projects: BUSHO, Varsity, ElectroLab, JanSeva One and Chhutti Ke Baad. Varsity is in development and is not deployed; ElectroLab and Varsity therefore link to source only. JanSeva One is an ideation-only concept that was never implemented; its Viksit Bharat presentation topic is not used in the public case study.
 
-Update project details and links in `src/App.jsx`. The BUSHO, Varsity, ElectroLab and JanSeva One entries are based on Kirtan's known projects. Replace the editorial placeholder portrait with a personal photograph before publishing. Add a verified email address and exact LinkedIn profile URL before enabling direct contact links.
+Global navigation is planned as a torn-paper INDEX; project navigation remains a separate tactile bookshelf. The existing newspaper-style character artwork is temporary until a custom likeness is created from a user-supplied portrait. The current opening is a CSS perspective prototype; WebGL paper displacement is a later milestone.
+
+## Interactions and accessibility
+
+- Eight-chapter desktop rail and full-screen torn-edge INDEX on desktop and mobile; Escape closes it, Tab focus is contained, and focus returns to the trigger.
+- The opening has a keyboard-operable skip action, Escape dismissal, focus containment and reduced-motion bypass. Rendered desktop/mobile QA remains pending before M1 sign-off.
+- Current build: horizontal project archive with pointer drag, touch scrolling, keyboard arrows, Home and End. Next milestone: replace the grid-like shelf with a tactile bookshelf and book-open transitions.
+- Project detail dialogs with Escape-to-close, focus trapping, focus restoration and backdrop dismissal.
+- Scroll progress, GSAP section reveals and restrained hero parallax.
+- The persistent current-project bookmark collapses to an edge tab and expands on hover or keyboard focus.
+- Lenis is stopped while the global INDEX is open; the page behind the overlay is locked to prevent competing scrollbars.
+- Reduced-motion handling and keyboard-visible focus styles.
+
+## Personal data accuracy
+
+Some credential records are deliberately labelled as courses, simulations or items to verify. Do not relabel them as professional certifications until the certificate / credential itself has been checked. Academic grades and current semester are not published until the latest values are confirmed. The current newspaper-style character illustration is a temporary placeholder; the personal likeness version is deferred until a portrait is supplied.
+
+Before launch:
+- Verify current academic year / semester and CGPA if you want to publish them.
+- Verify credential names, issue dates and certificate URLs.
+- Add the exact LinkedIn profile URL and a public contact email.
+- Confirm the current BUSHO and Varsity project status and live links.
+- Supply real screenshots and evidence for BUSHO, Varsity, ElectroLab, JanSeva One and Chhutti Ke Baad.
+- Replace the reserved hero illustration with the approved custom character.
 
 ## Development workflow
 
@@ -62,10 +80,8 @@ The current branch is a work in progress; it is not yet the published portfolio.
 
 ## Deployment
 
-This repository is ready to import into Vercel. Use the default Vite settings:
+Vercel defaults:
 - Build command: `npm run build`
 - Output directory: `dist`
 
-## Credits
-
-The original design reference is the public [Niccolo Miranda clone](https://github.com/03aey/niccolo-miranda-clone). This project does not copy its code or assets; it recreates selected editorial design principles in an original implementation.
+The portfolio takes interaction inspiration from the live Niccolò Miranda website, but its copy, layout, illustrations and styling are implemented as an original identity. The approved roadmap is in `ROADMAP.md`.

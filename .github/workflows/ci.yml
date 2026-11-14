@@ -2,7 +2,7 @@ name: Portfolio CI
 
 on:
   push:
-    branches: [main]
+    branches: [main, feature/editorial-world-rebuild]
   pull_request:
     branches: [main]
 

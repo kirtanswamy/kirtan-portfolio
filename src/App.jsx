@@ -1,341 +1,825 @@
-import { useEffect, useState } from 'react'
+import { lazy, Suspense, useEffect, useMemo, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Lenis from 'lenis'
+import PaperShader from './components/PaperShader.jsx'
 import {
-  ArrowDownRight,
-  ArrowRight,
-  ArrowUpRight,
-  Asterisk,
-  Code2,
-  Menu,
-  MoveUpRight,
-  X,
+  ArrowDown, ArrowDownRight, ArrowLeft, ArrowRight, ArrowUpRight, Asterisk,
+  ArrowUp, ExternalLink, Code2, Menu, MoveUpRight, X,
+  CircleDot, Sparkles, BookOpen, Cpu, Layers3, Compass, Send,
 } from 'lucide-react'
 
 gsap.registerPlugin(ScrollTrigger)
 
+const WorkshopExperience = lazy(() => import('./components/WorkshopExperience.jsx'))
+
 const projects = [
   {
-    number: '01',
-    name: 'BUSHO',
-    type: 'HEALTH-TECH / PUBLIC SYSTEMS',
-    description: 'A community-first healthcare operations platform connecting frontline health workers, supervisors and the systems behind them.',
-    year: '2026',
-    tone: 'busho',
-    image: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1400&q=85',
-    href: 'https://project1busho.vercel.app/',
-    linkLabel: 'VISIT PROJECT',
+    id: '01', name: 'BUSHO', category: 'PUBLIC SYSTEMS', type: 'Health-tech · Operations',
+    description: 'A frontline healthcare operations platform exploring how health workers and supervisors can move information through a clearer, more accountable workflow.',
+    stage: 'IN DEVELOPMENT', year: '2026', tone: 'blue',
+    href: 'https://busho.de5.net/', repo: 'https://github.com/kirtanswamy/BUSHO',
+    tags: ['React', 'Supabase', 'Workflow design'],
+    note: 'From the field, for the field.',
+    contribution: 'PROJECT LEAD · PRODUCT & DEVELOPMENT',
+    problem: 'Frontline health information needs a dependable path from the person recording it to the supervisor who reviews and acts on it.',
+    approach: 'Prototype a frontline reporting workflow: capture a report, structure editable draft fields, require human verification, then surface a supervisor review and replenishment draft.',
+    current: 'A browser-based prototype using synthetic sample data, mock rule-based extraction and browser-local storage. It is not connected to live government inventory or a shared production backend; the complete workflow and field validation remain in progress.',
+    next: 'Complete the full reporting-to-review loop, validate the data model and test the workflow against realistic field conditions.',
   },
   {
-    number: '02',
-    name: 'VARSITY',
-    type: 'ED-TECH / CAMPUS EXPERIENCE',
-    description: 'A student-first campus companion bringing attendance, academic resources, previous papers and everyday planning into one place.',
-    year: '2026',
-    tone: 'varsity',
-    image: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1400&q=85',
-    href: 'https://github.com/aalindmukati/Varsity',
-    linkLabel: 'VIEW REPOSITORY',
+    id: '02', name: 'VARSITY', category: 'CAMPUS LIFE', type: 'Ed-tech · Student experience',
+    description: 'A student-first campus companion bringing attendance, academic resources, previous-year papers and everyday planning into one considered experience.',
+    stage: 'PRODUCT BUILD', year: '2026', tone: 'orange',
+    href: '', repo: 'https://github.com/aalindmukati/Varsity',
+    tags: ['React Native', 'Expo', 'Product design'],
+    note: 'Make campus life feel connected.',
+    contribution: 'APP DEVELOPMENT LEAD',
+    problem: 'Students often have to move between separate places to check attendance, marks, schedules and useful study material.',
+    approach: 'Bring core academic information into one student-first companion: attendance tracking and prediction, marks, schedules, CT resources, notes and previous-year questions.',
+    current: 'An active product build with the core experience and multiple feature areas under development. This is not being presented as a completed campus-wide release.',
+    next: 'Tighten the end-to-end student workflows, validate data accuracy and test the experience with real student use cases.',
   },
   {
-    number: '03',
-    name: 'ELECTROLAB',
-    type: 'ENGINEERING / INTERACTIVE SIMULATION',
-    description: 'An interactive electronics workbench exploring diode behaviour, live calculations and voltage sweeps through visual simulation.',
-    year: '2026',
-    tone: 'electrolab',
-    image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1400&q=85',
-    href: 'https://github.com/kirtanswamy/ElectroLab',
-    linkLabel: 'VIEW REPOSITORY',
+    id: '03', name: 'ELECTROLAB', category: 'ENGINEERING', type: 'Electronics · Simulation',
+    description: 'An interactive electronics workbench for exploring diode behaviour through live calculations, voltage sweeps and visual circuit intuition.',
+    stage: 'WORKING PROTOTYPE', year: '2026', tone: 'green',
+    href: '', repo: 'https://github.com/kirtanswamy/ElectroLab',
+    tags: ['React', 'TypeScript', 'Electronics'],
+    note: 'Making invisible behaviour visible.',
+    contribution: 'ENGINEERING & IMPLEMENTATION',
+    problem: 'Diode behaviour is easier to understand when equations, changing parameters and voltage response can be explored together.',
+    approach: 'Implement the Shockley diode model, validated calculations, a voltage-sweep engine with signed-log graphing and a bisection solver for a series-diode circuit.',
+    current: 'The calculation engine, responsive parameter controls, sweep visualisation and series-diode solver have been implemented and tested in the current prototype.',
+    next: 'Extend the workbench with additional circuit experiments, clearer guided explanations and more model validation cases.',
   },
   {
-    number: '04',
-    name: 'JANSEVA ONE',
-    type: 'CIVIC-TECH / SOCIAL INNOVATION',
-    description: 'A unified civic action concept designed to make local infrastructure issues easier to report, track and resolve.',
-    year: 'CONCEPT',
-    tone: 'janseva',
-    image: 'https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?auto=format&fit=crop&w=1400&q=85',
-    href: 'https://github.com/kirtanswamy',
-    linkLabel: 'EXPLORE MY WORK',
+    id: '04', name: 'JANSEVA ONE', category: 'CIVIC INNOVATION', type: 'Civic-tech · Public impact',
+    description: 'An ideation-stage civic-tech concept for a citizen-first transparency and action platform, initially focused on local roads and infrastructure.',
+    stage: 'IDEATION ONLY', year: '2026', tone: 'red',
+    href: '', repo: '',
+    tags: ['Civic technology', 'Geo-tagged reporting', 'Public accountability'],
+    note: 'A road complaint should not disappear into a file.',
+    contribution: 'ORIGINAL IDEA · CONCEPT DEVELOPMENT',
+    problem: 'Residents can notice damaged roads and local infrastructure issues, but often lack a clear way to submit a traceable report and follow its resolution.',
+    approach: 'JanSeva One (UCAP) was imagined as a citizen-first civic transparency and action platform. The proposed road / PMGSY pilot would let citizens submit geo-tagged photos or video of potholes, flooding and surface damage, then connect the report to public-works information such as the responsible department, contractor, project timelines and milestones. The proposed journey included jurisdiction routing, status updates, evidence of repair and a public repair-history trail. Assisted reporting through CSCs, Panchayat offices and youth volunteers was also considered. Later concept extensions included drainage, sanitation, PHCs, schools and wider village infrastructure.',
+    current: 'Ideation only. JanSeva One was never implemented: no working application, deployed prototype, backend, pilot or operational government integration exists. The concept was explored as a proposed MVP for one Gram Panchayat in Chhattisgarh, using simulated data for any demonstration.',
+    next: 'The concept would need stakeholder research, jurisdiction and escalation mapping, a citizen journey prototype and local validation before any implementation could be considered.',
+  },
+  {
+    id: '05', name: 'CHHUTTI KE BAAD', category: 'INTERACTIVE EXPERIENCE', type: 'Creative coding · Nostalgia',
+    description: 'An interactive time machine for the golden after-school hours of Indian childhood: the room, the CRT, the remote and the little rituals around them.',
+    stage: 'LIVE EXPERIENCE', year: '2026', tone: 'orange',
+    href: 'https://chhutti-ke-baad.vercel.app/', repo: 'https://github.com/kirtanswamy/chhutti-ke-baad',
+    tags: ['React', 'Vite', 'Interactive storytelling'],
+    note: 'School is over. The TV is on.',
+    contribution: 'CONCEPT · DESIGN & DEVELOPMENT',
+    problem: 'A familiar after-school ritual is difficult to capture in a conventional project page. The atmosphere and small interactions are the experience.',
+    approach: 'Build an explorable illustrated room with a CRT television, interactive remote, changing room lighting, a show browser, school-day objects and small surprises.',
+    current: 'A live interactive website. The README documents the CRT video experience, remote controls, afternoon/evening/lights-off ambience, interactive room props and keyboard-friendly controls.',
+    next: 'Bring the room into the portfolio as a miniature playable case study, preserving the original live experience as the primary destination.',
   },
 ]
 
-const expertise = [
-  'Creative development',
-  'Frontend engineering',
-  'App development',
-  'UI / UX design',
-  'AI & machine learning',
-  'Electronics engineering',
+const categories = ['ALL WORK', 'PUBLIC SYSTEMS', 'CAMPUS LIFE', 'ENGINEERING', 'CIVIC INNOVATION', 'INTERACTIVE EXPERIENCE']
+
+const chapterItems = [
+  ['01', 'FRONT PAGE', '#main-content'],
+  ['02', 'WORK', '#work'],
+  ['03', 'MILESTONES', '#recognition'],
+  ['04', 'ABOUT', '#about'],
+  ['05', 'JOURNEY', '#journey'],
+  ['06', 'ARCHIVE', '#learning'],
+  ['07', 'WORKSHOP', '#skills'],
+  ['08', 'CONTACT', '#contact'],
 ]
 
-function ProjectCard({ project }) {
+const learning = [
+  { name: 'Qualcomm AI Upskilling', detail: 'Technical Foundations', kind: 'AI / MACHINE LEARNING', category: 'TECH', record: 'COURSE', status: 'COURSE COMPLETED · CREDENTIAL NOT VERIFIED' },
+  { name: 'Goldman Sachs', detail: 'Operations Job Simulation · Forage', kind: 'BUSINESS / OPERATIONS', category: 'BUSINESS', record: 'SIMULATION', status: 'JOB SIMULATION COMPLETED' },
+  { name: 'Google Ads & Analytics', detail: 'Digital marketing and measurement learning', kind: 'DIGITAL / ANALYTICS', category: 'DIGITAL', record: 'LEARNING LOG', status: 'COURSE DETAILS TO VERIFY' },
+  { name: 'Microsoft × LinkedIn', detail: 'Generative AI learning programme', kind: 'GENERATIVE AI', category: 'TECH', record: 'COURSE', status: 'COURSE COMPLETED · EXACT TITLE TO VERIFY' },
+]
+
+const learningCategories = ['ALL ENTRIES', 'TECH', 'BUSINESS', 'DIGITAL']
+
+const skills = [
+  { group: 'FRONTEND & APPS', items: ['HTML & CSS', 'JavaScript', 'TypeScript', 'React', 'React Native', 'Expo', 'Flutter'] },
+  { group: 'PROGRAMMING', items: ['Python', 'C / C++', 'Java', 'API integration', 'Responsive UI'] },
+  { group: 'PRODUCT & SYSTEMS', items: ['UI / UX', 'Git & GitHub', 'Supabase', 'Vite', 'Electronics', 'AI / ML foundations'] },
+]
+
+const navItems = [
+  ['FRONT PAGE', '#main-content'],
+  ['WORK', '#work'],
+  ['MILESTONES', '#recognition'],
+  ['ABOUT', '#about'],
+  ['JOURNEY', '#journey'],
+  ['ARCHIVE', '#learning'],
+  ['WORKSHOP', '#skills'],
+  ['CONTACT', '#contact'],
+]
+
+function Eyebrow({ children, light = false }) {
+  return <p className={`eyebrow ${light ? 'eyebrow-light' : ''}`}>{children}</p>
+}
+
+function ProjectVisual({ project }) {
+  if (project.id === '01') return (
+    <img
+      className="project-visual project-visual-busho-photo"
+      src="https://raw.githubusercontent.com/kirtanswamy/BUSHO/main/assets/busho-github-banner.jpg"
+      alt="BUSHO concept banner showing a frontline health worker, report capture and supervisor workflow"
+      loading="lazy"
+    />
+  )
+  if (project.id === '02') return (
+    <svg className="project-visual project-visual-varsity" viewBox="0 0 520 230" role="img" aria-label="Illustrative student campus dashboard concept; values are placeholders, not live student data">
+      <rect x="20" y="18" width="480" height="194" rx="5" fill="#f1e8d8" fillOpacity=".65" stroke="currentColor"/>
+      <path d="M20 48H500" stroke="currentColor" opacity=".5"/>
+      <circle cx="37" cy="33" r="4" fill="#c94d34"/><circle cx="51" cy="33" r="4" fill="#d3a24c"/><circle cx="65" cy="33" r="4" fill="#63814d"/>
+      <rect x="38" y="65" width="128" height="125" rx="3" fill="#254cdb" fillOpacity=".12" stroke="currentColor" opacity=".8"/>
+      <text x="52" y="86" fill="currentColor" fontSize="10" fontFamily="monospace">ATTENDANCE</text>
+      <circle cx="102" cy="132" r="31" fill="none" stroke="currentColor" strokeOpacity=".2" strokeWidth="7"/>
+      <path d="M102 101a31 31 0 1 1-27 46" fill="none" stroke="#254cdb" strokeWidth="7" strokeLinecap="round"/>
+      <text x="102" y="137" textAnchor="middle" fill="currentColor" fontSize="16" fontFamily="sans-serif">—</text>
+      <rect x="184" y="65" width="135" height="55" rx="3" fill="#f1e8d8" stroke="currentColor"/>
+      <rect x="335" y="65" width="145" height="55" rx="3" fill="#f1e8d8" stroke="currentColor"/>
+      <rect x="184" y="133" width="296" height="57" rx="3" fill="#f1e8d8" stroke="currentColor"/>
+      <g fill="currentColor" fontFamily="monospace" fontSize="9"><text x="196" y="82">UPCOMING TEST</text><text x="196" y="105" fontSize="13">DLD · UNIT 04</text><text x="347" y="82">STUDY MATERIAL</text><text x="347" y="105" fontSize="13">PYQ ARCHIVE</text><text x="198" y="151">YOUR WEEK / ACADEMIC TIMELINE</text></g>
+      <path d="M198 174h38v-7h37v10h38v-14h37v8h37v-6h37v8h38" fill="none" stroke="#254cdb" strokeWidth="2"/>
+    </svg>
+  )
+  if (project.id === '05') return (
+    <svg className="project-visual project-visual-chutti" viewBox="0 0 520 230" role="img" aria-label="Illustration of an after-school room with a CRT television and interactive remote">
+      <rect x="18" y="18" width="484" height="194" rx="4" fill="#e8c58e" fillOpacity=".25" stroke="currentColor"/>
+      <path d="M18 166H502" stroke="currentColor" strokeOpacity=".45"/>
+      <rect x="160" y="48" width="204" height="118" rx="14" fill="#262523" stroke="currentColor" strokeWidth="2"/>
+      <rect x="176" y="61" width="171" height="88" rx="28" fill="#d9d0b9" stroke="#262523" strokeWidth="5"/>
+      <rect x="187" y="70" width="148" height="70" rx="22" fill="#294c83"/>
+      <path d="M197 122c22-35 42-35 62-7s42 22 68-20" fill="none" stroke="#f0d39d" strokeWidth="3"/>
+      <circle cx="353" cy="160" r="3" fill="#c94d34"/>
+      <path d="M210 168v15m105-15v15m-120 0h135" stroke="currentColor" strokeWidth="2"/>
+      <rect x="389" y="84" width="30" height="91" rx="8" fill="#e5dfd0" stroke="currentColor"/>
+      <circle cx="404" cy="98" r="5" fill="#c94d34"/><circle cx="404" cy="116" r="4" fill="#254cdb"/><path d="M399 136h10m-10 10h10" stroke="currentColor"/>
+      <path d="M54 164v-40h48v40m-56 0h64" fill="none" stroke="currentColor" strokeWidth="2"/>
+      <rect x="60" y="108" width="36" height="18" rx="2" fill="#c94d34" fillOpacity=".7"/>
+      <g fill="currentColor" fontFamily="monospace" fontSize="10"><text x="36" y="39">AFTER SCHOOL / 04:15 PM</text><text x="178" y="202">THE CRT IS WAITING</text><text x="386" y="202">REMOTE / 01</text></g>
+    </svg>
+  )
+  if (project.id === '03') return (
+    <svg className="project-visual project-visual-electrolab" viewBox="0 0 520 230" role="img" aria-label="Conceptual diode current voltage characteristic graph">
+      <g stroke="currentColor" strokeOpacity=".2"><path d="M48 25V195H488M48 60H488M48 95H488M48 130H488M48 165H488" fill="none" strokeDasharray="3 5"/><path d="M136 25V195M224 25V195M312 25V195M400 25V195" fill="none" strokeDasharray="3 5"/></g>
+      <path d="M48 108H488M268 25V195" stroke="currentColor" strokeWidth="1.5" fill="none"/>
+      <path d="M55 108C135 108 190 108 235 109S284 111 302 103 326 82 341 51 366 19 395 13" fill="none" stroke="#254cdb" strokeWidth="4" strokeLinecap="round"/>
+      <path d="M55 108C135 108 190 108 235 109S284 111 302 103 326 82 341 51 366 19 395 13L395 108Z" fill="#254cdb" fillOpacity=".12"/>
+      <g fill="currentColor" fontFamily="monospace" fontSize="10"><text x="55" y="18">DIODE I–V SWEEP</text><text x="468" y="127">V</text><text x="280" y="37">I</text><text x="55" y="218">REVERSE</text><text x="423" y="218">FORWARD</text></g>
+      <circle cx="341" cy="51" r="5" fill="#c94d34" stroke="#f1e8d8" strokeWidth="2"/>
+    </svg>
+  )
   return (
-    <a className={`project-card ${project.tone} reveal`} href={project.href} target="_blank" rel="noreferrer">
-      <div className="project-visual">
-        <img src={project.image} alt={`${project.name} project visual`} loading="lazy" />
-        <div className="project-visual-shade" />
-        <span className="project-visual-number">{project.number} / 04</span>
-        <span className="project-open"><ArrowUpRight size={22} strokeWidth={1.5} /></span>
-        <span className="project-visual-word">{project.name}</span>
+    <svg className="project-visual project-visual-janseva" viewBox="0 0 520 230" role="img" aria-label="Conceptual civic issue reporting and resolution map">
+      <path d="M20 30 150 18 176 195 37 210ZM176 18l150 10-15 175-135-8ZM326 28l170-8-20 182-165 1Z" fill="#f1e8d8" fillOpacity=".25" stroke="currentColor" strokeOpacity=".45"/>
+      <path d="m31 84 454 50M112 20l-5 183M265 20l-2 175M411 22l-10 177" stroke="currentColor" strokeOpacity=".25" strokeDasharray="4 5"/>
+      <path d="M108 87c35 0 39 42 80 42s49-54 87-54 50 52 87 52" fill="none" stroke="#254cdb" strokeWidth="3" strokeDasharray="7 6"/>
+      <g><circle cx="108" cy="87" r="10" fill="#c94d34"/><circle cx="275" cy="75" r="10" fill="#d3a24c"/><circle cx="362" cy="127" r="10" fill="#63814d"/></g>
+      <g fill="currentColor" fontFamily="monospace" fontSize="10"><text x="36" y="58">REPORT</text><text x="224" y="47">ASSIGN</text><text x="350" y="157">RESOLVE</text><text x="30" y="224">LOCAL ISSUE → PUBLIC ACTION</text></g>
+      <rect x="390" y="36" width="105" height="34" rx="3" fill="#f1e8d8" stroke="currentColor"/><text x="402" y="57" fill="currentColor" fontFamily="monospace" fontSize="9">STATUS / OPEN</text>
+    </svg>
+  )
+}
+
+function ProjectCard({ project, index, onOpen }) {
+  return (
+    <article className={`project-card project-${project.tone} reveal`}>
+      <div className="project-card-top">
+        <span className="project-number">{project.id} / {String(projects.length).padStart(2, '0')}</span>
+        <span className="project-stage"><span />{project.stage}</span>
       </div>
-      <div className="project-meta">
-        <div>
-          <p className="eyebrow">{project.type}</p>
-          <h3>{project.name}<sup>®</sup></h3>
+      <button type="button" className="project-art project-art-button" onClick={() => onOpen(project)} aria-label={`Read the ${project.name} project note`}>
+        <div className="project-art-grid" aria-hidden="true" />
+        <span className="project-art-index">{project.id}</span>
+        <span className="project-art-name">{project.name}</span>
+        <span className="project-art-note">{project.note}</span>
+        <span className="project-art-arrow"><ArrowUpRight size={24} /></span>
+        {index === 0 && <div className="art-orbit" aria-hidden="true"><i /><i /><i /></div>}
+        {index === 1 && <div className="art-stack" aria-hidden="true"><i /><i /><i /></div>}
+        {index === 2 && <div className="art-circuit" aria-hidden="true"><i /><i /><i /><i /><i /></div>}
+        {index === 3 && <div className="art-sun" aria-hidden="true"><Asterisk size={150} strokeWidth={0.7} /></div>}
+      </button>
+      <div className="project-info">
+        <div className="project-title-line">
+          <div><Eyebrow>{project.category} · {project.year}</Eyebrow><h3>{project.name}<sup>®</sup></h3></div>
+          {project.repo ? <a href={project.repo} target="_blank" rel="noreferrer" className="project-repo" aria-label={`View ${project.name} repository`}><Code2 size={17} /><ArrowUpRight size={13} /></a> : <span className="project-repo project-repo-unavailable" aria-label={`${project.name} repository link not yet available`} title="Repository link not yet available"><Code2 size={17} /><span>LINK PENDING</span></span>}
         </div>
-        <span className="project-year">{project.year}</span>
+        <p className="project-type">{project.type}</p>
+        <p className="project-description">{project.description}</p>
+        <div className="project-tags">{project.tags.map(tag => <span key={tag}>{tag}</span>)}</div>
+        <button type="button" className="project-read-more" onClick={() => onOpen(project)}>OPEN PROJECT NOTE <ArrowUpRight size={13} /></button>
       </div>
-      <div className="project-description">
-        <p>{project.description}</p>
-        <span>{project.linkLabel} <ArrowUpRight size={14} /></span>
-      </div>
-    </a>
+    </article>
   )
 }
 
 function App() {
+  const [openingActive, setOpeningActive] = useState(false)
+  const [openingLeaving, setOpeningLeaving] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const [activeCategory, setActiveCategory] = useState('ALL WORK')
+  const [activeSection, setActiveSection] = useState('')
+  const [activeProject, setActiveProject] = useState(null)
+  const [activeProjectIndex, setActiveProjectIndex] = useState(0)
+  const [activeLearningCategory, setActiveLearningCategory] = useState('ALL ENTRIES')
+  const projectShelfRef = useRef(null)
+  const lenisRef = useRef(null)
+  const shelfDragRef = useRef({ pointerId: null, startX: 0, scrollLeft: 0, dragged: false })
+
+  useEffect(() => {
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (reduced) return undefined
+    const exitTimer = window.setTimeout(() => setOpeningLeaving(true), 2450)
+    const removeTimer = window.setTimeout(() => { setOpeningActive(false); document.getElementById('main-content')?.focus({ preventScroll: true }) }, 3000)
+    return () => { window.clearTimeout(exitTimer); window.clearTimeout(removeTimer) }
+  }, [])
+  useEffect(() => {
+    if (!openingActive) return undefined
+    const overlay = document.querySelector('.newspaper-opening')
+    const focusable = overlay ? [...overlay.querySelectorAll('button:not([disabled]), a[href]')] : []
+    const first = focusable[0]
+    const last = focusable[focusable.length - 1]
+    first?.focus()
+
+    const onKeyDown = event => {
+      if (event.key === 'Escape') {
+        event.preventDefault()
+        first?.click()
+        return
+      }
+      if (event.key !== 'Tab' || !first || !last) return
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault()
+        last.focus()
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault()
+        first.focus()
+      }
+    }
+    document.addEventListener('keydown', onKeyDown)
+    return () => document.removeEventListener('keydown', onKeyDown)
+  }, [openingActive])
+
+  const visibleLearning = useMemo(
+    () => activeLearningCategory === 'ALL ENTRIES' ? learning : learning.filter(item => item.category === activeLearningCategory),
+    [activeLearningCategory],
+  )
+
+  const visibleProjects = useMemo(
+    () => activeCategory === 'ALL WORK' ? projects : projects.filter(project => project.category === activeCategory),
+    [activeCategory],
+  )
 
   useEffect(() => {
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     if (reduceMotion) {
       document.documentElement.classList.add('reduce-motion')
-      return undefined
+      return () => document.documentElement.classList.remove('reduce-motion')
     }
 
-    const lenis = new Lenis({
-      duration: 1.15,
-      smoothWheel: true,
-      wheelMultiplier: 0.9,
-      touchMultiplier: 1.5,
-    })
-
+    const lenis = new Lenis({ duration: 1.05, smoothWheel: true, wheelMultiplier: 0.88, touchMultiplier: 1.35 })
+    lenisRef.current = lenis
     lenis.on('scroll', ScrollTrigger.update)
-    const tick = (time) => lenis.raf(time * 1000)
+    const tick = time => lenis.raf(time * 1000)
     gsap.ticker.add(tick)
-    gsap.ticker.lagSmoothing(0)
+    gsap.ticker.lagSmoothing(500, 33)
 
+    const animationContext = gsap.context(() => {
     const intro = gsap.timeline({ defaults: { ease: 'power4.out' } })
     intro
-      .fromTo('.topbar', { y: -24, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8 })
-      .fromTo('.hero-kicker', { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7 }, '-=0.35')
-      .fromTo('.hero-line', { yPercent: 115, rotate: 2 }, { yPercent: 0, rotate: 0, duration: 1.25, stagger: 0.12 }, '-=0.35')
-      .fromTo('.hero-foot', { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7 }, '-=0.55')
-      .fromTo('.intro-card', { y: 32, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, stagger: 0.12 }, '-=0.45')
+      .fromTo('.masthead', { y: -18, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7 })
+      .fromTo('.hero-overline > *', { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.65, stagger: 0.08 }, '-=0.3')
+      .fromTo('.hero-headline .headline-row', { yPercent: 110, rotate: 2 }, { yPercent: 0, rotate: 0, duration: 1.15, stagger: 0.1 }, '-=0.25')
+      .fromTo('.hero-deck, .hero-aside, .portrait-frame', { y: 22, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, stagger: 0.1 }, '-=0.45')
+      .fromTo('.portrait-art', { scale: 0.94, rotate: -3 }, { scale: 1, rotate: 0, duration: 1.25, ease: 'power3.out' }, '-=0.65')
+      .fromTo('.portrait-caption', { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55 }, '-=0.45')
 
-    gsap.utils.toArray('.reveal').forEach((element) => {
-      gsap.fromTo(element, { y: 42, opacity: 0 }, {
-        y: 0,
-        opacity: 1,
-        duration: 0.95,
-        ease: 'power3.out',
+    gsap.utils.toArray('.reveal').forEach(element => {
+      gsap.fromTo(element, { y: 34, opacity: 0 }, {
+        y: 0, opacity: 1, duration: 0.85, ease: 'power3.out',
         scrollTrigger: { trigger: element, start: 'top 88%', once: true },
       })
     })
 
-    gsap.utils.toArray('.section-heading').forEach((element) => {
-      gsap.fromTo(element.querySelectorAll('.heading-line'), { yPercent: 110 }, {
-        yPercent: 0,
-        duration: 1,
-        stagger: 0.1,
-        ease: 'power4.out',
-        scrollTrigger: { trigger: element, start: 'top 82%', once: true },
+    gsap.utils.toArray('.section-title').forEach(element => {
+      gsap.fromTo(element.querySelectorAll('.title-mask > span'), { yPercent: 115 }, {
+        yPercent: 0, duration: 0.95, stagger: 0.09, ease: 'power4.out',
+        scrollTrigger: { trigger: element, start: 'top 84%', once: true },
       })
     })
 
-    gsap.to('.manifesto-orbit', {
-      rotate: 360,
-      duration: 28,
-      repeat: -1,
+    ScrollTrigger.create({ start: 0, end: 'max', onUpdate: self => gsap.set('.reading-progress__bar', { scaleX: self.progress }) })
+    gsap.to('.portrait-art', {
+      yPercent: 4,
       ease: 'none',
+      scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1.2 },
+    })
+    gsap.to('.hero-edition-mark', {
+      y: 12,
+      rotate: 11,
+      ease: 'none',
+      scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1.2 },
+    })
     })
 
+    const workbench = document.querySelector('.portrait-frame')
+    const deskArt = workbench?.querySelector('.desk-illustration')
+    const moveDeskX = deskArt ? gsap.quickTo(deskArt, 'x', { duration: 0.55, ease: 'power3.out' }) : null
+    const moveDeskY = deskArt ? gsap.quickTo(deskArt, 'y', { duration: 0.55, ease: 'power3.out' }) : null
+    const moveDeskRotate = deskArt ? gsap.quickTo(deskArt, 'rotation', { duration: 0.7, ease: 'power3.out' }) : null
+    const onDeskMove = event => {
+      if (!workbench || !moveDeskX || !moveDeskY || !moveDeskRotate) return
+      const bounds = workbench.getBoundingClientRect()
+      const x = (event.clientX - bounds.left) / bounds.width - 0.5
+      const y = (event.clientY - bounds.top) / bounds.height - 0.5
+      moveDeskX(x * 7)
+      moveDeskY(y * 5)
+      moveDeskRotate(x * 1.2)
+    }
+    const resetDesk = () => {
+      moveDeskX?.(0)
+      moveDeskY?.(0)
+      moveDeskRotate?.(0)
+    }
+    workbench?.addEventListener('pointermove', onDeskMove)
+    workbench?.addEventListener('pointerleave', resetDesk)
+
     return () => {
+      workbench?.removeEventListener('pointermove', onDeskMove)
+      workbench?.removeEventListener('pointerleave', resetDesk)
       gsap.ticker.remove(tick)
       lenis.destroy()
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill())
-      gsap.killTweensOf('*')
+      lenisRef.current = null
+      animationContext.revert()
     }
   }, [])
 
   useEffect(() => {
-    document.body.classList.toggle('menu-is-open', menuOpen)
-    return () => document.body.classList.remove('menu-is-open')
+    document.body.classList.toggle('menu-open', menuOpen)
+    document.documentElement.classList.toggle('index-open', menuOpen)
+    if (menuOpen) lenisRef.current?.stop()
+    else lenisRef.current?.start()
+    if (!menuOpen) return () => { document.body.classList.remove('menu-open'); document.documentElement.classList.remove('index-open'); lenisRef.current?.start() }
+    const overlay = document.getElementById('mobile-navigation')
+    const focusable = overlay ? [...overlay.querySelectorAll('a[href], button:not([disabled])')] : []
+    const first = focusable[0]
+    const last = focusable[focusable.length - 1]
+    first?.focus()
+
+    const onKeyDown = event => {
+      if (event.key === 'Escape') {
+        event.preventDefault()
+        setMenuOpen(false)
+        return
+      }
+      if (event.key !== 'Tab' || !first || !last) return
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault()
+        last.focus()
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault()
+        first.focus()
+      }
+    }
+    document.addEventListener('keydown', onKeyDown)
+    return () => {
+      document.removeEventListener('keydown', onKeyDown)
+      document.body.classList.remove('menu-open')
+      document.documentElement.classList.remove('index-open')
+      lenisRef.current?.start()
+      const trigger = window.matchMedia('(max-width: 950px)').matches
+        ? document.querySelector('.menu-button')
+        : document.querySelector('.masthead-index-prompt')
+      trigger?.focus()
+    }
   }, [menuOpen])
+
+  useEffect(() => {
+    const nodes = chapterItems.map(([, , href]) => document.querySelector(href)).filter(Boolean)
+    const observer = new IntersectionObserver(entries => {
+      const visible = entries.filter(entry => entry.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0]
+      if (visible) setActiveSection(`#${visible.target.id}`)
+    }, { rootMargin: '-25% 0px -60% 0px', threshold: [0, 0.15, 0.35] })
+    nodes.forEach(node => observer.observe(node))
+    return () => observer.disconnect()
+  }, [])
 
   const closeMenu = () => setMenuOpen(false)
 
+  const finishOpening = () => {
+    setOpeningLeaving(true)
+    window.setTimeout(() => {
+      setOpeningActive(false)
+      document.getElementById('main-content')?.focus({ preventScroll: true })
+    }, 450)
+  }
+
+  const moveProjectShelf = direction => {
+    const shelf = projectShelfRef.current
+    if (!shelf) return
+    const card = shelf.querySelector('.project-card')
+    const distance = card ? card.getBoundingClientRect().width + 22 : shelf.clientWidth * 0.8
+    shelf.scrollBy({ left: direction * distance, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' })
+  }
+
+  useEffect(() => {
+    if (!activeProject) return undefined
+    const previouslyFocused = document.activeElement
+    const dialog = document.querySelector('.project-dialog')
+    const closeButton = dialog?.querySelector('.project-dialog-top button')
+    closeButton?.focus()
+    const onKeyDown = event => {
+      if (event.key === 'Escape') { setActiveProject(null); return }
+      if (event.key !== 'Tab' || !dialog) return
+      const focusable = [...dialog.querySelectorAll('a[href], button:not([disabled])')]
+      if (!focusable.length) return
+      const first = focusable[0], last = focusable[focusable.length - 1]
+      if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus() }
+      else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus() }
+    }
+    document.addEventListener('keydown', onKeyDown)
+    document.body.classList.add('dialog-open')
+    return () => {
+      document.removeEventListener('keydown', onKeyDown)
+      document.body.classList.remove('dialog-open')
+      previouslyFocused?.focus?.()
+    }
+  }, [activeProject])
+
+  useEffect(() => {
+    if (projectShelfRef.current) projectShelfRef.current.scrollTo({ left: 0, behavior: 'auto' })
+    setActiveProjectIndex(0)
+  }, [activeCategory])
+
   return (
-    <main className="site-shell">
-      <div className="paper-grain" aria-hidden="true" />
-      <header className="topbar">
-        <a href="#top" className="brand" aria-label="Kirtan Swamy home">
-          <span className="brand-mark">KS<span>®</span></span>
-          <span className="brand-caption">INDEPENDENT<br />DIGITAL MAKER</span>
-        </a>
-        <div className="topbar-center">
-          <span className="availability-dot" />
-          OPEN TO INTERESTING IDEAS
+    <main className="site-shell" id="top">
+      <svg className="paper-filter-defs" aria-hidden="true" focusable="false">
+        <defs>
+          <filter id="paper-edge-displacement" x="-20%" y="-80%" width="140%" height="260%" colorInterpolationFilters="sRGB">
+            <feTurbulence type="fractalNoise" baseFrequency="0.018 0.32" numOctaves="2" seed="17" result="paper-grain" />
+            <feDisplacementMap in="SourceGraphic" in2="paper-grain" scale="8" xChannelSelector="R" yChannelSelector="G" />
+          </filter>
+        </defs>
+      </svg>
+      {openingActive && <div className={`newspaper-opening ${openingLeaving ? "is-leaving" : ""}`} role="dialog" aria-modal="true" aria-label="The Maker's Notebook opening">
+        <div className="opening-vignette" />
+        <div className="opening-stage" aria-hidden="true">
+          <div className="opening-paper">
+            <PaperShader variant="spread" active={false} />
+            <div className="opening-paper-under"><span>THE MAKER'S NOTEBOOK</span><strong>K.S.</strong><i>VOL. 01 / 2026</i></div>
+            <div className="opening-leaf opening-leaf-left"><span>INDEPENDENT<br/>MAKER'S EDITION</span><strong id="opening-title">KIRTAN<br/>SWAMY.</strong><i>ENGINEERING / DESIGN / IDEAS</i><span className="opening-curl opening-curl-left" aria-hidden="true" /></div>
+            <div className="opening-leaf opening-leaf-right"><span>FIELD NOTES / 001</span><strong>CURIOUS<br/>BY NATURE.</strong><i>HYDERABAD, INDIA</i><span className="opening-curl opening-curl-right" aria-hidden="true" /></div>
+            <div className="opening-fold" />
+          </div>
         </div>
-        <nav className="desktop-nav" aria-label="Main navigation">
-          <a href="#work">WORK <sup>04</sup></a>
-          <a href="#about">ABOUT</a>
-          <a href="#contact">CONTACT <ArrowUpRight size={12} /></a>
-        </nav>
-        <button className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)} aria-label={menuOpen ? 'Close menu' : 'Open menu'} aria-expanded={menuOpen}>
-          {menuOpen ? <X size={22} /> : <Menu size={22} />}
+        <div className="opening-caption"><span>AN OPEN NOTEBOOK</span><span>2026 / INDIA</span></div>
+        <button type="button" className="opening-skip" onClick={finishOpening}>SKIP INTRO <ArrowUpRight size={13}/></button>
+      </div>}
+      <a className="skip-link" href="#main-content">SKIP TO CONTENT</a>
+      <div className="reading-progress" aria-hidden="true"><span className="reading-progress__bar" /></div>
+      <div className="paper-grain" aria-hidden="true" />
+      <nav className="chapter-rail" aria-label="Page chapters">
+        <span className="chapter-rail-label">THE NOTEBOOK</span>
+        {chapterItems.map(([number, label, href]) => <a key={href} href={href} className={activeSection === href ? 'active' : ''} aria-label={label} aria-current={activeSection === href ? 'location' : undefined}><span>{number}</span><i /><small>{label}</small></a>)}
+      </nav>
+      <aside className="desk-note" aria-label="Current project file">
+        <span className="desk-note-kicker">CURRENT FILE</span>
+        <strong>{visibleProjects[Math.min(activeProjectIndex, visibleProjects.length - 1)]?.name ?? "PROJECT ARCHIVE"}</strong>
+        <span className="desk-note-category">{visibleProjects[Math.min(activeProjectIndex, visibleProjects.length - 1)]?.category ?? "SELECTED WORK"}</span>
+        <button type="button" aria-label="Open current project file" onClick={() => { const project = visibleProjects[Math.min(activeProjectIndex, visibleProjects.length - 1)]; if (project) setActiveProject(project) }}><span>OPEN FILE</span><ArrowUpRight size={12}/></button>
+      </aside>
+      <header className="masthead">
+        <a className="masthead-brand" href="#top" aria-label="Kirtan Swamy home">
+          <span className="brand-monogram">KS<span>®</span></span>
+          <span className="brand-caption">THE PERSONAL<br />EDITION</span>
+        </a>
+        <div className="masthead-center"><span className="live-dot" /> INDEPENDENT MIND. COLLABORATIVE SPIRIT.</div>
+        <div className="masthead-meta"><span>HYDERABAD, INDIA</span><span>VOL. 01 — 2026</span></div>
+        <button type="button" className="menu-button" onClick={() => setMenuOpen(!menuOpen)} aria-controls="mobile-navigation" aria-expanded={menuOpen} aria-label={menuOpen ? 'Close navigation' : 'Open navigation'}>
+          {menuOpen ? <X /> : <Menu />}
         </button>
+        <button type="button" className="masthead-index-prompt" onClick={() => setMenuOpen(true)} aria-controls="mobile-navigation" aria-expanded={menuOpen}>OPEN THE INDEX <i>↗</i></button>
       </header>
 
-      <div className={`mobile-menu ${menuOpen ? 'is-open' : ''}`} aria-hidden={!menuOpen}>
-        <span className="eyebrow">EXPLORE THE PORTFOLIO</span>
-        <a href="#work" onClick={closeMenu}>Selected work <ArrowUpRight /></a>
-        <a href="#about" onClick={closeMenu}>A little about me <ArrowUpRight /></a>
-        <a href="#contact" onClick={closeMenu}>Get in touch <ArrowUpRight /></a>
-        <p>CHENNAI, INDIA · © 2026</p>
+      <nav id="mobile-navigation" className={`mobile-nav index-overlay ${menuOpen ? 'is-open' : ''}`} aria-label="Global index" aria-hidden={!menuOpen} inert={!menuOpen}>
+        <PaperShader variant="index-edge" active={menuOpen} />
+        <div className="index-overlay-top"><span>THE MAKER'S NOTEBOOK / INDEX</span><span>VOL. 01 — 2026</span><button type="button" onClick={closeMenu} aria-label="Close index"><X size={19}/><span>CLOSE</span></button></div>
+        <div className="index-overlay-title"><span>CONTENTS / 08 CHAPTERS</span><strong>INDEX<span>.</span></strong></div>
+        <div className="index-overlay-links">
+          {navItems.map(([label, href], index) => <a key={href} href={href} onClick={closeMenu} className={activeSection === href ? 'is-current' : ''}><span>0{index + 1}</span><strong>{label}</strong><ArrowUpRight /></a>)}
+        </div>
+        <div className="index-overlay-bottom"><span>AN OPEN NOTEBOOK · HYDERABAD, INDIA</span><span>TURN THE PAGE / FIND THE WORK</span></div>
+      </nav>
+
+      <Suspense fallback={<section className="workshop-loading" id="main-content"><span>THE MAKER'S NOTEBOOK</span><strong>PREPARING THE WORKSHOP…</strong></section>}>
+        <WorkshopExperience projects={projects} onOpenProject={setActiveProject} />
+      </Suspense>
+
+      <div className="ticker" aria-label="Portfolio themes">
+        <div className="ticker-track">
+          {[0, 1, 2, 3].map(item => <span key={item}>THINK CLEARLY <Asterisk /> BUILD USEFULLY <Asterisk /> STAY CURIOUS <Asterisk /> MAKE IT HUMAN <Asterisk /></span>)}
+        </div>
       </div>
 
-      <section className="hero" id="top">
-        <div className="hero-topline">
-          <p className="hero-kicker"><span>PORTFOLIO / 2026</span><span>ENGINEERING × CREATIVITY</span></p>
-          <p className="hero-index">SELECTED WORK<br />AND THOUGHTS — N° 01</p>
-        </div>
-        <div className="hero-title-wrap">
-          <h1 className="hero-title">
-            <span className="hero-line hero-line-first">KIRTAN</span>
-            <span className="hero-line hero-line-second">SWAMY<span className="hero-star"><Asterisk size="clamp(36px, 7vw, 100px)" strokeWidth={1.3} /></span></span>
-          </h1>
-        </div>
-        <div className="hero-foot">
-          <p className="hero-intro">I turn curious ideas<br />into thoughtful realities.</p>
-          <div className="hero-scroll"><span>SCROLL TO EXPLORE</span><ArrowDownRight size={18} /></div>
-          <p className="hero-location">BASED IN CHENNAI, INDIA<br />ECE UNDERGRAD · CREATIVE BUILDER</p>
+      <section className="manifesto section-pad reveal" id="story">
+        <div className="section-index"><Eyebrow>01 — A SMALL MANIFESTO</Eyebrow><span>THE WHY</span></div>
+        <div className="manifesto-content">
+          <p className="manifesto-prelude">I believe the best work happens where disciplines overlap.</p>
+          <h2>MAKE THINGS<br />THAT <em>MEAN</em><br />SOMETHING<span>.</span></h2>
+          <div className="manifesto-foot"><p>Technology can be powerful. Design can make it understandable. Empathy can make it worth building. I'm interested in the point where all three meet.</p><span className="manifesto-stamp">THOUGHT<br />INTO ACTION<br /><Asterisk /></span></div>
         </div>
       </section>
 
-      <section className="intro-grid" aria-label="Introduction and featured projects">
-        <a className="intro-card intro-card-image" href="#about">
-          <div className="intro-photo">
-            <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1000&q=85" alt="Creative studio interior with natural light" loading="lazy" />
-            <span className="photo-note">A MIND IN<br />PROGRESS ↗</span>
+      <section className="work-section section-pad" id="work">
+        <div className="section-index reveal"><Eyebrow>02 — THE WORKSHOP</Eyebrow><span>SELECTED PROJECTS / 2025—26</span></div>
+        <div className="section-heading section-title">
+          <h2><span className="title-mask"><span>SELECTED</span></span><span className="title-mask"><span>WORK<span className="blue-period">.</span></span></span></h2>
+          <p>Ideas are easy to have.<br />Making them useful is the work.</p>
+        </div>
+        <div className="project-index-bar">
+          <div className="project-filters" role="group" aria-label="Filter projects">
+            {categories.map(category => <button key={category} className={activeCategory === category ? 'selected' : ''} onClick={() => setActiveCategory(category)} aria-pressed={activeCategory === category}>{category}<span>{String(category === 'ALL WORK' ? projects.length : projects.filter(project => project.category === category).length).padStart(2, '0')}</span></button>)}
           </div>
-          <div className="intro-card-bottom"><span className="eyebrow">A LITTLE INTRODUCTION</span><ArrowUpRight size={18} /></div>
-        </a>
-        <div className="intro-card intro-card-center">
-          <p className="eyebrow">NOT JUST CODE. A POINT OF VIEW.</p>
-          <h2>IDEAS<br />INTO <em>impact.</em></h2>
-          <p className="intro-center-copy">A curious engineering student exploring the space where technology, design and people meet.</p>
-          <a href="#about" className="text-link">GET TO KNOW ME <ArrowUpRight size={14} /></a>
+          <span className="archive-index-caption">FILE INDEX / 001—005</span>
         </div>
-        <a className="intro-card intro-card-feature" href="#work">
-          <div className="feature-art">
-            <span className="feature-art-top">SELECTED / 2026</span>
-            <span className="feature-art-big">04</span>
-            <span className="feature-art-bottom">PROJECTS<br />IN FOCUS</span>
-            <div className="feature-asterisk"><Asterisk size={68} strokeWidth={1} /></div>
+        <div className="shelf-toolbar reveal">
+          <span>DRAG / SCROLL TO EXPLORE THE ARCHIVE</span>
+          <div className="shelf-controls">
+            <span className="shelf-counter">{String(activeProjectIndex + 1).padStart(2, '0')} <i>/</i> {String(visibleProjects.length).padStart(2, '0')}</span>
+            <button type="button" onClick={() => moveProjectShelf(-1)} disabled={activeProjectIndex === 0} aria-label="Previous project"><ArrowLeft size={16} /></button>
+            <button type="button" onClick={() => moveProjectShelf(1)} disabled={activeProjectIndex >= visibleProjects.length - 1} aria-label="Next project"><ArrowRight size={16} /></button>
           </div>
-          <div className="intro-card-bottom"><span className="eyebrow">THE WORK INDEX</span><ArrowUpRight size={18} /></div>
-        </a>
+        </div>
+        <div className="projects-grid projects-shelf" ref={projectShelfRef} role="region" aria-label="Horizontally browsable featured project archive" tabIndex={0} aria-live="polite"
+          onKeyDown={event => {
+            if (event.key === 'ArrowRight') { event.preventDefault(); moveProjectShelf(1) }
+            if (event.key === 'ArrowLeft') { event.preventDefault(); moveProjectShelf(-1) }
+            if (event.key === 'Home') { event.preventDefault(); projectShelfRef.current?.scrollTo({ left: 0, behavior: 'smooth' }) }
+            if (event.key === 'End') { event.preventDefault(); projectShelfRef.current?.scrollTo({ left: projectShelfRef.current.scrollWidth, behavior: 'smooth' }) }
+          }}
+          onPointerDown={event => {
+            if (event.pointerType !== 'mouse' || event.button !== 0) return
+            const drag = shelfDragRef.current
+            drag.pointerId = event.pointerId
+            drag.startX = event.clientX
+            drag.scrollLeft = event.currentTarget.scrollLeft
+            drag.dragged = false
+            event.currentTarget.setPointerCapture(event.pointerId)
+          }}
+          onPointerMove={event => {
+            const drag = shelfDragRef.current
+            if (drag.pointerId !== event.pointerId) return
+            const delta = event.clientX - drag.startX
+            if (Math.abs(delta) > 5) drag.dragged = true
+            if (drag.dragged) event.currentTarget.scrollLeft = drag.scrollLeft - delta
+          }}
+          onPointerUp={event => { if (shelfDragRef.current.pointerId === event.pointerId) shelfDragRef.current.pointerId = null }}
+          onPointerCancel={() => { shelfDragRef.current.pointerId = null }}
+          onClickCapture={event => { if (shelfDragRef.current.dragged) { event.preventDefault(); event.stopPropagation(); shelfDragRef.current.dragged = false } }}
+          onScroll={event => {
+            const shelf = event.currentTarget
+            const card = shelf.querySelector('.project-card')
+            if (card) setActiveProjectIndex(Math.min(visibleProjects.length - 1, Math.max(0, Math.round(shelf.scrollLeft / (card.getBoundingClientRect().width + 22)))))
+          }}>
+          {visibleProjects.map((project, index) => <ProjectCard key={project.id} project={project} index={projects.indexOf(project)} onOpen={setActiveProject} />)}
+        </div>
+        <div className="work-foot reveal"><span>MORE EXPERIMENTS ARE ALWAYS IN THE WORKS.</span><a href="https://github.com/kirtanswamy" target="_blank" rel="noreferrer">EXPLORE GITHUB <ArrowUpRight size={14} /></a></div>
       </section>
 
-      <section className="statement reveal">
-        <p className="eyebrow">01 — THE WAY I SEE IT</p>
-        <div className="statement-copy">
-          <p>Technology should feel</p>
-          <h2>HUMAN<span>.</span></h2>
-          <p className="statement-last">Design should mean something.<br />And good ideas should make it out into the world.</p>
+      <section className="process-section section-pad" id="process">
+        <div className="section-index reveal"><Eyebrow>HOW I APPROACH THE WORK</Eyebrow><span>THINK / CREATE / DELIVER</span></div>
+        <div className="process-heading"><h2>THINK.<br/><em>CREATE.</em><br/>DELIVER<span>.</span></h2><p>Good work is rarely a straight line from brief to launch. It takes curiosity, craft, iteration and care for the person on the other side.</p></div>
+        <div className="process-grid">
+          <article className="process-card reveal"><span>01 / THINK</span><strong>FIND THE REAL QUESTION.</strong><p>Understand the context before reaching for a solution. Ask who the problem affects, what already exists and what would make a meaningful difference.</p><i>OBSERVE → QUESTION → FRAME</i></article>
+          <article className="process-card reveal"><span>02 / CREATE</span><strong>MAKE THE IDEA TANGIBLE.</strong><p>Explore the experience, shape the interface and build a working version. Move between design and engineering until the pieces make sense together.</p><i>EXPLORE → DESIGN → BUILD</i></article>
+          <article className="process-card reveal"><span>03 / DELIVER</span><strong>MAKE IT WORK IN CONTEXT.</strong><p>Test the details, connect the systems and learn from what happens in use. A useful product has to work beyond the presentation.</p><i>TEST → REFINE → LEARN</i></article>
         </div>
-        <div className="statement-aside"><span className="side-rule" />THINK DEEPLY.<br />MAKE WITH INTENT.</div>
+        <div className="process-foot"><span>AN ITERATIVE PRACTICE / NOT A LINEAR FORMULA</span><span>03 / 11</span></div>
       </section>
 
-      <section className="work-section" id="work">
-        <div className="section-top reveal">
-          <p className="eyebrow">02 — SELECTED WORK / 2025—26</p>
-          <p className="section-note">A FEW THINGS I'VE BEEN<br />THINKING, DESIGNING & BUILDING.</p>
+      <section className="recognition-section section-pad" id="recognition">
+        <div className="section-index reveal"><Eyebrow>03 — MILESTONES / PEOPLE / PLATFORMS</Eyebrow><span>SELECTED RECORD / 2026</span></div>
+        <div className="recognition-heading"><h2>NOT JUST<br/><em>THE WORK.</em></h2><p>Some milestones happen outside the code editor. They come from showing up, representing an idea, working with people and taking responsibility.</p></div>
+        <div className="recognition-grid">
+          <article className="recognition-feature reveal"><span>01 / NATIONAL DIALOGUE</span><strong>VIKSIT<br/>BHARAT.</strong><p>Selected for the Chhattisgarh state contingent at the Viksit Bharat Young Leaders Dialogue 2026; represented Balod district in New Delhi.</p><b>STATE CONTINGENT / REPRESENTATION</b><i>VB</i></article>
+          <article className="recognition-card reveal"><span>02 / STUDENT LEADERSHIP</span><strong>SQAC</strong><p>Core App Development member and App Development Lead at the Software Quality Assurance Club, SRMIST.</p><b>APP DEVELOPMENT / TEAM LEADERSHIP</b></article>
+          <article className="recognition-card reveal"><span>03 / EVENT OPERATIONS</span><strong>MINEVERSE</strong><p>Organising Committee Lead for the SQAC coding contest, contributing to the planning and execution of a student-led technical event.</p><b>COMMUNITY / EXECUTION</b></article>
         </div>
-        <div className="section-heading">
-          <h2><span className="heading-line">SELECTED</span><span className="heading-line">WORK<span className="heading-period">.</span></span></h2>
-          <span className="heading-side">A CONSTANT<br />WORK IN PROGRESS ↘</span>
+        <div className="recognition-foot"><span>SELECTED EXPERIENCES — NOT AN AWARDS COUNT.</span><span>DETAILS SUBJECT TO FINAL EVIDENCE REVIEW</span></div>
+      </section>
+
+      <section className="up-next-section section-pad" id="up-next">
+        <div className="section-index reveal"><Eyebrow>WORKSHOP / OPEN FILES</Eyebrow><span>OPEN FILES / NOT FINISHED STORIES</span></div>
+        <div className="up-next-heading"><h2>THE NEXT<br/><em>CHAPTERS.</em></h2><p>Some ideas are still on the workbench. These are the directions I'm actively exploring—not finished launches or promises dressed up as products.</p></div>
+        <div className="up-next-feature reveal">
+          <div className="up-next-feature-mark"><span>IN PROGRESS / 001</span><strong>BUSHO</strong><i>↗</i></div>
+          <div className="up-next-feature-copy"><span>HEALTHCARE WORKFLOWS / DATA IN CONTEXT</span><h3>FROM ENTRY<br/>TO <em>ACTION.</em></h3><p>Complete and validate the health-worker-to-supervisor reporting loop, strengthen the Supabase-backed data model and test the experience against realistic operational workflows.</p><b>NEXT FOCUS / END-TO-END WORKFLOW</b></div>
         </div>
-        <div className="projects-grid">
-          {projects.map((project) => <ProjectCard key={project.number} project={project} />)}
+        <div className="up-next-list">
+          <article className="up-next-item reveal"><span>002 / ELECTROLAB</span><div><h3>MAKE THE INVISIBLE VISIBLE.</h3><p>Continue expanding the electronics workbench: more device models, useful experiments and clearer engineering visualisations.</p></div><i>EXPERIMENT</i></article>
+          <article className="up-next-item reveal"><span>003 / VARSITY</span><div><h3>MAKE CAMPUS INFORMATION FEEL CONNECTED.</h3><p>Move core student workflows toward a more complete, reliable and coherent campus companion.</p></div><i>PRODUCT BUILD</i></article>
+        </div>
+        <div className="up-next-foot"><span>STATUS IS A SNAPSHOT, NOT A FINISH LINE.</span><span>AN OPEN NOTEBOOK / 2026</span></div>
+      </section>
+
+      <section className="field-note" id="field-notes">
+        <div className="field-note-inner">
+          <div className="field-note-label"><Eyebrow light>03 — VIKSIT BHARAT / FIELD NOTE</Eyebrow><span>FIELD NOTE / 001</span></div>
+          <div className="field-note-layout">
+            <div className="field-note-date">2026<span>NEW DELHI</span></div>
+            <div className="field-note-copy">
+              <p className="field-note-overline">VIKSIT BHARAT YOUNG LEADERS DIALOGUE</p>
+              <h2>A NATIONAL<br/><em>CONVERSATION.</em></h2>
+              <p className="field-note-description">Selected to represent the Chhattisgarh state contingent at the Viksit Bharat Young Leaders Dialogue 2026. Represented Balod district in New Delhi, among young leaders from across the country.</p>
+              <div className="field-note-tags"><span>CHHATTISGARH</span><span>BALOD</span><span>NEW DELHI</span></div>
+            </div>
+            <div className="field-note-seal" aria-hidden="true"><div className="orbit-ring"><span>VIKSIT BHARAT · 2026 · </span></div><Asterisk size={100} /></div>
+          </div>
+          <div className="field-note-story field-note-story-compact">
+            <div className="field-note-story-intro"><span>FROM BALOD TO NEW DELHI</span><p>A meaningful opportunity to represent home, listen to different perspectives and take a wider view of India’s future.</p></div>
+            <article><span>01 / REPRESENTING HOME</span><h3>LOCAL ROOTS. NATIONAL ROOM.</h3><p>Representing Balod district and Chhattisgarh made the experience personal: the places we come from shape the questions we bring.</p></article>
+            <article><span>02 / THE DIALOGUE</span><h3>LISTEN, EXCHANGE, LEARN.</h3><p>The gathering created space to meet young leaders from different contexts and hear how they see the country’s opportunities and challenges.</p></article>
+          </div>
+          <div className="field-note-bottom"><span>A MOMENT OF REPRESENTATION, PERSPECTIVE & POSSIBILITY.</span><span>03 / 08</span></div>
         </div>
       </section>
 
-      <section className="about-section" id="about">
-        <div className="about-top reveal">
-          <p className="eyebrow">03 — THE PERSON BEHIND THE PIXELS</p>
-          <p className="section-note">ENGINEERING MIND.<br />CREATIVE INSTINCT.</p>
-        </div>
+      <section className="about-section section-pad" id="about">
+        <div className="section-index reveal"><Eyebrow>04 — THE PERSON BEHIND THE PROJECTS</Eyebrow><span>A LITTLE CONTEXT</span></div>
         <div className="about-layout">
-          <div className="about-heading section-heading">
-            <h2><span className="heading-line">A BIT</span><span className="heading-line">ABOUT</span><span className="heading-line"><em>ME.</em></span></h2>
-            <div className="about-stamp"><span>CURIOUS<br />BY NATURE</span><Asterisk size={42} /></div>
+          <div className="about-heading section-title">
+            <h2><span className="title-mask"><span>MORE</span></span><span className="title-mask"><span>THAN</span></span><span className="title-mask"><span>THE <em>CODE.</em></span></span></h2>
+            <div className="about-note"><Asterisk size={28} /><span>STILL FIGURING<br />THINGS OUT.</span></div>
           </div>
           <div className="about-copy reveal">
-            <p className="about-lede">I'm Kirtan — an Electronics & Communication Engineering student, developer and builder who enjoys turning complex problems into simple, useful experiences.</p>
-            <p>I move between code, interfaces and ideas. From building digital products to exploring electronics and AI, I'm interested in the craft behind things that work beautifully and solve something real.</p>
-            <p>Currently learning, building and collaborating from Chennai, India.</p>
-            <a className="text-link" href="https://github.com/kirtanswamy" target="_blank" rel="noreferrer">MORE ON GITHUB <ArrowUpRight size={14} /></a>
+            <p className="about-lede">I'm Kirtan—an Electronics & Communication Engineering student at SRMIST, a builder who learned to begin again and kept choosing to make things.</p>
+            <p>The JEE phase did not go to plan. For a while, it felt like the story had narrowed to one result. It hadn't. SRM became a reset: a new environment, new people and the space to find a direction of my own.</p>
+            <p>That direction took me from small HTML pages to interactive applications, API integrations, backend workflows and systems that work with data. Along the way came Viksit Bharat, responsibility as SQAC's App Development Lead, and projects such as BUSHO that make me think about the people and processes behind a screen.</p>
+            <p>I keep building because I love the work itself: understanding a problem, making a first version, finding what breaks and improving it. I don't want to stop learning—or stop looking for problems where technology can make something genuinely more useful.</p>
+            <div className="about-signoff"><span>IN PROGRESS, BY DESIGN.</span><span>— K.S.</span></div>
+          </div>
+        </div>
+        <div className="about-north-star reveal">
+          <span>THE THING THAT KEEPS ME BUILDING</span>
+          <p>I love the moment a difficult problem starts becoming <em>something useful.</em></p>
+          <small>CODE IS THE TOOL. PROGRESS IS THE FEELING. IMPACT IS THE POINT.</small>
+        </div>
+        <div className="about-facts reveal">
+          <div><span>01 / CURRENT CHAPTER</span><strong>ECE UNDERGRADUATE</strong><small>SRMIST</small></div>
+          <div><span>02 / NATURAL HABIT</span><strong>LEARN BY BUILDING</strong><small>PROTOTYPE · TEST · REFINE</small></div>
+          <div><span>03 / BIG INTEREST</span><strong>TECH WITH PURPOSE</strong><small>PRODUCT · PEOPLE · IMPACT</small></div>
+        </div>
+        <div className="about-turning-point reveal">
+          <div className="turning-point-label"><Eyebrow>THE PART THAT CHANGED ME</Eyebrow><span>NOT A STRAIGHT LINE / FIELD NOTE 002</span></div>
+          <blockquote>“That chapter didn't go to plan. It still wasn't the end of the story.”</blockquote>
+          <div className="turning-point-copy"><p>The JEE setback became a reset, not a definition. SRM became the next chapter; Viksit Bharat, SQAC and BUSHO became places to test what I could do with the opportunity in front of me.</p><span>KEEP MOVING. KEEP MAKING.</span></div>
+        </div>
+        <div className="build-evolution reveal">
+          <div className="build-evolution-head"><Eyebrow>THE BUILDING CURVE</Eyebrow><span>FROM FIRST TAG TO REAL WORKFLOW</span></div>
+          <div className="build-evolution-track">
+            <article><span>01 / THE FIRST PAGE</span><strong>HTML & SMALL WEBSITES</strong><p>Learning how a page is structured and how an idea becomes something visible.</p><i>START SMALL</i></article>
+            <article><span>02 / MAKING IT INTERACTIVE</span><strong>INTERFACES & APPLICATIONS</strong><p>Moving into components, app flows and experiences people can actually use.</p><i>MAKE IT WORK</i></article>
+            <article><span>03 / CONNECTING SYSTEMS</span><strong>APIs & BACKENDS</strong><p>Going beyond the screen: connecting services, handling data and designing complete workflows.</p><i>MAKE IT CONNECT</i></article>
+            <article><span>04 / BUILDING FOR REAL CONTEXT</span><strong>REAL DATA & PEOPLE</strong><p>Thinking about reliability, roles, hand-offs and whether a system helps solve the original problem.</p><i>MAKE IT MATTER</i></article>
+          </div>
+          <p className="build-evolution-note">Not a claim that the learning is finished. A record of how far curiosity has carried me—and a reason to keep going.</p>
+        </div>
+        <div className="about-intersection reveal">
+          <div className="about-intersection-head"><Eyebrow>THE INTERSECTION</Eyebrow><span>FOUR LENSES / ONE PRACTICE</span></div>
+          <div className="intersection-map" role="img" aria-label="Four connected interests: engineering, product thinking, visual design and public impact">
+            <svg className="intersection-lines" viewBox="0 0 800 390" preserveAspectRatio="none" aria-hidden="true">
+              <path d="M400 195 170 78M400 195 630 78M400 195 170 312M400 195 630 312" />
+              <circle cx="400" cy="195" r="112" />
+              <circle cx="400" cy="195" r="146" />
+            </svg>
+            <article className="intersection-node node-engineering"><span>01 / UNDERSTAND</span><strong>ENGINEERING</strong><small>Circuits · code · systems</small></article>
+            <article className="intersection-node node-product"><span>02 / SHAPE</span><strong>PRODUCT THINKING</strong><small>Problems · flows · usefulness</small></article>
+            <div className="intersection-core"><span>THE COMMON THREAD</span><strong>CURIOUS<br/>BUILDER<span>.</span></strong><small>QUESTION → MAKE → LEARN</small></div>
+            <article className="intersection-node node-design"><span>03 / COMMUNICATE</span><strong>VISUAL DESIGN</strong><small>Interfaces · interaction · story</small></article>
+            <article className="intersection-node node-impact"><span>04 / CONTRIBUTE</span><strong>PUBLIC IMPACT</strong><small>People · access · everyday systems</small></article>
+          </div>
+          <p className="intersection-caption">I don't see these as separate interests. The most interesting work, for me, happens when they meet.</p>
+        </div>
+
+      </section>
+
+      <section className="journey-section section-pad" id="journey">
+        <div className="section-index reveal"><Eyebrow>05 — THE JOURNEY</Eyebrow><span>EDUCATION / COMMUNITY / PRACTICE</span></div>
+        <div className="section-heading section-title">
+          <h2><span className="title-mask"><span>IN THE</span></span><span className="title-mask"><span>MAKING<span className="blue-period">.</span></span></span></h2>
+          <p>A timeline, not a finish line.<br />More chapters are being written.</p>
+        </div>
+        <div className="journey-list">
+          <article className="journey-item reveal">
+            <span className="journey-count">01</span><span className="journey-date">PRESENT</span>
+            <div><h3>Electronics & Communication Engineering</h3><p>SRM Institute of Science and Technology</p><small>Exploring electronics, computing, software and the systems that connect them.</small></div>
+            <span className="journey-mark"><Cpu /></span>
+          </article>
+          <article className="journey-item reveal">
+            <span className="journey-count">02</span><span className="journey-date">2026</span>
+            <div><h3>Viksit Bharat Young Leaders Dialogue</h3><p>State contingent representative · New Delhi</p><small>Selected for Chhattisgarh's state contingent and represented Balod district in New Delhi.</small></div>
+            <span className="journey-mark"><Compass /></span>
+          </article>
+          <article className="journey-item reveal">
+            <span className="journey-count">03</span><span className="journey-date">CAMPUS</span>
+            <div><h3>Software Quality Assurance Club</h3><p>Core App Development · App Development Lead</p><small>Contributing to student-led software work and helping coordinate the Mineverse coding event.</small></div>
+            <span className="journey-mark"><Layers3 /></span>
+          </article>
+          <article className="journey-item reveal">
+            <span className="journey-count">04</span><span className="journey-date">ONGOING</span>
+            <div><h3>BUSHO — healthcare workflow project</h3><p>Independent product build · Healthcare reporting</p><small>Exploring a structured reporting journey between frontline health workers and supervisors, with a focus on data, accountability and operational clarity.</small></div>
+            <span className="journey-mark"><CircleDot /></span>
+          </article>
+          <article className="journey-item reveal">
+            <span className="journey-count">05</span><span className="journey-date">CAMPUS</span>
+            <div><h3>Varsity — student campus app</h3><p>App development · Student product initiative</p><small>Building a campus companion around attendance, academic resources, schedules and previous-year questions.</small></div>
+            <span className="journey-mark"><Layers3 /></span>
+          </article>
+          <article className="journey-item reveal">
+            <span className="journey-count">06</span><span className="journey-date">ONGOING</span>
+            <div><h3>Research, experiments & independent builds</h3><p>AI / ML · Electronics · Product development</p><small>Learning through practical projects, technical exploration and collaboration.</small></div>
+            <span className="journey-mark"><Sparkles /></span>
+          </article>
+        </div>
+      </section>
+
+      <section className="learning-section section-pad" id="learning">
+        <div className="section-index reveal"><Eyebrow>06 — THE READING ROOM</Eyebrow><span>COURSES / SIMULATIONS / CONTINUOUS LEARNING</span></div>
+        <div className="learning-intro reveal"><div><h2>ALWAYS<br /><em>LEARNING.</em></h2></div><p>Not every useful lesson comes with a certificate. This is a growing record of courses, simulations and learning paths. Credential links will be added when each record is verified.</p></div>
+        <div className="learning-archive-bar">
+          <div className="learning-filters" role="group" aria-label="Filter learning records">
+            {learningCategories.map(category => <button key={category} type="button" className={activeLearningCategory === category ? 'selected' : ''} onClick={() => setActiveLearningCategory(category)} aria-pressed={activeLearningCategory === category}>{category}<span>{category === 'ALL ENTRIES' ? String(learning.length).padStart(2, '0') : String(learning.filter(item => item.category === category).length).padStart(2, '0')}</span></button>)}
+          </div>
+          <span className="learning-archive-count" aria-live="polite">SHOWING {String(visibleLearning.length).padStart(2, '0')} / {String(learning.length).padStart(2, '0')}</span>
+        </div>
+        <div className="learning-grid" aria-live="polite">
+          {visibleLearning.map((item, index) => <article className="learning-card reveal" key={item.name}>
+            <div className="learning-card-top"><span>0{learning.indexOf(item) + 1} / LEARNING LOG</span><span className="learning-record-type">{item.record}</span></div>
+            <p>{item.kind}</p><h3>{item.name}</h3><h4>{item.detail}</h4><span className="learning-status">{item.status}</span>
+            <span className="learning-card-index" aria-hidden="true">{String(learning.indexOf(item) + 1).padStart(2, '0')}</span>
+          </article>)}
+        </div>
+        <p className="learning-disclaimer">STATUS IS LABELLED AS COURSE OR SIMULATION COMPLETION—NOT AS A PROFESSIONAL CERTIFICATION UNLESS A VERIFIED CREDENTIAL IS LINKED.</p>
+        <div className="learning-next-step"><span>THE ARCHIVE IS STILL OPEN</span><p>More learning records will be added as titles, completion details and credential evidence are checked. No badge is worth more than being accurate about what it represents.</p><span>VERIFY FIRST / PUBLISH SECOND</span></div>
+      </section>
+
+      <section className="skills-section" id="skills">
+        <div className="skills-inner section-pad">
+          <div className="section-index reveal"><Eyebrow light>07 — THE WORKSHOP</Eyebrow><span>TOOLS ARE MEANS, NOT THE POINT.</span></div>
+          <div className="skills-heading"><h2>THE<br /><em>TOOLBOX.</em></h2><p>My toolkit keeps changing.<br />The curiosity doesn't.</p></div>
+          <div className="skills-groups">
+            {skills.map(group => <div className="skill-group reveal" key={group.group}><span>{group.group}</span><div>{group.items.map(item => <span key={item}>{item}</span>)}</div></div>)}
           </div>
         </div>
       </section>
 
-      <section className="expertise-section reveal">
-        <div className="expertise-header">
-          <p className="eyebrow">04 — THE TOOLKIT</p>
-          <span className="eyebrow">ALWAYS LEARNING / ALWAYS MAKING</span>
-        </div>
-        <div className="expertise-title"><h2>AREAS OF<br /><em>EXPLORATION.</em></h2><Asterisk className="expertise-star" size={100} strokeWidth={0.9} /></div>
-        <div className="expertise-list">
-          {expertise.map((skill, index) => (
-            <div className="expertise-row" key={skill}><span className="expertise-number">0{index + 1}</span><span>{skill}</span><ArrowUpRight size={18} /></div>
-          ))}
-        </div>
-      </section>
-
-      <section className="recognition reveal">
-        <div className="recognition-label"><p className="eyebrow">05 — A MOMENT THAT MATTERED</p><span>IDEAS BEYOND THE SCREEN</span></div>
-        <div className="recognition-body">
-          <div className="recognition-year">2026</div>
-          <div className="recognition-copy">
-            <p className="eyebrow">VIKSIT BHARAT YOUNG LEADERS DIALOGUE</p>
-            <h2>INNOVATION<br />WITH <em>TRADITION.</em></h2>
-            <p>Selected to represent the state contingent at the Viksit Bharat Young Leaders Dialogue 2026, presenting a civic-tech vision for building a more responsive and connected Bharat.</p>
-            <span className="recognition-tag">JANSEVA ONE · CIVIC TECHNOLOGY</span>
+      <section className="contact-section section-pad" id="contact">
+        <div className="section-index reveal"><Eyebrow>08 — THE NEXT PAGE IS OPEN</Eyebrow><span>LET'S MAKE SOMETHING USEFUL</span></div>
+        <div className="contact-main">
+          <div className="contact-copy"><p>HAVE A QUESTION, AN IDEA<br />OR A GOOD PROBLEM?</p><h2>LET'S<br /><em>MAKE IT.</em></h2><span className="contact-footnote">GOOD CONVERSATIONS CAN START ANYWHERE.</span></div>
+          <div className="contact-action">
+            <span className="contact-stamp" aria-label="Open to thoughtful collaborations"><span className="contact-stamp-orbit">CURIOUS MINDS · GOOD PROBLEMS · USEFUL WORK ·</span><Send size={27} /><span>OPEN<br />CHANNEL</span></span>
+            <p className="contact-invitation">Have a problem worth solving, a product worth shaping or an idea that needs a first version? I'd love to hear about it.</p>
+            <a href="https://github.com/kirtanswamy" target="_blank" rel="noreferrer" className="contact-link">START WITH GITHUB <ArrowUpRight /></a>
+            <p className="contact-small-note">For collaborations, project conversations and interesting ideas.</p>
           </div>
-          <div className="recognition-symbol"><Asterisk size={100} strokeWidth={0.8} /></div>
         </div>
+        <footer className="footer">
+          <a className="footer-brand" href="#top"><span className="brand-monogram">KS<span>®</span></span><span>THE PERSONAL EDITION<br />HYDERABAD, INDIA</span></a>
+          <div className="footer-links"><a href="https://github.com/kirtanswamy" target="_blank" rel="noreferrer"><Code2 size={16} /> GITHUB <ExternalLink size={12} /></a><a href="#work">SELECTED WORK <ArrowUpRight size={12} /></a><a href="#top">BACK TO TOP <ArrowUp size={12} /></a></div>
+          <span className="footer-copy">© 2026 KIRTAN SWAMY<br />PRINTED ON THE INTERNET.</span>
+        </footer>
       </section>
 
-      <section className="marquee" aria-label="Let's build something meaningful">
-        <div className="marquee-track">
-          {[0, 1, 2, 3].map((item) => <span key={item}>LET'S MAKE SOMETHING MEANINGFUL <Asterisk size={38} strokeWidth={1} /></span>)}
-        </div>
-      </section>
-
-      <footer className="footer" id="contact">
-        <div className="footer-top">
-          <p className="eyebrow">06 — HAVE A GOOD ONE IN MIND?</p>
-          <p className="footer-availability"><span className="availability-dot" /> OPEN TO COLLABORATION & CONVERSATION</p>
-        </div>
-        <div className="footer-heading">
-          <h2>LET'S TALK<br /><em>IDEAS.</em></h2>
-          <a className="footer-contact" href="https://github.com/kirtanswamy" target="_blank" rel="noreferrer" aria-label="Visit Kirtan's GitHub profile"><MoveUpRight size={54} strokeWidth={1} /></a>
-        </div>
-        <div className="footer-bottom">
-          <a className="brand footer-brand" href="#top"><span className="brand-mark">KS<span>®</span></span><span className="brand-caption">MADE WITH CURIOSITY<br />IN CHENNAI, INDIA</span></a>
-          <div className="footer-links">
-            <a href="https://github.com/kirtanswamy" target="_blank" rel="noreferrer"><Code2 size={15} /> GITHUB <ArrowUpRight size={12} /></a>
-            <span className="footer-profile-note">LINKEDIN URL TO BE ADDED</span>
+      {activeProject && <div className="project-dialog-backdrop" role="presentation" onMouseDown={event => { if (event.target === event.currentTarget) setActiveProject(null) }}>
+        <section className={`project-dialog project-${activeProject.tone}`} role="dialog" aria-modal="true" aria-labelledby="project-dialog-title">
+          <div className="project-dialog-top"><span>THE PROJECT FILE / {activeProject.id}</span><button type="button" onClick={() => setActiveProject(null)} aria-label="Close project note"><X size={20} /></button></div>
+          <div className="project-dialog-body">
+            <div className="project-dialog-art"><span>{activeProject.id} / SYSTEM SKETCH</span><strong>{activeProject.name}</strong><small>{activeProject.note}</small><ProjectVisual project={activeProject} /></div>
+            <div className="project-dialog-copy"><Eyebrow>{activeProject.category} · {activeProject.year}</Eyebrow><h2 id="project-dialog-title">{activeProject.name}<span>.</span></h2><p className="project-dialog-type">{activeProject.type}</p><p className="project-dialog-description">{activeProject.description}</p>
+              <div className="project-dialog-meta"><div><span>CONTRIBUTION</span><strong>{activeProject.contribution}</strong></div><div><span>STAGE</span><strong>{activeProject.stage}</strong></div><div><span>FOCUS AREAS</span><strong>{activeProject.tags.join(' · ')}</strong></div><div><span>FILED</span><strong>{activeProject.year} / {activeProject.category}</strong></div></div>
+              <div className="project-manifesto"><span>THE CENTRAL IDEA</span><strong>“{activeProject.note}”</strong><small>PROJECT FILE / {activeProject.id} — {activeProject.stage}</small></div>
+              <div className="project-case-grid">
+                <article><span>01 / THE QUESTION</span><p>{activeProject.problem}</p></article>
+                <article><span>02 / THE APPROACH</span><p>{activeProject.approach}</p></article>
+                <article><span>03 / WHERE IT STANDS</span><p>{activeProject.current}</p></article>
+                <article><span>04 / NEXT ITERATION</span><p>{activeProject.next}</p></article>
+              </div>
+              <div className="project-process-strip" aria-label="Project development sequence"><span>QUESTION</span><i>→</i><span>DESIGN</span><i>→</i><span>BUILD</span><i>→</i><span>LEARN</span></div>
+              <div className="project-dialog-actions">{activeProject.href && <a href={activeProject.href} target="_blank" rel="noreferrer">OPEN PROJECT / PUBLIC PAGE <ArrowUpRight size={15} /></a>}{activeProject.repo && <a href={activeProject.repo} target="_blank" rel="noreferrer">VIEW SOURCE <Code2 size={15} /></a>}</div>
+            </div>
           </div>
-          <span className="copyright">© 2026 KIRTAN SWAMY<br />ALL RIGHTS RESERVED</span>
-          <a href="#top" className="back-top">BACK TO TOP <ArrowUpRight size={14} /></a>
-        </div>
-      </footer>
+          <div className="project-dialog-foot"><span>AN OPEN FILE — THE WORK CONTINUES</span><span>ESC TO CLOSE ↗</span></div>
+        </section>
+      </div>}
     </main>
   )
 }
