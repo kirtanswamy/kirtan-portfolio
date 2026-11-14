@@ -251,6 +251,8 @@ function App() {
   const [activeProject, setActiveProject] = useState(null)
   const [activeProjectIndex, setActiveProjectIndex] = useState(0)
   const [activeLearningCategory, setActiveLearningCategory] = useState('ALL ENTRIES')
+  const [sectionTransition, setSectionTransition] = useState(false)
+  const sectionTransitionTimer = useRef(null)
   const projectShelfRef = useRef(null)
   const lenisRef = useRef(null)
   const shelfDragRef = useRef({ pointerId: null, startX: 0, scrollLeft: 0, dragged: false })
@@ -470,6 +472,25 @@ function App() {
 
   const closeMenu = () => setMenuOpen(false)
 
+  const navigateToSection = (href, event) => {
+    if (event) event.preventDefault()
+    closeMenu()
+    const target = document.querySelector(href)
+    if (!target) return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      target.scrollIntoView({ behavior: 'auto', block: 'start' })
+      return
+    }
+    window.clearTimeout(sectionTransitionTimer.current)
+    setSectionTransition(true)
+    sectionTransitionTimer.current = window.setTimeout(() => {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      sectionTransitionTimer.current = window.setTimeout(() => setSectionTransition(false), 720)
+    }, 520)
+  }
+
+  useEffect(() => () => window.clearTimeout(sectionTransitionTimer.current), [])
+
   const finishOpening = () => {
     setOpeningLeaving(true)
     window.setTimeout(() => {
@@ -534,6 +555,12 @@ function App() {
             <div className="opening-leaf opening-leaf-left"><span>INDEPENDENT<br/>MAKER'S EDITION</span><strong id="opening-title">KIRTAN<br/>SWAMY.</strong><i>ENGINEERING / DESIGN / IDEAS</i></div>
             <div className="opening-leaf opening-leaf-right"><span>FIELD NOTES / 001</span><strong>CURIOUS<br/>BY NATURE.</strong><i>HYDERABAD, INDIA</i></div>
             <div className="opening-fold" />
+            <div className="opening-cover">
+              <span>THE MAKER'S NOTEBOOK</span>
+              <strong>K.S.</strong>
+              <i>VOL. 01 / 2026</i>
+              <small>OPEN TO BEGIN <ArrowUpRight size={12} /></small>
+            </div>
           </div>
         </div>
         <div className="opening-caption"><span>AN OPEN NOTEBOOK</span><span>2026 / INDIA</span></div>
@@ -542,16 +569,15 @@ function App() {
       <a className="skip-link" href="#main-content">SKIP TO CONTENT</a>
       <div className="reading-progress" aria-hidden="true"><span className="reading-progress__bar" /></div>
       <div className="paper-grain" aria-hidden="true" />
-      <nav className="chapter-rail" aria-label="Page chapters">
-        <span className="chapter-rail-label">THE NOTEBOOK</span>
-        {chapterItems.map(([number, label, href]) => <a key={href} href={href} className={activeSection === href ? 'active' : ''} aria-label={label} aria-current={activeSection === href ? 'location' : undefined}><span>{number}</span><i /><small>{label}</small></a>)}
+      <nav className="chapter-rail spiral-rail" aria-label="Notebook chapter navigator">
+        <span className="spiral-rail-title">CHAPTERS</span>
+        <span className="spiral-binding" aria-hidden="true">{chapterItems.map(([number]) => <i key={number} />)}</span>
+        <div className="spiral-rail-links">
+          {chapterItems.map(([number, label, href]) => <a key={href} href={href} onClick={event => navigateToSection(href, event)} className={activeSection === href ? 'active' : ''} aria-label={label} aria-current={activeSection === href ? 'location' : undefined}><span>{number}</span><small>{label}</small></a>)}
+        </div>
+        <span className="spiral-rail-foot">TURN / PAGE</span>
       </nav>
-      <aside className="desk-note" aria-label="Current project file">
-        <span className="desk-note-kicker">CURRENT FILE</span>
-        <strong>{visibleProjects[Math.min(activeProjectIndex, visibleProjects.length - 1)]?.name ?? "PROJECT ARCHIVE"}</strong>
-        <span className="desk-note-category">{visibleProjects[Math.min(activeProjectIndex, visibleProjects.length - 1)]?.category ?? "SELECTED WORK"}</span>
-        <button type="button" aria-label="Open current project file" onClick={() => { const project = visibleProjects[Math.min(activeProjectIndex, visibleProjects.length - 1)]; if (project) setActiveProject(project) }}><span>OPEN FILE</span><ArrowUpRight size={12}/></button>
-      </aside>
+      {sectionTransition && <div className="section-burn-transition" aria-hidden="true"><span>TURNING THE PAGE</span></div>}
       <header className="masthead">
         <a className="masthead-brand" href="#top" aria-label="Kirtan Swamy home">
           <span className="brand-monogram">KS<span>®</span></span>
@@ -562,7 +588,7 @@ function App() {
         <button type="button" className="menu-button" onClick={() => setMenuOpen(!menuOpen)} aria-controls="mobile-navigation" aria-expanded={menuOpen} aria-label={menuOpen ? 'Close navigation' : 'Open navigation'}>
           {menuOpen ? <X /> : <Menu />}
         </button>
-        <button type="button" className="masthead-index-prompt" onClick={() => setMenuOpen(true)} aria-controls="mobile-navigation" aria-expanded={menuOpen}>OPEN THE INDEX <i>↗</i></button>
+        <button type="button" className="masthead-index-prompt" onClick={() => setMenuOpen(true)} aria-controls="mobile-navigation" aria-expanded={menuOpen}><span className="index-prompt-number">08</span><span className="index-prompt-copy"><small>THE NOTEBOOK</small><strong>OPEN INDEX</strong></span><i>↗</i></button>
       </header>
 
       <nav id="mobile-navigation" className={`mobile-nav index-overlay ${menuOpen ? 'is-open' : ''}`} aria-label="Global index" aria-hidden={!menuOpen} inert={!menuOpen}>
@@ -570,7 +596,7 @@ function App() {
         <div className="index-overlay-top"><span>THE MAKER'S NOTEBOOK / INDEX</span><span>VOL. 01 — 2026</span><button type="button" onClick={closeMenu} aria-label="Close index"><X size={19}/><span>CLOSE</span></button></div>
         <div className="index-overlay-title"><span>CONTENTS / 08 CHAPTERS</span><strong>INDEX<span>.</span></strong></div>
         <div className="index-overlay-links">
-          {navItems.map(([label, href], index) => <a key={href} href={href} onClick={closeMenu} className={activeSection === href ? 'is-current' : ''}><span>0{index + 1}</span><strong>{label}</strong><ArrowUpRight /></a>)}
+          {navItems.map(([label, href], index) => <a key={href} href={href} onClick={event => navigateToSection(href, event)} className={activeSection === href ? 'is-current' : ''}><span>0{index + 1}</span><strong>{label}</strong><ArrowUpRight /></a>)}
         </div>
         <div className="index-overlay-bottom"><span>AN OPEN NOTEBOOK · HYDERABAD, INDIA</span><span>TURN THE PAGE / FIND THE WORK</span></div>
       </nav>
