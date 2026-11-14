@@ -244,6 +244,37 @@ function App() {
     return () => { window.clearTimeout(exitTimer); window.clearTimeout(removeTimer) }
   }, [])
   useEffect(() => {
+    if (!openingActive || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined
+    const overlay = document.querySelector('.newspaper-opening')
+    if (!overlay) return undefined
+    let frame = 0
+    let pointerX = 50
+    let pointerY = 45
+    const paint = () => {
+      overlay.style.setProperty('--pointer-x', `${pointerX}%`)
+      overlay.style.setProperty('--pointer-y', `${pointerY}%`)
+      frame = 0
+    }
+    const onPointerMove = event => {
+      pointerX = Math.max(0, Math.min(100, event.clientX / window.innerWidth * 100))
+      pointerY = Math.max(0, Math.min(100, event.clientY / window.innerHeight * 100))
+      if (!frame) frame = window.requestAnimationFrame(paint)
+    }
+    const onPointerLeave = () => {
+      pointerX = 50
+      pointerY = 45
+      if (!frame) frame = window.requestAnimationFrame(paint)
+    }
+    window.addEventListener('pointermove', onPointerMove, { passive: true })
+    window.addEventListener('blur', onPointerLeave)
+    return () => {
+      window.removeEventListener('pointermove', onPointerMove)
+      window.removeEventListener('blur', onPointerLeave)
+      if (frame) window.cancelAnimationFrame(frame)
+    }
+  }, [openingActive])
+
+  useEffect(() => {
     if (!openingActive) return undefined
     const overlay = document.querySelector('.newspaper-opening')
     const focusable = overlay ? [...overlay.querySelectorAll('button:not([disabled]), a[href]')] : []
