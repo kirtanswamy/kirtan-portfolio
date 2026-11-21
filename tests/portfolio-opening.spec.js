@@ -44,6 +44,7 @@ test('the shared torn-paper sheet covers and reveals every navigation state', as
       animationDuration: style.animationDuration,
       backgroundColor: style.backgroundColor,
       pointerEvents: style.pointerEvents,
+      maskImage: style.maskImage,
       clipPath: style.clipPath,
     }
   })
@@ -51,6 +52,7 @@ test('the shared torn-paper sheet covers and reveals every navigation state', as
   expect(coverStyle.animationDuration).toBe('0.92s')
   expect(coverStyle.backgroundColor).toBe('rgb(32, 33, 29)')
   expect(coverStyle.pointerEvents).toBe('none')
+  expect(coverStyle.maskImage).toBe('none')
   expect(coverStyle.clipPath).toContain('polygon')
 
   // Content swaps while the dark sheet fully covers the viewport; the same
