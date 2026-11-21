@@ -54,7 +54,7 @@ test('the shared torn-paper sheet covers and reveals every navigation state', as
   expect(coverStyle.backgroundColor).toBe('rgb(32, 33, 29)')
   expect(coverStyle.pointerEvents).toBe('none')
   expect(coverStyle.maskImage).toBe('none')
-  expect(coverStyle.clipPath).toContain('polygon')
+  expect(coverStyle.clipPath).toBe('none')
   await expect(page.locator('.section-transition-edge')).toHaveCount(1)
 
   // Content swaps while the dark sheet fully covers the viewport; the same
