@@ -549,6 +549,10 @@ function App() {
             <feTurbulence type="fractalNoise" baseFrequency="0.018 0.32" numOctaves="2" seed="17" result="paper-grain" />
             <feDisplacementMap in="SourceGraphic" in2="paper-grain" scale="8" xChannelSelector="R" yChannelSelector="G" />
           </filter>
+          <filter id="burn-edge-displacement" x="-25%" y="-25%" width="150%" height="150%" colorInterpolationFilters="sRGB">
+            <feTurbulence type="fractalNoise" baseFrequency="0.012 0.019" numOctaves="3" seed="29" result="burn-grain" />
+            <feDisplacementMap in="SourceGraphic" in2="burn-grain" scale="34" xChannelSelector="R" yChannelSelector="G" />
+          </filter>
         </defs>
       </svg>
       {openingActive && <div className="newspaper-opening" role="dialog" aria-modal="true" aria-label="The Maker's Notebook opening">
@@ -558,17 +562,33 @@ function App() {
             
             <div className="opening-paper-under"><span>THE MAKER'S NOTEBOOK</span><strong>K.S.</strong><i>VOL. 01 / 2026</i></div>
             <div className="opening-leaf opening-leaf-left">
-              <span>INDEPENDENT / MAKER'S EDITION</span>
-              <strong id="opening-title">KIRTAN<br/>SWAMY.</strong>
-              <p>Engineering student. Creative builder. Interested in the space where technology, design and people meet.</p>
-              <i><b>01</b> ENGINEERING / DESIGN / IDEAS</i>
+              <span className="opening-page-running"><b>THE MAKER'S NOTEBOOK</b><i>PERSONAL EDITION / 001</i></span>
+              <div className="opening-page-main">
+                <p className="opening-page-kicker">A NOTE ON THE MAKER</p>
+                <strong id="opening-title">KIRTAN<br/><em>SWAMY.</em></strong>
+                <p className="opening-page-intro">Electronics & Communication Engineering student at SRMIST, Chennai. I build at the intersection of <b>technology, thoughtful design and public-good ideas.</b></p>
+                <div className="opening-page-rule" />
+                <div className="opening-page-columns">
+                  <div><small>01 / STUDY</small><b>ENGINEERING</b><span>Systems · Electronics · Software</span></div>
+                  <div><small>02 / PRACTICE</small><b>MAKE & ITERATE</b><span>Prototypes · Interfaces · Experiments</span></div>
+                </div>
+              </div>
+              <i className="opening-page-footer"><b>01</b><span>CURIOUS BY NATURE. PRECISE BY PRACTICE.</span><span>INDIA</span></i>
             </div>
             <div className="opening-leaf opening-leaf-right">
-              <span>FIELD NOTES / 001</span>
-              <strong>CURIOUS<br/>BY NATURE.</strong>
-              <p>I like turning questions into prototypes — and prototypes into things that matter.</p>
-              <div className="opening-page-stamp"><Asterisk size={42}/><small>THOUGHT<br/>INTO ACTION</small></div>
-              <i><b>02</b> HYDERABAD, INDIA <b>VOL. 01</b></i>
+              <span className="opening-page-running"><b>FIELD NOTES / 001</b><i>WHAT I'M EXPLORING</i></span>
+              <div className="opening-page-main opening-page-main-right">
+                <p className="opening-page-kicker">IDEAS INTO WORK</p>
+                <strong className="opening-page-manifesto">MAKE IT<br/><em>MATTER.</em></strong>
+                <p className="opening-page-intro">From useful tools to playful digital experiences, I enjoy taking a question apart, finding its shape and building a thoughtful first version.</p>
+                <div className="opening-page-projects">
+                  <div><b>01</b><span><strong>BUSHO</strong><small>HEALTHCARE WORKFLOWS</small></span><i>↗</i></div>
+                  <div><b>02</b><span><strong>VARSITY</strong><small>CAMPUS EXPERIENCE</small></span><i>↗</i></div>
+                  <div><b>03</b><span><strong>ELECTROLAB</strong><small>ENGINEERING SIMULATION</small></span><i>↗</i></div>
+                </div>
+                <div className="opening-page-stamp"><Asterisk size={30}/><small>OBSERVE<br/>BUILD<br/>REFINE</small></div>
+              </div>
+              <i className="opening-page-footer"><b>02</b><span>ENGINEERING / DESIGN / IDEAS</span><span>VOL. 01</span></i>
             </div>
             <div className="opening-fold" />
             <div className="opening-cover">
