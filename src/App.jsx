@@ -291,7 +291,7 @@ function App() {
       document.getElementById('main-content')?.focus({ preventScroll: true })
       return undefined
     }
-    const exitTimer = window.setTimeout(finishOpening, 10000)
+    const exitTimer = window.setTimeout(finishOpening, 7600)
     return () => window.clearTimeout(exitTimer)
   }, [openingActive, finishOpening])
   useEffect(() => {
@@ -304,22 +304,32 @@ function App() {
     const paint = () => {
       overlay.style.setProperty('--pointer-x', `${pointerX}%`)
       overlay.style.setProperty('--pointer-y', `${pointerY}%`)
+      overlay.style.setProperty('--book-tilt-x', `${tiltX}deg`)
+      overlay.style.setProperty('--book-tilt-y', `${tiltY}deg`)
       frame = 0
     }
+    let tiltX = 0
+    let tiltY = 0
     const onPointerMove = event => {
       pointerX = Math.max(0, Math.min(100, event.clientX / window.innerWidth * 100))
       pointerY = Math.max(0, Math.min(100, event.clientY / window.innerHeight * 100))
+      tiltX = ((pointerX - 50) / 50) * 2.8
+      tiltY = ((45 - pointerY) / 55) * 2.1
       if (!frame) frame = window.requestAnimationFrame(paint)
     }
     const onPointerLeave = () => {
       pointerX = 50
       pointerY = 45
+      tiltX = 0
+      tiltY = 0
       if (!frame) frame = window.requestAnimationFrame(paint)
     }
     window.addEventListener('pointermove', onPointerMove, { passive: true })
+    overlay.addEventListener('pointerleave', onPointerLeave)
     window.addEventListener('blur', onPointerLeave)
     return () => {
       window.removeEventListener('pointermove', onPointerMove)
+      overlay.removeEventListener('pointerleave', onPointerLeave)
       window.removeEventListener('blur', onPointerLeave)
       if (frame) window.cancelAnimationFrame(frame)
     }
