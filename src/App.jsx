@@ -253,6 +253,7 @@ function App() {
   const [activeLearningCategory, setActiveLearningCategory] = useState('ALL ENTRIES')
   const [sectionTransition, setSectionTransition] = useState(false)
   const sectionTransitionFrame = useRef(null)
+  const sectionTransitionLock = useRef(false)
   const projectShelfRef = useRef(null)
   const lenisRef = useRef(null)
   const shelfDragRef = useRef({ pointerId: null, startX: 0, scrollLeft: 0, dragged: false })
@@ -263,12 +264,11 @@ function App() {
       return
     }
 
-    if (sectionTransitionFrame.current !== null) {
-      window.cancelAnimationFrame(sectionTransitionFrame.current)
-    }
+    // A single physical page-burn owns navigation until its animation ends.
+    // Ignore repeat clicks so the same action cannot queue a second reveal.
+    if (sectionTransitionLock.current) return
+    sectionTransitionLock.current = true
 
-    // Put the paper sheet on screen first, then change the page on the next
-    // paint. The sheet itself owns its lifetime through animationend.
     setSectionTransition(true)
     sectionTransitionFrame.current = window.requestAnimationFrame(() => {
       sectionTransitionFrame.current = null
@@ -638,7 +638,10 @@ function App() {
           className="section-burn-transition"
           aria-hidden="true"
           onAnimationEnd={event => {
-            if (event.target === event.currentTarget) setSectionTransition(false)
+            if (event.target === event.currentTarget) {
+              setSectionTransition(false)
+              sectionTransitionLock.current = false
+            }
           }}
         />
       )}
