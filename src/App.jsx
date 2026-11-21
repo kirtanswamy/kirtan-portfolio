@@ -280,6 +280,7 @@ function App() {
   }, [runPaperTransition])
 
   useEffect(() => {
+    if (!openingActive) return undefined
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     if (reduced) {
       setOpeningActive(false)
@@ -288,7 +289,7 @@ function App() {
     }
     const exitTimer = window.setTimeout(finishOpening, 7600)
     return () => window.clearTimeout(exitTimer)
-  }, [finishOpening])
+  }, [openingActive, finishOpening])
   useEffect(() => {
     if (!openingActive || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined
     const overlay = document.querySelector('.newspaper-opening')
@@ -557,7 +558,7 @@ function App() {
       </svg>
       {openingActive && <div className="newspaper-opening" role="dialog" aria-modal="true" aria-label="The Maker's Notebook opening">
         <div className="opening-vignette" />
-        <div className="opening-stage" aria-hidden="true">
+        <div className="opening-stage">
           <div className="opening-paper">
             
             <div className="opening-paper-under"><span>THE MAKER'S NOTEBOOK</span><strong>K.S.</strong><i>VOL. 01 / 2026</i></div>
