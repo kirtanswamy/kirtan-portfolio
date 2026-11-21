@@ -18,5 +18,9 @@ jobs:
           node-version: 22
       - name: Install dependencies
         run: npm install
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Run browser regression tests
+        run: npm run test:e2e
       - name: Build production bundle
         run: npm run build
