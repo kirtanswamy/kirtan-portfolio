@@ -2618,3 +2618,95 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible{
 .newspaper-opening.is-leaving .opening-stage{opacity:1;transform:none}
 .newspaper-opening.is-leaving .opening-caption,
 .newspaper-opening.is-leaving .opening-skip{opacity:0;transition:opacity .18s ease}
+
+
+/* M11 — warm editorial index and a shared, literal scorched-paper transition. */
+.index-overlay{
+  background:
+    radial-gradient(ellipse at 12% 8%,rgba(255,255,255,.36),transparent 42%),
+    repeating-linear-gradient(0deg,rgba(67,52,34,.025) 0 1px,transparent 1px 4px),
+    var(--paper);
+  color:var(--ink);
+}
+.index-overlay:before{
+  opacity:.22;
+  background:
+    radial-gradient(circle at 80% 20%,rgba(201,77,52,.09) 0,transparent 34%),
+    repeating-linear-gradient(0deg,transparent 0 46px,rgba(36,36,31,.055) 47px 48px);
+}
+.index-overlay:after{
+  background-image:
+    repeating-linear-gradient(178deg,rgba(255,255,255,.55) 0 1px,transparent 1px 4px),
+    linear-gradient(180deg,var(--paper2) 0%,var(--paper) 72%);
+}
+.index-overlay-top{border-bottom-color:var(--line);color:var(--muted)}
+.index-overlay-top button{border-color:var(--line);color:var(--ink)}
+.index-overlay-title>span{color:var(--red)}
+.index-overlay-title>strong span{color:var(--blue)}
+.index-overlay-links{border-top-color:var(--line)}
+.index-overlay-links>a{border-bottom-color:var(--line)}
+.index-overlay-links>a>span{color:var(--red)}
+.index-overlay-links>a>strong{color:var(--ink)}
+.index-overlay-links>a>svg{color:var(--blue)}
+.index-overlay-links>a:hover,
+.index-overlay-links>a.is-current{background:rgba(36,36,31,.055)}
+.index-overlay-bottom{color:var(--muted);border-top-color:var(--line)}
+.index-overlay .paper-shader--index-edge{opacity:.42;mix-blend-mode:multiply}
+@property --burn-hole-size{
+  syntax:"<percentage>";
+  inherits:false;
+  initial-value:0%;
+}
+.section-burn-transition{
+  --burn-hole-size:0%;
+  position:fixed;
+  inset:0;
+  z-index:260;
+  pointer-events:none;
+  display:block;
+  background:
+    radial-gradient(ellipse at 18% 14%,rgba(255,255,255,.34),transparent 36%),
+    repeating-linear-gradient(0deg,rgba(67,52,34,.035) 0 1px,transparent 1px 4px),
+    var(--paper);
+  color:var(--ink);
+  clip-path:none;
+  -webkit-mask-image:radial-gradient(circle at 50% 50%,transparent 0 var(--burn-hole-size),#000 calc(var(--burn-hole-size) + 1%));
+  mask-image:radial-gradient(circle at 50% 50%,transparent 0 var(--burn-hole-size),#000 calc(var(--burn-hole-size) + 1%));
+  animation:burn-paper-sheet 1.9s cubic-bezier(.2,.72,.16,1) both;
+}
+.section-burn-transition:before{
+  content:"";
+  position:absolute;
+  inset:-12%;
+  pointer-events:none;
+  background:
+    radial-gradient(ellipse at 50% 50%,transparent 0 8%,rgba(42,29,20,.96) 9%,rgba(91,49,29,.92) 9.5%,rgba(196,82,39,.96) 10%,rgba(225,139,70,.72) 10.6%,transparent 12%),
+    repeating-conic-gradient(from 8deg at 50% 50%,rgba(93,56,35,.16) 0deg 1deg,transparent 2deg 7deg);
+  filter:blur(3px);
+  mix-blend-mode:multiply;
+  transform:scale(.12);
+  animation:burn-paper-edge 1.9s cubic-bezier(.2,.72,.16,1) both;
+}
+.section-burn-transition:after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:radial-gradient(ellipse at 50% 50%,transparent 0 8%,rgba(35,25,18,.22) 9%,transparent 16%);
+  mix-blend-mode:multiply;
+  opacity:.8;
+}
+@keyframes burn-paper-sheet{
+  0%{--burn-hole-size:0%;opacity:1}
+  12%{--burn-hole-size:2%;opacity:1}
+  100%{--burn-hole-size:160%;opacity:1}
+}
+@keyframes burn-paper-edge{
+  0%{transform:scale(.12);opacity:0}
+  12%{transform:scale(.5);opacity:1}
+  100%{transform:scale(5.2);opacity:.9}
+}
+@media(prefers-reduced-motion:reduce){
+  .section-burn-transition{display:none!important;animation:none!important}
+  .index-overlay{transition:none!important;clip-path:none!important}
+}
