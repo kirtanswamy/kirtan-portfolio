@@ -2890,9 +2890,13 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible{
   .opening-cover-back strong{font-size:clamp(58px,16vw,100px)}
 }
 
-/* M17 — one slow, irregular, top-to-bottom paper burn.
-   The INDEX no longer runs its own clip-path wipe: this sheet is the only
-   full-screen transition, and its fireline reveals the destination beneath. */
+/* M18 — restore the INDEX's torn-sheet descent as the shared transition.
+   One full sheet travels down; its irregular lower edge is the active fireline. */
+@property --burn-front {
+  syntax: "<percentage>";
+  inherits: true;
+  initial-value: 0%;
+}
 .section-burn-transition {
   --burn-front: 0%;
   position: fixed;
@@ -2908,7 +2912,7 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible{
     linear-gradient(135deg, #eee5d7 0%, #e6dac8 48%, #d8cbb8 100%);
   -webkit-mask-image: none;
   mask-image: none;
-  filter: drop-shadow(0 0 2px rgba(49,31,20,.38));
+  filter: drop-shadow(0 0 3px rgba(255,176,91,.95)) drop-shadow(0 0 11px rgba(174,58,31,.72));
   clip-path: polygon(
     0 calc(var(--burn-front) + .5%),
     4% calc(var(--burn-front) - 1.7%),
@@ -2932,35 +2936,66 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible{
     100% 100%,
     0 100%
   );
-  animation: burn-page-down 3.8s cubic-bezier(.38,.08,.22,1) both;
+  animation: burn-page-down 4.6s cubic-bezier(.34,.06,.2,1) both;
   will-change: clip-path;
 }
 .section-burn-transition::before {
   content: "";
   position: absolute;
-  inset: 0;
+  inset: -1.5% -1%;
   pointer-events: none;
+  /* A torn, scalloped ember band follows the same irregular edge as the sheet. */
+  clip-path: polygon(
+    0 calc(var(--burn-front) - .7%),
+    4% calc(var(--burn-front) - 2.4%),
+    9% calc(var(--burn-front) + .7%),
+    14% calc(var(--burn-front) - 2.8%),
+    20% calc(var(--burn-front) + .2%),
+    26% calc(var(--burn-front) - 1.9%),
+    32% calc(var(--burn-front) + 1.5%),
+    38% calc(var(--burn-front) - 2.3%),
+    44% calc(var(--burn-front) + .4%),
+    50% calc(var(--burn-front) - 3%),
+    56% calc(var(--burn-front) + 1%),
+    62% calc(var(--burn-front) - 1.8%),
+    68% calc(var(--burn-front) + 1.4%),
+    74% calc(var(--burn-front) - 2.1%),
+    80% calc(var(--burn-front) + .5%),
+    86% calc(var(--burn-front) - 2.6%),
+    92% calc(var(--burn-front) + .8%),
+    97% calc(var(--burn-front) - 1.8%),
+    100% calc(var(--burn-front) -.2%),
+    100% calc(var(--burn-front) + 2.8%),
+    97% calc(var(--burn-front) + 1.2%),
+    92% calc(var(--burn-front) + 3.5%),
+    86% calc(var(--burn-front) + .1%),
+    80% calc(var(--burn-front) + 3.2%),
+    74% calc(var(--burn-front) + .6%),
+    68% calc(var(--burn-front) + 4.1%),
+    62% calc(var(--burn-front) + .7%),
+    56% calc(var(--burn-front) + 3.8%),
+    50% calc(var(--burn-front) -.1%),
+    44% calc(var(--burn-front) + 3.5%),
+    38% calc(var(--burn-front) -.2%),
+    32% calc(var(--burn-front) + 4.2%),
+    26% calc(var(--burn-front) + .4%),
+    20% calc(var(--burn-front) + 3.8%),
+    14% calc(var(--burn-front) + .1%),
+    9% calc(var(--burn-front) + 3.9%),
+    4% calc(var(--burn-front) + .4%),
+    0 calc(var(--burn-front) + 3.1%)
+  );
   background:
-    radial-gradient(ellipse 7% 2.6% at 9% var(--burn-front), rgba(255,218,143,.94) 0 15%, rgba(235,111,47,.92) 38%, transparent 78%),
-    radial-gradient(ellipse 8% 3% at 25% var(--burn-front), rgba(255,205,119,.9) 0 14%, rgba(198,70,31,.9) 40%, transparent 78%),
-    radial-gradient(ellipse 7% 2.7% at 42% var(--burn-front), rgba(255,218,143,.94) 0 15%, rgba(224,91,38,.92) 40%, transparent 78%),
-    radial-gradient(ellipse 9% 3% at 58% var(--burn-front), rgba(255,202,113,.9) 0 14%, rgba(190,66,30,.9) 40%, transparent 78%),
-    radial-gradient(ellipse 7% 2.7% at 75% var(--burn-front), rgba(255,218,143,.94) 0 15%, rgba(222,87,35,.92) 40%, transparent 78%),
-    radial-gradient(ellipse 8% 3% at 92% var(--burn-front), rgba(255,205,119,.9) 0 14%, rgba(198,70,31,.9) 40%, transparent 78%),
-    linear-gradient(
-      180deg,
-      transparent 0,
-      transparent calc(var(--burn-front) - 2.5%),
-      rgba(35,23,17,.88) calc(var(--burn-front) - 1.1%),
-      rgba(105,43,24,.98) calc(var(--burn-front) - .35%),
-      rgba(226,91,37,.98) var(--burn-front),
-      rgba(255,190,105,.88) calc(var(--burn-front) + .55%),
-      rgba(255,226,171,.48) calc(var(--burn-front) + 1.2%),
-      transparent calc(var(--burn-front) + 2.8%)
-    ),
-    repeating-linear-gradient(90deg, transparent 0 13px, rgba(72,43,27,.1) 14px 15px);
-  filter: blur(1.8px) drop-shadow(0 0 10px rgba(220,91,39,.55));
-  mix-blend-mode: multiply;
+    linear-gradient(180deg,
+      rgba(39,25,17,.96) 0%,
+      rgba(112,45,24,.98) 24%,
+      rgba(222,82,34,.98) 47%,
+      rgba(255,184,91,.98) 68%,
+      rgba(255,225,164,.55) 84%,
+      transparent 100%);
+  filter: blur(1.6px) drop-shadow(0 0 8px rgba(220,91,39,.82));
+  mix-blend-mode: screen;
+  opacity: .98;
 }
 .section-burn-transition::after {
   content: "";
@@ -2968,18 +3003,13 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible{
   inset: 0;
   pointer-events: none;
   background:
-    linear-gradient(
-      180deg,
-      transparent 0,
-      transparent calc(var(--burn-front) - 4%),
-      rgba(44,29,20,.1) calc(var(--burn-front) - 1.8%),
-      rgba(44,29,20,.25) calc(var(--burn-front) + .8%),
-      transparent calc(var(--burn-front) + 4%)
-    ),
-    repeating-linear-gradient(0deg, rgba(78,48,31,.07) 0 1px, transparent 1px 5px),
-    radial-gradient(ellipse at 50% 50%, transparent 30%, rgba(43,29,20,.09) 100%);
+    radial-gradient(ellipse 13% 8% at 12% calc(var(--burn-front) + 1.5%), rgba(24,18,14,.28), transparent 78%),
+    radial-gradient(ellipse 16% 9% at 39% calc(var(--burn-front) + 1.2%), rgba(24,18,14,.22), transparent 78%),
+    radial-gradient(ellipse 15% 8% at 68% calc(var(--burn-front) + 1.4%), rgba(24,18,14,.24), transparent 78%),
+    radial-gradient(ellipse 14% 8% at 91% calc(var(--burn-front) + 1.3%), rgba(24,18,14,.22), transparent 78%),
+    repeating-linear-gradient(0deg, rgba(78,48,31,.07) 0 1px, transparent 1px 5px);
   mix-blend-mode: multiply;
-  opacity: .72;
+  opacity: .7;
 }
 @keyframes burn-page-down {
   0% { --burn-front: 0%; }
@@ -2988,8 +3018,8 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible{
   100% { --burn-front: 112%; }
 }
 
-/* INDEX content appears underneath the burning sheet; it must not perform
-   a second top-down clip-path/shutter transition of its own. */
+/* The same torn-page reveal is the only INDEX transition. Its contents are
+   revealed beneath the shared burn sheet, never through a second shutter. */
 .index-overlay,
 .index-overlay.is-open {
   clip-path: none !important;
@@ -3004,6 +3034,30 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible{
   opacity: 1;
 }
 
+/* Pointer-driven parallax makes the printed opening spread feel like a real
+   book on a desk. The cover hinge and inner page layers remain independent. */
+.opening-stage {
+  transform-style: preserve-3d;
+  transform: rotateX(var(--book-tilt-y, 0deg)) rotateY(var(--book-tilt-x, 0deg));
+  transform-origin: 50% 50%;
+  transition: transform 180ms cubic-bezier(.2,.7,.2,1);
+}
+.opening-paper {
+  transform-style: preserve-3d;
+  backface-visibility: visible;
+}
+.opening-leaf-left,
+.opening-leaf-right {
+  box-shadow: inset 0 0 0 1px rgba(54,43,30,.08);
+}
+.opening-leaf-left::after,
+.opening-leaf-right::after {
+  opacity: .72;
+  background:
+    linear-gradient(90deg, transparent 0 88%, rgba(50,35,22,.1) 96%, rgba(255,255,255,.24) 99%, rgba(34,24,16,.12) 100%),
+    repeating-linear-gradient(0deg, transparent 0 5px, rgba(72,55,35,.045) 6px 7px);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .section-burn-transition {
     display: none !important;
@@ -3013,5 +3067,9 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible{
   .index-overlay.is-open {
     transition: none !important;
     clip-path: none !important;
+  }
+  .opening-stage {
+    transform: none !important;
+    transition: none !important;
   }
 }
