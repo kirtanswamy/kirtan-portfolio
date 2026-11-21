@@ -663,7 +663,13 @@ function App() {
           className={`section-burn-transition is-${sectionTransition}`}
           aria-hidden="true"
           onAnimationEnd={handlePaperTransitionEnd}
-        />
+        >
+          <PaperShader
+            variant="index-edge"
+            active
+            className="section-transition-edge"
+          />
+        </div>
       )}
       <header className="masthead">
         <a className="masthead-brand" href="#top" aria-label="Kirtan Swamy home">
