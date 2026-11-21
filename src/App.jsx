@@ -268,7 +268,7 @@ function App() {
     // then let the scorched opening expand until the sheet has burned away.
     sectionTransitionTimer.current = window.setTimeout(() => {
       onReveal?.()
-      sectionTransitionTimer.current = window.setTimeout(() => setSectionTransition(false), 1480)
+      sectionTransitionTimer.current = window.setTimeout(() => setSectionTransition(false), 3200)
     }, 420)
   }, [])
 
