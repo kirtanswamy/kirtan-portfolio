@@ -2890,172 +2890,123 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible{
   .opening-cover-back strong{font-size:clamp(58px,16vw,100px)}
 }
 
-/* M18 — restore the INDEX's torn-sheet descent as the shared transition.
-   One full sheet travels down; its irregular lower edge is the active fireline. */
-@property --burn-front {
-  syntax: "<percentage>";
-  inherits: true;
-  initial-value: 0%;
-}
+/* M19 — Miranda-style torn-paper page transition.
+   A charcoal sheet drops over the old view, swaps content while covered,
+   then lifts away with a fibrous, irregular lower edge. No radial burn. */
 .section-burn-transition {
-  --burn-front: 0%;
   position: fixed;
   inset: 0;
   z-index: 260;
   display: block;
-  pointer-events: none;
   overflow: hidden;
-  color: var(--ink);
+  pointer-events: none;
   background:
-    radial-gradient(ellipse at 18% 14%, rgba(255,255,255,.42), transparent 36%),
-    repeating-linear-gradient(0deg, rgba(67,52,34,.055) 0 1px, transparent 1px 4px),
-    linear-gradient(135deg, #eee5d7 0%, #e6dac8 48%, #d8cbb8 100%);
-  -webkit-mask-image: none;
-  mask-image: none;
-  filter: drop-shadow(0 0 3px rgba(255,176,91,.95)) drop-shadow(0 0 11px rgba(174,58,31,.72));
+    radial-gradient(ellipse at 50% 18%, rgba(255,255,255,.035), transparent 55%),
+    repeating-linear-gradient(0deg, rgba(238,232,220,.018) 0 1px, transparent 1px 4px),
+    #20211d;
+  color: #eee8dc;
   clip-path: polygon(
-    0 calc(var(--burn-front) + .5%),
-    4% calc(var(--burn-front) - 1.7%),
-    9% calc(var(--burn-front) + 1.4%),
-    14% calc(var(--burn-front) - 2.1%),
-    20% calc(var(--burn-front) + .9%),
-    26% calc(var(--burn-front) - 1.2%),
-    32% calc(var(--burn-front) + 2.2%),
-    38% calc(var(--burn-front) - 1.6%),
-    44% calc(var(--burn-front) + 1.1%),
-    50% calc(var(--burn-front) - 2.3%),
-    56% calc(var(--burn-front) + 1.7%),
-    62% calc(var(--burn-front) - 1.1%),
-    68% calc(var(--burn-front) + 2.1%),
-    74% calc(var(--burn-front) - 1.4%),
-    80% calc(var(--burn-front) + 1.2%),
-    86% calc(var(--burn-front) - 1.9%),
-    92% calc(var(--burn-front) + 1.5%),
-    97% calc(var(--burn-front) - 1.1%),
-    100% calc(var(--burn-front) + .4%),
-    100% 100%,
-    0 100%
+    0 0, 100% 0, 100% 94%,
+    98.8% 94.7%, 97.5% 93.9%, 96.1% 95.4%, 94.7% 94.1%,
+    93.2% 95.7%, 91.8% 94.4%, 90.4% 96.2%, 88.9% 94.5%,
+    87.4% 95.7%, 86% 93.9%, 84.5% 95.2%, 83% 94.1%,
+    81.5% 96.1%, 80% 94.5%, 78.5% 95.8%, 77% 94.2%,
+    75.5% 96%, 74% 94.4%, 72.5% 95.5%, 71% 93.9%,
+    69.5% 95.8%, 68% 94.3%, 66.5% 96.2%, 65% 94.5%,
+    63.5% 95.7%, 62% 94%, 60.5% 96.1%, 59% 94.4%,
+    57.5% 95.8%, 56% 93.8%, 54.5% 95.4%, 53% 94.2%,
+    51.5% 96.1%, 50% 94.1%, 48.5% 95.8%, 47% 94.3%,
+    45.5% 96.2%, 44% 94.5%, 42.5% 95.7%, 41% 93.9%,
+    39.5% 95.8%, 38% 94.2%, 36.5% 96.1%, 35% 94.4%,
+    33.5% 95.6%, 32% 94%, 30.5% 96.2%, 29% 94.4%,
+    27.5% 95.7%, 26% 94.1%, 24.5% 96%, 23% 94.5%,
+    21.5% 95.8%, 20% 94%, 18.5% 96.1%, 17% 94.3%,
+    15.5% 95.6%, 14% 94%, 12.5% 96.1%, 11% 94.4%,
+    9.5% 95.7%, 8% 94.1%, 6.5% 96%, 5% 94.3%,
+    3.5% 95.7%, 2% 94.2%, 0 95%
   );
-  animation: burn-page-down 4.6s cubic-bezier(.34,.06,.2,1) both;
-  will-change: clip-path;
+  transform: translate3d(0, -102%, 0);
+  will-change: transform;
 }
 .section-burn-transition::before {
-  content: "";
-  position: absolute;
-  inset: -1.5% -1%;
-  pointer-events: none;
-  /* A torn, scalloped ember band follows the same irregular edge as the sheet. */
-  clip-path: polygon(
-    0 calc(var(--burn-front) - .7%),
-    4% calc(var(--burn-front) - 2.4%),
-    9% calc(var(--burn-front) + .7%),
-    14% calc(var(--burn-front) - 2.8%),
-    20% calc(var(--burn-front) + .2%),
-    26% calc(var(--burn-front) - 1.9%),
-    32% calc(var(--burn-front) + 1.5%),
-    38% calc(var(--burn-front) - 2.3%),
-    44% calc(var(--burn-front) + .4%),
-    50% calc(var(--burn-front) - 3%),
-    56% calc(var(--burn-front) + 1%),
-    62% calc(var(--burn-front) - 1.8%),
-    68% calc(var(--burn-front) + 1.4%),
-    74% calc(var(--burn-front) - 2.1%),
-    80% calc(var(--burn-front) + .5%),
-    86% calc(var(--burn-front) - 2.6%),
-    92% calc(var(--burn-front) + .8%),
-    97% calc(var(--burn-front) - 1.8%),
-    100% calc(var(--burn-front) -.2%),
-    100% calc(var(--burn-front) + 2.8%),
-    97% calc(var(--burn-front) + 1.2%),
-    92% calc(var(--burn-front) + 3.5%),
-    86% calc(var(--burn-front) + .1%),
-    80% calc(var(--burn-front) + 3.2%),
-    74% calc(var(--burn-front) + .6%),
-    68% calc(var(--burn-front) + 4.1%),
-    62% calc(var(--burn-front) + .7%),
-    56% calc(var(--burn-front) + 3.8%),
-    50% calc(var(--burn-front) -.1%),
-    44% calc(var(--burn-front) + 3.5%),
-    38% calc(var(--burn-front) -.2%),
-    32% calc(var(--burn-front) + 4.2%),
-    26% calc(var(--burn-front) + .4%),
-    20% calc(var(--burn-front) + 3.8%),
-    14% calc(var(--burn-front) + .1%),
-    9% calc(var(--burn-front) + 3.9%),
-    4% calc(var(--burn-front) + .4%),
-    0 calc(var(--burn-front) + 3.1%)
-  );
-  background:
-    linear-gradient(180deg,
-      rgba(39,25,17,.96) 0%,
-      rgba(112,45,24,.98) 24%,
-      rgba(222,82,34,.98) 47%,
-      rgba(255,184,91,.98) 68%,
-      rgba(255,225,164,.55) 84%,
-      transparent 100%);
-  filter: blur(1.6px) drop-shadow(0 0 8px rgba(220,91,39,.82));
-  mix-blend-mode: screen;
-  opacity: .98;
-}
-.section-burn-transition::after {
   content: "";
   position: absolute;
   inset: 0;
   pointer-events: none;
   background:
-    radial-gradient(ellipse 13% 8% at 12% calc(var(--burn-front) + 1.5%), rgba(24,18,14,.28), transparent 78%),
-    radial-gradient(ellipse 16% 9% at 39% calc(var(--burn-front) + 1.2%), rgba(24,18,14,.22), transparent 78%),
-    radial-gradient(ellipse 15% 8% at 68% calc(var(--burn-front) + 1.4%), rgba(24,18,14,.24), transparent 78%),
-    radial-gradient(ellipse 14% 8% at 91% calc(var(--burn-front) + 1.3%), rgba(24,18,14,.22), transparent 78%),
-    repeating-linear-gradient(0deg, rgba(78,48,31,.07) 0 1px, transparent 1px 5px);
-  mix-blend-mode: multiply;
-  opacity: .7;
+    radial-gradient(ellipse at 22% 12%, rgba(255,255,255,.035), transparent 38%),
+    repeating-linear-gradient(90deg, transparent 0 19px, rgba(0,0,0,.055) 20px 21px),
+    repeating-linear-gradient(0deg, transparent 0 5px, rgba(238,232,220,.018) 6px 7px);
+  mix-blend-mode: screen;
+  opacity: .55;
 }
-@keyframes burn-page-down {
-  0% { --burn-front: 0%; }
-  8% { --burn-front: 1.5%; }
-  92% { --burn-front: 99%; }
-  100% { --burn-front: 112%; }
-}
-
-/* The same torn-page reveal is the only INDEX transition. Its contents are
-   revealed beneath the shared burn sheet, never through a second shutter. */
-.index-overlay,
-.index-overlay.is-open {
-  clip-path: none !important;
-  transition: none !important;
-}
-.index-overlay {
-  visibility: hidden;
-  opacity: 0;
-}
-.index-overlay.is-open {
-  visibility: visible;
-  opacity: 1;
-}
-
-/* Pointer-driven parallax makes the printed opening spread feel like a real
-   book on a desk. The cover hinge and inner page layers remain independent. */
-.opening-stage {
-  transform-style: preserve-3d;
-  transform: rotateX(var(--book-tilt-y, 0deg)) rotateY(var(--book-tilt-x, 0deg));
-  transform-origin: 50% 50%;
-  transition: transform 180ms cubic-bezier(.2,.7,.2,1);
-}
-.opening-paper {
-  transform-style: preserve-3d;
-  backface-visibility: visible;
-}
-.opening-leaf-left,
-.opening-leaf-right {
-  box-shadow: inset 0 0 0 1px rgba(54,43,30,.08);
-}
-.opening-leaf-left::after,
-.opening-leaf-right::after {
-  opacity: .72;
+.section-burn-transition::after {
+  content: "";
+  position: absolute;
+  left: -1%;
+  right: -1%;
+  bottom: -1px;
+  height: clamp(18px, 2.5vh, 30px);
+  pointer-events: none;
   background:
-    linear-gradient(90deg, transparent 0 88%, rgba(50,35,22,.1) 96%, rgba(255,255,255,.24) 99%, rgba(34,24,16,.12) 100%),
-    repeating-linear-gradient(0deg, transparent 0 5px, rgba(72,55,35,.045) 6px 7px);
+    repeating-linear-gradient(178deg, rgba(255,255,255,.42) 0 1px, transparent 1px 4px),
+    linear-gradient(180deg, #eee8dc 0%, #d8d0c3 75%, #c8c0b4 100%);
+  clip-path: polygon(
+    0 26%, 1.5% 39%, 3% 22%, 4.5% 44%, 6% 30%, 7.5% 52%,
+    9% 27%, 10.5% 41%, 12% 24%, 13.5% 48%, 15% 29%, 16.5% 43%,
+    18% 21%, 19.5% 39%, 21% 28%, 22.5% 52%, 24% 31%, 25.5% 44%,
+    27% 23%, 28.5% 42%, 30% 28%, 31.5% 50%, 33% 24%, 34.5% 41%,
+    36% 29%, 37.5% 48%, 39% 23%, 40.5% 42%, 42% 27%, 43.5% 52%,
+    45% 29%, 46.5% 44%, 48% 22%, 49.5% 41%, 51% 27%, 52.5% 50%,
+    54% 24%, 55.5% 43%, 57% 28%, 58.5% 51%, 60% 23%, 61.5% 41%,
+    63% 29%, 64.5% 48%, 66% 24%, 67.5% 42%, 69% 27%, 70.5% 50%,
+    72% 23%, 73.5% 43%, 75% 28%, 76.5% 49%, 78% 24%, 79.5% 42%,
+    81% 29%, 82.5% 51%, 84% 23%, 85.5% 43%, 87% 28%, 88.5% 49%,
+    90% 24%, 91.5% 42%, 93% 28%, 94.5% 51%, 96% 24%, 97.5% 42%,
+    99% 28%, 100% 44%, 100% 100%, 0 100%
+  );
+  filter: drop-shadow(0 -2px 2px rgba(0,0,0,.4));
+}
+.section-burn-transition.is-covering {
+  animation: torn-sheet-cover .92s cubic-bezier(.72,0,.2,1) both;
+}
+.section-burn-transition.is-revealing {
+  animation: torn-sheet-reveal .92s cubic-bezier(.72,0,.2,1) both;
+}
+@keyframes torn-sheet-cover {
+  from { transform: translate3d(0, -102%, 0); }
+  to { transform: translate3d(0, 0, 0); }
+}
+@keyframes torn-sheet-reveal {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(0, -102%, 0); }
+}
+
+/* The open cover is no longer allowed to sit over the printed spread.
+   Its hinge finishes, then the cover is removed from the visual stack. */
+.opening-cover {
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.opening-paper.is-open .opening-cover {
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+.opening-paper.is-open .opening-leaf {
+  z-index: 4 !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+.opening-paper.is-open .opening-page-main,
+.opening-paper.is-open .opening-page-footer,
+.opening-paper.is-open .opening-page-running {
+  position: relative;
+  z-index: 2;
+}
+.opening-paper.is-open .opening-leaf::after {
+  z-index: 1;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -3063,13 +3014,7 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible{
     display: none !important;
     animation: none !important;
   }
-  .index-overlay,
-  .index-overlay.is-open {
-    transition: none !important;
-    clip-path: none !important;
-  }
-  .opening-stage {
-    transform: none !important;
-    transition: none !important;
+  .opening-paper.is-open .opening-cover {
+    display: none !important;
   }
 }
