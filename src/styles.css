@@ -2908,6 +2908,9 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible{
     radial-gradient(ellipse at 18% 14%, rgba(255,255,255,.42), transparent 36%),
     repeating-linear-gradient(0deg, rgba(67,52,34,.045) 0 1px, transparent 1px 4px),
     linear-gradient(135deg, #eee5d7, #d8cdbb);
+  -webkit-mask-image: none;
+  mask-image: none;
+  filter: none;
   clip-path: polygon(
     0 var(--burn-front),
     8% calc(var(--burn-front) - 1.4%),
