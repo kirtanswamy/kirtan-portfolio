@@ -252,7 +252,7 @@ function App() {
   const [activeProjectIndex, setActiveProjectIndex] = useState(0)
   const [activeLearningCategory, setActiveLearningCategory] = useState('ALL ENTRIES')
   const [sectionTransition, setSectionTransition] = useState(false)
-  const sectionTransitionTimer = useRef(null)
+  const sectionTransitionFrame = useRef(null)
   const projectShelfRef = useRef(null)
   const lenisRef = useRef(null)
   const shelfDragRef = useRef({ pointerId: null, startX: 0, scrollLeft: 0, dragged: false })
@@ -262,14 +262,18 @@ function App() {
       onReveal?.()
       return
     }
-    window.clearTimeout(sectionTransitionTimer.current)
+
+    if (sectionTransitionFrame.current !== null) {
+      window.cancelAnimationFrame(sectionTransitionFrame.current)
+    }
+
+    // Put the paper sheet on screen first, then change the page on the next
+    // paint. The sheet itself owns its lifetime through animationend.
     setSectionTransition(true)
-    // Hold the paper sheet over the old view, reveal the new view beneath it,
-    // then let the scorched opening expand until the sheet has burned away.
-    sectionTransitionTimer.current = window.setTimeout(() => {
+    sectionTransitionFrame.current = window.requestAnimationFrame(() => {
+      sectionTransitionFrame.current = null
       onReveal?.()
-      sectionTransitionTimer.current = window.setTimeout(() => setSectionTransition(false), 3200)
-    }, 420)
+    })
   }, [])
 
   const finishOpening = useCallback(() => {
@@ -287,7 +291,7 @@ function App() {
       document.getElementById('main-content')?.focus({ preventScroll: true })
       return undefined
     }
-    const exitTimer = window.setTimeout(finishOpening, 7600)
+    const exitTimer = window.setTimeout(finishOpening, 10000)
     return () => window.clearTimeout(exitTimer)
   }, [openingActive, finishOpening])
   useEffect(() => {
@@ -503,7 +507,11 @@ function App() {
     runPaperTransition(() => target.scrollIntoView({ behavior: 'auto', block: 'start' }))
   }
 
-  useEffect(() => () => window.clearTimeout(sectionTransitionTimer.current), [])
+  useEffect(() => () => {
+    if (sectionTransitionFrame.current !== null) {
+      window.cancelAnimationFrame(sectionTransitionFrame.current)
+    }
+  }, [])
 
   const moveProjectShelf = direction => {
     const shelf = projectShelfRef.current
@@ -625,7 +633,15 @@ function App() {
         </div>
         <span className="spiral-rail-foot">TURN / PAGE</span>
       </nav>
-      {sectionTransition && <div className="section-burn-transition" aria-hidden="true" />}
+      {sectionTransition && (
+        <div
+          className="section-burn-transition"
+          aria-hidden="true"
+          onAnimationEnd={event => {
+            if (event.target === event.currentTarget) setSectionTransition(false)
+          }}
+        />
+      )}
       <header className="masthead">
         <a className="masthead-brand" href="#top" aria-label="Kirtan Swamy home">
           <span className="brand-monogram">KS<span>®</span></span>

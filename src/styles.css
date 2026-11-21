@@ -2888,5 +2888,84 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible{
   .opening-cover-back strong{font-size:clamp(58px,16vw,100px)}
 }
 
-/* M15 — block accidental double-navigation while the burn sheet is in flight. */
-.section-burn-transition{pointer-events:auto}
+/* M16 — restore the original irregular page-burn, travelling down the sheet.
+   The paper is a full sheet with a ragged fire front, not a radial flash or iris. */
+@property --burn-front {
+  syntax: "<percentage>";
+  inherits: true;
+  initial-value: 0%;
+}
+.section-burn-transition {
+  --burn-front: 0%;
+  position: fixed;
+  inset: 0;
+  z-index: 260;
+  display: block;
+  pointer-events: none;
+  overflow: hidden;
+  color: var(--ink);
+  background:
+    radial-gradient(ellipse at 18% 14%, rgba(255,255,255,.42), transparent 36%),
+    repeating-linear-gradient(0deg, rgba(67,52,34,.045) 0 1px, transparent 1px 4px),
+    linear-gradient(135deg, #eee5d7, #d8cdbb);
+  clip-path: polygon(
+    0 var(--burn-front),
+    8% calc(var(--burn-front) - 1.4%),
+    17% calc(var(--burn-front) + .7%),
+    27% calc(var(--burn-front) - .9%),
+    38% calc(var(--burn-front) + 1.1%),
+    49% calc(var(--burn-front) - .55%),
+    61% calc(var(--burn-front) + 1.25%),
+    72% calc(var(--burn-front) - 1%),
+    83% calc(var(--burn-front) + .65%),
+    93% calc(var(--burn-front) - 1.2%),
+    100% var(--burn-front),
+    100% 100%,
+    0 100%
+  );
+  animation: burn-page-down 2.15s cubic-bezier(.32,.68,.18,1) both;
+  will-change: clip-path;
+}
+.section-burn-transition::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      180deg,
+      transparent 0,
+      transparent calc(var(--burn-front) - 1.6%),
+      rgba(47,29,19,.92) calc(var(--burn-front) - .9%),
+      rgba(128,52,26,.96) calc(var(--burn-front) - .35%),
+      rgba(231,105,45,.98) var(--burn-front),
+      rgba(255,190,105,.9) calc(var(--burn-front) + .45%),
+      rgba(255,226,171,.5) calc(var(--burn-front) + .9%),
+      transparent calc(var(--burn-front) + 2.1%)
+    ),
+    repeating-linear-gradient(90deg, transparent 0 11px, rgba(72,43,27,.08) 12px 13px);
+  filter: blur(2px) drop-shadow(0 0 8px rgba(220,91,39,.42));
+  mix-blend-mode: multiply;
+}
+.section-burn-transition::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(0deg, rgba(78,48,31,.055) 0 1px, transparent 1px 5px),
+    radial-gradient(ellipse at 50% 50%, transparent 30%, rgba(43,29,20,.08) 100%);
+  mix-blend-mode: multiply;
+  opacity: .55;
+}
+@keyframes burn-page-down {
+  0% { --burn-front: 0%; opacity: 1; }
+  10% { --burn-front: 3%; opacity: 1; }
+  100% { --burn-front: 110%; opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .section-burn-transition {
+    display: none !important;
+    animation: none !important;
+  }
+}

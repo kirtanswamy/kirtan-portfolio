@@ -12,7 +12,7 @@ test('the opening book reveals its printed inner spread', async ({ page }) => {
 
   const leftPage = page.locator('.opening-leaf-left')
   await expect(leftPage.getByText('A NOTE ON THE MAKER')).toBeVisible()
-  await expect(leftPage.getByText('KIRTAN')).toBeVisible()
+  await expect(leftPage.locator('#opening-title')).toContainText('KIRTAN')
 
   const printedPageIsOnTop = await leftPage.locator('.opening-page-main').evaluate(element => {
     const bounds = element.getBoundingClientRect()
