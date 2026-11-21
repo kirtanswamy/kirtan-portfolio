@@ -20,6 +20,10 @@ test('the opening book reveals its printed inner spread', async ({ page }) => {
     return Boolean(hit?.closest('.opening-leaf-left'))
   })
   expect(printedPageIsOnTop).toBe(true)
+
+  await page.mouse.move(120, 120)
+  const bookTilt = await page.locator('.opening-stage').evaluate(element => getComputedStyle(element).transform)
+  expect(bookTilt).not.toBe('none')
 })
 
 test('the page burn travels down the sheet and leaves controls clickable', async ({ page }) => {
@@ -45,7 +49,7 @@ test('the page burn travels down the sheet and leaves controls clickable', async
   expect(transitionStyle.maskImage).toBe('none')
   expect(transitionStyle.pointerEvents).toBe('none')
   expect(transitionStyle.animationName).toContain('burn-page-down')
-  expect(transitionStyle.animationDuration).toBe('3.8s')
+  expect(transitionStyle.animationDuration).toBe('4.6s')
 
   // Wait for the intro's page burn to finish before opening the INDEX.
   await expect(burn).toHaveCount(0, { timeout: 5000 })
