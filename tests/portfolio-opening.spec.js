@@ -9,6 +9,8 @@ test('the opening book reveals its printed inner spread', async ({ page }) => {
     const opening = element.getAnimations().find(animation => animation.animationName === 'opening-cover-hinge')
     if (opening) await opening.finished
   })
+  await expect(page.locator('.opening-paper')).toHaveClass(/is-open/)
+  await expect(cover).toBeHidden()
 
   const leftPage = page.locator('.opening-leaf-left')
   await expect(leftPage.getByText('A NOTE ON THE MAKER')).toBeVisible()
@@ -20,47 +22,48 @@ test('the opening book reveals its printed inner spread', async ({ page }) => {
     return Boolean(hit?.closest('.opening-leaf-left'))
   })
   expect(printedPageIsOnTop).toBe(true)
+  await expect(page.locator('.opening-leaf-right')).toContainText('BUSHO')
+  await expect(page.locator('.opening-leaf-right')).toContainText('VARSITY')
+  await expect(page.locator('.opening-leaf-right')).toContainText('ELECTROLAB')
 
   await page.mouse.move(120, 120)
   const bookTilt = await page.locator('.opening-stage').evaluate(element => getComputedStyle(element).transform)
   expect(bookTilt).not.toBe('none')
 })
 
-test('the page burn travels down the sheet and leaves controls clickable', async ({ page }) => {
+test('the shared torn-paper sheet covers and reveals every navigation state', async ({ page }) => {
   await page.goto('/')
   await page.getByRole('button', { name: /skip intro/i }).click()
 
-  await expect(page.locator('.newspaper-opening')).toHaveCount(0)
-  const burn = page.locator('.section-burn-transition')
-  await expect(burn).toBeVisible()
-
-  const transitionStyle = await burn.evaluate(element => {
+  const sheet = page.locator('.section-burn-transition')
+  await expect(sheet).toHaveClass(/is-covering/)
+  const coverStyle = await sheet.evaluate(element => {
     const style = getComputedStyle(element)
     return {
-      clipPath: style.clipPath,
-      maskImage: style.maskImage,
-      pointerEvents: style.pointerEvents,
       animationName: style.animationName,
       animationDuration: style.animationDuration,
+      backgroundColor: style.backgroundColor,
+      pointerEvents: style.pointerEvents,
+      clipPath: style.clipPath,
     }
   })
+  expect(coverStyle.animationName).toContain('torn-sheet-cover')
+  expect(coverStyle.animationDuration).toBe('0.92s')
+  expect(coverStyle.backgroundColor).toBe('rgb(32, 33, 29)')
+  expect(coverStyle.pointerEvents).toBe('none')
+  expect(coverStyle.clipPath).toContain('polygon')
 
-  expect(transitionStyle.clipPath).toContain('polygon')
-  expect(transitionStyle.maskImage).toBe('none')
-  expect(transitionStyle.pointerEvents).toBe('none')
-  expect(transitionStyle.animationName).toContain('burn-page-down')
-  expect(transitionStyle.animationDuration).toBe('4.6s')
+  // Content swaps while the dark sheet fully covers the viewport; the same
+  // sheet then lifts away to reveal the new state.
+  await expect(page.locator('.newspaper-opening')).toHaveCount(0, { timeout: 1800 })
+  await expect(sheet).toHaveClass(/is-revealing/)
+  const revealName = await sheet.evaluate(element => getComputedStyle(element).animationName)
+  expect(revealName).toContain('torn-sheet-reveal')
+  await expect(sheet).toHaveCount(0, { timeout: 1800 })
 
-  // Wait for the intro's page burn to finish before opening the INDEX.
-  await expect(burn).toHaveCount(0, { timeout: 5000 })
-  await page.locator('.masthead-index-prompt').click({ timeout: 1000 })
-  await expect(page.locator('.index-overlay')).toHaveClass(/is-open/, { timeout: 1000 })
-
-  const indexMotion = await page.locator('.index-overlay').evaluate(element => {
-    const style = getComputedStyle(element)
-    return { clipPath: style.clipPath, transitionDuration: style.transitionDuration }
-  })
-  expect(indexMotion.clipPath).toBe('none')
-  expect(indexMotion.transitionDuration).toBe('0s')
-  await expect(page.locator('.section-burn-transition')).toHaveCount(1)
+  await page.locator('.masthead-index-prompt').click()
+  await expect(sheet).toHaveClass(/is-covering/)
+  await expect(page.locator('.index-overlay')).toHaveClass(/is-open/, { timeout: 1800 })
+  await expect(sheet).toHaveClass(/is-revealing/)
+  await expect(sheet).toHaveCount(0, { timeout: 1800 })
 })
