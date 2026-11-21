@@ -37,6 +37,7 @@ test('the page burn travels down the sheet and leaves controls clickable', async
       maskImage: style.maskImage,
       pointerEvents: style.pointerEvents,
       animationName: style.animationName,
+      animationDuration: style.animationDuration,
     }
   })
 
@@ -44,7 +45,18 @@ test('the page burn travels down the sheet and leaves controls clickable', async
   expect(transitionStyle.maskImage).toBe('none')
   expect(transitionStyle.pointerEvents).toBe('none')
   expect(transitionStyle.animationName).toContain('burn-page-down')
+  expect(transitionStyle.animationDuration).toBe('3.8s')
 
+  // Wait for the intro's page burn to finish before opening the INDEX.
+  await expect(burn).toHaveCount(0, { timeout: 5000 })
   await page.locator('.masthead-index-prompt').click({ timeout: 1000 })
   await expect(page.locator('.index-overlay')).toHaveClass(/is-open/, { timeout: 1000 })
+
+  const indexMotion = await page.locator('.index-overlay').evaluate(element => {
+    const style = getComputedStyle(element)
+    return { clipPath: style.clipPath, transitionDuration: style.transitionDuration }
+  })
+  expect(indexMotion.clipPath).toBe('none')
+  expect(indexMotion.transitionDuration).toBe('0s')
+  await expect(page.locator('.section-burn-transition')).toHaveCount(1)
 })
