@@ -27,6 +27,7 @@ test('the opening book reveals its printed inner spread', async ({ page }) => {
   await expect(page.locator('.opening-leaf-right')).toContainText('ELECTROLAB')
 
   await page.mouse.move(120, 120)
+  await expect.poll(async () => page.locator('.newspaper-opening').evaluate(element => element.style.getPropertyValue('--book-tilt-x'))).not.toBe('')
   const bookTilt = await page.locator('.opening-stage').evaluate(element => getComputedStyle(element).transform)
   expect(bookTilt).not.toBe('none')
 })
