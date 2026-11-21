@@ -286,7 +286,7 @@ function App() {
       document.getElementById('main-content')?.focus({ preventScroll: true })
       return undefined
     }
-    const exitTimer = window.setTimeout(finishOpening, 3800)
+    const exitTimer = window.setTimeout(finishOpening, 7600)
     return () => window.clearTimeout(exitTimer)
   }, [finishOpening])
   useEffect(() => {
@@ -592,6 +592,7 @@ function App() {
             </div>
             <div className="opening-fold" />
             <div className="opening-cover">
+              <div className="opening-cover-back" aria-hidden="true"><span>THE MAKER'S NOTEBOOK</span><strong>KS<span>.</span></strong><i>FIELD EDITION / 001</i></div>
               <div className="cover-topline"><span>FIELD NOTES</span><span>NO. 001 / 2026</span></div>
               <div className="cover-art" aria-hidden="true">
                 <span className="cover-orbit cover-orbit-one" />
