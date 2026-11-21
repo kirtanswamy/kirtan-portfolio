@@ -2890,13 +2890,9 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible{
   .opening-cover-back strong{font-size:clamp(58px,16vw,100px)}
 }
 
-/* M16 — restore the original irregular page-burn, travelling down the sheet.
-   The paper is a full sheet with a ragged fire front, not a radial flash or iris. */
-@property --burn-front {
-  syntax: "<percentage>";
-  inherits: true;
-  initial-value: 0%;
-}
+/* M17 — one slow, irregular, top-to-bottom paper burn.
+   The INDEX no longer runs its own clip-path wipe: this sheet is the only
+   full-screen transition, and its fireline reveals the destination beneath. */
 .section-burn-transition {
   --burn-front: 0%;
   position: fixed;
@@ -2908,27 +2904,35 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible{
   color: var(--ink);
   background:
     radial-gradient(ellipse at 18% 14%, rgba(255,255,255,.42), transparent 36%),
-    repeating-linear-gradient(0deg, rgba(67,52,34,.045) 0 1px, transparent 1px 4px),
-    linear-gradient(135deg, #eee5d7, #d8cdbb);
+    repeating-linear-gradient(0deg, rgba(67,52,34,.055) 0 1px, transparent 1px 4px),
+    linear-gradient(135deg, #eee5d7 0%, #e6dac8 48%, #d8cbb8 100%);
   -webkit-mask-image: none;
   mask-image: none;
-  filter: none;
+  filter: drop-shadow(0 0 2px rgba(49,31,20,.38));
   clip-path: polygon(
-    0 var(--burn-front),
-    8% calc(var(--burn-front) - 1.4%),
-    17% calc(var(--burn-front) + .7%),
-    27% calc(var(--burn-front) - .9%),
-    38% calc(var(--burn-front) + 1.1%),
-    49% calc(var(--burn-front) - .55%),
-    61% calc(var(--burn-front) + 1.25%),
-    72% calc(var(--burn-front) - 1%),
-    83% calc(var(--burn-front) + .65%),
-    93% calc(var(--burn-front) - 1.2%),
-    100% var(--burn-front),
+    0 calc(var(--burn-front) + .5%),
+    4% calc(var(--burn-front) - 1.7%),
+    9% calc(var(--burn-front) + 1.4%),
+    14% calc(var(--burn-front) - 2.1%),
+    20% calc(var(--burn-front) + .9%),
+    26% calc(var(--burn-front) - 1.2%),
+    32% calc(var(--burn-front) + 2.2%),
+    38% calc(var(--burn-front) - 1.6%),
+    44% calc(var(--burn-front) + 1.1%),
+    50% calc(var(--burn-front) - 2.3%),
+    56% calc(var(--burn-front) + 1.7%),
+    62% calc(var(--burn-front) - 1.1%),
+    68% calc(var(--burn-front) + 2.1%),
+    74% calc(var(--burn-front) - 1.4%),
+    80% calc(var(--burn-front) + 1.2%),
+    86% calc(var(--burn-front) - 1.9%),
+    92% calc(var(--burn-front) + 1.5%),
+    97% calc(var(--burn-front) - 1.1%),
+    100% calc(var(--burn-front) + .4%),
     100% 100%,
     0 100%
   );
-  animation: burn-page-down 2.15s cubic-bezier(.32,.68,.18,1) both;
+  animation: burn-page-down 3.8s cubic-bezier(.38,.08,.22,1) both;
   will-change: clip-path;
 }
 .section-burn-transition::before {
@@ -2937,19 +2941,25 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible{
   inset: 0;
   pointer-events: none;
   background:
+    radial-gradient(ellipse 7% 2.6% at 9% var(--burn-front), rgba(255,218,143,.94) 0 15%, rgba(235,111,47,.92) 38%, transparent 78%),
+    radial-gradient(ellipse 8% 3% at 25% var(--burn-front), rgba(255,205,119,.9) 0 14%, rgba(198,70,31,.9) 40%, transparent 78%),
+    radial-gradient(ellipse 7% 2.7% at 42% var(--burn-front), rgba(255,218,143,.94) 0 15%, rgba(224,91,38,.92) 40%, transparent 78%),
+    radial-gradient(ellipse 9% 3% at 58% var(--burn-front), rgba(255,202,113,.9) 0 14%, rgba(190,66,30,.9) 40%, transparent 78%),
+    radial-gradient(ellipse 7% 2.7% at 75% var(--burn-front), rgba(255,218,143,.94) 0 15%, rgba(222,87,35,.92) 40%, transparent 78%),
+    radial-gradient(ellipse 8% 3% at 92% var(--burn-front), rgba(255,205,119,.9) 0 14%, rgba(198,70,31,.9) 40%, transparent 78%),
     linear-gradient(
       180deg,
       transparent 0,
-      transparent calc(var(--burn-front) - 1.6%),
-      rgba(47,29,19,.92) calc(var(--burn-front) - .9%),
-      rgba(128,52,26,.96) calc(var(--burn-front) - .35%),
-      rgba(231,105,45,.98) var(--burn-front),
-      rgba(255,190,105,.9) calc(var(--burn-front) + .45%),
-      rgba(255,226,171,.5) calc(var(--burn-front) + .9%),
-      transparent calc(var(--burn-front) + 2.1%)
+      transparent calc(var(--burn-front) - 2.5%),
+      rgba(35,23,17,.88) calc(var(--burn-front) - 1.1%),
+      rgba(105,43,24,.98) calc(var(--burn-front) - .35%),
+      rgba(226,91,37,.98) var(--burn-front),
+      rgba(255,190,105,.88) calc(var(--burn-front) + .55%),
+      rgba(255,226,171,.48) calc(var(--burn-front) + 1.2%),
+      transparent calc(var(--burn-front) + 2.8%)
     ),
-    repeating-linear-gradient(90deg, transparent 0 11px, rgba(72,43,27,.08) 12px 13px);
-  filter: blur(2px) drop-shadow(0 0 8px rgba(220,91,39,.42));
+    repeating-linear-gradient(90deg, transparent 0 13px, rgba(72,43,27,.1) 14px 15px);
+  filter: blur(1.8px) drop-shadow(0 0 10px rgba(220,91,39,.55));
   mix-blend-mode: multiply;
 }
 .section-burn-transition::after {
@@ -2958,19 +2968,50 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible{
   inset: 0;
   pointer-events: none;
   background:
-    repeating-linear-gradient(0deg, rgba(78,48,31,.055) 0 1px, transparent 1px 5px),
-    radial-gradient(ellipse at 50% 50%, transparent 30%, rgba(43,29,20,.08) 100%);
+    linear-gradient(
+      180deg,
+      transparent 0,
+      transparent calc(var(--burn-front) - 4%),
+      rgba(44,29,20,.1) calc(var(--burn-front) - 1.8%),
+      rgba(44,29,20,.25) calc(var(--burn-front) + .8%),
+      transparent calc(var(--burn-front) + 4%)
+    ),
+    repeating-linear-gradient(0deg, rgba(78,48,31,.07) 0 1px, transparent 1px 5px),
+    radial-gradient(ellipse at 50% 50%, transparent 30%, rgba(43,29,20,.09) 100%);
   mix-blend-mode: multiply;
-  opacity: .55;
+  opacity: .72;
 }
 @keyframes burn-page-down {
-  0% { --burn-front: 0%; opacity: 1; }
-  10% { --burn-front: 3%; opacity: 1; }
-  100% { --burn-front: 110%; opacity: 0; }
+  0% { --burn-front: 0%; }
+  8% { --burn-front: 1.5%; }
+  92% { --burn-front: 99%; }
+  100% { --burn-front: 112%; }
 }
+
+/* INDEX content appears underneath the burning sheet; it must not perform
+   a second top-down clip-path/shutter transition of its own. */
+.index-overlay,
+.index-overlay.is-open {
+  clip-path: none !important;
+  transition: none !important;
+}
+.index-overlay {
+  visibility: hidden;
+  opacity: 0;
+}
+.index-overlay.is-open {
+  visibility: visible;
+  opacity: 1;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .section-burn-transition {
     display: none !important;
     animation: none !important;
+  }
+  .index-overlay,
+  .index-overlay.is-open {
+    transition: none !important;
+    clip-path: none !important;
   }
 }
