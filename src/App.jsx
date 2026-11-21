@@ -257,21 +257,27 @@ function App() {
   const lenisRef = useRef(null)
   const shelfDragRef = useRef({ pointerId: null, startX: 0, scrollLeft: 0, dragged: false })
 
-  const finishOpening = useCallback(() => {
+  const runPaperTransition = useCallback((onReveal) => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      setOpeningActive(false)
-      document.getElementById('main-content')?.focus({ preventScroll: true })
+      onReveal?.()
       return
     }
     window.clearTimeout(sectionTransitionTimer.current)
     setSectionTransition(true)
-    // Let the scorched sheet cover the open book before removing the intro beneath it.
+    // Hold the paper sheet over the old view, reveal the new view beneath it,
+    // then let the scorched opening expand until the sheet has burned away.
     sectionTransitionTimer.current = window.setTimeout(() => {
-      setOpeningActive(false)
-      document.getElementById('main-content')?.focus({ preventScroll: true })
-      sectionTransitionTimer.current = window.setTimeout(() => setSectionTransition(false), 980)
+      onReveal?.()
+      sectionTransitionTimer.current = window.setTimeout(() => setSectionTransition(false), 1480)
     }, 420)
   }, [])
+
+  const finishOpening = useCallback(() => {
+    runPaperTransition(() => {
+      setOpeningActive(false)
+      document.getElementById('main-content')?.focus({ preventScroll: true })
+    })
+  }, [runPaperTransition])
 
   useEffect(() => {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -450,7 +456,7 @@ function App() {
     const onKeyDown = event => {
       if (event.key === 'Escape') {
         event.preventDefault()
-        setMenuOpen(false)
+        document.querySelector('.index-overlay-top button')?.click()
         return
       }
       if (event.key !== 'Tab' || !first || !last) return
@@ -485,23 +491,15 @@ function App() {
     return () => observer.disconnect()
   }, [])
 
-  const closeMenu = () => setMenuOpen(false)
+  const openMenu = () => runPaperTransition(() => setMenuOpen(true))
+  const closeMenu = () => runPaperTransition(() => setMenuOpen(false))
 
   const navigateToSection = (href, event) => {
     if (event) event.preventDefault()
-    closeMenu()
     const target = document.querySelector(href)
     if (!target) return
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      target.scrollIntoView({ behavior: 'auto', block: 'start' })
-      return
-    }
-    window.clearTimeout(sectionTransitionTimer.current)
-    setSectionTransition(true)
-    sectionTransitionTimer.current = window.setTimeout(() => {
-      target.scrollIntoView({ behavior: 'auto', block: 'start' })
-      sectionTransitionTimer.current = window.setTimeout(() => setSectionTransition(false), 1000)
-    }, 420)
+    setMenuOpen(false)
+    runPaperTransition(() => target.scrollIntoView({ behavior: 'auto', block: 'start' }))
   }
 
   useEffect(() => () => window.clearTimeout(sectionTransitionTimer.current), [])
@@ -613,10 +611,10 @@ function App() {
         </a>
         <div className="masthead-center"><span className="live-dot" /> INDEPENDENT MIND. COLLABORATIVE SPIRIT.</div>
         <div className="masthead-meta"><span>HYDERABAD, INDIA</span><span>VOL. 01 — 2026</span></div>
-        <button type="button" className="menu-button" onClick={() => setMenuOpen(!menuOpen)} aria-controls="mobile-navigation" aria-expanded={menuOpen} aria-label={menuOpen ? 'Close navigation' : 'Open navigation'}>
+        <button type="button" className="menu-button" onClick={menuOpen ? closeMenu : openMenu} aria-controls="mobile-navigation" aria-expanded={menuOpen} aria-label={menuOpen ? 'Close navigation' : 'Open navigation'}>
           {menuOpen ? <X /> : <Menu />}
         </button>
-        <button type="button" className="masthead-index-prompt" onClick={() => setMenuOpen(true)} aria-controls="mobile-navigation" aria-expanded={menuOpen}><span className="index-prompt-number">08</span><span className="index-prompt-copy"><small>THE NOTEBOOK</small><strong>OPEN INDEX</strong></span><i>↗</i></button>
+        <button type="button" className="masthead-index-prompt" onClick={openMenu} aria-controls="mobile-navigation" aria-expanded={menuOpen}><span className="index-prompt-number">08</span><span className="index-prompt-copy"><small>THE NOTEBOOK</small><strong>OPEN INDEX</strong></span><i>↗</i></button>
       </header>
 
       <nav id="mobile-navigation" className={`mobile-nav index-overlay ${menuOpen ? 'is-open' : ''}`} aria-label="Global index" aria-hidden={!menuOpen} inert={!menuOpen}>
