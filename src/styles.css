@@ -2887,3 +2887,6 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible{
   .opening-cover-back{padding:7%}
   .opening-cover-back strong{font-size:clamp(58px,16vw,100px)}
 }
+
+/* M15 — block accidental double-navigation while the burn sheet is in flight. */
+.section-burn-transition{pointer-events:auto}
