@@ -3026,6 +3026,13 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible{
 .opening-paper.is-open .opening-leaf::after {
   z-index: 1;
 }
+.opening-stage {
+  transform-style: preserve-3d;
+  transform: rotateX(var(--book-tilt-y, 0deg)) rotateY(var(--book-tilt-x, 0deg));
+  transform-origin: 50% 50%;
+  transition: transform 180ms cubic-bezier(.2,.7,.2,1);
+  will-change: transform;
+}
 
 @media (prefers-reduced-motion: reduce) {
   .section-burn-transition {
