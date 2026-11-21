@@ -251,8 +251,8 @@ function App() {
   const [activeProject, setActiveProject] = useState(null)
   const [activeProjectIndex, setActiveProjectIndex] = useState(0)
   const [activeLearningCategory, setActiveLearningCategory] = useState('ALL ENTRIES')
-  const [sectionTransition, setSectionTransition] = useState(false)
-  const sectionTransitionFrame = useRef(null)
+  const [sectionTransition, setSectionTransition] = useState(null)
+  const sectionTransitionAction = useRef(null)
   const sectionTransitionLock = useRef(false)
   const projectShelfRef = useRef(null)
   const lenisRef = useRef(null)
@@ -264,17 +264,29 @@ function App() {
       return
     }
 
-    // A single physical page-burn owns navigation until its animation ends.
-    // Ignore repeat clicks so the same action cannot queue a second reveal.
+    // The torn sheet first covers the old page. Only when it reaches the
+    // bottom do we swap content; it then lifts away to reveal the new page.
     if (sectionTransitionLock.current) return
     sectionTransitionLock.current = true
-
-    setSectionTransition(true)
-    sectionTransitionFrame.current = window.requestAnimationFrame(() => {
-      sectionTransitionFrame.current = null
-      onReveal?.()
-    })
+    sectionTransitionAction.current = onReveal
+    setSectionTransition('covering')
   }, [])
+
+  const handlePaperTransitionEnd = event => {
+    if (event.target !== event.currentTarget) return
+
+    if (sectionTransition === 'covering') {
+      sectionTransitionAction.current?.()
+      sectionTransitionAction.current = null
+      setSectionTransition('revealing')
+      return
+    }
+
+    if (sectionTransition === 'revealing') {
+      setSectionTransition(null)
+      sectionTransitionLock.current = false
+    }
+  }
 
   const finishOpening = useCallback(() => {
     runPaperTransition(() => {
@@ -513,15 +525,11 @@ function App() {
     if (event) event.preventDefault()
     const target = document.querySelector(href)
     if (!target) return
-    setMenuOpen(false)
-    runPaperTransition(() => target.scrollIntoView({ behavior: 'auto', block: 'start' }))
+    runPaperTransition(() => {
+      setMenuOpen(false)
+      target.scrollIntoView({ behavior: 'auto', block: 'start' })
+    })
   }
-
-  useEffect(() => () => {
-    if (sectionTransitionFrame.current !== null) {
-      window.cancelAnimationFrame(sectionTransitionFrame.current)
-    }
-  }, [])
 
   const moveProjectShelf = direction => {
     const shelf = projectShelfRef.current
@@ -610,7 +618,14 @@ function App() {
               <i className="opening-page-footer"><b>02</b><span>ENGINEERING / DESIGN / IDEAS</span><span>VOL. 01</span></i>
             </div>
             <div className="opening-fold" />
-            <div className="opening-cover">
+            <div
+              className="opening-cover"
+              onAnimationEnd={event => {
+                if (event.animationName === 'opening-cover-hinge') {
+                  event.currentTarget.closest('.opening-paper')?.classList.add('is-open')
+                }
+              }}
+            >
               <div className="opening-cover-back" aria-hidden="true"><span>THE MAKER'S NOTEBOOK</span><strong>KS<span>.</span></strong><i>FIELD EDITION / 001</i></div>
               <div className="cover-topline"><span>FIELD NOTES</span><span>NO. 001 / 2026</span></div>
               <div className="cover-art" aria-hidden="true">
@@ -645,14 +660,9 @@ function App() {
       </nav>
       {sectionTransition && (
         <div
-          className="section-burn-transition"
+          className={`section-burn-transition is-${sectionTransition}`}
           aria-hidden="true"
-          onAnimationEnd={event => {
-            if (event.target === event.currentTarget) {
-              setSectionTransition(false)
-              sectionTransitionLock.current = false
-            }
-          }}
+          onAnimationEnd={handlePaperTransitionEnd}
         />
       )}
       <header className="masthead">
