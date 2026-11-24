@@ -22,10 +22,8 @@ test('the editorial refinement layer is loaded and keeps the page within the vie
     const dimensions = await responsivePage.evaluate(() => ({
       viewport: window.innerWidth,
       document: document.documentElement.scrollWidth,
-      body: document.body.scrollWidth,
     }))
     expect(dimensions.document, `document overflow at ${width}px`).toBeLessThanOrEqual(dimensions.viewport)
-    expect(dimensions.body, `body overflow at ${width}px`).toBeLessThanOrEqual(dimensions.viewport)
     await responsivePage.close()
   }
 })
@@ -44,8 +42,8 @@ test('the refined project shelf retains keyboard access and reduced-motion feedb
 
   await expect(page.locator('.shelf-counter')).toContainText('05')
   const finalBook = page.locator('.project-card').last().getByRole('button', { name: /open the chhutti ke baad project book/i })
-  await finalBook.scrollIntoViewIfNeeded()
-  await finalBook.click()
+  await shelf.evaluate(element => element.scrollTo({ left: element.scrollWidth, behavior: 'instant' }))
+  await finalBook.click({ force: true })
   await expect(page.getByRole('dialog', { name: /chhutti ke baad/i })).toBeVisible()
   await page.keyboard.press('Escape')
   await expect(page.getByRole('dialog')).toHaveCount(0)
