@@ -1,0 +1,111 @@
+/* Hero portrait: graphite study mounted on a torn notebook leaf. */
+.hero-lower .notebook-portrait {
+  position: relative;
+  align-self: center;
+  width: min(100%, 470px);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  transform: rotate(-1.25deg);
+  isolation: isolate;
+}
+.hero-lower .notebook-portrait::before {
+  content: "FIELD STUDY / 01";
+  position: absolute;
+  z-index: 3;
+  top: 8%;
+  right: -2.5%;
+  color: #8c8170;
+  font: 8px var(--mono);
+  letter-spacing: .12em;
+  transform: rotate(90deg) translateX(100%);
+  transform-origin: right top;
+  pointer-events: none;
+}
+.hero-lower .notebook-portrait .notebook-portrait-art {
+  height: auto;
+  aspect-ratio: 638 / 672;
+  margin: 0;
+  overflow: visible;
+  background: transparent;
+  isolation: isolate;
+  filter: drop-shadow(9px 13px 9px rgba(0,0,0,.24));
+}
+.hero-lower .notebook-portrait .notebook-portrait-art::before,
+.hero-lower .notebook-portrait .notebook-portrait-art::after {
+  display: none;
+}
+.notebook-paper-back {
+  position: absolute;
+  z-index: -1;
+  inset: 4% -2% -1% 3%;
+  background:
+    repeating-linear-gradient(8deg, transparent 0 22px, rgba(86,72,53,.045) 23px 24px),
+    #c9b99e;
+  clip-path: polygon(3% 1%, 94% 0, 100% 8%, 98% 96%, 93% 100%, 2% 97%, 0 8%);
+  transform: rotate(2.2deg) translate(5px, 8px);
+  box-shadow: 0 8px 20px rgba(0,0,0,.18);
+}
+.notebook-sketch {
+  display: block;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 638 / 672;
+  object-fit: contain;
+  background: transparent;
+  filter: contrast(1.035) saturate(.82);
+  user-select: none;
+  -webkit-user-drag: none;
+}
+.notebook-pencil-note {
+  position: absolute;
+  z-index: 2;
+  right: 7%;
+  top: 17%;
+  color: #bd4c3b;
+  font: italic 10px var(--serif);
+  letter-spacing: .06em;
+  transform: rotate(8deg);
+  opacity: .9;
+  pointer-events: none;
+}
+.notebook-margin-mark {
+  position: absolute;
+  z-index: 2;
+  left: 4%;
+  bottom: 8%;
+  color: rgba(62,55,45,.68);
+  font: 7px var(--mono);
+  letter-spacing: .12em;
+  transform: rotate(-90deg);
+  transform-origin: left bottom;
+  pointer-events: none;
+}
+.notebook-caption {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: -1px;
+  color: rgba(226,218,202,.62);
+  font: 7px var(--mono);
+  letter-spacing: .08em;
+}
+.hero-lower .notebook-portrait:hover {
+  transform: rotate(-.2deg) translateY(-3px);
+}
+@media (max-width: 950px) {
+  .hero-lower .notebook-portrait { width: min(100%, 440px); }
+}
+@media (max-width: 600px) {
+  .hero-lower .notebook-portrait {
+    width: min(88%, 390px);
+    justify-self: center;
+  }
+  .notebook-caption { font-size: 6px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-lower .notebook-portrait { transform: none; }
+}
