@@ -14,10 +14,11 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: feature/editorial-world-rebuild
-      - name: Download high-resolution approved portrait
+      - name: Download the original high-resolution portrait from main
         run: |
+          mkdir -p public/images
           curl --fail --location --silent --show-error \
-            'https://media.canva.com/v2/image-resize/format:WEBP/height:1356/quality:95/uri:ifs%3A%2F%2FM%2Fef590dd1-a48e-4230-817c-18d50a19b48c/watermark:F/width:1159?csig=AAAAAAAAAAAAAAAAAAAAAPvmscg6UZjJP2wJG0PkSTE4YLP7kDpoXB33pmi4QtkE&exp=1795537134&osig=AAAAAAAAAAAAAAAAAAAAALRqj6sF5i0UoJCeJtohLu5I9GasRh8Pd6zRWYiGkCav&signer=media-rpc&token=AAIAAU0AJGVmNTkwZGQxLWE0OGUtNDIzMC04MTdjLTE4ZDUwYTE5YjQ4YwAAAAABog5aYbDqds2HU12176qdZ8wMRSopbK3-Jint5OSXA0sFoUDI4A&x-canva-quality=thumbnail' \
+            'https://raw.githubusercontent.com/kirtanswamy/kirtan-portfolio/main/public/kirtan-graphite-sketch-final.webp' \
             -o public/images/kirtan-notebook-portrait.webp
           file public/images/kirtan-notebook-portrait.webp
           python - <<'PY'
@@ -26,9 +27,9 @@ jobs:
           im = Image.open(p)
           assert im.format == "WEBP", im.format
           assert im.width >= 1000 and im.height >= 1200, im.size
-          print("Verified portrait dimensions:", im.size)
+          print("Verified original portrait dimensions:", im.size)
           PY
-      - name: Commit portrait asset
+      - name: Commit portrait asset to feature branch
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
