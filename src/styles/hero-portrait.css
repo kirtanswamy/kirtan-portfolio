@@ -14,7 +14,7 @@
 .hero-feature-title em{color:var(--hero-pink);font-style:normal}.hero-feature-title .headline-period{color:var(--hero-pink)}
 .hero-feature-rule{width:76px;height:4px;margin:clamp(26px,3.3vw,44px) 0 22px;background:var(--hero-pink);border-radius:3px}
 .hero-portrait-layout .hero-deck{display:block;max-width:490px}
-.hero-portrait-layout .hero-deck p{margin:0;max-width:39ch;color:var(--hero-muted);font:400 clamp(15px,1.25vw,18px)/1.7 var(--sans);letter-spacing:.005em}
+.hero-portrait-layout .hero-deck p{margin:0;max-width:39ch;color:var(--hero-muted);font:400 clamp(15px,1.25vw,18px)/1.7 'DM Sans',sans-serif;letter-spacing:.005em}
 .hero-portrait-layout .hero-deck p em{color:var(--hero-ink);font-style:normal}
 .hero-portrait-layout .read-link{display:inline-flex;align-items:center;gap:10px;margin-top:28px;padding-bottom:9px;border-bottom:1px solid rgba(241,238,232,.48);color:var(--hero-ink);font:8px/1.4 var(--mono);letter-spacing:.13em;transition:gap .25s ease,color .25s ease,border-color .25s ease}
 .hero-portrait-layout .read-link svg{color:var(--hero-pink)}.hero-portrait-layout .read-link:hover{gap:16px;color:var(--hero-pink);border-color:var(--hero-pink)}
