@@ -42,8 +42,9 @@ test('the refined project shelf retains keyboard access and reduced-motion feedb
 
   await expect(page.locator('.shelf-counter')).toContainText('05')
   const finalBook = page.locator('.project-card').last().getByRole('button', { name: /open the chhutti ke baad project book/i })
+  await shelf.evaluate(element => element.scrollIntoView({ block: 'center' }))
   await shelf.evaluate(element => element.scrollTo({ left: element.scrollWidth, behavior: 'instant' }))
-  await finalBook.click({ force: true })
+  await finalBook.click()
   await expect(page.getByRole('dialog', { name: /chhutti ke baad/i })).toBeVisible()
   await page.keyboard.press('Escape')
   await expect(page.getByRole('dialog')).toHaveCount(0)
