@@ -3,6 +3,7 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Lenis from 'lenis'
 import PaperShader from './components/PaperShader.jsx'
+import './styles/notebook-portrait.css'
 import {
   ArrowDown, ArrowDownRight, ArrowLeft, ArrowRight, ArrowUpRight, Asterisk,
   ArrowUp, ExternalLink, Code2, Menu, MoveUpRight, X,
@@ -712,20 +713,29 @@ function App() {
         <div className="hero-lower">
           <div className="hero-deck">
             <span className="drop-cap">I</span>
-            <p>I'm an engineering student and creative builder exploring the space between <em>technology, design and people.</em> I like turning questions into prototypes—and prototypes into things that matter.</p>
+            <p>I'm an engineering student and a technologist at heart—turning <em>curiosity into prototypes</em>, and prototypes into <em>meaningful solutions.</em></p>
             <a href="#story" className="read-link">READ MY STORY <ArrowDownRight size={16} /></a>
           </div>
-          <figure className="portrait-frame" aria-label="Portrait of Kirtan Swamy">
-            <div className="portrait-art">
+          <figure className="portrait-frame notebook-portrait" aria-label="Graphite notebook portrait of Kirtan Swamy">
+            <div className="portrait-art notebook-portrait-art">
+              <span className="notebook-tape" aria-hidden="true" />
+              <span className="notebook-paper-back" aria-hidden="true" />
               <img
-                className="portrait-photo"
-                src="/images/kirtan-portrait.webp"
-                alt="Kirtan Swamy smiling at a mountain viewpoint, wearing a light pink shirt"
+                className="notebook-sketch"
+                src="/images/kirtan-notebook-portrait.webp"
+                alt="A hand-drawn graphite pencil portrait of Kirtan Swamy on a worn, torn notebook page"
                 fetchPriority="high"
                 decoding="async"
+                width="638"
+                height="672"
               />
-              <span className="portrait-photo-mark" aria-hidden="true"><i /><i /></span>
+              <span className="notebook-pencil-note" aria-hidden="true">STUDY NO. 01</span>
+              <span className="notebook-margin-mark" aria-hidden="true">IDEA → FORM</span>
             </div>
+            <figcaption className="notebook-caption">
+              <span>FIG. 01 — A WORK IN PROGRESS</span>
+              <span>GRAPHITE / PAPER / 2026</span>
+            </figcaption>
           </figure>
           <div className="hero-aside">
             <span className="aside-index">01 / 08</span>
