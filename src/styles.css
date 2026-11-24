@@ -3024,3 +3024,63 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible{
     display: none !important;
   }
 }
+
+/* Portrait replacement: preserve the original notebook hero layout and replace only its illustrated card. */
+.hero-lower .portrait-frame {
+  position: relative;
+  overflow: hidden;
+  padding: 10px;
+  background: var(--paper2);
+  border: 1px solid rgba(36,36,31,.28);
+  box-shadow: 8px 9px 0 rgba(36,36,31,.09);
+  transform: rotate(1.5deg);
+}
+.hero-lower .portrait-art {
+  position: relative;
+  height: clamp(260px, 27vw, 390px);
+  margin: 0;
+  overflow: hidden;
+  isolation: isolate;
+  background: #8fa9c7;
+}
+.hero-lower .portrait-art::before,
+.hero-lower .portrait-art::after { display: none; }
+.hero-lower .portrait-photo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 24%;
+  filter: saturate(.96) contrast(1.02);
+}
+.hero-lower .portrait-photo-mark {
+  position: absolute;
+  z-index: 2;
+  right: 14px;
+  bottom: 14px;
+  width: 22px;
+  height: 22px;
+  display: block;
+  border: 1px solid rgba(255,255,255,.8);
+  border-radius: 50%;
+  background: rgba(20,32,48,.18);
+  backdrop-filter: blur(4px);
+}
+.hero-lower .portrait-photo-mark i {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  display: block;
+  width: 10px;
+  height: 1px;
+  background: rgba(255,255,255,.92);
+  transform: translate(-50%,-50%);
+}
+.hero-lower .portrait-photo-mark i + i { transform: translate(-50%,-50%) rotate(90deg); }
+@media (max-width: 950px) {
+  .hero-lower .portrait-art { height: clamp(240px, 36vw, 340px); }
+}
+@media (max-width: 600px) {
+  .hero-lower .portrait-frame { width: 82%; }
+  .hero-lower .portrait-art { height: clamp(270px, 78vw, 360px); }
+}
