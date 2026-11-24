@@ -234,3 +234,11 @@ button:focus-visible, a:focus-visible, [tabindex="0"]:focus-visible {
   }
   .project-art-button::after { display: none; }
 }
+
+/* Keep the intentional full-bleed hero inside the viewport at tablet/mobile widths. */
+@media (max-width: 950px) {
+  .hero { width: auto; margin-inline: -25px; }
+}
+@media (max-width: 600px) {
+  .hero { width: auto; margin-inline: -16px; }
+}
