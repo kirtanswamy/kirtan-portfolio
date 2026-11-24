@@ -71,3 +71,70 @@
 @media (prefers-reduced-motion: reduce) {
   .portrait-frame { transform: none; }
 }
+
+
+/* Notebook portrait: let the torn sketch page sit directly on the charcoal canvas.
+   The image already contains its own paper; remove the redundant mounted-card treatment. */
+.hero-lower .notebook-portrait,
+.hero-lower .notebook-portrait.portrait-frame {
+  width: min(100%, 500px);
+  padding: 0 !important;
+  margin: 0;
+  border: 0 !important;
+  outline: 0;
+  background: transparent !important;
+  box-shadow: none !important;
+  transform: rotate(-1deg);
+  isolation: isolate;
+  overflow: visible !important;
+}
+.hero-lower .notebook-portrait::before {
+  display: none !important;
+}
+.hero-lower .notebook-portrait .notebook-portrait-art,
+.hero-lower .notebook-portrait .portrait-art {
+  width: 100%;
+  height: auto !important;
+  min-height: 0;
+  aspect-ratio: auto;
+  margin: 0 !important;
+  padding: 0;
+  overflow: visible !important;
+  background: transparent !important;
+  border: 0;
+  box-shadow: none;
+  filter: none;
+}
+.hero-lower .notebook-portrait .notebook-paper-back {
+  display: none !important;
+}
+.hero-lower .notebook-portrait .notebook-sketch {
+  display: block;
+  position: relative;
+  width: 100%;
+  height: auto !important;
+  max-width: 100%;
+  aspect-ratio: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 13px 15px rgba(0,0,0,.16)) contrast(1.025) saturate(.84);
+}
+.hero-lower .notebook-portrait .notebook-caption {
+  display: none;
+}
+.hero-lower .notebook-portrait .notebook-pencil-note,
+.hero-lower .notebook-portrait .notebook-margin-mark {
+  pointer-events: none;
+}
+@media (max-width: 950px) {
+  .hero-lower .notebook-portrait { width: min(100%, 460px); }
+}
+@media (max-width: 600px) {
+  .hero-lower .notebook-portrait {
+    width: min(88%, 390px);
+    justify-self: center;
+    margin-inline: auto;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-lower .notebook-portrait { transform: none; }
+}
