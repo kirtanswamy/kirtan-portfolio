@@ -785,7 +785,8 @@ function App() {
             drag.startX = event.clientX
             drag.scrollLeft = event.currentTarget.scrollLeft
             drag.dragged = false
-            event.currentTarget.setPointerCapture(event.pointerId)
+            const captureTarget = event.target instanceof Element ? event.target.closest('.project-art-button') : null
+            ;(captureTarget || event.currentTarget).setPointerCapture(event.pointerId)
           }}
           onPointerMove={event => {
             const drag = shelfDragRef.current
