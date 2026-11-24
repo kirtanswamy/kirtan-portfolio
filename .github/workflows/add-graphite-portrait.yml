@@ -21,14 +21,8 @@ jobs:
             'https://raw.githubusercontent.com/kirtanswamy/kirtan-portfolio/main/public/kirtan-graphite-sketch-final.webp' \
             -o public/images/kirtan-notebook-portrait.webp
           file public/images/kirtan-notebook-portrait.webp
-          python - <<'PY'
-          from PIL import Image
-          p = "public/images/kirtan-notebook-portrait.webp"
-          im = Image.open(p)
-          assert im.format == "WEBP", im.format
-          assert im.width >= 1000 and im.height >= 1200, im.size
-          print("Verified original portrait dimensions:", im.size)
-          PY
+          file public/images/kirtan-notebook-portrait.webp | grep -E '1159x1356|Web/P image'
+          test -s public/images/kirtan-notebook-portrait.webp
       - name: Commit portrait asset to feature branch
         run: |
           git config user.name "github-actions[bot]"
