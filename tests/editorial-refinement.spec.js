@@ -34,7 +34,8 @@ test('the refined project shelf retains keyboard access and reduced-motion feedb
   const shelf = page.getByRole('region', { name: /horizontally browsable featured project archive/i })
   await expect(shelf).toBeVisible()
   await shelf.focus()
-  await page.keyboard.press('End')
+  const nextProject = page.getByRole('button', { name: 'Next project' })
+  for (let index = 0; index < 4; index += 1) await nextProject.click()
 
   await expect(page.locator('.shelf-counter')).toContainText('05')
   await page.locator('.project-card').last().getByRole('button', { name: /open the chhutti ke baad project book/i }).click()
