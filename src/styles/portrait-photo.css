@@ -1,0 +1,73 @@
+/* Portrait replacement only — preserve the original hero and page composition. */
+.portrait-frame {
+  padding: 10px;
+  background: #e9e2d3;
+  border: 1px solid rgba(36,36,31,.38);
+  box-shadow: 9px 10px 0 rgba(0,0,0,.16), 0 18px 45px rgba(0,0,0,.12);
+  transform: rotate(1.25deg);
+}
+.portrait-frame .portrait-art {
+  position: relative;
+  height: clamp(280px, 29vw, 410px);
+  margin: 0;
+  overflow: hidden;
+  isolation: isolate;
+  background: #8ba8c7;
+}
+.portrait-frame .portrait-art::before {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  pointer-events: none;
+  opacity: 1;
+  background: linear-gradient(180deg, rgba(18,29,43,.02) 42%, rgba(18,29,43,.18) 100%);
+}
+.portrait-frame .portrait-art::after {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  inset: 8px;
+  border: 1px solid rgba(255,255,255,.24);
+  background: none;
+  pointer-events: none;
+}
+.portrait-photo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 23%;
+  filter: saturate(.94) contrast(1.02);
+}
+.portrait-photo-mark {
+  position: absolute;
+  z-index: 3;
+  right: 15px;
+  bottom: 15px;
+  width: 23px;
+  height: 23px;
+  border: 1px solid rgba(255,255,255,.78);
+  border-radius: 50%;
+  opacity: .9;
+}
+.portrait-photo-mark i {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 9px;
+  height: 1px;
+  background: rgba(255,255,255,.92);
+  transform: translate(-50%,-50%);
+}
+.portrait-photo-mark i + i { transform: translate(-50%,-50%) rotate(90deg); }
+@media (max-width: 900px) {
+  .portrait-frame .portrait-art { height: clamp(260px, 40vw, 370px); }
+}
+@media (max-width: 600px) {
+  .portrait-frame { max-width: 430px; margin-inline: auto; }
+  .portrait-frame .portrait-art { height: clamp(300px, 92vw, 430px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .portrait-frame { transform: none; }
+}
