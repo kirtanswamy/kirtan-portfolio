@@ -1,0 +1,236 @@
+/* Editorial refinement layer — art direction and interaction polish.
+   Kept separate from the legacy site sheet so future tuning stays intentional. */
+:root {
+  --editorial-refinement-ready: 1;
+  --editorial-ease-out: cubic-bezier(.2,.78,.22,1);
+  --editorial-ease-in-out: cubic-bezier(.76,0,.18,1);
+  --editorial-hairline: color-mix(in srgb, var(--ink) 17%, transparent);
+  --editorial-lift: 0 18px 42px rgba(36,36,31,.12);
+}
+
+html { scroll-padding-top: 104px; }
+body { text-rendering: optimizeLegibility; }
+::selection { background: var(--blue); color: #fff; }
+
+.masthead {
+  border-bottom-color: var(--editorial-hairline);
+  transition: border-color .3s ease;
+}
+.masthead-brand,
+.masthead-index-prompt,
+.menu-button,
+.desktop-nav a {
+  -webkit-tap-highlight-color: transparent;
+}
+.masthead-index-prompt {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.masthead-index-prompt::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--ink);
+  transform: translateY(102%);
+  transition: transform .38s var(--editorial-ease-out);
+}
+.masthead-index-prompt:hover::before,
+.masthead-index-prompt:focus-visible::before { transform: translateY(0); }
+.masthead-index-prompt:hover i,
+.masthead-index-prompt:focus-visible i { color: var(--acid); }
+
+.hero-headline h1 {
+  text-wrap: balance;
+  font-kerning: normal;
+}
+.hero-headline .headline-row {
+  will-change: transform;
+}
+.hero-edition-mark {
+  transition: color .35s ease;
+}
+.portrait-frame {
+  box-shadow: 5px 6px 0 rgba(36,36,31,.055), 13px 16px 34px rgba(36,36,31,.09);
+  transition: transform .7s var(--editorial-ease-out), box-shadow .7s var(--editorial-ease-out);
+}
+.portrait-frame:hover {
+  box-shadow: 9px 12px 0 rgba(36,36,31,.07), 20px 26px 48px rgba(36,36,31,.14);
+}
+.portrait-art {
+  background-image: linear-gradient(145deg,rgba(255,255,255,.14),transparent 52%);
+}
+.portrait-art::after {
+  opacity: .72;
+}
+.hero-deck p {
+  text-wrap: pretty;
+}
+.read-link {
+  position: relative;
+  border-bottom-color: var(--editorial-hairline);
+  transition: color .25s ease, border-color .25s ease, gap .25s var(--editorial-ease-out);
+}
+.read-link:hover { gap: 13px; color: var(--blue); border-color: var(--blue); }
+.read-link svg { transition: transform .25s var(--editorial-ease-out); }
+.read-link:hover svg { transform: translate(3px,3px); }
+
+.ticker { position: relative; }
+.ticker-track { animation-duration: 42s; }
+.ticker:hover .ticker-track { animation-play-state: paused; }
+
+.section-index { border-bottom: 1px solid var(--editorial-hairline); padding-bottom: 12px; }
+.section-heading h2,
+.about-heading h2,
+.manifesto h2,
+.learning-intro h2,
+.skills-heading h2,
+.contact-copy h2 {
+  text-wrap: balance;
+}
+.manifesto-content,
+.about-copy,
+.field-note-copy,
+.learning-intro {
+  text-wrap: pretty;
+}
+.manifesto-stamp,
+.contact-stamp,
+.field-note-seal {
+  transition: transform .7s var(--editorial-ease-out);
+}
+.manifesto-stamp:hover { transform: rotate(4deg) scale(1.04); }
+.contact-stamp:hover { transform: rotate(-5deg) scale(1.04); }
+.field-note-seal:hover { transform: rotate(8deg); }
+
+.project-index-bar { align-items: center; }
+.project-filters { border-color: var(--editorial-hairline); }
+.project-filters button {
+  border-radius: 2px;
+  transition: color .28s ease, background .28s ease, border-color .28s ease, transform .28s var(--editorial-ease-out);
+}
+.project-filters button:active { transform: translateY(1px); }
+.projects-shelf {
+  scroll-behavior: smooth;
+  scroll-padding-inline: 4px;
+  scrollbar-gutter: stable;
+}
+.project-card { transform-origin: 50% 60%; }
+.project-art-button {
+  --book-rotate-x: 0deg;
+  --book-rotate-y: 0deg;
+  transform: perspective(1100px) rotateX(var(--book-rotate-x)) rotateY(var(--book-rotate-y)) translateZ(0);
+  backface-visibility: hidden;
+  transition: transform .48s var(--editorial-ease-out), box-shadow .48s var(--editorial-ease-out), filter .48s ease;
+}
+.project-art-button::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  opacity: .0;
+  background: radial-gradient(420px circle at var(--book-light-x,50%) var(--book-light-y,45%),rgba(255,255,255,.22),transparent 58%);
+  transition: opacity .4s ease;
+}
+.project-art-button:hover::after,
+.project-art-button:focus-visible::after { opacity: 1; }
+.project-art-button .project-art-arrow {
+  transition: transform .42s var(--editorial-ease-out), background .28s ease, color .28s ease;
+}
+.project-art-button:hover .project-art-arrow,
+.project-art-button:focus-visible .project-art-arrow { transform: rotate(45deg) translateY(-2px); }
+.project-art-name { transition: transform .5s var(--editorial-ease-out), letter-spacing .5s var(--editorial-ease-out); }
+.project-art-button:hover .project-art-name,
+.project-art-button:focus-visible .project-art-name { transform: translateY(-3px); letter-spacing: -.075em; }
+.project-title-line { border-bottom-color: var(--editorial-hairline); }
+.project-title-line h3 { text-wrap: balance; }
+.project-read-more { transition: color .25s ease, border-color .25s ease, gap .25s var(--editorial-ease-out); }
+.project-read-more:hover { gap: 14px; }
+.project-read-more svg { transition: transform .25s var(--editorial-ease-out); }
+.project-read-more:hover svg { transform: translate(2px,-2px); }
+
+.project-dialog-backdrop { backdrop-filter: blur(12px) saturate(.8); }
+.project-dialog { box-shadow: 0 28px 90px rgba(0,0,0,.28); }
+.project-dialog-top button { transition: transform .25s var(--editorial-ease-out), background .25s ease; }
+.project-dialog-top button:hover { transform: rotate(90deg); }
+
+.practice-step,
+.recognition-card,
+.recognition-feature,
+.learning-card,
+.journey-item {
+  transition: transform .42s var(--editorial-ease-out), box-shadow .42s var(--editorial-ease-out), border-color .3s ease, background-color .3s ease;
+}
+.practice-step:hover,
+.recognition-card:hover,
+.learning-card:hover { transform: translateY(-5px); box-shadow: var(--editorial-lift); }
+.recognition-feature:hover { transform: translateY(-4px); }
+.journey-item:hover { transform: translateX(5px); }
+.skill-group>div span { transition: color .25s ease, background .25s ease, border-color .25s ease, transform .25s var(--editorial-ease-out); }
+.skill-group>div span:hover { transform: translateY(-2px); border-color: var(--acid); }
+
+button, a { touch-action: manipulation; }
+button:focus-visible, a:focus-visible, [tabindex="0"]:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 4px;
+}
+.project-art-button:focus-visible { outline-offset: -7px; }
+.shelf-controls button:active,
+.menu-button:active,
+.masthead-index-prompt:active { transform: scale(.97); }
+
+@media (min-width: 951px) {
+  .hero { padding-top: 44px; }
+  .hero-headline { padding-top: clamp(46px,5vw,78px); }
+  .hero-lower { gap: clamp(38px,5vw,88px); }
+  .projects-shelf { grid-auto-columns: calc((100% - 44px)/2); }
+  .project-card { padding-bottom: 4px; }
+}
+@media (max-width: 950px) {
+  .masthead-index-prompt { min-height: 42px; }
+  .hero-lower { align-items: center; }
+  .portrait-frame { max-width: 460px; }
+  .projects-shelf { scroll-padding-inline: 2px; }
+}
+@media (max-width: 600px) {
+  .hero-headline { padding-top: 48px; }
+  .hero-headline h1 { line-height: .79; }
+  .hero-lower { gap: 28px; }
+  .portrait-frame { width: min(86%,430px); }
+  .project-art-button { min-height: 270px; }
+  .project-art-button .project-art-note { max-width: 42%; }
+  .project-filters { overflow-x: auto; flex-wrap: nowrap; scrollbar-width: none; }
+  .project-filters::-webkit-scrollbar { display: none; }
+  .project-filters button { flex: 0 0 auto; white-space: nowrap; }
+  .projects-shelf { scroll-snap-type: x mandatory; }
+  .projects-shelf .project-card { scroll-snap-align: center; }
+  .journey-item:hover { transform: none; }
+}
+@media (hover: none), (pointer: coarse) {
+  .project-art-button::after { display: none; }
+  .portrait-frame:hover,
+  .practice-step:hover,
+  .recognition-card:hover,
+  .learning-card:hover { transform: none; box-shadow: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ticker-track { animation: none !important; }
+  .project-art-button,
+  .project-card,
+  .portrait-frame,
+  .project-art-name,
+  .practice-step,
+  .recognition-card,
+  .recognition-feature,
+  .learning-card,
+  .journey-item,
+  .manifesto-stamp,
+  .contact-stamp,
+  .field-note-seal {
+    transition: none !important;
+    transform: none !important;
+  }
+  .project-art-button::after { display: none; }
+}
