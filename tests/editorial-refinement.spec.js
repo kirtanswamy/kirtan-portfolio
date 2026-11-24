@@ -4,7 +4,7 @@ test('the editorial refinement layer is loaded and keeps the page within the vie
   await page.emulateMedia({ reducedMotion: 'reduce' })
   await page.setViewportSize({ width: 1440, height: 900 })
   await page.goto('/')
-  await page.getByRole('button', { name: /skip intro/i }).click()
+  await expect(page.locator('.newspaper-opening')).toHaveCount(0, { timeout: 3000 })
 
   await expect(page.locator('.hero')).toBeVisible()
   await expect(page.locator('.projects-shelf .project-card')).toHaveCount(5)
@@ -29,7 +29,7 @@ test('the editorial refinement layer is loaded and keeps the page within the vie
 test('the refined project shelf retains keyboard access and reduced-motion feedback', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' })
   await page.goto('/')
-  await page.getByRole('button', { name: /skip intro/i }).click()
+  await expect(page.locator('.newspaper-opening')).toHaveCount(0, { timeout: 3000 })
 
   const shelf = page.getByRole('region', { name: /horizontally browsable featured project archive/i })
   await expect(shelf).toBeVisible()
