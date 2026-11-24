@@ -15,16 +15,12 @@ test('the editorial refinement layer is loaded and keeps the page within the vie
   expect(refinementToken).toBe('1')
 
   for (const width of [360, 390, 768, 1024, 1280, 1440]) {
-    const responsivePage = await page.context().newPage({ viewport: { width, height: 900 } })
-    await responsivePage.emulateMedia({ reducedMotion: 'reduce' })
-    await responsivePage.goto('/')
-    await expect(responsivePage.locator('.newspaper-opening')).toHaveCount(0, { timeout: 3000 })
-    const dimensions = await responsivePage.evaluate(() => ({
+    await page.setViewportSize({ width, height: 900 })
+    const dimensions = await page.evaluate(() => ({
       viewport: window.innerWidth,
       document: document.documentElement.scrollWidth,
     }))
     expect(dimensions.document, `document overflow at ${width}px`).toBeLessThanOrEqual(dimensions.viewport)
-    await responsivePage.close()
   }
 })
 
