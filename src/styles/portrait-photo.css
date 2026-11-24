@@ -159,3 +159,23 @@
   mix-blend-mode: multiply;
   filter: drop-shadow(0 15px 15px rgba(0,0,0,.2)) contrast(1.04) saturate(.86);
 }
+
+
+/* Match the reference: the paper itself is the artwork, not a print mounted on white stock.
+   Trim the thin white scan margin with a soft irregular silhouette and keep the charcoal canvas visible. */
+.hero-lower .notebook-portrait .notebook-sketch {
+  clip-path: polygon(
+    2.8% 1.7%, 8% 1.2%, 16% 1.8%, 24% 1.1%, 33% 1.7%, 43% 1.1%,
+    54% 1.6%, 64% 1.1%, 74% 1.7%, 84% 1.2%, 93% 1.7%, 97.1% 3.1%,
+    98.2% 8%, 97.5% 17%, 98.3% 27%, 97.6% 38%, 98.2% 49%,
+    97.5% 60%, 98.1% 70%, 97.4% 81%, 98% 91%, 96.3% 96.8%,
+    91% 98.2%, 82% 97.5%, 72% 98.3%, 61% 97.5%, 50% 98.2%,
+    39% 97.6%, 28% 98.3%, 17% 97.5%, 7% 98.1%, 3% 96.4%,
+    1.7% 91%, 2.4% 82%, 1.6% 72%, 2.3% 62%, 1.6% 52%,
+    2.3% 42%, 1.6% 32%, 2.3% 22%, 1.7% 12%
+  );
+}
+.hero-lower .notebook-portrait .notebook-pencil-note,
+.hero-lower .notebook-portrait .notebook-margin-mark {
+  display: none !important;
+}
