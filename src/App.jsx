@@ -694,45 +694,32 @@ function App() {
         <div className="index-overlay-bottom"><span>AN OPEN NOTEBOOK · HYDERABAD, INDIA</span><span>TURN THE PAGE / FIND THE WORK</span></div>
       </nav>
 
-      <section className="hero" id="main-content" tabIndex={-1} aria-labelledby="hero-title">
+      <section className="hero hero-portrait-layout" id="main-content" tabIndex={-1} aria-labelledby="hero-title">
         <div className="hero-overline">
-          <Eyebrow>ENGINEERING / DESIGN / IDEAS</Eyebrow>
-          <span className="edition-label">A WORK IN PROGRESS — ALWAYS</span>
-          <span className="issue-date">FIELD EDITION / 2026</span>
+          <span className="hero-notebook-mark">THE MAKER'S NOTEBOOK</span>
+          <span className="edition-label">PERSONAL EDITION</span>
+          <span className="issue-date">VOL. 01 / 2026</span>
         </div>
-        <div className="hero-headline">
-          <div className="headline-kicker"><span>THE MAKER'S</span><span className="headline-rule" /><span>NOTEBOOK</span></div>
-          <h1 id="hero-title">
-            <span className="headline-row">KIRTAN</span>
-            <span className="headline-row headline-second">SWAMY<span className="headline-period">.</span><span className="hero-starburst"><Asterisk /></span></span>
-          </h1>
-          <div className="hero-bottomline"><span>CURIOUS BY NATURE.</span><span>BUILT BY TRYING.</span><span>GROUNDED IN PURPOSE.</span></div>
-          <div className="hero-edition-mark" aria-hidden="true"><span>INDEPENDENT MAKER'S EDITION</span><strong>KS<span>®</span></strong><i>VOL. 01 / 2026</i></div>
-        </div>
-        <div className="hero-lower">
-          <div className="hero-deck">
-            <span className="drop-cap">I</span>
-            <p>I'm an engineering student and creative builder exploring the space between <em>technology, design and people.</em> I like turning questions into prototypes—and prototypes into things that matter.</p>
-            <a href="#story" className="read-link">READ MY STORY <ArrowDownRight size={16} /></a>
-          </div>
-          <div className="portrait-frame" aria-label="Temporary abstract newspaper-style maker character illustration; personal portrait version will be created later">
-            <div className="portrait-top"><span>THE MAKER, IN PRINT</span><span>FIG. 001</span></div>
-            <div className="portrait-art" aria-hidden="true">
-              <div className="portrait-sun" />
-              <div className="portrait-arch" />
-              <div className="portrait-lines" aria-hidden="true"><i /><i /><i /><i /><i /><i /></div>
-              <div className="portrait-orbit orbit-one" />
-              <div className="portrait-orbit orbit-two" />
-              <div className="portrait-star">✳</div>
-              <span className="portrait-coordinates">17°23' N<br />78°29' E</span>
+        <div className="hero-feature">
+          <div className="hero-feature-copy">
+            <div className="headline-kicker"><span>A PERSONAL PORTFOLIO</span><span className="headline-rule" /></div>
+            <h1 id="hero-title" className="hero-feature-title">
+              <span className="headline-row">Building</span>
+              <span className="headline-row">Products <em>&amp;</em></span>
+              <span className="headline-row">Systems<span className="headline-period">.</span></span>
+            </h1>
+            <div className="hero-feature-rule" aria-hidden="true" />
+            <div className="hero-deck">
+              <p>I build useful digital products and thoughtful systems at the intersection of <em>technology, design and people.</em></p>
+              <a href="#work" className="read-link">EXPLORE SELECTED WORK <ArrowDownRight size={16} /></a>
             </div>
-            <div className="portrait-caption"><span>AN ORIGINAL ILLUSTRATED IDENTITY</span><span>PERSONAL CHARACTER TO COME ↗</span></div>
           </div>
-          <div className="hero-aside">
-            <span className="aside-index">01 / 08</span>
-            <p>NOT A FINISHED STORY.<br />A RECORD OF WHAT I'M<br />LEARNING TO MAKE.</p>
-            <a href="#work" className="round-arrow" aria-label="Explore selected work"><ArrowDown /></a><span className="hero-scroll-note">SCROLL TO EXPLORE <i>↓</i></span>
-          </div>
+          <figure className="portrait-frame" aria-label="Portrait of Kirtan Swamy in a pink shirt, photographed outdoors">
+            <div className="portrait-art">
+              <img className="hero-portrait-image" src="/images/kirtan-portrait.webp" alt="Kirtan Swamy smiling in a pink shirt against a mountain landscape" fetchPriority="high" decoding="async" />
+              <span className="portrait-image-index" aria-hidden="true">KS / 01</span>
+            </div>
+          </figure>
         </div>
       </section>
 
