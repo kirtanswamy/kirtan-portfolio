@@ -265,11 +265,33 @@ function VinylPlayer() {
           {vinylTracks.map((item, index) => <button type="button" key={item.title} className={activeTrack === index ? 'is-active' : ''} onClick={() => setActiveTrack(index)} aria-pressed={activeTrack === index}><span>0{index + 1}</span><strong>{item.title}</strong><i>{item.subtitle}</i><b>↗</b></button>)}
         </div>
       </div>
-      <div className={`turntable ${playing ? 'is-spinning' : ''}`}>
+      <div className={`turntable ${playing ? 'is-spinning' : ''}`} data-track={activeTrack}>
         <div className="turntable-topline"><span>KS / PERSONAL PRESSING</span><span>33⅓ RPM</span></div>
         <div className="turntable-platter"><div className="vinyl-record"><div className="vinyl-grooves" /><div className="vinyl-label"><span>KS</span><i>THE MAKER’S NOTEBOOK</i><b>0{activeTrack + 1}</b></div><span className="vinyl-spindle" /></div></div>
-        <div className="turntable-tonearm" aria-hidden="true"><span className="tonearm-pivot"/><span className="tonearm-stick"/><span className="tonearm-head"/></div>
-        <div className="turntable-controls"><span className="turntable-status"><i />{playing ? 'RECORD IN MOTION' : 'RECORD AT REST'}</span><button type="button" className="vinyl-power" onClick={() => setPlaying(value => !value)} aria-pressed={playing}><span>{playing ? 'Ⅱ' : '▶'}</span>{playing ? 'PAUSE' : 'SPIN RECORD'}</button></div>
+        <svg className="turntable-tonearm" viewBox="0 0 320 360" aria-hidden="true" focusable="false">
+          <g className="tonearm-moving">
+            <circle className="tonearm-base" cx="285" cy="38" r="29" />
+            <circle className="tonearm-pivot" cx="285" cy="38" r="16" />
+            <circle className="tonearm-pin" cx="285" cy="38" r="4" />
+            <path className="tonearm-shadow" d="M285 52 C282 112 254 151 224 198 S151 288 105 318" />
+            <path className="tonearm-shaft" d="M285 52 C282 112 254 151 224 198 S151 288 105 318" />
+            <path className="tonearm-highlight" d="M282 55 C279 112 251 151 221 198 S148 288 102 315" />
+            <g className="tonearm-cartridge" transform="translate(105 318) rotate(35)">
+              <rect x="-19" y="-8" width="39" height="17" rx="3" />
+              <path d="M-9 9 L-3 19 L4 9" />
+              <circle cx="11" cy="0" r="2" />
+            </g>
+            <path className="tonearm-stylus" d="M102 330 L99 340" />
+          </g>
+        </svg>
+        <div className="turntable-controls">
+          <span className="turntable-status"><i />{playing ? 'RECORD IN MOTION' : 'RECORD AT REST'}</span>
+          <div className="turntable-actions">
+            <button type="button" className="vinyl-skip" aria-label="Previous track" onClick={() => setActiveTrack(index => (index + vinylTracks.length - 1) % vinylTracks.length)}>↶</button>
+            <button type="button" className="vinyl-power" onClick={() => setPlaying(value => !value)} aria-pressed={playing} aria-label={playing ? 'Pause record' : 'Spin record'}><span>{playing ? 'Ⅱ' : '▶'}</span></button>
+            <button type="button" className="vinyl-skip" aria-label="Next track" onClick={() => setActiveTrack(index => (index + 1) % vinylTracks.length)}>↷</button>
+          </div>
+        </div>
         <div className="turntable-foot"><span>FIELD RECORDING / NO. 001</span><span>MADE TO BE EXPLORED</span></div>
       </div>
     </div>
