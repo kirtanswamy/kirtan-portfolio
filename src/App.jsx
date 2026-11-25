@@ -981,51 +981,21 @@ function App() {
 
       <section className="journey-section section-pad" id="journey">
         <div className="section-index reveal"><Eyebrow>05 — THE JOURNEY</Eyebrow><span>EDUCATION / COMMUNITY / PRACTICE</span></div>
-        <div className="section-heading section-title">
-          <h2><span className="title-mask"><span>IN THE</span></span><span className="title-mask"><span>MAKING<span className="blue-period">.</span></span></span></h2>
-          <p>Four markers so far.<br/>The line keeps moving.</p>
+        <div className="journey-editorial-head">
+          <div className="journey-editorial-title"><span className="journey-notebook-label">THE MAKER’S NOTEBOOK <i/></span><h2>IN THE<br/><em>MAKING.</em></h2></div>
+          <div className="journey-map-art"><span className="journey-map-caption">THE JOURNEY <i/></span><svg viewBox="0 0 650 260" role="img" aria-label="Hand-drawn mountains, winding route and compass rose">
+            <g fill="none" stroke="#766b5a" strokeOpacity=".42" strokeWidth="1"><path d="M18 174Q90 115 155 165T295 153T430 165T635 112M4 194Q90 136 160 184T300 174T438 184T655 130M15 214Q100 157 170 204T310 195T450 205T650 152M95 80 158 25 206 77 238 44 304 106 352 70 400 120m-285-41 43-54 34 47m25 9 21-37 42 62m31-5 41-31 45 48"/></g>
+            <path d="M34 145C125 116 138 205 236 171S332 80 430 113s88 84 180-33" fill="none" stroke="#34342e" strokeWidth="2" strokeDasharray="7 9"/><path d="m596 58 19 19m0-19-19 19" stroke="#bd5b3c" strokeWidth="4"/>
+            <g transform="translate(515 150)" fill="none" stroke="#645b4d" strokeWidth="2"><circle r="72"/><circle r="62" strokeDasharray="2 5"/><circle r="7"/><path d="M0-65 13-8 0 0-13-8Z" fill="#b8a98f"/><path d="M0 65-13 8 0 0 13 8Z" fill="#e4d8c4"/><path d="M-78 0h156M0-78v156" strokeWidth="1"/></g>
+            <g fill="#645b4d" fontFamily="Georgia,serif" fontStyle="italic" fontSize="18"><text x="510" y="64">N</text><text x="600" y="154">E</text><text x="505" y="246">S</text><text x="423" y="154">W</text></g></svg><span className="journey-map-clip">✳</span></div>
+          <p className="journey-editorial-deck">A few chapters so far.<br/>More are still being written.</p>
         </div>
-        <div className="journey-route" aria-label="Four chapters in Kirtan's journey">
-          <svg className="journey-route-line" viewBox="0 0 1200 180" preserveAspectRatio="none" aria-hidden="true">
-            <path className="journey-route-track" d="M28 88 C135 20 190 20 292 88 S450 156 570 88 S760 20 870 88 S1050 156 1172 76" />
-            <path className="journey-route-progress" d="M28 88 C135 20 190 20 292 88 S450 156 570 88 S760 20 870 88 S1050 156 1172 76" />
-          </svg>
-          <article className="journey-stop reveal">
-            <div className="journey-stop-pin"><span>01</span><Cpu size={17}/></div>
-            <div className="journey-ticket">
-              <div className="journey-ticket-top"><span>CHAPTER 01 / STUDY</span><b>PRESENT</b></div>
-              <h3>SRMIST <em>/ ECE</em></h3>
-              <p>Studying Electronics & Communication Engineering, exploring the space between circuits, computing and software.</p>
-              <div className="journey-ticket-foot"><span>FOUNDATIONS</span><span>CHENNAI, INDIA</span></div>
-            </div>
-          </article>
-          <article className="journey-stop reveal">
-            <div className="journey-stop-pin"><span>02</span><Compass size={17}/></div>
-            <div className="journey-ticket">
-              <div className="journey-ticket-top"><span>CHAPTER 02 / REPRESENT</span><b>2026</b></div>
-              <h3>VIKSIT BHARAT</h3>
-              <p>Selected for the Chhattisgarh state contingent; represented Balod district at the Young Leaders Dialogue in New Delhi.</p>
-              <div className="journey-ticket-foot"><span>STATE CONTINGENT</span><span>NEW DELHI</span></div>
-            </div>
-          </article>
-          <article className="journey-stop reveal">
-            <div className="journey-stop-pin"><span>03</span><Layers3 size={17}/></div>
-            <div className="journey-ticket">
-              <div className="journey-ticket-top"><span>CHAPTER 03 / LEAD</span><b>CAMPUS</b></div>
-              <h3>SQAC <em>/ MINEVERSE</em></h3>
-              <p>App Development Lead at SRMIST’s Software Quality Assurance Club; contributing to student-led technical events.</p>
-              <div className="journey-ticket-foot"><span>APP DEVELOPMENT</span><span>COMMUNITY</span></div>
-            </div>
-          </article>
-          <article className="journey-stop reveal">
-            <div className="journey-stop-pin"><span>04</span><Sparkles size={17}/></div>
-            <div className="journey-ticket">
-              <div className="journey-ticket-top"><span>CHAPTER 04 / BUILD</span><b>ONGOING</b></div>
-              <h3>MAKING THINGS</h3>
-              <p>Building BUSHO, Varsity and ElectroLab while exploring research, product design and practical engineering.</p>
-              <div className="journey-ticket-foot"><span>INDEPENDENT BUILDS</span><span>STILL IN PROGRESS</span></div>
-            </div>
-          </article>
+        <div className="journey-scrapbook" aria-label="Four illustrated milestones">
+          <svg className="journey-scrapbook-route" viewBox="0 0 1200 180" preserveAspectRatio="none" aria-hidden="true"><path d="M18 75C125 18 180 18 292 75S460 142 570 75 760 18 870 75s190 67 310-10"/></svg>
+          <article className="journey-memory reveal"><div className="journey-memory-art campus-sketch"><svg viewBox="0 0 300 170"><g fill="none" stroke="#514b40" strokeWidth="2"><path d="M18 142h264M35 140V67l42-24 42 24v73M118 140V52h145v88M104 52l87-34 84 34M35 68h84M118 80h145M132 94h18v24h-18zm37 0h18v24h-18zm37 0h18v24h-18zM48 86h17v24H48zm34 0h17v24H82z"/></g><path d="M28 147h250" stroke="#b65a3c" strokeWidth="3"/></svg><span>FIELD NOTE / 001</span></div><span className="journey-date-stamp">2023 —<br/>PRESENT</span><span className="journey-memory-pin"/><div className="journey-memory-copy"><span>01 / FOUNDATIONS</span><h3>SRMIST <em>/ ECE</em></h3><p>Current engineering studies, exploring electronics, computing and the systems that connect them.</p><small>CHENNAI · INDIA</small></div></article>
+          <article className="journey-memory reveal"><div className="journey-memory-art delhi-sketch"><svg viewBox="0 0 260 170"><g fill="none" stroke="#625747" strokeWidth="2"><path d="M18 145h224M38 145v-10h184v10M55 135V90h150v45M70 90q60-72 120 0M85 90q45-50 90 0M98 90v45m64-45v45M112 95v50m36-50v50M78 112h104M80 125h100"/></g></svg><span>NEW DELHI / 2026</span></div><span className="journey-postmark">VIKSIT<br/>BHARAT<br/><b>2026</b></span><span className="journey-memory-pin"/><div className="journey-memory-copy"><span>02 / REPRESENTATION</span><h3>VIKSIT BHARAT<br/><em>YOUNG LEADERS DIALOGUE</em></h3><p>Selected for the Chhattisgarh state contingent; represented Balod district in New Delhi.</p><small>CHHATTISGARH · BALOD</small></div></article>
+          <article className="journey-memory reveal"><div className="journey-memory-art journey-paper-tag"><span className="tag-hole"/><strong>SQAC</strong><small>APP DEVELOPMENT</small><i>SRMIST / 01</i></div><span className="journey-memory-pin"/><div className="journey-memory-copy"><span>03 / LEADERSHIP</span><h3>SQAC <em>/ APP DEVELOPMENT</em></h3><p>App Development Lead at the Software Quality Assurance Club, contributing to student-led technical work.</p><small>STUDENT CLUB · SRMIST</small></div></article>
+          <article className="journey-memory reveal"><div className="journey-memory-art journey-paper-tag journey-busho-tag"><span className="tag-hole"/><strong>BUSHO</strong><small>HEALTHCARE<br/>WORKFLOWS</small><i>IN PROGRESS / 01</i></div><span className="journey-memory-pin"/><div className="journey-memory-copy"><span>04 / MAKING</span><h3>BUILDING <em>USEFUL THINGS</em></h3><p>Developing BUSHO, Varsity and ElectroLab while exploring research and product design.</p><small>INDEPENDENT BUILDS · ONGOING</small></div></article>
         </div>
         <div className="journey-colophon"><span>NOT A STRAIGHT LINE. A SERIES OF USEFUL TURNS.</span><span>05 / 08</span></div>
       </section>
