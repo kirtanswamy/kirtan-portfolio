@@ -244,6 +244,38 @@ function ProjectCard({ project, index, onOpen }) {
   )
 }
 
+const vinylTracks = [
+  { title: 'ENGINEERING', subtitle: 'Circuits · code · systems', detail: 'I like understanding how things work beneath the surface—from diode behaviour to the systems that connect an application.', file: 'ELECTROLAB' },
+  { title: 'PRODUCT THINKING', subtitle: 'Problems · flows · usefulness', detail: 'Start with the people and context. Shape the workflow before polishing the interface.', file: 'BUSHO / VARSITY' },
+  { title: 'VISUAL DESIGN', subtitle: 'Interfaces · interaction · story', detail: 'Make complex ideas feel clear, tactile and enjoyable to explore.', file: 'THE MAKER’S NOTEBOOK' },
+  { title: 'PUBLIC IMPACT', subtitle: 'People · access · everyday systems', detail: 'Explore where thoughtful technology can make everyday systems more understandable and useful.', file: 'JANSEVA ONE · CONCEPT' },
+]
+function VinylPlayer() {
+  const [playing, setPlaying] = useState(false)
+  const [activeTrack, setActiveTrack] = useState(0)
+  const track = vinylTracks[activeTrack]
+  return (
+    <div className="vinyl-experience">
+      <div className="vinyl-copy">
+        <span className="vinyl-kicker">SIDE A / THE THINGS THAT MOVE ME</span>
+        <h3>FOUR INTERESTS.<br/><em>ONE RECORD.</em></h3>
+        <p aria-live="polite">{track.detail}</p>
+        <span className="vinyl-file">CONNECTED FILE / {track.file}</span>
+        <div className="vinyl-track-list" role="group" aria-label="Choose a record track">
+          {vinylTracks.map((item, index) => <button type="button" key={item.title} className={activeTrack === index ? 'is-active' : ''} onClick={() => setActiveTrack(index)} aria-pressed={activeTrack === index}><span>0{index + 1}</span><strong>{item.title}</strong><i>{item.subtitle}</i><b>↗</b></button>)}
+        </div>
+      </div>
+      <div className={`turntable ${playing ? 'is-spinning' : ''}`}>
+        <div className="turntable-topline"><span>KS / PERSONAL PRESSING</span><span>33⅓ RPM</span></div>
+        <div className="turntable-platter"><div className="vinyl-record"><div className="vinyl-grooves" /><div className="vinyl-label"><span>KS</span><i>THE MAKER’S NOTEBOOK</i><b>0{activeTrack + 1}</b></div><span className="vinyl-spindle" /></div></div>
+        <div className="turntable-tonearm" aria-hidden="true"><span className="tonearm-pivot"/><span className="tonearm-stick"/><span className="tonearm-head"/></div>
+        <div className="turntable-controls"><span className="turntable-status"><i />{playing ? 'RECORD IN MOTION' : 'RECORD AT REST'}</span><button type="button" className="vinyl-power" onClick={() => setPlaying(value => !value)} aria-pressed={playing}><span>{playing ? 'Ⅱ' : '▶'}</span>{playing ? 'PAUSE' : 'SPIN RECORD'}</button></div>
+        <div className="turntable-foot"><span>FIELD RECORDING / NO. 001</span><span>MADE TO BE EXPLORED</span></div>
+      </div>
+    </div>
+  )
+}
+
 function App() {
   const [openingActive, setOpeningActive] = useState(true)
   const [menuOpen, setMenuOpen] = useState(false)
@@ -848,7 +880,7 @@ function App() {
 
       <section className="recognition-section section-pad" id="recognition">
         <div className="section-index reveal"><Eyebrow>03 — MILESTONES / PEOPLE / PLATFORMS</Eyebrow><span>SELECTED RECORD / 2026</span></div>
-        <div className="recognition-heading"><h2>NOT JUST<br/><em>THE WORK.</em></h2><p>Some milestones happen outside the code editor. They come from showing up, representing an idea, working with people and taking responsibility.</p></div>
+        <div className="recognition-heading"><h2>NOT JUST<br/><em>THE WORK.</em></h2><p>A few moments beyond the screen that shaped how I work.</p></div>
         <div className="recognition-grid">
           <article className="recognition-feature reveal"><span>01 / NATIONAL DIALOGUE</span><strong>VIKSIT<br/>BHARAT.</strong><p>Selected for the Chhattisgarh state contingent at the Viksit Bharat Young Leaders Dialogue 2026; represented Balod district in New Delhi.</p><b>STATE CONTINGENT / REPRESENTATION</b><i>VB</i></article>
           <article className="recognition-card reveal"><span>02 / STUDENT LEADERSHIP</span><strong>SQAC</strong><p>Core App Development member and App Development Lead at the Software Quality Assurance Club, SRMIST.</p><b>APP DEVELOPMENT / TEAM LEADERSHIP</b></article>
@@ -909,45 +941,18 @@ function App() {
           </div>
         </div>
         <div className="about-north-star reveal">
-          <span>THE THING THAT KEEPS ME BUILDING</span>
-          <p>I love the moment a difficult problem starts becoming <em>something useful.</em></p>
-          <small>CODE IS THE TOOL. PROGRESS IS THE FEELING. IMPACT IS THE POINT.</small>
+          <span>THE REASON I KEEP MAKING</span>
+          <p>Make difficult things feel <em>more useful.</em></p>
+          <small>QUESTION / BUILD / LEARN / REPEAT</small>
         </div>
         <div className="about-facts reveal">
           <div><span>01 / CURRENT CHAPTER</span><strong>ECE UNDERGRADUATE</strong><small>SRMIST</small></div>
           <div><span>02 / NATURAL HABIT</span><strong>LEARN BY BUILDING</strong><small>PROTOTYPE · TEST · REFINE</small></div>
           <div><span>03 / BIG INTEREST</span><strong>TECH WITH PURPOSE</strong><small>PRODUCT · PEOPLE · IMPACT</small></div>
         </div>
-        <div className="about-turning-point reveal">
-          <div className="turning-point-label"><Eyebrow>THE PART THAT CHANGED ME</Eyebrow><span>NOT A STRAIGHT LINE / FIELD NOTE 002</span></div>
-          <blockquote>“That chapter didn't go to plan. It still wasn't the end of the story.”</blockquote>
-          <div className="turning-point-copy"><p>The JEE setback became a reset, not a definition. SRM became the next chapter; Viksit Bharat, SQAC and BUSHO became places to test what I could do with the opportunity in front of me.</p><span>KEEP MOVING. KEEP MAKING.</span></div>
-        </div>
-        <div className="build-evolution reveal">
-          <div className="build-evolution-head"><Eyebrow>THE BUILDING CURVE</Eyebrow><span>FROM FIRST TAG TO REAL WORKFLOW</span></div>
-          <div className="build-evolution-track">
-            <article><span>01 / THE FIRST PAGE</span><strong>HTML & SMALL WEBSITES</strong><p>Learning how a page is structured and how an idea becomes something visible.</p><i>START SMALL</i></article>
-            <article><span>02 / MAKING IT INTERACTIVE</span><strong>INTERFACES & APPLICATIONS</strong><p>Moving into components, app flows and experiences people can actually use.</p><i>MAKE IT WORK</i></article>
-            <article><span>03 / CONNECTING SYSTEMS</span><strong>APIs & BACKENDS</strong><p>Going beyond the screen: connecting services, handling data and designing complete workflows.</p><i>MAKE IT CONNECT</i></article>
-            <article><span>04 / BUILDING FOR REAL CONTEXT</span><strong>REAL DATA & PEOPLE</strong><p>Thinking about reliability, roles, hand-offs and whether a system helps solve the original problem.</p><i>MAKE IT MATTER</i></article>
-          </div>
-          <p className="build-evolution-note">Not a claim that the learning is finished. A record of how far curiosity has carried me—and a reason to keep going.</p>
-        </div>
         <div className="about-intersection reveal">
-          <div className="about-intersection-head"><Eyebrow>THE INTERSECTION</Eyebrow><span>FOUR LENSES / ONE PRACTICE</span></div>
-          <div className="intersection-map" role="img" aria-label="Four connected interests: engineering, product thinking, visual design and public impact">
-            <svg className="intersection-lines" viewBox="0 0 800 390" preserveAspectRatio="none" aria-hidden="true">
-              <path d="M400 195 170 78M400 195 630 78M400 195 170 312M400 195 630 312" />
-              <circle cx="400" cy="195" r="112" />
-              <circle cx="400" cy="195" r="146" />
-            </svg>
-            <article className="intersection-node node-engineering"><span>01 / UNDERSTAND</span><strong>ENGINEERING</strong><small>Circuits · code · systems</small></article>
-            <article className="intersection-node node-product"><span>02 / SHAPE</span><strong>PRODUCT THINKING</strong><small>Problems · flows · usefulness</small></article>
-            <div className="intersection-core"><span>THE COMMON THREAD</span><strong>CURIOUS<br/>BUILDER<span>.</span></strong><small>QUESTION → MAKE → LEARN</small></div>
-            <article className="intersection-node node-design"><span>03 / COMMUNICATE</span><strong>VISUAL DESIGN</strong><small>Interfaces · interaction · story</small></article>
-            <article className="intersection-node node-impact"><span>04 / CONTRIBUTE</span><strong>PUBLIC IMPACT</strong><small>People · access · everyday systems</small></article>
-          </div>
-          <p className="intersection-caption">I don't see these as separate interests. The most interesting work, for me, happens when they meet.</p>
+          <div className="about-intersection-head"><Eyebrow>THE INTERSECTION</Eyebrow><span>FLIP THROUGH THE FOUR TRACKS</span></div>
+          <VinylPlayer />
         </div>
 
       </section>
@@ -956,7 +961,7 @@ function App() {
         <div className="section-index reveal"><Eyebrow>05 — THE JOURNEY</Eyebrow><span>EDUCATION / COMMUNITY / PRACTICE</span></div>
         <div className="section-heading section-title">
           <h2><span className="title-mask"><span>IN THE</span></span><span className="title-mask"><span>MAKING<span className="blue-period">.</span></span></span></h2>
-          <p>A timeline, not a finish line.<br />More chapters are being written.</p>
+          <p>A few chapters so far.<br />More are in progress.</p>
         </div>
         <div className="journey-list">
           <article className="journey-item reveal">
@@ -994,7 +999,7 @@ function App() {
 
       <section className="learning-section section-pad" id="learning">
         <div className="section-index reveal"><Eyebrow>06 — THE READING ROOM</Eyebrow><span>COURSES / SIMULATIONS / CONTINUOUS LEARNING</span></div>
-        <div className="learning-intro reveal"><div><h2>ALWAYS<br /><em>LEARNING.</em></h2></div><p>Not every useful lesson comes with a certificate. This is a growing record of courses, simulations and learning paths. Credential links will be added when each record is verified.</p></div>
+        <div className="learning-intro reveal"><div><h2>ALWAYS<br /><em>LEARNING.</em></h2></div><p>Courses, simulations and learning paths—labelled honestly, with credentials added only when verified.</p></div>
         <div className="learning-archive-bar">
           <div className="learning-filters" role="group" aria-label="Filter learning records">
             {learningCategories.map(category => <button key={category} type="button" className={activeLearningCategory === category ? 'selected' : ''} onClick={() => setActiveLearningCategory(category)} aria-pressed={activeLearningCategory === category}>{category}<span>{category === 'ALL ENTRIES' ? String(learning.length).padStart(2, '0') : String(learning.filter(item => item.category === category).length).padStart(2, '0')}</span></button>)}
@@ -1015,7 +1020,7 @@ function App() {
       <section className="skills-section" id="skills">
         <div className="skills-inner section-pad">
           <div className="section-index reveal"><Eyebrow light>07 — THE WORKSHOP</Eyebrow><span>TOOLS ARE MEANS, NOT THE POINT.</span></div>
-          <div className="skills-heading"><h2>THE<br /><em>TOOLBOX.</em></h2><p>My toolkit keeps changing.<br />The curiosity doesn't.</p></div>
+          <div className="skills-heading"><h2>THE<br /><em>TOOLBOX.</em></h2><p>Tools change.<br />Curiosity stays.</p></div>
           <div className="skills-groups">
             {skills.map(group => <div className="skill-group reveal" key={group.group}><span>{group.group}</span><div>{group.items.map(item => <span key={item}>{item}</span>)}</div></div>)}
           </div>
@@ -1028,7 +1033,7 @@ function App() {
           <div className="contact-copy"><p>HAVE A QUESTION, AN IDEA<br />OR A GOOD PROBLEM?</p><h2>LET'S<br /><em>MAKE IT.</em></h2><span className="contact-footnote">GOOD CONVERSATIONS CAN START ANYWHERE.</span></div>
           <div className="contact-action">
             <span className="contact-stamp" aria-label="Open to thoughtful collaborations"><span className="contact-stamp-orbit">CURIOUS MINDS · GOOD PROBLEMS · USEFUL WORK ·</span><Send size={27} /><span>OPEN<br />CHANNEL</span></span>
-            <p className="contact-invitation">Have a problem worth solving, a product worth shaping or an idea that needs a first version? I'd love to hear about it.</p>
+            <p className="contact-invitation">A good problem, an early idea or a thoughtful collaboration? Let’s talk.</p>
             <a href="https://github.com/kirtanswamy" target="_blank" rel="noreferrer" className="contact-link">START WITH GITHUB <ArrowUpRight /></a>
             <p className="contact-small-note">For collaborations, project conversations and interesting ideas.</p>
           </div>

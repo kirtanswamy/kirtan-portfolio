@@ -343,3 +343,18 @@ See [CONTENT_REGISTRY.md](./CONTENT_REGISTRY.md). That file is the source of tru
 - Commits: `9d0eaa9` adds curl elements to the opening markup; `88853a1` styles the one-shot folded corners.
 - Vercel preview for `88853a1`: deployment `dpl_DAZyGaXs1e7ePqarTUQ1W2T4Ltbi`, currently BUILDING at the time of this note. Verify READY before review.
 - Next: test the curl's legibility and frame pacing in browser at desktop/mobile, then decide whether to advance to a proper mesh-based page curl. Do not claim the current CSS corner fold is full 3D deformation.
+
+
+### Lower-chapter visual refresh — 25 November 2026
+
+**Status: first implementation pass on feature/editorial-world-rebuild; preview and visual acceptance pending.**
+
+- Replaced the About intersection diagram with an interactive, CSS-built vinyl turntable. Visitors can start/pause the record and choose four tracks: Engineering, Product Thinking, Visual Design and Public Impact. Track selection changes the label, connected file and supporting copy. No audio is played.
+- Added a dark editorial treatment to the milestones chapter, with a large chapter numeral and more separation between the three verified experience cards.
+- Reworked the journey chapter into a visual timeline with a responsive spine and milestone markers.
+- Refined learning records, skills and contact chapters with clearer hierarchy, quieter card treatment and responsive spacing.
+- Condensed repeated autobiography and section-intro copy while preserving factual project and experience details.
+- Added reduced-motion handling for the vinyl and hover interactions.
+- Production remains on the previously published checkpoint. This lower-chapter pass is not published to production; it requires preview QA and user review.
+
+**QA so far:** `npm run build` passes. Playwright passes all five tests, including responsive overflow checks, the project shelf and vinyl track/play controls.
