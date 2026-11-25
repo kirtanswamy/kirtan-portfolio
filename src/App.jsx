@@ -273,15 +273,15 @@ function VinylPlayer() {
             <circle className="tonearm-base" cx="285" cy="38" r="29" />
             <circle className="tonearm-pivot" cx="285" cy="38" r="16" />
             <circle className="tonearm-pin" cx="285" cy="38" r="4" />
-            <path className="tonearm-shadow" d="M285 52 C282 112 254 151 224 198 S151 288 105 318" />
-            <path className="tonearm-shaft" d="M285 52 C282 112 254 151 224 198 S151 288 105 318" />
-            <path className="tonearm-highlight" d="M282 55 C279 112 251 151 221 198 S148 288 102 315" />
-            <g className="tonearm-cartridge" transform="translate(105 318) rotate(35)">
+            <path className="tonearm-shadow" d="M285 52 C282 112 248 158 218 190 S157 244 125 260" />
+            <path className="tonearm-shaft" d="M285 52 C282 112 248 158 218 190 S157 244 125 260" />
+            <path className="tonearm-highlight" d="M282 55 C279 112 245 158 215 190 S154 244 122 257" />
+            <g className="tonearm-cartridge" transform="translate(125 260) rotate(35)">
               <rect x="-19" y="-8" width="39" height="17" rx="3" />
               <path d="M-9 9 L-3 19 L4 9" />
               <circle cx="11" cy="0" r="2" />
             </g>
-            <path className="tonearm-stylus" d="M102 330 L99 340" />
+            <path className="tonearm-stylus" d="M122 272 L120 281" />
           </g>
         </svg>
         <div className="turntable-controls">
