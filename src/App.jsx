@@ -4,6 +4,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Lenis from 'lenis'
 import PaperShader from './components/PaperShader.jsx'
 import './styles/notebook-portrait.css'
+import './styles/journey-art-direction.css'
 import {
   ArrowDown, ArrowDownRight, ArrowLeft, ArrowRight, ArrowUpRight, Asterisk,
   ArrowUp, ExternalLink, Code2, Menu, MoveUpRight, X,
