@@ -344,3 +344,12 @@ button:focus-visible, a:focus-visible, [tabindex="0"]:focus-visible {
 .turntable.is-spinning .tonearm-moving{animation:tonearm-tracking 18s ease-in-out infinite alternate}
 @keyframes tonearm-tracking{from{transform:rotate(.6deg)}to{transform:rotate(4.8deg)}}
 @media(prefers-reduced-motion:reduce){.turntable.is-spinning .tonearm-moving{animation:none;transform:rotate(1deg)}}
+
+/* Playback tracking is intentionally subtle: the stylus follows the outer groove,
+   rather than sweeping across the record. The rest position remains aligned. */
+.tonearm-moving{transform:rotate(0deg)}
+.turntable.is-spinning .tonearm-moving{animation:tonearm-tracking 38s linear infinite alternate}
+@keyframes tonearm-tracking{from{transform:rotate(0deg)}to{transform:rotate(.85deg)}}
+@media(prefers-reduced-motion:reduce){
+  .turntable.is-spinning .tonearm-moving{animation:none;transform:rotate(0deg)}
+}
