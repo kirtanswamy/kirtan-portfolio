@@ -273,15 +273,15 @@ function VinylPlayer() {
             <circle className="tonearm-base" cx="285" cy="38" r="29" />
             <circle className="tonearm-pivot" cx="285" cy="38" r="16" />
             <circle className="tonearm-pin" cx="285" cy="38" r="4" />
-            <path className="tonearm-shadow" d="M285 52 C282 112 248 158 218 190 S157 244 125 260" />
+            <path className="tonearm-shadow" d="M285 52 C282 112 248 158 218 190 S165 238 145 250" />
             <path className="tonearm-shaft" d="M285 52 C282 112 248 158 218 190 S157 244 125 260" />
-            <path className="tonearm-highlight" d="M282 55 C279 112 245 158 215 190 S154 244 122 257" />
-            <g className="tonearm-cartridge" transform="translate(125 260) rotate(35)">
+            <path className="tonearm-highlight" d="M282 55 C279 112 245 158 215 190 S162 238 142 247" />
+            <g className="tonearm-cartridge" transform="translate(145 250) rotate(35)">
               <rect x="-19" y="-8" width="39" height="17" rx="3" />
               <path d="M-9 9 L-3 19 L4 9" />
               <circle cx="11" cy="0" r="2" />
             </g>
-            <path className="tonearm-stylus" d="M122 272 L120 281" />
+            <path className="tonearm-stylus" d="M142 262 L140 271" />
           </g>
         </svg>
         <div className="turntable-controls">
@@ -983,40 +983,51 @@ function App() {
         <div className="section-index reveal"><Eyebrow>05 — THE JOURNEY</Eyebrow><span>EDUCATION / COMMUNITY / PRACTICE</span></div>
         <div className="section-heading section-title">
           <h2><span className="title-mask"><span>IN THE</span></span><span className="title-mask"><span>MAKING<span className="blue-period">.</span></span></span></h2>
-          <p>A few chapters so far.<br />More are in progress.</p>
+          <p>Four markers so far.<br/>The line keeps moving.</p>
         </div>
-        <div className="journey-list">
-          <article className="journey-item reveal">
-            <span className="journey-count">01</span><span className="journey-date">PRESENT</span>
-            <div><h3>Electronics & Communication Engineering</h3><p>SRM Institute of Science and Technology</p><small>Exploring electronics, computing, software and the systems that connect them.</small></div>
-            <span className="journey-mark"><Cpu /></span>
+        <div className="journey-route" aria-label="Four chapters in Kirtan's journey">
+          <svg className="journey-route-line" viewBox="0 0 1200 180" preserveAspectRatio="none" aria-hidden="true">
+            <path className="journey-route-track" d="M28 88 C135 20 190 20 292 88 S450 156 570 88 S760 20 870 88 S1050 156 1172 76" />
+            <path className="journey-route-progress" d="M28 88 C135 20 190 20 292 88 S450 156 570 88 S760 20 870 88 S1050 156 1172 76" />
+          </svg>
+          <article className="journey-stop reveal">
+            <div className="journey-stop-pin"><span>01</span><Cpu size={17}/></div>
+            <div className="journey-ticket">
+              <div className="journey-ticket-top"><span>CHAPTER 01 / STUDY</span><b>PRESENT</b></div>
+              <h3>SRMIST <em>/ ECE</em></h3>
+              <p>Studying Electronics & Communication Engineering, exploring the space between circuits, computing and software.</p>
+              <div className="journey-ticket-foot"><span>FOUNDATIONS</span><span>CHENNAI, INDIA</span></div>
+            </div>
           </article>
-          <article className="journey-item reveal">
-            <span className="journey-count">02</span><span className="journey-date">2026</span>
-            <div><h3>Viksit Bharat Young Leaders Dialogue</h3><p>State contingent representative · New Delhi</p><small>Selected for Chhattisgarh's state contingent and represented Balod district in New Delhi.</small></div>
-            <span className="journey-mark"><Compass /></span>
+          <article className="journey-stop reveal">
+            <div className="journey-stop-pin"><span>02</span><Compass size={17}/></div>
+            <div className="journey-ticket">
+              <div className="journey-ticket-top"><span>CHAPTER 02 / REPRESENT</span><b>2026</b></div>
+              <h3>VIKSIT BHARAT</h3>
+              <p>Selected for the Chhattisgarh state contingent; represented Balod district at the Young Leaders Dialogue in New Delhi.</p>
+              <div className="journey-ticket-foot"><span>STATE CONTINGENT</span><span>NEW DELHI</span></div>
+            </div>
           </article>
-          <article className="journey-item reveal">
-            <span className="journey-count">03</span><span className="journey-date">CAMPUS</span>
-            <div><h3>Software Quality Assurance Club</h3><p>Core App Development · App Development Lead</p><small>Contributing to student-led software work and helping coordinate the Mineverse coding event.</small></div>
-            <span className="journey-mark"><Layers3 /></span>
+          <article className="journey-stop reveal">
+            <div className="journey-stop-pin"><span>03</span><Layers3 size={17}/></div>
+            <div className="journey-ticket">
+              <div className="journey-ticket-top"><span>CHAPTER 03 / LEAD</span><b>CAMPUS</b></div>
+              <h3>SQAC <em>/ MINEVERSE</em></h3>
+              <p>App Development Lead at SRMIST’s Software Quality Assurance Club; contributing to student-led technical events.</p>
+              <div className="journey-ticket-foot"><span>APP DEVELOPMENT</span><span>COMMUNITY</span></div>
+            </div>
           </article>
-          <article className="journey-item reveal">
-            <span className="journey-count">04</span><span className="journey-date">ONGOING</span>
-            <div><h3>BUSHO — healthcare workflow project</h3><p>Independent product build · Healthcare reporting</p><small>Exploring a structured reporting journey between frontline health workers and supervisors, with a focus on data, accountability and operational clarity.</small></div>
-            <span className="journey-mark"><CircleDot /></span>
-          </article>
-          <article className="journey-item reveal">
-            <span className="journey-count">05</span><span className="journey-date">CAMPUS</span>
-            <div><h3>Varsity — student campus app</h3><p>App development · Student product initiative</p><small>Building a campus companion around attendance, academic resources, schedules and previous-year questions.</small></div>
-            <span className="journey-mark"><Layers3 /></span>
-          </article>
-          <article className="journey-item reveal">
-            <span className="journey-count">06</span><span className="journey-date">ONGOING</span>
-            <div><h3>Research, experiments & independent builds</h3><p>AI / ML · Electronics · Product development</p><small>Learning through practical projects, technical exploration and collaboration.</small></div>
-            <span className="journey-mark"><Sparkles /></span>
+          <article className="journey-stop reveal">
+            <div className="journey-stop-pin"><span>04</span><Sparkles size={17}/></div>
+            <div className="journey-ticket">
+              <div className="journey-ticket-top"><span>CHAPTER 04 / BUILD</span><b>ONGOING</b></div>
+              <h3>MAKING THINGS</h3>
+              <p>Building BUSHO, Varsity and ElectroLab while exploring research, product design and practical engineering.</p>
+              <div className="journey-ticket-foot"><span>INDEPENDENT BUILDS</span><span>STILL IN PROGRESS</span></div>
+            </div>
           </article>
         </div>
+        <div className="journey-colophon"><span>NOT A STRAIGHT LINE. A SERIES OF USEFUL TURNS.</span><span>05 / 08</span></div>
       </section>
 
       <section className="learning-section section-pad" id="learning">
