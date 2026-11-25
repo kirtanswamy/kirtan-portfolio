@@ -4,6 +4,7 @@ import App from './App.jsx'
 import './styles.css'
 import './styles/editorial-refinement.css'
 import './styles/reading-room-art-direction.css'
+import './styles/workshop-art-direction.css'
 import './styles/portrait-photo.css'
 
 createRoot(document.getElementById('root')).render(

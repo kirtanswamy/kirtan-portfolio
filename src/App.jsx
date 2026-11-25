@@ -1029,10 +1029,32 @@ function App() {
 
       <section className="skills-section" id="skills">
         <div className="skills-inner section-pad">
-          <div className="section-index reveal"><Eyebrow light>07 — THE WORKSHOP</Eyebrow><span>TOOLS ARE MEANS, NOT THE POINT.</span></div>
-          <div className="skills-heading"><h2>THE<br /><em>TOOLBOX.</em></h2><p>Tools change.<br />Curiosity stays.</p></div>
-          <div className="skills-groups">
-            {skills.map(group => <div className="skill-group reveal" key={group.group}><span>{group.group}</span><div>{group.items.map(item => <span key={item}>{item}</span>)}</div></div>)}
+          <div className="section-index reveal"><Eyebrow light>07 — THE WORKSHOP</Eyebrow><span>TOOLS / METHODS / PRACTICE</span></div>
+          <div className="skills-heading">
+            <div className="skills-title-wrap"><span className="workshop-kicker">A FIELD GUIDE TO THE KIT</span><h2>THE<br /><em>TOOLBOX.</em></h2></div>
+            <div className="workshop-intro"><span className="workshop-index-mark" aria-hidden="true">07</span><p>From circuits to interfaces. A changing set of tools for building, testing ideas and understanding systems.</p><small>{skills.reduce((total, group) => total + group.items.length, 0)} ENTRIES / 03 DRAWERS</small></div>
+          </div>
+          <div className="workshop-layout">
+            <div className="skills-groups" aria-label="Skills and tools">
+              {skills.map((group, groupIndex) => <section className="skill-group reveal" key={group.group} aria-label={group.group}>
+                <div className="skill-group-heading"><span>DRAWER / {String(groupIndex + 1).padStart(2, '0')}</span><h3>{group.group}</h3><small>{String(group.items.length).padStart(2, '0')} FILED</small></div>
+                <div className="skill-tool-list">{group.items.map((item, itemIndex) => <span className="workshop-tool" key={item}><i aria-hidden="true">{String(itemIndex + 1).padStart(2, '0')}</i><b>{item}</b><span className="tool-cross" aria-hidden="true">↗</span></span>)}</div>
+              </section>)}
+            </div>
+            <aside className="workshop-side-note" aria-label="Workshop field note">
+              <div className="workshop-side-top"><span>BENCH NOTE / 007</span><span>ECE × SOFTWARE</span></div>
+              <svg className="workshop-circuit" viewBox="0 0 360 260" role="img" aria-label="An abstract circuit schematic with connected nodes and a central component">
+                <g fill="none" stroke="currentColor" strokeWidth="1.2" opacity=".65">
+                  <path d="M20 45H105V92H145M20 45V20M105 92V145H160M160 145H205V104H260V55H340M205 104V185H280V220H340M260 55V20H320M145 92V55H180M160 145V205H95V235H20M280 220H340"/>
+                  <rect x="145" y="92" width="60" height="53" rx="2" stroke="#d6df83" strokeWidth="1.8"/>
+                  <path d="M157 104h36m-36 10h36m-36 10h36m-36 10h36" stroke="#d6df83"/>
+                  <circle cx="20" cy="45" r="4" fill="#d6df83"/><circle cx="105" cy="92" r="4" fill="#d6df83"/><circle cx="260" cy="55" r="4" fill="#d6df83"/><circle cx="340" cy="55" r="4" fill="#d6df83"/><circle cx="280" cy="220" r="4" fill="#d6df83"/><circle cx="20" cy="235" r="4" fill="#d6df83"/>
+                </g>
+                <g fill="currentColor" fontFamily="monospace" fontSize="8" opacity=".7"><text x="18" y="12">INPUT</text><text x="145" y="82">CORE</text><text x="280" y="242">OUTPUT</text><text x="266" y="16">SIGNAL PATH</text></g>
+              </svg>
+              <div className="workshop-side-caption"><span>FIG. 07 / A SYSTEM IN PIECES</span><p>Learn the tool. Understand the system. Make something useful with both.</p></div>
+              <div className="workshop-side-foot"><span>KEEP EXPERIMENTING</span><span>END OF NOTE ↗</span></div>
+            </aside>
           </div>
         </div>
       </section>
