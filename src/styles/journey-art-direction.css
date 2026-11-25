@@ -106,3 +106,7 @@
  .journey-memory,.journey-memory-art{transition:none!important}
  .journey-memory:hover,.journey-memory:hover .journey-memory-art{transform:none!important}
 }
+
+/* Keep the paper finishes above the legacy section palette declarations. */
+.journey-section{background-image:radial-gradient(ellipse at 12% 18%,#fff9ed75,transparent 42%),radial-gradient(ellipse at 88% 76%,#c9bda95c,transparent 44%),linear-gradient(115deg,#e9e1d4 0%,#e4dacb 48%,#ece4d8 100%)!important}
+.journey-map-art{background-image:radial-gradient(ellipse at 18% 22%,#fff9e9a8,transparent 48%),repeating-linear-gradient(0deg,#71634b08 0 1px,transparent 1px 5px),linear-gradient(145deg,#e0d5c2 0%,#d4c7b0 52%,#e4d9c6 100%)!important}
