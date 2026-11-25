@@ -1032,22 +1032,25 @@ function App() {
 
       <section className="learning-section section-pad" id="learning">
         <div className="section-index reveal"><Eyebrow>06 — THE READING ROOM</Eyebrow><span>COURSES / SIMULATIONS / CONTINUOUS LEARNING</span></div>
-        <div className="learning-intro reveal"><div><h2>ALWAYS<br /><em>LEARNING.</em></h2></div><p>Courses, simulations and learning paths—labelled honestly, with credentials added only when verified.</p></div>
+        <div className="learning-intro reveal">
+          <div><h2>THE<br/><em>ARCHIVE.</em></h2></div>
+          <p>Small records of things studied, tested and completed. Every entry labelled for what it is.</p>
+        </div>
         <div className="learning-archive-bar">
           <div className="learning-filters" role="group" aria-label="Filter learning records">
             {learningCategories.map(category => <button key={category} type="button" className={activeLearningCategory === category ? 'selected' : ''} onClick={() => setActiveLearningCategory(category)} aria-pressed={activeLearningCategory === category}>{category}<span>{category === 'ALL ENTRIES' ? String(learning.length).padStart(2, '0') : String(learning.filter(item => item.category === category).length).padStart(2, '0')}</span></button>)}
           </div>
-          <span className="learning-archive-count" aria-live="polite">SHOWING {String(visibleLearning.length).padStart(2, '0')} / {String(learning.length).padStart(2, '0')}</span>
+          <span className="learning-archive-count" aria-live="polite">FILED {String(visibleLearning.length).padStart(2, '0')} / {String(learning.length).padStart(2, '0')}</span>
         </div>
         <div key={activeLearningCategory} className="learning-grid" aria-live="polite">
-          {visibleLearning.map((item, index) => <article className="learning-card reveal" key={item.name}>
-            <div className="learning-card-top"><span>0{learning.indexOf(item) + 1} / LEARNING LOG</span><span className="learning-record-type">{item.record}</span></div>
-            <p>{item.kind}</p><h3>{item.name}</h3><h4>{item.detail}</h4><span className="learning-status">{item.status}</span>
+          {visibleLearning.map(item => <article className="learning-card reveal" key={item.name}>
+            <div className="learning-card-top"><span>ENTRY / {String(learning.indexOf(item) + 1).padStart(2, '0')}</span><span className="learning-record-type">{item.record}</span></div>
             <span className="learning-card-index" aria-hidden="true">{String(learning.indexOf(item) + 1).padStart(2, '0')}</span>
+            <p>{item.kind}</p><h3>{item.name}</h3><h4>{item.detail}</h4>
+            <div className="learning-card-foot"><span className="learning-status">{item.status}</span><span>↗</span></div>
           </article>)}
         </div>
-        <p className="learning-disclaimer">STATUS IS LABELLED AS COURSE OR SIMULATION COMPLETION—NOT AS A PROFESSIONAL CERTIFICATION UNLESS A VERIFIED CREDENTIAL IS LINKED.</p>
-        <div className="learning-next-step"><span>THE ARCHIVE IS STILL OPEN</span><p>More learning records will be added as titles, completion details and credential evidence are checked. No badge is worth more than being accurate about what it represents.</p><span>VERIFY FIRST / PUBLISH SECOND</span></div>
+        <div className="learning-colophon"><span>COURSES ARE NOT CERTIFICATIONS. SIMULATIONS ARE NOT EMPLOYMENT.</span><span>VERIFY FIRST / PUBLISH SECOND</span></div>
       </section>
 
       <section className="skills-section" id="skills">
