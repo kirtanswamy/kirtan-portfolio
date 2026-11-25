@@ -1,0 +1,158 @@
+
+/* Journey refinements: make the route a quiet guide and unify the four keepsakes. */
+.journey-section .journey-editorial-head{margin-bottom:0}
+.journey-section .journey-scrapbook{padding-top:clamp(78px,8.2vw,112px);margin-top:0}
+.journey-section .journey-scrapbook-route{height:142px}
+.journey-section .journey-scrapbook-route path{
+  stroke:#68789a!important;stroke-width:1.45!important;stroke-dasharray:3 6;stroke-linecap:round;opacity:.82;
+  filter:drop-shadow(0 1px 0 #f9f2e4);
+}
+.journey-section .journey-memory-art{
+  height:clamp(142px,13vw,176px)!important;min-height:0;
+  margin:0!important;box-sizing:border-box;overflow:hidden;
+}
+.journey-section .journey-paper-tag{
+  height:clamp(142px,13vw,176px)!important;min-height:0;margin:0!important;
+  display:flex;align-items:center;justify-content:center;box-sizing:border-box;
+}
+.journey-section .journey-paper-tag strong{transform:translateY(-8px)}
+.journey-section .journey-paper-tag small{top:58%;width:100%}
+.journey-section .journey-memory-pin{top:clamp(132px,12.3vw,170px)}
+.journey-section .journey-memory-copy{margin-top:25px;min-height:145px}
+.journey-section .journey-memory-copy h3{min-height:2.15em}
+.journey-section .journey-memory:nth-child(even){transform:translateY(16px)}
+.journey-section .journey-memory:nth-child(odd){transform:translateY(0)}
+.journey-section .journey-memory:hover{transform:translateY(-4px) rotate(-.25deg)}
+.journey-section .journey-memory:nth-child(even):hover{transform:translateY(10px) rotate(-.25deg)}
+.journey-section .journey-colophon{margin-top:clamp(36px,4.5vw,58px)}
+.journey-section .journey-memory-art svg{max-width:94%;max-height:92%}
+@media(max-width:900px){
+ .journey-section .journey-scrapbook{padding-top:72px}
+ .journey-section .journey-memory-pin{top:150px}
+ .journey-section .journey-memory-copy{min-height:0}
+ .journey-section .journey-memory:nth-child(even){transform:translateY(12px)}
+}
+@media(max-width:560px){
+ .journey-section .journey-scrapbook{padding-top:28px}
+ .journey-section .journey-memory-art,.journey-section .journey-paper-tag{height:184px!important}
+ .journey-section .journey-memory-pin{top:92px}
+ .journey-section .journey-memory-copy h3{min-height:0}
+ .journey-section .journey-colophon{margin-top:30px}
+}
+@media(prefers-reduced-motion:reduce){
+ .journey-section .journey-memory,.journey-section .journey-memory-art{transition:none!important}
+ .journey-section .journey-memory:hover,.journey-section .journey-memory:nth-child(even):hover{transform:none!important}
+}
+
+/* Reading Room — an editorial catalogue of learning records, not achievement tiles. */
+.learning-section{
+ position:relative;overflow:hidden;
+ background:radial-gradient(ellipse at 82% 10%,#fff8e9a0,transparent 34%),linear-gradient(135deg,#e9e1d4 0%,#ded4c5 52%,#e8dfd2 100%)!important;
+}
+.learning-section:before{
+ content:"";position:absolute;inset:0;pointer-events:none;opacity:.13;
+ background-image:repeating-linear-gradient(0deg,#6d5c4410 0 1px,transparent 1px 5px),repeating-linear-gradient(91deg,#fff8e922 0 1px,transparent 1px 7px);
+}
+.learning-section>*{position:relative;z-index:1}
+.learning-section .learning-intro{
+ grid-template-columns:minmax(0,1fr) minmax(210px,310px);
+ align-items:end;margin:clamp(30px,4vw,52px) 0 34px;gap:36px;
+}
+.learning-notebook-label{display:block;font:9px var(--mono);letter-spacing:.16em;color:#6c6458;margin-bottom:20px}
+.learning-section .learning-intro h2{font-size:clamp(72px,10vw,136px);line-height:.78}
+.learning-section .learning-intro h2 em{color:#3158c7}
+.learning-intro-aside{
+ position:relative;display:grid;grid-template-columns:58px 1fr;column-gap:15px;align-items:center;
+ padding:16px 0 13px;border-top:1px solid #766b5a55;border-bottom:1px solid #766b5a55;
+}
+.learning-aside-mark{
+ grid-row:1 / span 2;width:54px;height:54px;border:1px solid #9e8d72;border-radius:50%;
+ display:grid;place-items:center;font:italic 19px var(--serif);color:#3158c7;transform:rotate(-9deg);
+}
+.learning-intro-aside p{font:italic 14px/1.5 var(--serif);color:#625b50;margin:0}
+.learning-intro-aside small{font:7px var(--mono);letter-spacing:.12em;color:#8a7b66;margin-top:9px}
+.learning-section .learning-archive-bar{
+ padding:10px 0;border-color:#8b806e66;align-items:center;
+}
+.learning-section .learning-filters{gap:4px}
+.learning-section .learning-filters button{
+ padding:9px 12px;border:1px solid transparent;font-size:8px;letter-spacing:.09em;
+}
+.learning-section .learning-filters button.selected{
+ color:#f2eadb;background:#292821;border-color:#292821;
+}
+.learning-section .learning-filters button.selected span{color:#e1a27f}
+.learning-section .learning-archive-count{font-size:8px;letter-spacing:.1em;color:#756b5d}
+.learning-section .learning-grid{
+ grid-template-columns:repeat(2,minmax(0,1fr));gap:17px;margin-top:22px;
+}
+.learning-section .learning-card{
+ min-height:220px;padding:17px 20px 15px;overflow:hidden;
+ background:linear-gradient(135deg,#f0e8d9 0%,#e7ddcb 100%);
+ border:1px solid #a99a806e;
+ box-shadow:2px 3px 0 #fff8e8a0 inset,3px 6px 13px #29241b12;
+ clip-path:polygon(0 0,97.8% 0,100% 4%,99.4% 100%,1.5% 100%,0 96%);
+}
+.learning-section .learning-card:before{
+ content:"";position:absolute;inset:7px;border:1px dashed #7569513b;z-index:-1;
+ background:repeating-linear-gradient(0deg,#6d5c4408 0 1px,transparent 1px 5px);
+}
+.learning-section .learning-card:hover{transform:translateY(-4px) rotate(-.2deg);box-shadow:4px 8px 0 #24241f0b,2px 3px 0 #fff8e8a0 inset}
+.learning-section .learning-card-top{
+ position:relative;z-index:2;padding-bottom:10px;border-bottom:1px solid #766b5a45;
+ font:7px var(--mono);letter-spacing:.13em;color:#776d5d;
+}
+.learning-section .learning-record-type{color:#b45d43}
+.learning-section .learning-card-body{
+ position:relative;display:flex;align-items:center;min-height:130px;padding:17px 0 14px;
+}
+.learning-section .learning-card-copy{position:relative;z-index:1;max-width:78%}
+.learning-section .learning-card-copy>p{
+ margin:0 0 8px;font:8px var(--mono);letter-spacing:.12em;color:#a45d43;
+}
+.learning-section .learning-card h3{
+ font:clamp(22px,2.5vw,32px)/.98 var(--display);letter-spacing:-.06em;
+ margin:0;max-width:100%;color:#282720;
+}
+.learning-section .learning-card h4{
+ font:italic 13px/1.4 var(--serif);font-weight:400;color:#6b6255;margin:8px 0 0;
+}
+.learning-section .learning-card-index{
+ position:absolute;right:15px;top:18px;font:clamp(68px,8vw,112px)/.8 var(--display);
+ letter-spacing:-.1em;color:#3158c713;z-index:0;
+}
+.learning-section .learning-card-tab{
+ position:absolute;right:0;bottom:15px;writing-mode:vertical-rl;
+ font:7px var(--mono);letter-spacing:.13em;color:#8a7c67;
+}
+.learning-section .learning-card-foot{
+ position:relative;z-index:2;min-height:33px;padding-top:10px;border-top:1px solid #766b5a45;
+}
+.learning-section .learning-status{
+ font:7px/1.5 var(--mono);letter-spacing:.035em;color:#665f53;max-width:92%;
+}
+.learning-section .learning-card-open{color:#b45d43;font-size:16px}
+.learning-section .learning-colophon{
+ margin-top:22px;padding-top:12px;border-color:#8b806e66;
+ font:7px var(--mono);letter-spacing:.08em;color:#7a7061;
+}
+@media(max-width:760px){
+ .learning-section .learning-intro{grid-template-columns:1fr;gap:20px}
+ .learning-intro-aside{max-width:420px}
+ .learning-section .learning-grid{grid-template-columns:1fr;gap:13px}
+ .learning-section .learning-card{min-height:200px}
+ .learning-section .learning-card-body{min-height:112px}
+ .learning-section .learning-card-copy{max-width:82%}
+}
+@media(max-width:560px){
+ .learning-section .learning-intro h2{font-size:clamp(68px,18vw,94px)}
+ .learning-section .learning-archive-bar{align-items:flex-start}
+ .learning-section .learning-filters button{padding:8px 9px;font-size:7px}
+ .learning-section .learning-card{padding:15px 15px 13px}
+ .learning-section .learning-card h3{font-size:27px}
+ .learning-section .learning-colophon{font-size:6px;gap:10px}
+}
+@media(prefers-reduced-motion:reduce){
+ .learning-section .learning-card{transition:none!important}
+ .learning-section .learning-card:hover{transform:none!important}
+}

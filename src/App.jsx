@@ -992,7 +992,7 @@ function App() {
           <p className="journey-editorial-deck">A few chapters so far.<br/>More are still being written.</p>
         </div>
         <div className="journey-scrapbook" aria-label="Four illustrated milestones">
-          <svg className="journey-scrapbook-route" viewBox="0 0 1200 180" preserveAspectRatio="none" aria-hidden="true"><path d="M18 75C125 18 180 18 292 75S460 142 570 75 760 18 870 75s190 67 310-10"/></svg>
+          <svg className="journey-scrapbook-route" viewBox="0 0 1200 180" preserveAspectRatio="none" aria-hidden="true"><path d="M18 92C112 36 166 43 252 86S390 137 486 86 640 34 738 83s172 64 266 14 128-55 178-29"/></svg>
           <article className="journey-memory reveal"><div className="journey-memory-art campus-sketch"><svg viewBox="0 0 300 170"><g fill="none" stroke="#514b40" strokeWidth="2"><path d="M18 142h264M35 140V67l42-24 42 24v73M118 140V52h145v88M104 52l87-34 84 34M35 68h84M118 80h145M132 94h18v24h-18zm37 0h18v24h-18zm37 0h18v24h-18zM48 86h17v24H48zm34 0h17v24H82z"/></g><path d="M28 147h250" stroke="#b65a3c" strokeWidth="3"/></svg><span>FIELD NOTE / 001</span></div><span className="journey-date-stamp">2023 —<br/>PRESENT</span><span className="journey-memory-pin"/><div className="journey-memory-copy"><span>01 / FOUNDATIONS</span><h3>SRMIST <em>/ ECE</em></h3><p>Current engineering studies, exploring electronics, computing and the systems that connect them.</p><small>CHENNAI · INDIA</small></div></article>
           <article className="journey-memory reveal"><div className="journey-memory-art delhi-sketch"><svg viewBox="0 0 260 170"><g fill="none" stroke="#625747" strokeWidth="2"><path d="M18 145h224M38 145v-10h184v10M55 135V90h150v45M70 90q60-72 120 0M85 90q45-50 90 0M98 90v45m64-45v45M112 95v50m36-50v50M78 112h104M80 125h100"/></g></svg><span>NEW DELHI / 2026</span></div><span className="journey-postmark">VIKSIT<br/>BHARAT<br/><b>2026</b></span><span className="journey-memory-pin"/><div className="journey-memory-copy"><span>02 / REPRESENTATION</span><h3>VIKSIT BHARAT<br/><em>YOUNG LEADERS DIALOGUE</em></h3><p>Selected for the Chhattisgarh state contingent; represented Balod district in New Delhi.</p><small>CHHATTISGARH · BALOD</small></div></article>
           <article className="journey-memory reveal"><div className="journey-memory-art journey-paper-tag"><span className="tag-hole"/><strong>SQAC</strong><small>APP DEVELOPMENT</small><i>SRMIST / 01</i></div><span className="journey-memory-pin"/><div className="journey-memory-copy"><span>03 / LEADERSHIP</span><h3>SQAC <em>/ APP DEVELOPMENT</em></h3><p>App Development Lead at the Software Quality Assurance Club, contributing to student-led technical work.</p><small>STUDENT CLUB · SRMIST</small></div></article>
@@ -1004,21 +1004,24 @@ function App() {
       <section className="learning-section section-pad" id="learning">
         <div className="section-index reveal"><Eyebrow>06 — THE READING ROOM</Eyebrow><span>COURSES / SIMULATIONS / CONTINUOUS LEARNING</span></div>
         <div className="learning-intro reveal">
-          <div><h2>THE<br/><em>ARCHIVE.</em></h2></div>
-          <p>Small records of things studied, tested and completed. Every entry labelled for what it is.</p>
+          <div><span className="learning-notebook-label">THE READING ROOM / INDEXED NOTES</span><h2>THE<br/><em>ARCHIVE.</em></h2></div>
+          <div className="learning-intro-aside"><span className="learning-aside-mark">A–Z</span><p>A working record of courses, simulations and learning in progress. Filed by subject, with the status kept honest.</p><small>FOUR ENTRIES / CURRENT INDEX</small></div>
         </div>
         <div className="learning-archive-bar">
           <div className="learning-filters" role="group" aria-label="Filter learning records">
             {learningCategories.map(category => <button key={category} type="button" className={activeLearningCategory === category ? 'selected' : ''} onClick={() => setActiveLearningCategory(category)} aria-pressed={activeLearningCategory === category}>{category}<span>{category === 'ALL ENTRIES' ? String(learning.length).padStart(2, '0') : String(learning.filter(item => item.category === category).length).padStart(2, '0')}</span></button>)}
           </div>
-          <span className="learning-archive-count" aria-live="polite">FILED {String(visibleLearning.length).padStart(2, '0')} / {String(learning.length).padStart(2, '0')}</span>
+          <span className="learning-archive-count" aria-live="polite">SHOWING {String(visibleLearning.length).padStart(2, '0')} / {String(learning.length).padStart(2, '0')}</span>
         </div>
         <div key={activeLearningCategory} className="learning-grid" aria-live="polite">
           {visibleLearning.map(item => <article className="learning-card reveal" key={item.name}>
-            <div className="learning-card-top"><span>ENTRY / {String(learning.indexOf(item) + 1).padStart(2, '0')}</span><span className="learning-record-type">{item.record}</span></div>
-            <span className="learning-card-index" aria-hidden="true">{String(learning.indexOf(item) + 1).padStart(2, '0')}</span>
-            <p>{item.kind}</p><h3>{item.name}</h3><h4>{item.detail}</h4>
-            <div className="learning-card-foot"><span className="learning-status">{item.status}</span><span>↗</span></div>
+            <div className="learning-card-top"><span>FILE / {String(learning.indexOf(item) + 1).padStart(2, '0')}</span><span className="learning-record-type">{item.record}</span></div>
+            <div className="learning-card-body">
+              <div className="learning-card-copy"><p>{item.kind}</p><h3>{item.name}</h3><h4>{item.detail}</h4></div>
+              <span className="learning-card-index" aria-hidden="true">{String(learning.indexOf(item) + 1).padStart(2, '0')}</span>
+              <span className="learning-card-tab" aria-hidden="true">{item.category}</span>
+            </div>
+            <div className="learning-card-foot"><span className="learning-status">{item.status}</span><span className="learning-card-open" aria-hidden="true">↗</span></div>
           </article>)}
         </div>
         <div className="learning-colophon"><span>COURSES ARE NOT CERTIFICATIONS. SIMULATIONS ARE NOT EMPLOYMENT.</span><span>VERIFY FIRST / PUBLISH SECOND</span></div>
