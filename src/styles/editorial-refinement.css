@@ -353,3 +353,67 @@ button:focus-visible, a:focus-visible, [tabindex="0"]:focus-visible {
 @media(prefers-reduced-motion:reduce){
   .turntable.is-spinning .tonearm-moving{animation:none;transform:rotate(0deg)}
 }
+
+
+/* Journey chapter: a compact, tactile route map instead of a long résumé list. */
+.journey-section{padding-top:clamp(72px,9vw,120px);padding-bottom:clamp(78px,10vw,132px);overflow:hidden}
+.journey-section .section-heading{margin:clamp(30px,4vw,54px) 0 clamp(36px,5vw,68px);align-items:end}
+.journey-section .section-heading>p{font:italic clamp(15px,1.5vw,19px)/1.45 var(--serif);max-width:190px}
+.journey-route{position:relative;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(12px,2.2vw,30px);padding-top:118px;isolation:isolate}
+.journey-route-line{position:absolute;z-index:-1;left:0;top:0;width:100%;height:180px;overflow:visible}
+.journey-route-track,.journey-route-progress{fill:none;stroke:#24241f35;stroke-width:1.5;stroke-dasharray:5 8;vector-effect:non-scaling-stroke}
+.journey-route-progress{stroke:var(--blue);stroke-width:2.3;stroke-dasharray:1200;stroke-dashoffset:1200;transition:stroke-dashoffset 1.8s cubic-bezier(.2,.75,.2,1)}
+.journey-route.is-visible .journey-route-progress{stroke-dashoffset:0}
+.journey-stop{position:relative;min-width:0;padding-top:28px}
+.journey-stop:nth-of-type(odd){transform:translateY(0)}
+.journey-stop:nth-of-type(even){transform:translateY(38px)}
+.journey-stop-pin{position:absolute;top:-18px;left:18px;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:var(--paper2);border:1px solid #24241f55;box-shadow:0 0 0 7px var(--paper);color:var(--blue);z-index:2}
+.journey-stop-pin span{position:absolute;top:-18px;left:50%;transform:translateX(-50%);font:8px var(--mono);color:var(--red)}
+.journey-ticket{height:100%;min-height:220px;display:flex;flex-direction:column;padding:18px 17px 14px;background:linear-gradient(145deg,#eee7da,#ded5c7);border:1px solid #29271f38;box-shadow:4px 5px 0 #24241f0b;position:relative;clip-path:polygon(0 0,97% 0,100% 4%,100% 100%,3% 100%,0 96%);transition:transform .35s var(--editorial-ease-out),box-shadow .35s}
+.journey-ticket:before{content:"";position:absolute;inset:7px;border:1px dashed #24241f20;pointer-events:none}
+.journey-stop:hover .journey-ticket{transform:translateY(-7px) rotate(-.6deg);box-shadow:8px 13px 0 #24241f0c}
+.journey-ticket-top,.journey-ticket-foot{display:flex;justify-content:space-between;gap:8px;font:7px/1.4 var(--mono);letter-spacing:.06em;color:var(--muted)}
+.journey-ticket-top b{color:var(--red);font-weight:500;text-align:right}
+.journey-ticket h3{font:clamp(19px,2vw,27px)/1.05 var(--display);letter-spacing:-.055em;margin:25px 0 12px;max-width:15ch}
+.journey-ticket h3 em{font:italic 500 .82em var(--serif);color:var(--blue)}
+.journey-ticket p{font:13px/1.55 var(--serif);color:#625d53;margin:0 0 24px;max-width:30ch}
+.journey-ticket-foot{margin-top:auto;padding-top:10px;border-top:1px solid #24241f2a;font-size:6px}
+.journey-colophon{display:flex;justify-content:space-between;margin-top:80px;padding-top:12px;border-top:1px solid var(--line);font:8px var(--mono);letter-spacing:.06em;color:var(--muted)}
+.journey-route .reveal{opacity:0;transform:translateY(18px);transition:opacity .65s ease,transform .65s var(--editorial-ease-out)}
+.journey-route .reveal.is-visible{opacity:1;transform:translateY(0)}
+.journey-route .journey-stop:nth-child(3){transition-delay:.08s}
+.journey-route .journey-stop:nth-child(4){transition-delay:.16s}
+.journey-route .journey-stop:nth-child(5){transition-delay:.24s}
+@media(max-width:900px){
+ .journey-route{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:38px;padding-top:72px}
+ .journey-route-line{height:240px;top:0}
+ .journey-stop:nth-of-type(even){transform:translateY(18px)}
+ .journey-ticket{min-height:200px}
+ .journey-colophon{margin-top:60px}
+}
+@media(max-width:560px){
+ .journey-section .section-heading{align-items:start;gap:14px}
+ .journey-section .section-heading>p{font-size:14px;margin:0 0 6px}
+ .journey-route{grid-template-columns:1fr;padding:18px 0 0 32px;gap:20px}
+ .journey-route-line{left:0;top:0;width:28px;height:100%;overflow:visible}
+ .journey-route-line path{d:path("M14 12 C-1 70 29 112 14 170 S29 280 14 340 S29 450 14 510")}
+ .journey-stop,.journey-stop:nth-of-type(even){transform:none;padding:0}
+ .journey-stop-pin{top:16px;left:-53px;width:34px;height:34px;box-shadow:0 0 0 5px var(--paper)}
+ .journey-stop-pin span{left:-10px;top:10px;transform:translateX(-100%)}
+ .journey-ticket{min-height:0;padding:16px 16px 13px}
+ .journey-ticket h3{margin:18px 0 8px}
+ .journey-ticket p{max-width:48ch;margin-bottom:18px}
+ .journey-colophon{margin-top:34px;gap:12px;font-size:7px}
+}
+@media(prefers-reduced-motion:reduce){
+ .journey-route-progress{transition:none;stroke-dashoffset:0}
+ .journey-route .reveal{opacity:1;transform:none;transition:none}
+ .journey-stop:hover .journey-ticket{transform:none}
+}
+
+/* The stylus now rests on the outer playing area; only a near-imperceptible
+   tracking drift is used while the platter turns. */
+.tonearm-moving{transform:rotate(0deg)}
+.turntable.is-spinning .tonearm-moving{animation:tonearm-tracking 48s linear infinite alternate}
+@keyframes tonearm-tracking{from{transform:rotate(0deg)}to{transform:rotate(.35deg)}}
+@media(prefers-reduced-motion:reduce){.turntable.is-spinning .tonearm-moving{animation:none;transform:rotate(0deg)}}
