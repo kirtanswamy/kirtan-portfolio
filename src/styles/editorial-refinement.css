@@ -417,3 +417,11 @@ button:focus-visible, a:focus-visible, [tabindex="0"]:focus-visible {
 .turntable.is-spinning .tonearm-moving{animation:tonearm-tracking 48s linear infinite alternate}
 @keyframes tonearm-tracking{from{transform:rotate(0deg)}to{transform:rotate(.35deg)}}
 @media(prefers-reduced-motion:reduce){.turntable.is-spinning .tonearm-moving{animation:none;transform:rotate(0deg)}}
+
+/* Keep the route visible at rest; the card reveals carry the motion. */
+.journey-route-progress{stroke-dasharray:none;stroke-dashoffset:0;transition:none}
+.journey-route-line{pointer-events:none}
+@media(max-width:560px){
+ .journey-route-line .journey-route-track{stroke-dasharray:3 7}
+ .journey-route-line .journey-route-progress{stroke-width:2}
+}
