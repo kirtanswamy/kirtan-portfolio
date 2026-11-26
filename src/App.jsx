@@ -308,6 +308,7 @@ function App() {
   const [activeProjectIndex, setActiveProjectIndex] = useState(0)
   const [activeLearningCategory, setActiveLearningCategory] = useState('ALL ENTRIES')
   const [sectionTransition, setSectionTransition] = useState(null)
+  const [envelopeOpen, setEnvelopeOpen] = useState(false)
   const sectionTransitionAction = useRef(null)
   const sectionTransitionLock = useRef(false)
   const projectShelfRef = useRef(null)
@@ -1061,35 +1062,57 @@ function App() {
 
       <section className="contact-section section-pad" id="contact">
         <div className="section-index reveal"><Eyebrow>08 — THE FINAL PAGE</Eyebrow><span>THE NOTEBOOK STAYS OPEN</span></div>
-        <div className="contact-final">
+        <div className="contact-final contact-final-envelope">
           <div className="contact-final-heading">
             <span className="contact-final-kicker">A NOTE BEFORE YOU GO / 008</span>
             <h2>HAVE A<br />GOOD <em>IDEA?</em></h2>
             <p>Some of the best things begin with a question, a shared curiosity or a problem worth solving. If something here sparked a thought, I'd be glad to hear it.</p>
+            <span className="contact-envelope-hint"><i aria-hidden="true" /> A LITTLE NOTE IS WAITING FOR YOU</span>
           </div>
-          <aside className="contact-letter" aria-label="A handwritten-style invitation to connect">
-            <div className="contact-letter-top"><span>PERSONAL CORRESPONDENCE</span><span>KS / 2026</span></div>
-            <div className="contact-letter-art" aria-hidden="true">
-              <svg viewBox="0 0 440 250" role="img" aria-label="Illustration of an open letter with a paper plane">
-                <path d="M50 75 220 190 390 75" fill="none" stroke="currentColor" strokeWidth="1.5"/>
-                <path d="M50 75h340v125H50z" fill="none" stroke="currentColor" strokeWidth="1.5"/>
-                <path d="m50 200 125-94m215 94-125-94" fill="none" stroke="currentColor" strokeWidth="1.1" opacity=".55"/>
-                <path d="M142 66c35-44 101-52 148-18 25 18 37 42 44 67" fill="none" stroke="#2855e8" strokeWidth="1.6" strokeDasharray="4 7"/>
-                <path d="m334 111 28-8-16 24-4-11-8-5Z" fill="#2855e8"/>
-                <path d="m218 190 40-27-38 46-2-19Z" fill="#d16c4d" opacity=".8"/>
-                <path d="M86 93h118m-118 12h85m-85 12h104" stroke="currentColor" strokeWidth="1" opacity=".32"/>
-                <circle cx="220" cy="190" r="4" fill="#2855e8"/>
-              </svg>
+          <div
+            className={`contact-envelope-stage${envelopeOpen ? ' is-open' : ''}`}
+            onPointerEnter={event => { if (event.pointerType === 'mouse') setEnvelopeOpen(true) }}
+            onPointerLeave={event => { if (event.pointerType === 'mouse') setEnvelopeOpen(false) }}
+            onFocus={() => setEnvelopeOpen(true)}
+            onBlur={event => { if (!event.currentTarget.contains(event.relatedTarget)) setEnvelopeOpen(false) }}
+          >
+            <div className="contact-envelope-orbit" aria-hidden="true" />
+            <div className="contact-envelope-scene">
+              <div className="contact-envelope-letter">
+                <div className="contact-envelope-letter-top"><span>PERSONAL CORRESPONDENCE</span><span>KS / 2026</span></div>
+                <div className="contact-envelope-letter-body">
+                  <span className="contact-envelope-overline">THE NEXT CONVERSATION</span>
+                  <h3>LET'S<br /><em>CONNECT.</em></h3>
+                  <p>Choose your preferred way to say hello.</p>
+                  <div className="contact-envelope-choices">
+                    <a href="https://www.linkedin.com/in/kirtanswamy" target="_blank" rel="noreferrer" aria-label="Connect with Kirtan on LinkedIn">
+                      <span className="contact-choice-icon" aria-hidden="true">in</span><span><small>01 / PROFESSIONAL</small><b>LinkedIn</b></span><ArrowUpRight />
+                    </a>
+                    <a href="https://github.com/kirtanswamy" target="_blank" rel="noreferrer" aria-label="Explore Kirtan's GitHub">
+                      <span className="contact-choice-icon contact-choice-github" aria-hidden="true">⌘</span><span><small>02 / OPEN WORK</small><b>GitHub</b></span><ArrowUpRight />
+                    </a>
+                    <a href="https://mail.google.com/mail/?view=cm&fs=1" target="_blank" rel="noreferrer" aria-label="Write an email to Kirtan using Gmail">
+                      <span className="contact-choice-icon contact-choice-mail" aria-hidden="true">✉</span><span><small>03 / A DIRECT NOTE</small><b>Gmail</b></span><ArrowUpRight />
+                    </a>
+                  </div>
+                </div>
+                <div className="contact-envelope-letter-foot"><span>NO FORMALITIES REQUIRED</span><span>JUST SAY HELLO ↗</span></div>
+              </div>
+              <div className="contact-envelope-back" aria-hidden="true" />
+              <div className="contact-envelope-pocket" aria-hidden="true" />
+              <div className="contact-envelope-flap" aria-hidden="true" />
+              <button
+                type="button"
+                className="contact-envelope-toggle"
+                aria-expanded={envelopeOpen}
+                onClick={() => setEnvelopeOpen(open => !open)}
+              >
+                <span>{envelopeOpen ? 'LETTER OPEN' : 'OPEN THE LETTER'}</span><ArrowUpRight size={15} />
+              </button>
+              <span className="contact-envelope-postmark" aria-hidden="true">KS<br />008</span>
             </div>
-            <p className="contact-letter-note">A good conversation can start with a simple hello.</p>
-            <div className="contact-letter-sign"><span>Until then,</span><strong>Kirtan.</strong></div>
-            <div className="contact-letter-bottom"><span>NO FORMALITIES REQUIRED</span><span>JUST SAY HELLO ↗</span></div>
-          </aside>
-        </div>
-        <div className="contact-links-panel">
-          <span className="contact-links-label">FIND ME / OPEN CHANNELS</span>
-          <a href="https://www.linkedin.com/in/kirtanswamy" target="_blank" rel="noreferrer" className="contact-link"><span><small>01 / PROFESSIONAL</small><b>LINKEDIN</b></span><span className="contact-link-action">CONNECT <ArrowUpRight /></span></a>
-          <a href="https://github.com/kirtanswamy" target="_blank" rel="noreferrer" className="contact-link"><span><small>02 / OPEN WORK</small><b>GITHUB</b></span><span className="contact-link-action">EXPLORE <ArrowUpRight /></span></a>
+            <p className="contact-envelope-instruction">{envelopeOpen ? 'YOUR NOTE IS READY — PICK A WAY TO CONNECT' : 'HOVER OR TAP THE ENVELOPE TO OPEN'}</p>
+          </div>
         </div>
         <div className="contact-closing-line"><span>THE WORK CONTINUES.</span><a href="#top">RETURN TO THE FIRST PAGE <ArrowUp size={13} /></a></div>
         <footer className="footer">
