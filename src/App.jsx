@@ -1060,19 +1060,41 @@ function App() {
       </section>
 
       <section className="contact-section section-pad" id="contact">
-        <div className="section-index reveal"><Eyebrow>08 — THE NEXT PAGE IS OPEN</Eyebrow><span>LET'S MAKE SOMETHING USEFUL</span></div>
-        <div className="contact-main">
-          <div className="contact-copy"><p>HAVE A QUESTION, AN IDEA<br />OR A GOOD PROBLEM?</p><h2>LET'S<br /><em>MAKE IT.</em></h2><span className="contact-footnote">GOOD CONVERSATIONS CAN START ANYWHERE.</span></div>
-          <div className="contact-action">
-            <span className="contact-stamp" aria-label="Open to thoughtful collaborations"><span className="contact-stamp-orbit">CURIOUS MINDS · GOOD PROBLEMS · USEFUL WORK ·</span><Send size={27} /><span>OPEN<br />CHANNEL</span></span>
-            <p className="contact-invitation">A good problem, an early idea or a thoughtful collaboration? Let’s talk.</p>
-            <a href="https://github.com/kirtanswamy" target="_blank" rel="noreferrer" className="contact-link">START WITH GITHUB <ArrowUpRight /></a>
-            <p className="contact-small-note">For collaborations, project conversations and interesting ideas.</p>
+        <div className="section-index reveal"><Eyebrow>08 — THE FINAL PAGE</Eyebrow><span>THE NOTEBOOK STAYS OPEN</span></div>
+        <div className="contact-final">
+          <div className="contact-final-heading">
+            <span className="contact-final-kicker">A NOTE BEFORE YOU GO / 008</span>
+            <h2>HAVE A<br />GOOD <em>IDEA?</em></h2>
+            <p>Some of the best things begin with a question, a shared curiosity or a problem worth solving. If something here sparked a thought, I'd be glad to hear it.</p>
           </div>
+          <aside className="contact-letter" aria-label="A handwritten-style invitation to connect">
+            <div className="contact-letter-top"><span>PERSONAL CORRESPONDENCE</span><span>KS / 2026</span></div>
+            <div className="contact-letter-art" aria-hidden="true">
+              <svg viewBox="0 0 440 250" role="img" aria-label="Illustration of an open letter with a paper plane">
+                <path d="M50 75 220 190 390 75" fill="none" stroke="currentColor" strokeWidth="1.5"/>
+                <path d="M50 75h340v125H50z" fill="none" stroke="currentColor" strokeWidth="1.5"/>
+                <path d="m50 200 125-94m215 94-125-94" fill="none" stroke="currentColor" strokeWidth="1.1" opacity=".55"/>
+                <path d="M142 66c35-44 101-52 148-18 25 18 37 42 44 67" fill="none" stroke="#2855e8" strokeWidth="1.6" strokeDasharray="4 7"/>
+                <path d="m334 111 28-8-16 24-4-11-8-5Z" fill="#2855e8"/>
+                <path d="m218 190 40-27-38 46-2-19Z" fill="#d16c4d" opacity=".8"/>
+                <path d="M86 93h118m-118 12h85m-85 12h104" stroke="currentColor" strokeWidth="1" opacity=".32"/>
+                <circle cx="220" cy="190" r="4" fill="#2855e8"/>
+              </svg>
+            </div>
+            <p className="contact-letter-note">A good conversation can start with a simple hello.</p>
+            <div className="contact-letter-sign"><span>Until then,</span><strong>Kirtan.</strong></div>
+            <div className="contact-letter-bottom"><span>NO FORMALITIES REQUIRED</span><span>JUST SAY HELLO ↗</span></div>
+          </aside>
         </div>
+        <div className="contact-links-panel">
+          <span className="contact-links-label">FIND ME / OPEN CHANNELS</span>
+          <a href="https://www.linkedin.com/in/kirtanswamy" target="_blank" rel="noreferrer" className="contact-link"><span><small>01 / PROFESSIONAL</small><b>LINKEDIN</b></span><span className="contact-link-action">CONNECT <ArrowUpRight /></span></a>
+          <a href="https://github.com/kirtanswamy" target="_blank" rel="noreferrer" className="contact-link"><span><small>02 / OPEN WORK</small><b>GITHUB</b></span><span className="contact-link-action">EXPLORE <ArrowUpRight /></span></a>
+        </div>
+        <div className="contact-closing-line"><span>THE WORK CONTINUES.</span><a href="#top">RETURN TO THE FIRST PAGE <ArrowUp size={13} /></a></div>
         <footer className="footer">
           <a className="footer-brand" href="#top"><span className="brand-monogram">KS<span>®</span></span><span>THE PERSONAL EDITION<br />HYDERABAD, INDIA</span></a>
-          <div className="footer-links"><a href="https://github.com/kirtanswamy" target="_blank" rel="noreferrer"><Code2 size={16} /> GITHUB <ExternalLink size={12} /></a><a href="#work">SELECTED WORK <ArrowUpRight size={12} /></a><a href="#top">BACK TO TOP <ArrowUp size={12} /></a></div>
+          <div className="footer-links"><a href="#work">SELECTED WORK <ArrowUpRight size={12} /></a><a href="#skills">THE WORKSHOP <ArrowUpRight size={12} /></a><a href="#top">BACK TO TOP <ArrowUp size={12} /></a></div>
           <span className="footer-copy">© 2026 KIRTAN SWAMY<br />PRINTED ON THE INTERNET.</span>
         </footer>
       </section>
