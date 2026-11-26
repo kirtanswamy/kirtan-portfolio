@@ -1073,7 +1073,7 @@ function App() {
             className={`contact-envelope-stage${envelopeOpen ? ' is-open' : ''}`}
             onPointerEnter={event => { if (event.pointerType === 'mouse') setEnvelopeOpen(true) }}
             onPointerLeave={event => { if (event.pointerType === 'mouse') setEnvelopeOpen(false) }}
-            onFocus={() => setEnvelopeOpen(true)}
+            onFocus={event => { if (event.target.closest('.contact-envelope-choices')) setEnvelopeOpen(true) }}
             onBlur={event => { if (!event.currentTarget.contains(event.relatedTarget)) setEnvelopeOpen(false) }}
           >
             <div className="contact-envelope-orbit" aria-hidden="true" />

@@ -38,8 +38,6 @@
 .contact-envelope-stage.is-open .contact-envelope-postmark{opacity:0}
 .contact-envelope-stage.is-open .contact-envelope-toggle{background:var(--blue)}
 .contact-envelope-stage.is-open .contact-envelope-instruction{color:var(--blue)}
-.contact-envelope-stage:focus-within .contact-envelope-letter{transform:translateY(-2%) rotate(-.4deg)}
-.contact-envelope-stage:focus-within .contact-envelope-flap{z-index:2;transform:rotateX(180deg)}
 @media(max-width:900px){
  .contact-final-envelope{grid-template-columns:1fr;gap:38px}
  .contact-envelope-scene{height:430px}
@@ -50,7 +48,7 @@
  .contact-final-envelope{padding-top:52px;padding-bottom:42px}
  .contact-envelope-scene{height:390px}
  .contact-envelope-letter{left:7%;right:7%;height:86%;padding:14px 13px 11px;transform:translateY(38%) rotate(-.7deg)}
- .contact-envelope-stage.is-open .contact-envelope-letter,.contact-envelope-stage:focus-within .contact-envelope-letter{transform:translateY(-1%) rotate(0)}
+ .contact-envelope-stage.is-open .contact-envelope-letter{transform:translateY(-1%) rotate(0)}
  .contact-envelope-flap{left:5%;right:5%;bottom:69%;border-left-width:44vw;border-right-width:44vw;border-top-width:150px}
  .contact-envelope-pocket,.contact-envelope-back{left:5%;right:5%}
  .contact-envelope-letter-body h3{font-size:47px}
