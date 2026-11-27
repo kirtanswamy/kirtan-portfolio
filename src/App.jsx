@@ -345,7 +345,7 @@ const usefulStages = [
 ]
 
 const journeyMilestones = [
-  { id:'01', year:'2023 — PRESENT', type:'FOUNDATIONS', title:'SRMIST / ECE', place:'CHENNAI · INDIA', summary:'The place where engineering became a way to explore how things work.', detail:'Studying Electronics & Communication Engineering at SRMIST, building foundations across electronics, computing and the systems that connect them.', artifact:'FIELD NOTE / CAMPUS', mark:'ECE', color:'#d6df83' },
+  { id:'01', year:'CURRENT', type:'FOUNDATIONS', title:'SRMIST / ECE', place:'CHENNAI · INDIA', summary:'The place where engineering became a way to explore how things work.', detail:'Studying Electronics & Communication Engineering at SRMIST, building foundations across electronics, computing and the systems that connect them.', artifact:'FIELD NOTE / CAMPUS', mark:'ECE', color:'#d6df83' },
   { id:'02', year:'JANUARY 2026', type:'REPRESENTATION', title:'VIKSIT BHARAT YOUNG LEADERS DIALOGUE', place:'NEW DELHI · INDIA', summary:'A state-contingent experience that brought local ideas into a national conversation.', detail:'Represented the Chhattisgarh state contingent and Balod district at the Viksit Bharat Young Leaders Dialogue 2026, presenting the idea of innovation with tradition.', artifact:'FIELD NOTE / VBYLD 2026', mark:'भारत', color:'#d99a80' },
   { id:'03', year:'ONGOING', type:'LEADERSHIP', title:'SQAC / APP DEVELOPMENT', place:'SRMIST · CHENNAI', summary:'Taking responsibility for the app development domain in a student-led technical community.', detail:'App Development Lead at SRMIST’s Software Quality Assurance Club, contributing to student-led technical work and the club’s application initiatives.', artifact:'FIELD NOTE / SQAC', mark:'SQAC', color:'#8fb8e8' },
   { id:'04', year:'IN PROGRESS', type:'MAKING', title:'BUILDING USEFUL THINGS', place:'INDEPENDENT BUILDS', summary:'Turning questions into products, prototypes and experiments.', detail:'Developing BUSHO, Varsity and ElectroLab while exploring civic technology, product design and research. Each project is a work in progress, not a finished claim.', artifact:'FIELD NOTE / BUILDER’S LOG', mark:'MAKE', color:'#d6df83' },
@@ -361,12 +361,12 @@ function JourneyScrapbook() {
   ]
   const item=cards[active]
   return <div className="journey-scrapbook-experience">
-    <div className="journey-scrapbook-topline"><span>THE MAKER’S NOTEBOOK / LOOSE LEAF 05</span><span>PINNED MEMORIES · 2023—NOW</span></div>
+    <div className="journey-scrapbook-topline"><span>THE MAKER’S NOTEBOOK / LOOSE LEAF 05</span><span>PINNED MEMORIES · STILL IN PROGRESS</span></div>
     <div className="journey-scrapbook-spread">
       <div className="journey-spiral" aria-hidden="true">{Array.from({length:13},(_,i)=><i key={i}/>)}</div>
       <svg className="journey-scrapbook-route" viewBox="0 0 1000 130" preserveAspectRatio="none" aria-hidden="true"><path d="M30 85C150 5 230 10 330 74S490 122 590 62 760 10 970 72"/></svg>
       <div className="journey-postcards">
-        {cards.map((card,index)=><button type="button" key={card.label} className={`journey-postcard journey-postcard-${card.kind} ${active===index?'is-active':''}`} onClick={()=>setActive(index)} aria-pressed={active===index} style={{'--postcard-index':index}}>
+        {cards.map((card,index)=><button type="button" key={card.label} className={`journey-postcard journey-postcard-${card.kind} ${active===index?'is-active':''}`} onClick={()=>setActive(index)} onKeyDown={event=>{if(event.key==='ArrowRight'){event.preventDefault();setActive((index+1)%cards.length)}else if(event.key==='ArrowLeft'){event.preventDefault();setActive((index+cards.length-1)%cards.length)}}} aria-label={`Open milestone: ${card.label.replace(/^\\d+ \/ /,'')}`} aria-pressed={active===index} style={{'--postcard-index':index}}>
           <span className="journey-postcard-clip" aria-hidden="true"><i/></span>
           <span className="journey-postcard-stamp">{card.stamp}</span>
           <span className="journey-postcard-art"><b>{card.mark}</b><small>{card.year}</small><i>{card.kind==='campus'?'CAMPUS SKETCH':card.kind==='delhi'?'FIELD / NEW DELHI':card.kind==='sqac'?'STUDENT CLUB':'BUILDER’S DESK'}</i></span>
