@@ -1091,7 +1091,7 @@ function App() {
                     <a href="https://github.com/kirtanswamy" target="_blank" rel="noreferrer" aria-label="Explore Kirtan's GitHub" tabIndex={envelopeOpen ? 0 : -1}>
                       <span className="contact-choice-icon contact-choice-github" aria-hidden="true">⌘</span><span><small>02 / OPEN WORK</small><b>GitHub</b></span><ArrowUpRight />
                     </a>
-                    <a href="https://mail.google.com/mail/?view=cm&fs=1" target="_blank" rel="noreferrer" aria-label="Write an email to Kirtan using Gmail" tabIndex={envelopeOpen ? 0 : -1}>
+                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=kirtankswamy%40gmail.com&su=Hello%20Kirtan%20%E2%80%94%20Portfolio%20enquiry" target="_blank" rel="noreferrer" aria-label="Write an email to Kirtan using Gmail" tabIndex={envelopeOpen ? 0 : -1}>
                       <span className="contact-choice-icon contact-choice-mail" aria-hidden="true">✉</span><span><small>03 / A DIRECT NOTE</small><b>Gmail</b></span><ArrowUpRight />
                     </a>
                   </div>
