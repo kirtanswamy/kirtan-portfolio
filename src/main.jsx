@@ -12,6 +12,7 @@ import './styles/immersive-chapters.css'
 import './styles/project-case-study.css'
 import './styles/useful-engine.css'
 import './styles/journey-atlas.css'
+import './styles/journey-scrapbook.css'
 
 createRoot(document.getElementById('root')).render(
   <React.StrictMode>
