@@ -1132,8 +1132,9 @@ function App() {
               </div>
               <div className="contact-envelope-back" aria-hidden="true" />
               <div className="contact-envelope-pocket" aria-hidden="true" />
-              <div className="contact-envelope-flap" aria-hidden="true" />
-              <div className="contact-envelope-wax-seal" aria-hidden="true"><span>KS</span><small>SEALED<br />WITH INTENT</small></div>
+              <div className="contact-envelope-flap" aria-hidden="true">
+                <span className="contact-envelope-wax-seal"><b>KS</b><small>SEALED<br />WITH INTENT</small></span>
+              </div>
               <button
                 type="button"
                 className="contact-envelope-toggle"
@@ -1145,7 +1146,6 @@ function App() {
               >
                 <span>{envelopeOpen ? 'LETTER OPEN' : 'OPEN THE LETTER'}</span><ArrowUpRight size={15} />
               </button>
-              <span className="contact-envelope-postmark" aria-hidden="true">KS<br />008</span>
             </div>
             <p className="contact-envelope-instruction">{envelopeOpen ? 'YOUR NOTE IS READY — PICK A WAY TO CONNECT' : 'TAP OPEN THE LETTER TO REVEAL CONTACT ROUTES'}</p>
           </div>
