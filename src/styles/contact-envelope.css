@@ -345,3 +345,44 @@
   .contact-envelope-flap,.contact-envelope-letter,.contact-envelope-wax-seal{transition:none!important}
   .contact-envelope-letter{transform:none!important}
 }
+
+
+/* Keep the letter open for the full envelope interaction area. */
+.contact-envelope-stage{--letter-top:31%;--letter-height:60%;cursor:default}
+.contact-envelope-stage.is-open{--letter-top:2%;--letter-height:84%}
+.contact-envelope-stage.is-open .contact-envelope-letter{
+  overflow:visible!important;
+  pointer-events:auto;
+}
+.contact-envelope-stage.is-open .contact-envelope-letter-body{
+  min-height:0;
+  padding-top:7px;
+  padding-bottom:7px;
+}
+.contact-envelope-stage.is-open .contact-envelope-letter-body>p{margin-bottom:8px}
+.contact-envelope-stage.is-open .contact-envelope-choices{
+  position:relative;
+  z-index:8;
+  display:grid;
+  gap:2px;
+  margin-bottom:2px;
+  pointer-events:auto;
+}
+.contact-envelope-stage.is-open .contact-envelope-choices a{
+  position:relative;
+  z-index:9;
+  min-height:42px;
+  padding:6px 9px;
+  pointer-events:auto;
+  user-select:none;
+  -webkit-user-select:none;
+}
+.contact-envelope-stage.is-open .contact-envelope-letter-foot{position:relative;z-index:2}
+.contact-envelope-stage.is-open .contact-envelope-pocket,
+.contact-envelope-stage.is-open .contact-envelope-flap{pointer-events:none}
+.contact-envelope-stage.is-open .contact-envelope-toggle{z-index:12}
+@media(max-width:600px){
+  .contact-envelope-stage.is-open{--letter-top:2%;--letter-height:84%}
+  .contact-envelope-stage.is-open .contact-envelope-letter-body h3{font-size:clamp(35px,10vw,52px)}
+  .contact-envelope-stage.is-open .contact-envelope-choices a{min-height:40px}
+}
