@@ -1,0 +1,56 @@
+/* Chapter 04 — interactive usefulness engine */
+.about-north-star{display:grid;grid-template-columns:minmax(260px,.7fr) minmax(0,1.3fr);gap:clamp(28px,5vw,70px);align-items:center;isolation:isolate;min-height:760px;padding:clamp(28px,4vw,58px);background:radial-gradient(ellipse at 78% 46%,#6275aa55,transparent 44%),linear-gradient(135deg,#202b40,#101a2d 72%);border:1px solid #aab9d14a;box-shadow:0 25px 65px #11182730,inset 0 0 0 7px #ffffff08;color:#f2ecdc}
+.about-north-star:before{content:"";position:absolute;inset:14px;border:1px solid #d9e1ee20;pointer-events:none}
+.about-north-star:after{width:clamp(260px,35vw,500px);right:-12%;top:3%;transform:none;border-color:#a9bce733;box-shadow:0 0 0 28px #a9bce710,0 0 0 56px #a9bce708,0 0 0 84px #a9bce705}
+.about-north-star-copy{position:relative;z-index:2;align-self:center}
+.about-north-star-copy>span{display:block;max-width:25ch;font:8px/1.7 var(--mono);letter-spacing:.14em;color:#d6df83}
+.about-north-star-copy>p{max-width:8ch;margin:26px 0 24px;font:clamp(44px,6vw,84px)/.88 var(--display);letter-spacing:-.06em}
+.about-north-star-copy>p em{color:#d6df83}
+.about-north-star-copy>small{font:8px var(--mono);letter-spacing:.12em;color:#dce3ed9c}
+.useful-engine{position:relative;z-index:1;min-width:0;padding:14px 0 0;perspective:1200px}
+.useful-engine-topline,.useful-engine-foot{display:flex;justify-content:space-between;gap:12px;color:#b7c1d0;font:7px var(--mono);letter-spacing:.12em}
+.useful-engine-stage{position:relative;height:430px;margin:14px 0 0;overflow:hidden;border:1px solid #c5d1e02b;background:radial-gradient(ellipse at 50% 50%,#63789c24,transparent 62%),linear-gradient(145deg,#ffffff08,#ffffff01);transform-style:preserve-3d}
+.useful-engine-stage:before,.useful-engine-stage:after{content:"";position:absolute;inset:10px;border:1px solid #dce5f00c;pointer-events:none}
+.useful-engine-stage:after{inset:50% auto auto 50%;width:280px;height:280px;border:1px dashed #d6df8333;border-radius:50%;transform:translate(-50%,-50%)}
+.useful-engine-orbit{position:absolute;left:50%;top:49%;width:310px;height:150px;border:1px solid #b9c8df4a;border-radius:50%;transform:translate(-50%,-50%) rotate(-25deg);pointer-events:none;animation:useful-orbit 18s linear infinite}
+.useful-orbit-two{width:370px;height:205px;transform:translate(-50%,-50%) rotate(48deg);border-color:#d6df8336;animation-duration:24s;animation-direction:reverse}
+.useful-orbit-three{width:230px;height:330px;transform:translate(-50%,-50%) rotate(62deg);border-color:#b9c8df28;animation-duration:30s}
+.useful-engine-wiring{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.useful-engine-wiring path{fill:none;stroke:#aab9d155;stroke-width:1.2;stroke-dasharray:4 8}
+.useful-engine-wiring .useful-wire-active{stroke:#d6df83;stroke-width:2;stroke-dasharray:8 12;animation:useful-signal 3s linear infinite}
+.useful-engine-wiring circle{fill:#d6df83;filter:drop-shadow(0 0 5px #d6df83)}
+.useful-engine-core{position:absolute;left:50%;top:49%;width:180px;height:180px;transform:translate(-50%,-50%);transform-style:preserve-3d;perspective:700px}
+.useful-core-shadow{position:absolute;inset:30px;border-radius:50%;background:var(--stage-accent);filter:blur(38px);opacity:.22;transform:translateZ(-45px)}
+.useful-core-prism{position:absolute;left:50%;top:50%;width:138px;height:138px;transform:translate(-50%,-50%) rotateX(calc(12deg + var(--core-y,0deg))) rotateY(calc(-22deg + var(--core-x,0deg))) rotateZ(-9deg);transform-style:preserve-3d;transition:transform .22s ease}
+.prism-face{position:absolute;display:flex;align-items:center;justify-content:center;text-align:center;border:1px solid color-mix(in srgb,var(--stage-accent),white 40%);background:linear-gradient(145deg,#33435fdd,#1a263bdd);box-shadow:inset 0 0 28px #ffffff0d,0 12px 35px #050b1680;color:#f1ecd9;font:17px/1.1 var(--display);letter-spacing:-.04em}
+.prism-face-front{inset:0;transform:translateZ(35px);flex-direction:column}
+.prism-face-front i{margin-top:8px;color:var(--stage-accent);font:7px var(--mono);letter-spacing:.13em}
+.prism-face-side{width:70px;inset:0 auto 0 100%;transform:rotateY(90deg) translateZ(35px);font:8px var(--mono);writing-mode:vertical-rl;color:var(--stage-accent)}
+.prism-face-top{height:70px;inset:auto 0 100%;transform:rotateX(90deg) translateZ(35px);font:7px var(--mono);letter-spacing:.12em;color:var(--stage-accent)}
+.useful-core-index,.useful-core-cross{position:absolute;color:#d6df83;font:8px var(--mono)}
+.useful-core-index{left:4px;top:3px}.useful-core-cross{right:1px;bottom:2px;font-size:17px}
+.useful-stage-node{position:absolute;z-index:3;display:flex;flex-direction:column;gap:5px;min-width:120px;padding:10px 12px;text-align:left;border:1px solid #b9c8df55;background:linear-gradient(145deg,#293850ee,#172338ee);color:#e9e3d5;cursor:pointer;box-shadow:0 8px 18px #070d1b45;transition:transform .25s,border-color .25s,box-shadow .25s,background .25s}
+.useful-stage-node>span{color:var(--node-accent);font:8px var(--mono)}
+.useful-stage-node>b{font:12px var(--display);letter-spacing:.02em}
+.useful-stage-node>i{font:6px var(--mono);font-style:normal;color:#aeb9c8;letter-spacing:.12em}
+.useful-stage-node:hover,.useful-stage-node:focus-visible{transform:translateY(-4px) scale(1.03);outline:2px solid var(--node-accent);outline-offset:3px}
+.useful-stage-node.is-active{border-color:var(--node-accent);background:linear-gradient(145deg,#3a4a63,#202e45);box-shadow:0 0 0 1px var(--node-accent),0 0 28px color-mix(in srgb,var(--node-accent),transparent 78%),0 12px 25px #070d1b55}
+.useful-stage-node.is-active>i{color:var(--node-accent)}
+.useful-node-1{left:4%;top:18%}.useful-node-2{right:4%;top:18%}.useful-node-3{left:4%;bottom:17%}.useful-node-4{right:4%;bottom:17%}
+.useful-engine-caption{position:absolute;left:16px;right:16px;bottom:12px;display:flex;justify-content:space-between;gap:10px;color:#aab6c8;font:6px var(--mono);letter-spacing:.1em}
+.useful-engine-readout{display:grid;grid-template-columns:70px 1fr auto;gap:16px;align-items:center;margin-top:13px;padding:18px;border:1px solid #b9c8df36;background:linear-gradient(120deg,#ffffff0d,#ffffff03);min-height:145px}
+.useful-readout-index{font:42px/.9 var(--display);color:#d6df83;letter-spacing:-.06em}
+.useful-readout-index span{display:block;margin-top:8px;font:7px var(--mono);color:#aab6c8;letter-spacing:.12em}
+.useful-readout-copy>span{font:7px var(--mono);letter-spacing:.13em;color:#d6df83}
+.useful-readout-copy h3{margin:8px 0;font:clamp(22px,2.7vw,34px)/1 var(--display);color:#f1ecd9}
+.useful-readout-copy p{max-width:52ch;margin:0;color:#c0c8d4;font:13px/1.5 var(--serif)}
+.useful-readout-copy small{display:block;margin-top:10px;color:#a8b5c7;font:7px var(--mono);letter-spacing:.08em}
+.useful-readout-controls{display:flex;gap:6px}
+.useful-readout-controls button{width:34px;height:34px;border:1px solid #d6df8377;background:#d6df8310;color:#d6df83;font-size:17px;cursor:pointer;transition:background .2s,transform .2s}
+.useful-readout-controls button:hover{background:#d6df8330;transform:translateY(-2px)}
+.useful-engine-foot{margin-top:12px;color:#a8b5c7}
+@keyframes useful-orbit{to{rotate:335deg}}
+@keyframes useful-signal{to{stroke-dashoffset:-80}}
+@media(max-width:950px){.about-north-star{grid-template-columns:1fr;min-height:0;gap:20px}.about-north-star-copy>p{max-width:12ch}.useful-engine-stage{height:390px}}
+@media(max-width:600px){.about-north-star{padding:26px 18px}.useful-engine-topline,.useful-engine-foot{font-size:6px}.useful-engine-stage{height:420px}.useful-stage-node{min-width:102px;padding:8px}.useful-stage-node>b{font-size:10px}.useful-node-1,.useful-node-3{left:3%}.useful-node-2,.useful-node-4{right:3%}.useful-engine-core{top:48%;width:145px;height:145px}.useful-core-prism{width:112px;height:112px}.prism-face{font-size:14px}.prism-face-side{width:56px;transform:rotateY(90deg) translateZ(28px)}.prism-face-top{height:56px;transform:rotateX(90deg) translateZ(28px)}.useful-engine-readout{grid-template-columns:48px 1fr;gap:10px;padding:13px}.useful-readout-index{font-size:32px}.useful-readout-controls{grid-column:2;justify-content:flex-end}.useful-readout-copy p{font-size:12px}.useful-engine-caption{font-size:5px;left:9px;right:9px}}
+@media(prefers-reduced-motion:reduce){.useful-engine-orbit,.useful-engine-wiring .useful-wire-active{animation:none!important}.useful-core-prism,.useful-stage-node,.useful-readout-controls button{transition:none!important}.useful-stage-node:hover{transform:none}}
