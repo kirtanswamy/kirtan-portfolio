@@ -156,3 +156,229 @@
  .learning-section .learning-card{transition:none!important}
  .learning-section .learning-card:hover{transform:none!important}
 }
+
+
+/* ── Reading Room / bound catalogue volume ───────────────────────────── */
+.learning-section .archive-catalog-cover{
+  position:relative;display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between;
+  width:min(100%,1000px);min-height:clamp(340px,34vw,430px);
+  margin:34px auto 48px;padding:clamp(30px,5vw,62px) clamp(34px,6vw,76px) clamp(26px,4vw,42px) clamp(54px,7vw,92px);
+  overflow:visible;text-align:left;color:#f1e9d8;cursor:pointer;
+  border:1px solid #131c30;border-radius:3px 9px 9px 3px;
+  background:
+    radial-gradient(ellipse at 78% 12%,#53699b35,transparent 36%),
+    repeating-linear-gradient(0deg,#ffffff08 0 1px,transparent 1px 5px),
+    linear-gradient(125deg,#252f47 0%,#1c263b 52%,#303b55 100%);
+  box-shadow:
+    0 2px 0 #111a2c,
+    0 5px 0 #c6b99e,
+    0 8px 0 #9d8e71,
+    0 28px 55px #28241e30,
+    inset 2px 0 0 #65718a;
+  transform:perspective(1500px) rotateY(-2deg);
+  transform-origin:left center;
+  transition:transform .65s cubic-bezier(.2,.8,.2,1),box-shadow .65s;
+}
+.learning-section .archive-catalog-cover:before{
+  content:"";position:absolute;z-index:-1;left:10px;top:7px;bottom:7px;width:20px;
+  border-radius:2px;background:repeating-linear-gradient(90deg,#d9ceb8 0 1px,#f2e8d4 1px 3px,#b7a98f 3px 4px);
+  box-shadow:-8px 0 12px #10182780;
+}
+.learning-section .archive-catalog-cover:after{
+  content:"";position:absolute;inset:13px 15px 13px 27px;
+  border:1px solid #d9cba84a;box-shadow:inset 0 0 0 4px #ffffff08;
+  pointer-events:none;
+}
+.learning-section .archive-catalog-cover:hover,
+.learning-section .archive-catalog-cover:focus-visible{
+  transform:perspective(1500px) rotateY(-5deg) rotateX(1deg) translateY(-7px);
+  box-shadow:0 2px 0 #111a2c,0 5px 0 #c6b99e,0 8px 0 #9d8e71,0 40px 65px #28241e45,inset 2px 0 0 #65718a;
+  outline:2px solid #3158c7;outline-offset:6px;
+}
+.catalog-cover-kicker{position:relative;z-index:1;color:#c9bea8;font:8px var(--mono);letter-spacing:.18em}
+.catalog-cover-kicker i{color:#df9d7f;font-style:normal;padding:0 7px}
+.catalog-cover-index{
+  position:absolute;right:clamp(28px,5vw,62px);top:clamp(28px,4vw,48px);
+  display:grid;place-content:center;width:76px;aspect-ratio:1;border:1px solid #d5a18a99;border-radius:50%;
+  color:#e5a88e;text-align:center;font:8px/1.6 var(--mono);letter-spacing:.12em;transform:rotate(8deg);
+}
+.catalog-cover-index b{font:22px var(--serif);color:#f3dfc3}
+.catalog-ledger-mark{
+  position:absolute;right:clamp(65px,11vw,140px);top:42%;display:flex;gap:7px;align-items:flex-end;height:100px;
+  opacity:.55;transform:rotate(17deg);
+}
+.catalog-ledger-mark i{display:block;width:2px;height:100%;background:#6e8ad4}
+.catalog-ledger-mark i:nth-child(2){height:72%}.catalog-ledger-mark i:nth-child(3){height:48%}
+.learning-section .archive-catalog-cover>strong{
+  position:relative;z-index:1;display:block;margin:auto 0 16px;
+  color:#f3ead9;font:clamp(58px,8.8vw,112px)/.78 var(--display);
+  font-weight:600;letter-spacing:-.085em;
+}
+.learning-section .archive-catalog-cover>strong em{color:#7796ff;font-family:var(--serif);font-weight:500}
+.catalog-cover-subtitle{position:relative;z-index:1;color:#c9bea8;font:8px var(--mono);letter-spacing:.13em}
+.catalog-cover-bottom{
+  position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:18px;
+  width:100%;margin-top:32px;padding-top:17px;border-top:1px solid #d9cba84a;
+  color:#d7cbb6;font:8px var(--mono);letter-spacing:.12em;
+}
+.catalog-cover-bottom>span:first-child i{display:inline-block;width:4px;height:4px;margin:0 9px 2px;border-radius:50%;background:#df9d7f}
+.learning-section .archive-catalog-cover .archive-file-action{
+  position:static;display:inline-flex;align-items:center;gap:12px;padding:12px 15px;
+  color:#20283a;background:#e9dfcb;box-shadow:0 3px 0 #a89a7e;font:8px var(--mono);
+}
+.catalog-spine{
+  position:absolute;left:0;top:0;bottom:0;width:25px;display:flex;align-items:center;justify-content:center;
+  color:#c9bea8;background:linear-gradient(90deg,#111a2b,#2c3851);
+  border-right:1px solid #64718b;font:6px var(--mono);letter-spacing:.14em;
+  writing-mode:vertical-rl;transform:rotate(180deg);
+}
+
+/* ── Turn the spread itself, not only the navigation buttons ──────────── */
+.learning-section .archive-page-turner{
+  touch-action:pan-y;cursor:grab;outline:none;
+}
+.learning-section .archive-page-turner:active{cursor:grabbing}
+.learning-section .archive-page-turner:focus-visible{outline:2px solid #3158c7;outline-offset:5px}
+.learning-section .archive-edge-turn{
+  position:absolute;z-index:8;top:50%;display:flex;align-items:center;gap:6px;
+  min-width:42px;min-height:72px;padding:8px 7px;
+  color:#f4ead8;background:#28334d;border:1px solid #64718a;
+  box-shadow:0 4px 12px #201b1530;cursor:pointer;
+  font:7px var(--mono);letter-spacing:.1em;
+  opacity:.88;transition:opacity .2s,transform .25s,background .2s;
+}
+.learning-section .archive-edge-prev{left:2px;transform:translate(-2px,-50%);border-radius:0 5px 5px 0}
+.learning-section .archive-edge-next{right:2px;transform:translate(2px,-50%);border-radius:5px 0 0 5px}
+.learning-section .archive-edge-prev:hover:not(:disabled){transform:translate(0,-50%);background:#3158c7}
+.learning-section .archive-edge-next:hover:not(:disabled){transform:translate(0,-50%);background:#3158c7}
+.learning-section .archive-edge-turn:disabled{opacity:.16;cursor:not-allowed}
+.learning-section .archive-page-spread{transform-style:preserve-3d;backface-visibility:hidden}
+.learning-section .archive-page-turner.turn-next .archive-page-spread{
+  transform-origin:right center;animation:reading-room-turn-next .58s cubic-bezier(.2,.78,.2,1) both;
+}
+.learning-section .archive-page-turner.turn-previous .archive-page-spread{
+  transform-origin:left center;animation:reading-room-turn-previous .58s cubic-bezier(.2,.78,.2,1) both;
+}
+@keyframes reading-room-turn-next{
+  0%{opacity:.5;transform:rotateY(9deg) translateX(14px)}
+  55%{opacity:1;transform:rotateY(-3deg) translateX(-3px)}
+  100%{opacity:1;transform:rotateY(0) translateX(0)}
+}
+@keyframes reading-room-turn-previous{
+  0%{opacity:.5;transform:rotateY(-9deg) translateX(-14px)}
+  55%{opacity:1;transform:rotateY(3deg) translateX(3px)}
+  100%{opacity:1;transform:rotateY(0) translateX(0)}
+}
+
+/* ── Individual credential identities; these are designed records, not scans. */
+.learning-section .learning-card{
+  isolation:isolate;min-height:480px;padding:clamp(24px,3vw,40px);
+  background:linear-gradient(145deg,#fffdf6 0%,#f2ead9 68%,#e6dcc8 100%);
+  border:1px solid #b7a98b;clip-path:none;
+  box-shadow:inset 0 0 0 7px #ffffff50,0 5px 15px #30271b13;
+  transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s;
+}
+.learning-section .learning-card:before{
+  inset:14px;border:1px solid var(--credential-accent,#b9aa8c);
+  opacity:.65;z-index:0;
+}
+.learning-section .learning-card:after{
+  content:"PERSONAL ARCHIVE / DESIGNED RECORD";
+  right:24px;bottom:20px;color:#81745d;font:6px var(--mono);letter-spacing:.1em;
+}
+.learning-section .learning-card-top{padding-bottom:12px;border-bottom:1px solid #9d927866}
+.learning-section .learning-record-type{
+  color:var(--credential-accent,#8d7252);background:var(--credential-tint,#f0e7d5);
+  border:1px solid var(--credential-accent,#b9aa8c);font-size:7px;letter-spacing:.08em;
+}
+.learning-section .learning-issuer-lockup{
+  position:relative;z-index:2;display:flex;align-items:center;gap:10px;
+  margin:16px 0 0;color:var(--credential-ink,#34332d);
+  font:8px var(--mono);letter-spacing:.08em;
+}
+.learning-section .learning-issuer-monogram{
+  display:grid;place-items:center;flex:none;width:34px;height:34px;border-radius:50%;
+  color:#fff;background:var(--credential-accent,#3158c7);
+  font:700 13px var(--display);letter-spacing:-.05em;
+  box-shadow:0 2px 0 #0002,inset 0 1px 0 #ffffff66;
+}
+.learning-section .learning-issuer-lockup>i{
+  margin-left:auto;color:var(--credential-accent,#8d7252);font:6px var(--mono);letter-spacing:.12em;
+}
+.learning-section .learning-card-body{padding:18px 0 14px;min-height:210px}
+.learning-section .learning-card-copy{max-width:84%}
+.learning-section .learning-card-copy>p{color:var(--credential-accent,#a45d43)}
+.learning-section .learning-card h3{color:var(--credential-ink,#282720);font-size:clamp(25px,2.7vw,36px)}
+.learning-section .learning-card h4{color:#6b6255}
+.learning-section .learning-record-meta{gap:8px}
+.learning-section .learning-record-meta>div{border-color:var(--credential-rule,#cfc3a5)}
+.learning-section .learning-card-index{color:var(--credential-accent,#3158c7);opacity:.1}
+.learning-section .learning-card-tab{
+  right:13px;top:42%;bottom:auto;padding:8px 5px;
+  background:var(--credential-tint,#e9dfcb);color:var(--credential-accent,#76674e);
+}
+.learning-section .learning-card-foot{border-color:var(--credential-rule,#bdb08e)}
+.learning-section .learning-status{color:var(--credential-ink,#514b40)}
+.learning-section .learning-card-open{color:var(--credential-accent,#a45d43)}
+.learning-section .learning-credential-id{color:#766c59}
+.learning-section .issuer-google{
+  --credential-accent:#4285f4;--credential-tint:#e6efff;--credential-ink:#243b62;--credential-rule:#b8c9e4;
+  background:linear-gradient(135deg,#fff 0%,#f4f8ff 54%,#e8f0fe 100%);
+}
+.learning-section .issuer-google .learning-issuer-monogram{
+  background:conic-gradient(from 25deg,#4285f4 0 27%,#34a853 27% 50%,#fbbc05 50% 72%,#ea4335 72% 88%,#4285f4 88%);
+  color:#fff;text-shadow:0 1px 2px #1b3158;
+}
+.learning-section .issuer-goldman{
+  --credential-accent:#9b8450;--credential-tint:#eee8d8;--credential-ink:#182d49;--credential-rule:#c9bea4;
+  background:linear-gradient(135deg,#fbf9f1 0%,#e8e3d5 55%,#d7d5ce 100%);
+}
+.learning-section .issuer-linkedin{
+  --credential-accent:#0a66c2;--credential-tint:#e4f1fb;--credential-ink:#123c63;--credential-rule:#b7d0e3;
+  background:linear-gradient(135deg,#f8fcff 0%,#e8f4fc 58%,#d8e9f5 100%);
+}
+.learning-section .issuer-linkedin .learning-issuer-monogram{border-radius:5px;background:#0a66c2;font:700 14px Arial,sans-serif}
+.learning-section .issuer-qualcomm{
+  --credential-accent:#c03932;--credential-tint:#f8e7e4;--credential-ink:#522522;--credential-rule:#dfb7b1;
+  background:linear-gradient(135deg,#fffaf5 0%,#f5e8df 58%,#ead7ce 100%);
+}
+.learning-section .issuer-vbyld{
+  --credential-accent:#bd633b;--credential-tint:#f7e8d8;--credential-ink:#553326;--credential-rule:#d9b79e;
+  background:linear-gradient(135deg,#fffaf0 0%,#f5e7d4 55%,#ecd3b7 100%);
+}
+.learning-section .issuer-vbyld .learning-issuer-monogram{
+  border-radius:6px;background:linear-gradient(145deg,#e88a37,#b94c32);
+}
+.learning-section .learning-card:hover{
+  transform:translateY(-5px) rotate(-.15deg);
+  box-shadow:inset 0 0 0 7px #ffffff55,0 14px 26px #30271b20;
+}
+.learning-section .archive-page-controls small{
+  display:block;margin-top:6px;color:#8c806d;font:6px var(--mono);letter-spacing:.1em;
+}
+@media(max-width:760px){
+  .learning-section .archive-catalog-cover{min-height:340px;padding:30px 22px 24px 48px}
+  .learning-section .archive-catalog-cover>strong{font-size:clamp(54px,12vw,78px)}
+  .catalog-cover-index{width:58px;right:22px;top:22px}
+  .catalog-ledger-mark{right:45px;opacity:.25}
+  .catalog-cover-subtitle{max-width:34ch;line-height:1.7}
+  .catalog-cover-bottom{align-items:flex-start;flex-direction:column}
+  .learning-section .archive-page-turner{padding:8px}
+  .learning-section .archive-edge-turn{top:auto;bottom:8px;min-height:42px}
+  .learning-section .archive-edge-prev{left:8px;transform:none}
+  .learning-section .archive-edge-next{right:8px;transform:none}
+  .learning-section .archive-edge-prev:hover:not(:disabled),.learning-section .archive-edge-next:hover:not(:disabled){transform:translateY(-2px)}
+  .learning-section .learning-card{min-height:410px;padding:24px 22px}
+  .learning-section .learning-card-body{min-height:200px}
+}
+@media(max-width:520px){
+  .learning-section .archive-catalog-cover{min-height:360px}
+  .learning-section .catalog-cover-bottom{margin-top:22px}
+  .learning-section .archive-page-turner{padding-bottom:58px}
+  .learning-section .learning-card{min-height:400px}
+  .learning-section .learning-card-copy{max-width:88%}
+  .learning-section .learning-issuer-lockup{font-size:7px}
+}
+@media(prefers-reduced-motion:reduce){
+  .learning-section .archive-catalog-cover,.learning-section .archive-page-spread,.learning-section .learning-card{transition:none!important;animation:none!important}
+}
