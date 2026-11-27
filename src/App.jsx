@@ -1075,7 +1075,7 @@ function App() {
           </div>
           <div
             className={`contact-envelope-stage${envelopeOpen ? ' is-open' : ''}`}
-            style={{ '--envelope-progress': envelopeProgress, '--letter-top': `${31 - 29 * envelopeProgress}%`, '--letter-height': `${60 + 24 * envelopeProgress}%` }}
+            style={{ '--envelope-progress': envelopeProgress, '--letter-top': `${31 - 38 * envelopeProgress}%`, '--letter-height': `${60 + 40 * envelopeProgress}%` }}
             onPointerMove={event => {
               if (event.pointerType !== 'mouse') return
               const scene = event.currentTarget.querySelector('.contact-envelope-scene')
