@@ -87,3 +87,35 @@
 @media(prefers-reduced-motion:reduce){
  .journey-postcard-clip{transition:none}
 }
+
+/* Visual QA refinements: keep every postcard readable and stationery balanced */
+.journey-scrapbook-spread{min-height:570px;padding-bottom:145px}
+.journey-postcards{align-items:stretch}
+.journey-postcard{min-height:350px;height:350px}
+.journey-postcard:nth-child(1){margin-top:20px}
+.journey-postcard:nth-child(2){margin-top:0}
+.journey-postcard:nth-child(3){margin-top:24px}
+.journey-postcard:nth-child(4){margin-top:8px}
+.journey-postcard>strong{min-height:62px;max-width:100%;overflow-wrap:anywhere}
+.journey-postcard-place{line-height:1.5;min-height:20px}
+.journey-postcard-art{flex:0 0 130px}
+.journey-postcard-clip{top:-19px;filter:drop-shadow(0 2px 1px #403a3028)}
+.journey-sticky-note{bottom:18px;right:4%;width:180px;min-height:88px;z-index:7}
+.journey-pencil{bottom:35px;left:4%;z-index:7}
+.journey-spiral{gap:12px;top:-1px;padding:0 18px}
+.journey-spiral i{width:18px;height:33px;border-radius:12px 12px 8px 8px;box-shadow:inset 2px 0 2px #fff9e8, inset -2px 0 2px #5d625f,0 2px 2px #312b222c}
+.journey-postcard:focus-visible{outline:3px solid #3158a4;outline-offset:4px}
+@media(max-width:900px){
+ .journey-scrapbook-spread{min-height:770px;padding-bottom:135px}
+ .journey-postcard{height:310px;min-height:310px}
+ .journey-postcard-art{flex-basis:105px}
+ .journey-postcard>strong{min-height:54px}
+}
+@media(max-width:560px){
+ .journey-scrapbook-spread{min-height:930px;padding-bottom:155px}
+ .journey-postcard{height:300px;min-height:300px}
+ .journey-postcard-art{flex-basis:90px}
+ .journey-postcard>strong{min-height:56px}
+ .journey-sticky-note{right:5%;bottom:15px;width:150px}
+ .journey-pencil{left:4%;bottom:35px;width:112px}
+}
