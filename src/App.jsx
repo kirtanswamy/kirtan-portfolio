@@ -95,13 +95,15 @@ const chapterItems = [
 ]
 
 const learning = [
-  { name: 'Qualcomm AI Upskilling', detail: 'Technical Foundations', kind: 'AI / MACHINE LEARNING', category: 'TECH', record: 'COURSE', status: 'COURSE COMPLETED · CREDENTIAL NOT VERIFIED' },
-  { name: 'Goldman Sachs', detail: 'Operations Job Simulation · Forage', kind: 'BUSINESS / OPERATIONS', category: 'BUSINESS', record: 'SIMULATION', status: 'JOB SIMULATION COMPLETED' },
-  { name: 'Google Ads & Analytics', detail: 'Digital marketing and measurement learning', kind: 'DIGITAL / ANALYTICS', category: 'DIGITAL', record: 'LEARNING LOG', status: 'COURSE DETAILS TO VERIFY' },
-  { name: 'Microsoft × LinkedIn', detail: 'Generative AI learning programme', kind: 'GENERATIVE AI', category: 'TECH', record: 'COURSE', status: 'COURSE COMPLETED · EXACT TITLE TO VERIFY' },
+  { name: 'Goldman Sachs', detail: 'Operations Job Simulation · Forage', kind: 'BUSINESS / OPERATIONS', category: 'BUSINESS', record: 'JOB SIMULATION', issuer: 'Goldman Sachs × Forage', issued: 'SEP 2026', credentialId: '6ab75fbc5bf1182d2089ad30', status: 'COMPLETED · JOB SIMULATION', verified: true },
+  { name: 'Google Ads Display Certification', detail: 'Google Skillshop', kind: 'DIGITAL ADVERTISING', category: 'DIGITAL', record: 'CERTIFICATION', issuer: 'Google', issued: 'SEP 2026', expires: 'SEP 2027', credentialId: '194450319', status: 'ISSUED · VALID THROUGH SEP 2027', verified: true },
+  { name: 'Google Analytics Individual Qualification', detail: 'Analytics measurement and reporting', kind: 'ANALYTICS', category: 'DIGITAL', record: 'CERTIFICATION', issuer: 'Google', issued: 'SEP 2026', expires: 'SEP 2027', credentialId: '195122117', status: 'ISSUED · VALID THROUGH SEP 2027', verified: true },
+  { name: 'What Is Generative AI?', detail: 'Generative AI foundations', kind: 'GENERATIVE AI', category: 'TECH', record: 'CERTIFICATE', issuer: 'LinkedIn', issued: 'SEP 2026', credentialId: '4d01191ac9552badb42fecd0c086901a89a0e1b71aae0a0ca9d4cf6c5525799', status: 'ISSUED · LINKEDIN LEARNING', verified: true },
+  { name: 'Viksit Bharat Young Leaders Dialogue 2026', detail: 'Participant · Ministry of Youth Affairs & Sports', kind: 'NATIONAL YOUTH LEADERSHIP', category: 'NATIONAL', record: 'PARTICIPANT CREDENTIAL', issuer: 'Ministry of Youth Affairs & Sports, Government of India', issued: 'JAN 2026', status: 'PARTICIPATION RECORDED · CREDENTIAL LISTED ON LINKEDIN', verified: true },
+  { name: 'Qualcomm AI Upskilling', detail: 'Technical foundations in AI', kind: 'AI / MACHINE LEARNING', category: 'TECH', record: 'COURSE RECORD', issuer: 'Qualcomm', issued: 'COMPLETED', status: 'COURSE COMPLETED · CERTIFICATE NOT ISSUED', verified: true },
 ]
 
-const learningCategories = ['ALL ENTRIES', 'TECH', 'BUSINESS', 'DIGITAL']
+const learningCategories = ['ALL ENTRIES', 'CERTIFICATES', 'TECH', 'BUSINESS', 'DIGITAL', 'NATIONAL']
 
 const skills = [
   { group: 'FRONTEND & APPS', items: ['HTML & CSS', 'JavaScript', 'TypeScript', 'React', 'React Native', 'Expo', 'Flutter'] },
@@ -983,7 +985,7 @@ function App() {
         <div className="section-index reveal"><Eyebrow>06 — THE READING ROOM</Eyebrow><span>COURSES / SIMULATIONS / CONTINUOUS LEARNING</span></div>
         <div className="learning-intro reveal">
           <div><span className="learning-notebook-label">THE READING ROOM / INDEXED NOTES</span><h2>THE<br/><em>ARCHIVE.</em></h2></div>
-          <div className="learning-intro-aside"><span className="learning-aside-mark">A–Z</span><p>A working record of courses, simulations and learning in progress. Filed by subject, with the status kept honest.</p><small>FOUR ENTRIES / CURRENT INDEX</small></div>
+          <div className="learning-intro-aside"><span className="learning-aside-mark">A–Z</span><p>A working record of courses, simulations and learning in progress. Filed by subject, with the status kept honest.</p><small>SIX RECORDS / CERTIFICATES & LEARNING</small></div>
         </div>
         <div className="learning-archive-bar">
           <div className="learning-filters" role="group" aria-label="Filter learning records">
@@ -992,12 +994,17 @@ function App() {
           <span className="learning-archive-count" aria-live="polite">SHOWING {String(visibleLearning.length).padStart(2, '0')} / {String(learning.length).padStart(2, '0')}</span>
         </div>
         {!archiveOpen ? (
-          <button type="button" className="archive-file-cover" onClick={() => setArchiveOpen(true)} aria-label="Open the learning archive file">
-            <span className="archive-file-stamp">KS / READING ROOM</span>
-            <span className="archive-file-index">FILE<br/>06</span>
-            <strong>LEARNING<br/><em>ARCHIVE.</em></strong>
-            <span className="archive-file-meta">COURSES · SIMULATIONS · NOTES</span>
-            <span className="archive-file-action">OPEN THE FILE <ArrowUpRight size={16}/></span>
+          <button type="button" className="archive-file-cover" onClick={() => { setArchiveOpen(true); setArchivePage(0) }} aria-label="Open the certificate archive folder">
+            <span className="archive-folder-tab">PERSONAL RECORDS / 2026</span>
+            <span className="archive-folder-fastener" aria-hidden="true"><i/><i/></span>
+            <span className="archive-folder-paper archive-folder-paper-one" aria-hidden="true"/>
+            <span className="archive-folder-paper archive-folder-paper-two" aria-hidden="true"/>
+            <span className="archive-file-stamp">KS / PRIVATE COLLECTION</span>
+            <span className="archive-file-index">NO.<br/>006</span>
+            <strong>CERTIFICATE<br/><em>ARCHIVE.</em></strong>
+            <span className="archive-file-meta">CREDENTIALS · PROGRAMMES · LEARNING RECORDS</span>
+            <span className="archive-file-action">OPEN THE FOLDER <ArrowUpRight size={16}/></span>
+            <span className="archive-folder-seal" aria-hidden="true">KS</span>
           </button>
         ) : (
           <>
@@ -1008,13 +1015,17 @@ function App() {
             <div className="archive-page-turner" key={`${activeLearningCategory}-${archivePage}`}>
               <div className="archive-page-spread">
                 {currentLearningPage.map((item, pageIndex) => <article className="learning-card reveal" key={item.name}>
-                  <div className="learning-card-top"><span>FILE / {String(learning.indexOf(item) + 1).padStart(2, '0')}</span><span className="learning-record-type">{item.record}</span></div>
+                  <div className="learning-card-top"><span>DOCUMENT / {String(learning.indexOf(item) + 1).padStart(2, '0')} — KS</span><span className="learning-record-type">{item.record}</span></div>
                   <div className="learning-card-body">
-                    <div className="learning-card-copy"><p>{item.kind}</p><h3>{item.name}</h3><h4>{item.detail}</h4></div>
+                    <div className="learning-card-copy">
+                      <p>{item.kind}</p><h3>{item.name}</h3><h4>{item.detail}</h4>
+                      <dl className="learning-record-meta"><div><dt>ISSUED BY</dt><dd>{item.issuer}</dd></div><div><dt>ISSUED</dt><dd>{item.issued}</dd></div>{item.expires && <div><dt>VALID UNTIL</dt><dd>{item.expires}</dd></div>}</dl>
+                    </div>
                     <span className="learning-card-index" aria-hidden="true">{String(learning.indexOf(item) + 1).padStart(2, '0')}</span>
                     <span className="learning-card-tab" aria-hidden="true">{item.category}</span>
                   </div>
                   <div className="learning-card-foot"><span className="learning-status">{item.status}</span><span className="learning-card-open" aria-hidden="true">↗</span></div>
+                  {item.credentialId && <div className="learning-credential-id">CREDENTIAL ID <b>{item.credentialId}</b></div>}
                 </article>)}
                 {currentLearningPage.length === 1 && <div className="archive-empty-page"><span>END OF FILE</span><strong>MORE<br/>TO COME.</strong><small>NEW RECORDS WILL BE ADDED WHEN VERIFIED</small></div>}
               </div>
