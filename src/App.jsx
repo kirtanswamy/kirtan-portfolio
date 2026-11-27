@@ -344,6 +344,43 @@ const usefulStages = [
   { key: '04', title: 'REFINE', verb: 'Make it more useful.', detail: 'Keep what works, remove what gets in the way and improve the hand-off between people, tools and systems.', example: 'JANSEVA ONE · civic action coordination concept', accent: '#d99a80' },
 ]
 
+const journeyMilestones = [
+  { id:'01', year:'2023 — PRESENT', type:'FOUNDATIONS', title:'SRMIST / ECE', place:'CHENNAI · INDIA', summary:'The place where engineering became a way to explore how things work.', detail:'Studying Electronics & Communication Engineering at SRMIST, building foundations across electronics, computing and the systems that connect them.', artifact:'FIELD NOTE / CAMPUS', mark:'ECE', color:'#d6df83' },
+  { id:'02', year:'JANUARY 2026', type:'REPRESENTATION', title:'VIKSIT BHARAT YOUNG LEADERS DIALOGUE', place:'NEW DELHI · INDIA', summary:'A state-contingent experience that brought local ideas into a national conversation.', detail:'Represented the Chhattisgarh state contingent and Balod district at the Viksit Bharat Young Leaders Dialogue 2026, presenting the idea of innovation with tradition.', artifact:'FIELD NOTE / VBYLD 2026', mark:'भारत', color:'#d99a80' },
+  { id:'03', year:'ONGOING', type:'LEADERSHIP', title:'SQAC / APP DEVELOPMENT', place:'SRMIST · CHENNAI', summary:'Taking responsibility for the app development domain in a student-led technical community.', detail:'App Development Lead at SRMIST’s Software Quality Assurance Club, contributing to student-led technical work and the club’s application initiatives.', artifact:'FIELD NOTE / SQAC', mark:'SQAC', color:'#8fb8e8' },
+  { id:'04', year:'IN PROGRESS', type:'MAKING', title:'BUILDING USEFUL THINGS', place:'INDEPENDENT BUILDS', summary:'Turning questions into products, prototypes and experiments.', detail:'Developing BUSHO, Varsity and ElectroLab while exploring civic technology, product design and research. Each project is a work in progress, not a finished claim.', artifact:'FIELD NOTE / BUILDER’S LOG', mark:'MAKE', color:'#d6df83' },
+]
+
+function JourneyRoute() {
+  const [active, setActive] = useState(0)
+  const item = journeyMilestones[active]
+  return (
+    <div className="journey-route-experience">
+      <div className="journey-route-topline"><span>PERSONAL FIELD ATLAS / 001</span><span>FOUR CHAPTERS · STILL IN MOTION</span></div>
+      <div className="journey-route-map">
+        <svg viewBox="0 0 1000 330" preserveAspectRatio="none" aria-hidden="true">
+          <defs><linearGradient id="journey-route-gradient" x1="0" x2="1"><stop offset="0" stopColor="#d6df83"/><stop offset=".5" stopColor="#8fb8e8"/><stop offset="1" stopColor="#d99a80"/></linearGradient></defs>
+          <path className="journey-route-shadow" d="M80 180C180 35 300 45 390 165S565 292 650 160 820 25 920 150"/>
+          <path className="journey-route-line" d="M80 180C180 35 300 45 390 165S565 292 650 160 820 25 920 150"/>
+          {journeyMilestones.map((point,index)=><g key={point.id} className={active===index?'route-point is-active':'route-point'} transform={['translate(80 180)','translate(390 165)','translate(650 160)','translate(920 150)'][index]}><circle className="route-point-halo" r="30"/><circle className="route-point-dot" r="9"/><text y="-24" textAnchor="middle">{point.id}</text></g>)}
+        </svg>
+        <div className="journey-map-compass" aria-hidden="true"><span>N</span><i>✳</i><small>FIELD / 04</small></div>
+        <div className="journey-map-coordinates"><span>17° / 78°</span><span>THE ROUTE IS NOT LINEAR</span></div>
+      </div>
+      <div className="journey-route-selector" role="group" aria-label="Explore journey milestones">
+        {journeyMilestones.map((point,index)=><button type="button" key={point.id} className={active===index?'is-active':''} onClick={()=>setActive(index)} aria-pressed={active===index} style={{'--journey-accent':point.color}}>
+          <span className="journey-selector-number">{point.id}</span><span className="journey-selector-type">{point.type}</span><b>{point.title}</b><small>{point.year}</small><i>{active===index?'CURRENT VIEW':'OPEN FIELD NOTE ↗'}</i>
+        </button>)}
+      </div>
+      <article className="journey-route-detail" aria-live="polite" key={item.id} style={{'--journey-accent':item.color}}>
+        <div className="journey-detail-art"><span>{item.artifact}</span><strong>{item.mark}</strong><i>{item.id} / 04</i><small>{item.place}</small></div>
+        <div className="journey-detail-copy"><span>CHAPTER {item.id} / {item.type}</span><small>{item.year}</small><h3>{item.title}</h3><p className="journey-detail-summary">{item.summary}</p><p>{item.detail}</p><div className="journey-detail-footer"><span>MAKER’S NOTEBOOK / IN PROGRESS</span><div><button type="button" onClick={()=>setActive(index=>(index+3)%4)} aria-label="Previous milestone">←</button><button type="button" onClick={()=>setActive(index=>(index+1)%4)} aria-label="Next milestone">→</button></div></div></div>
+      </article>
+      <div className="journey-route-colophon"><span>NOT A STRAIGHT LINE. A SERIES OF USEFUL TURNS.</span><span>05 / 08 · {item.id} OF 04</span></div>
+    </div>
+  )
+}
+
 function UsefulThingsEngine() {
   const [activeStage, setActiveStage] = useState(0)
   const [tilt, setTilt] = useState({ x: 0, y: 0 })
@@ -1092,14 +1129,8 @@ function App() {
             <g fill="#645b4d" fontFamily="Georgia,serif" fontStyle="italic" fontSize="18"><text x="510" y="64">N</text><text x="600" y="154">E</text><text x="505" y="246">S</text><text x="423" y="154">W</text></g></svg><span className="journey-map-clip">✳</span></div>
           <p className="journey-editorial-deck">A few chapters so far.<br/>More are still being written.</p>
         </div>
-        <div className="journey-scrapbook" aria-label="Four illustrated milestones">
-          <svg className="journey-scrapbook-route" viewBox="0 0 1200 180" preserveAspectRatio="none" aria-hidden="true"><path d="M18 92C112 36 166 43 252 86S390 137 486 86 640 34 738 83s172 64 266 14 128-55 178-29"/></svg>
-          <article className="journey-memory reveal"><div className="journey-memory-art campus-sketch"><svg viewBox="0 0 300 170"><g fill="none" stroke="#514b40" strokeWidth="2"><path d="M18 142h264M35 140V67l42-24 42 24v73M118 140V52h145v88M104 52l87-34 84 34M35 68h84M118 80h145M132 94h18v24h-18zm37 0h18v24h-18zm37 0h18v24h-18zM48 86h17v24H48zm34 0h17v24H82z"/></g><path d="M28 147h250" stroke="#b65a3c" strokeWidth="3"/></svg><span>FIELD NOTE / 001</span></div><span className="journey-date-stamp">2023 —<br/>PRESENT</span><span className="journey-memory-pin"/><div className="journey-memory-copy"><span>01 / FOUNDATIONS</span><h3>SRMIST <em>/ ECE</em></h3><p>Current engineering studies, exploring electronics, computing and the systems that connect them.</p><small>CHENNAI · INDIA</small></div></article>
-          <article className="journey-memory reveal"><div className="journey-memory-art delhi-sketch"><svg viewBox="0 0 260 170"><g fill="none" stroke="#625747" strokeWidth="2"><path d="M18 145h224M38 145v-10h184v10M55 135V90h150v45M70 90q60-72 120 0M85 90q45-50 90 0M98 90v45m64-45v45M112 95v50m36-50v50M78 112h104M80 125h100"/></g></svg><span>NEW DELHI / 2026</span></div><span className="journey-postmark">VIKSIT<br/>BHARAT<br/><b>2026</b></span><span className="journey-memory-pin"/><div className="journey-memory-copy"><span>02 / REPRESENTATION</span><h3>VIKSIT BHARAT<br/><em>YOUNG LEADERS DIALOGUE</em></h3><p>Selected for the Chhattisgarh state contingent; represented Balod district in New Delhi.</p><small>CHHATTISGARH · BALOD</small></div></article>
-          <article className="journey-memory reveal"><div className="journey-memory-art journey-paper-tag"><span className="tag-hole"/><strong>SQAC</strong><small>APP DEVELOPMENT</small><i>SRMIST / 01</i></div><span className="journey-memory-pin"/><div className="journey-memory-copy"><span>03 / LEADERSHIP</span><h3>SQAC <em>/ APP DEVELOPMENT</em></h3><p>App Development Lead at the Software Quality Assurance Club, contributing to student-led technical work.</p><small>STUDENT CLUB · SRMIST</small></div></article>
-          <article className="journey-memory reveal"><div className="journey-memory-art journey-paper-tag journey-busho-tag"><span className="tag-hole"/><strong>BUSHO</strong><small>HEALTHCARE<br/>WORKFLOWS</small><i>IN PROGRESS / 01</i></div><span className="journey-memory-pin"/><div className="journey-memory-copy"><span>04 / MAKING</span><h3>BUILDING <em>USEFUL THINGS</em></h3><p>Developing BUSHO, Varsity and ElectroLab while exploring research and product design.</p><small>INDEPENDENT BUILDS · ONGOING</small></div></article>
-        </div>
-        <div className="journey-colophon"><span>NOT A STRAIGHT LINE. A SERIES OF USEFUL TURNS.</span><span>05 / 08</span></div>
+        <JourneyRoute />
+
       </section>
 
       <section className="learning-section section-pad" id="learning">
