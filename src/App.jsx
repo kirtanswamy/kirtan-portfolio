@@ -1049,7 +1049,7 @@ function App() {
                 const dx = event.clientX - drag.startX
                 const signed = drag.direction === 'next' ? -dx : dx
                 const progress = Math.max(0, Math.min(1, signed / (drag.width * 0.42)))
-                const angle = Math.min(68, progress * 68)
+                const angle = Math.min(154, progress * 154)
                 event.currentTarget.style.setProperty('--page-turn-progress', progress.toFixed(3))
                 event.currentTarget.style.setProperty('--page-turn-angle', `${drag.direction === 'next' ? -angle : angle}deg`)
                 event.currentTarget.style.setProperty('--page-turn-x', `${Math.max(0, Math.min(100, (event.clientX - event.currentTarget.getBoundingClientRect().left) / drag.width * 100))}%`)
@@ -1064,7 +1064,7 @@ function App() {
                 event.currentTarget.classList.remove('is-dragging')
                 event.currentTarget.style.setProperty('--page-turn-progress', '0')
                 event.currentTarget.style.setProperty('--page-turn-angle', '0deg')
-                if (progress > 0.22) {
+                if (progress > 0.24) {
                   setArchiveTurnDirection(drag.direction)
                   setArchivePage(page => drag.direction === 'next'
                     ? Math.min(archivePageCount - 1, page + 1)
@@ -1078,8 +1078,8 @@ function App() {
                 event.currentTarget.style.setProperty('--page-turn-angle', '0deg')
               }}
             >
-              <button className="archive-edge-turn archive-edge-prev" type="button" aria-label="Turn to previous spread" disabled={archivePage === 0} onClick={() => { setArchiveTurnDirection('previous'); setArchivePage(page => Math.max(0, page - 1)) }}><ArrowLeft size={17}/><span>PREV</span></button>
-              <button className="archive-edge-turn archive-edge-next" type="button" aria-label="Turn to next spread" disabled={archivePage >= archivePageCount - 1} onClick={() => { setArchiveTurnDirection('next'); setArchivePage(page => Math.min(archivePageCount - 1, page + 1)) }}><span>TURN</span><ArrowRight size={17}/></button>
+              
+              
               <div className="archive-page-spread">
                 {currentLearningPage.map((item, pageIndex) => <article className={`learning-card reveal credential-${item.category.toLowerCase()} ${item.category === 'DIGITAL' ? 'issuer-google' : item.category === 'BUSINESS' ? 'issuer-goldman' : item.category === 'NATIONAL' ? 'issuer-vbyld' : item.issuer === 'LinkedIn' ? 'issuer-linkedin' : 'issuer-qualcomm'}`} key={item.name}>
                   <div className="learning-card-top"><span>DOCUMENT / {String(learning.indexOf(item) + 1).padStart(2, '0')} — KS</span><span className="learning-record-type">{item.record}</span></div>
@@ -1153,42 +1153,34 @@ function App() {
           </div>
           <div
             className={`contact-envelope-stage${envelopeOpen ? ' is-open' : ''}`}
-            onPointerMove={event => {
+            onPointerEnter={event => {
               if (event.pointerType !== 'mouse') return
-              const scene = event.currentTarget.querySelector('.contact-envelope-scene')
-              if (!scene) return
-              const rect = scene.getBoundingClientRect()
-              const dx = event.clientX - (rect.left + rect.width / 2)
-              const dy = event.clientY - (rect.top + rect.height / 2)
-              const radius = Math.max(rect.width * 0.76, rect.height * 0.9)
-              const proximity = Math.max(0, Math.min(1, 1 - Math.hypot(dx, dy) / radius))
-              // A continuous ease: the lid begins to lift at the edge of the
-              // interaction field and the letter follows without a threshold pop.
-              const eased = proximity * proximity * (2.4 - 1.4 * proximity)
               const stage = event.currentTarget
-              stage.style.setProperty('--envelope-progress', eased.toFixed(3))
-              stage.style.setProperty('--flap-angle', `${-168 * eased}deg`)
-              stage.style.setProperty('--letter-lift', `${-40 * eased}%`)
-              stage.style.setProperty('--letter-layer', eased > 0.42 ? '6' : '3')
-              setEnvelopeOpen(eased > 0.58)
+              stage.style.setProperty('--envelope-progress', '1')
+              stage.style.setProperty('--flap-angle', '-168deg')
+              stage.style.setProperty('--letter-layer', '6')
+              stage.style.setProperty('--letter-top', '2%')
+              stage.style.setProperty('--letter-height', '84%')
+              setEnvelopeOpen(true)
             }}
             onPointerLeave={event => {
-              if (event.pointerType === 'mouse' && !event.currentTarget.matches(':focus-within')) {
-                const stage = event.currentTarget
-                stage.style.setProperty('--envelope-progress', '0')
-                stage.style.setProperty('--flap-angle', '0deg')
-                stage.style.setProperty('--letter-lift', '0%')
-                stage.style.setProperty('--letter-layer', '3')
-                setEnvelopeOpen(false)
-              }
+              if (event.pointerType !== 'mouse' || event.currentTarget.matches(':focus-within')) return
+              const stage = event.currentTarget
+              stage.style.setProperty('--envelope-progress', '0')
+              stage.style.setProperty('--flap-angle', '0deg')
+              stage.style.setProperty('--letter-layer', '3')
+              stage.style.setProperty('--letter-top', '31%')
+              stage.style.setProperty('--letter-height', '60%')
+              setEnvelopeOpen(false)
             }}
             onFocus={event => {
               if (event.target.closest('.contact-envelope-choices') || event.target.closest('.contact-envelope-toggle')) {
                 const stage = event.currentTarget
                 stage.style.setProperty('--envelope-progress', '1')
                 stage.style.setProperty('--flap-angle', '-168deg')
-                stage.style.setProperty('--letter-lift', '-40%')
                 stage.style.setProperty('--letter-layer', '6')
+                stage.style.setProperty('--letter-top', '2%')
+                stage.style.setProperty('--letter-height', '84%')
                 setEnvelopeOpen(true)
               }
             }}
@@ -1197,6 +1189,8 @@ function App() {
                 const stage = event.currentTarget
                 stage.style.setProperty('--envelope-progress', '0')
                 stage.style.setProperty('--letter-layer', '3')
+                stage.style.setProperty('--letter-top', '31%')
+                stage.style.setProperty('--letter-height', '60%')
                 setEnvelopeOpen(false)
               }
             }}
