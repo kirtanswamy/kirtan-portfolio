@@ -1074,8 +1074,10 @@ function App() {
           </div>
           <div
             className={`contact-envelope-stage${envelopeOpen ? ' is-open' : ''}`}
+            onPointerEnter={event => { if (event.pointerType === 'mouse') setEnvelopeOpen(true) }}
+            onPointerLeave={event => { if (event.pointerType === 'mouse' && !event.currentTarget.matches(':focus-within')) setEnvelopeOpen(false) }}
             onFocus={event => { if (event.target.closest('.contact-envelope-choices')) setEnvelopeOpen(true) }}
-            onBlur={event => { if (event.relatedTarget && !event.currentTarget.contains(event.relatedTarget)) setEnvelopeOpen(false) }}
+            onBlur={event => { if (!event.currentTarget.contains(event.relatedTarget)) setEnvelopeOpen(false) }}
           >
             <div className="contact-envelope-orbit" aria-hidden="true" />
             <div className="contact-envelope-scene">
@@ -1106,7 +1108,10 @@ function App() {
                 type="button"
                 className="contact-envelope-toggle"
                 aria-expanded={envelopeOpen}
-                onClick={() => setEnvelopeOpen(open => !open)}
+                onClick={event => {
+                  if (event.nativeEvent.pointerType === 'mouse') setEnvelopeOpen(true)
+                  else setEnvelopeOpen(open => !open)
+                }}
               >
                 <span>{envelopeOpen ? 'LETTER OPEN' : 'OPEN THE LETTER'}</span><ArrowUpRight size={15} />
               </button>
