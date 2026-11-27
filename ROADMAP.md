@@ -366,3 +366,18 @@ See [CONTENT_REGISTRY.md](./CONTENT_REGISTRY.md). That file is the source of tru
 - Kept the existing LinkedIn and GitHub destinations unchanged.
 - Next active implementation work remains M2/M3: evaluate the first actual scene-based 3D implementation, beginning with a restrained project-book prototype. Add a 3D runtime only with a committed lockfile, lazy loading, reduced-motion/static fallback and a measured mobile performance budget.
 - Do not promote the preview to production before visual and interaction QA and explicit user approval.
+
+### User-directed redesign pass — 27 November 2026
+
+- User review: the envelope appeared closed/broken in the submitted desktop capture; the generic “from question to something real” making-practice section was unclear; project presentation, milestones, the national-conversation story, open-files/roadmap, archive and toolbox need more distinctive interaction and visual depth.
+- Source check: the current feature-branch application no longer contains a separate `process-section` / “from question to something real” chapter. The current chapter order is Work → Milestones → Open Files → Field Note → About → Journey → Archive → Workshop → Contact. Do not reintroduce the generic process section.
+- Implemented on the feature branch:
+  - Contact focus handling no longer closes the envelope on a transient null focus target; the letter's text is concealed until the open state.
+  - Project shelf now uses dimensional perspective, scroll snapping, layered shadows and focus/hover lift. Still CSS-based; not a true 3D book model.
+  - Viksit Bharat field note has a stronger cinematic editorial spread and responsive hierarchy.
+  - Open Files roadmap has a clearer primary workstream and secondary tracks, replacing some of the flat presentation.
+  - Learning archive gains a page-turn arrival cue and dimensional file-cover interaction. Existing four records remain status-qualified; no certificate scans have been fabricated.
+  - Toolbox drawers gain raised panel depth and clearer tool rows.
+- Still to do: validate the contact envelope visually in both states; redesign project cards as distinct project worlds rather than one shared card template; turn the milestones and autobiography into an evidence-led interactive scene; make archive pages display real, user-approved certificate/credential artefacts; test mobile performance, keyboard access and reduced motion.
+- The vinyl / interests record section is not altered in this pass. Preserve it pending the user's stated approval.
+- Keep all work on `feature/editorial-world-rebuild`; do not merge or promote to production without explicit approval.
