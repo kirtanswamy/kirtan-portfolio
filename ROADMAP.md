@@ -358,3 +358,11 @@ See [CONTENT_REGISTRY.md](./CONTENT_REGISTRY.md). That file is the source of tru
 - Production remains on the previously published checkpoint. This lower-chapter pass is not published to production; it requires preview QA and user review.
 
 **QA so far:** `npm run build` passes. Playwright passes all five tests, including responsive overflow checks, the project shelf and vinyl track/play controls.
+
+### Contact integration and envelope depth pass — 27 November 2026
+
+- Connected the Gmail contact route to the verified public address supplied by the user: `kirtankswamy@gmail.com`. The Gmail composer now opens with the recipient and a useful subject prefilled.
+- Refined the envelope's 3D transform context, flap backface handling, letter depth/shadow and mobile perspective. This remains a CSS 3D envelope, not a simulated cloth or physically deforming paper mesh.
+- Kept the existing LinkedIn and GitHub destinations unchanged.
+- Next active implementation work remains M2/M3: evaluate the first actual scene-based 3D implementation, beginning with a restrained project-book prototype. Add a 3D runtime only with a committed lockfile, lazy loading, reduced-motion/static fallback and a measured mobile performance budget.
+- Do not promote the preview to production before visual and interaction QA and explicit user approval.
