@@ -158,12 +158,19 @@ function Eyebrow({ children, light = false }) {
 
 function ProjectVisual({ project }) {
   if (project.id === '01') return (
-    <img
-      className="project-visual project-visual-busho-photo"
-      src="https://raw.githubusercontent.com/kirtanswamy/BUSHO/main/assets/busho-github-banner.jpg"
-      alt="BUSHO concept banner showing a frontline health worker, report capture and supervisor workflow"
-      loading="lazy"
-    />
+    <svg className="project-visual project-visual-busho" viewBox="0 0 520 230" role="img" aria-label="Conceptual BUSHO frontline reporting and supervisor review workflow diagram">
+      <defs>
+        <linearGradient id="busho-flow" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#d6df83"/><stop offset="1" stopColor="#7fa5d8"/></linearGradient>
+        <filter id="busho-glow"><feGaussianBlur stdDeviation="5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+      </defs>
+      <g fill="none" stroke="currentColor" strokeOpacity=".18"><path d="M20 30H500M20 76H500M20 122H500M20 168H500M20 214H500" strokeDasharray="2 7"/><path d="M100 15V215M260 15V215M420 15V215" strokeDasharray="2 7"/></g>
+      <path d="M94 114H190Q208 114 208 96V70Q208 52 226 52H292Q310 52 310 70V160Q310 178 328 178H424" fill="none" stroke="url(#busho-flow)" strokeWidth="4" strokeLinecap="round" filter="url(#busho-glow)"/>
+      <path d="M94 114H190Q208 114 208 96V70Q208 52 226 52H292Q310 52 310 70V160Q310 178 328 178H424" fill="none" stroke="#d6df83" strokeWidth="1" strokeDasharray="4 8"/>
+      <g fill="#273247" stroke="#d6df83" strokeWidth="2"><rect x="28" y="83" width="132" height="62" rx="4"/><rect x="194" y="20" width="132" height="64" rx="4"/><rect x="360" y="148" width="132" height="62" rx="4"/></g>
+      <g fill="#e9e3d5" fontFamily="monospace" fontSize="9" letterSpacing="1"><text x="42" y="101">01 / FIELD</text><text x="42" y="121" fontSize="12">REPORT</text><text x="208" y="39">02 / REVIEW</text><text x="208" y="59" fontSize="12">VERIFY</text><text x="374" y="166">03 / ACTION</text><text x="374" y="186" fontSize="12">COORDINATE</text></g>
+      <g fill="#d6df83"><circle cx="94" cy="114" r="5"/><circle cx="260" cy="52" r="5"/><circle cx="426" cy="178" r="5"/></g>
+      <g fill="#8fa6c9" fontFamily="monospace" fontSize="8"><text x="28" y="225">ASSISTIVE WORKFLOW / SYNTHETIC CONCEPT</text><text x="416" y="18">BUSHO / 01</text></g>
+    </svg>
   )
   if (project.id === '02') return (
     <svg className="project-visual project-visual-varsity" viewBox="0 0 520 230" role="img" aria-label="Illustrative student campus dashboard concept; values are placeholders, not live student data">
@@ -220,7 +227,6 @@ function ProjectVisual({ project }) {
     </svg>
   )
 }
-
 function ProjectCard({ project, index, onOpen }) {
   return (
     <article className={`project-card project-${project.tone} reveal`}>
@@ -1314,7 +1320,7 @@ function App() {
       {activeProject && <div className="project-dialog-backdrop" role="presentation" onMouseDown={event => { if (event.target === event.currentTarget) setActiveProject(null) }}>
         <section className={`project-dialog project-${activeProject.tone}`} role="dialog" aria-modal="true" aria-labelledby="project-dialog-title">
           <div className="project-dialog-top"><span>THE PROJECT FILE / {activeProject.id}</span><button type="button" onClick={() => setActiveProject(null)} aria-label="Close project note"><X size={20} /></button></div>
-          <div className="project-dialog-body">
+          <div className="project-dialog-body" data-lenis-prevent>
             <div className="project-dialog-art"><span>{activeProject.id} / SYSTEM SKETCH</span><strong>{activeProject.name}</strong><small>{activeProject.note}</small><ProjectVisual project={activeProject} /></div>
             <div className="project-dialog-copy"><Eyebrow>{activeProject.category} · {activeProject.year}</Eyebrow><h2 id="project-dialog-title">{activeProject.name}<span>.</span></h2><p className="project-dialog-type">{activeProject.type}</p><p className="project-dialog-description">{activeProject.description}</p>
               <div className="project-dialog-meta"><div><span>CONTRIBUTION</span><strong>{activeProject.contribution}</strong></div><div><span>STAGE</span><strong>{activeProject.stage}</strong></div><div className="project-focus-meta"><span>FOCUS AREAS</span><div className="project-tag-list">{activeProject.tags.map(tag => <b key={tag}>{tag}</b>)}</div></div><div><span>FILED</span><strong>{activeProject.year} / {activeProject.category}</strong></div></div>
