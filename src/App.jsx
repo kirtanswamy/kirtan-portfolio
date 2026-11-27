@@ -351,6 +351,44 @@ const journeyMilestones = [
   { id:'04', year:'IN PROGRESS', type:'MAKING', title:'BUILDING USEFUL THINGS', place:'INDEPENDENT BUILDS', summary:'Turning questions into products, prototypes and experiments.', detail:'Developing BUSHO, Varsity and ElectroLab while exploring civic technology, product design and research. Each project is a work in progress, not a finished claim.', artifact:'FIELD NOTE / BUILDER’S LOG', mark:'MAKE', color:'#d6df83' },
 ]
 
+function JourneyScrapbook() {
+  const [active, setActive] = useState(0)
+  const cards = [
+    {year:'2023 — PRESENT',label:'01 / FOUNDATIONS',title:<>SRMIST <em>/ ECE</em></>,place:'CHENNAI · INDIA',copy:'Current engineering studies, exploring electronics, computing and the systems that connect them.',kind:'campus',stamp:'FIELD NOTE / 001',mark:'ECE',note:'A foundation in systems thinking.'},
+    {year:'JANUARY 2026',label:'02 / REPRESENTATION',title:<>VIKSIT BHARAT<br/><em>YOUNG LEADERS DIALOGUE</em></>,place:'CHHATTISGARH · BALOD',copy:'Selected for the Chhattisgarh state contingent; represented Balod district in New Delhi.',kind:'delhi',stamp:'NEW DELHI / 2026',mark:'भारत',note:'Innovation with tradition.'},
+    {year:'ONGOING',label:'03 / LEADERSHIP',title:<>SQAC <em>/ APP DEVELOPMENT</em></>,place:'STUDENT CLUB · SRMIST',copy:'App Development Lead at the Software Quality Assurance Club, contributing to student-led technical work.',kind:'sqac',stamp:'CLUB NOTE / 003',mark:'SQAC',note:'Building with a team.'},
+    {year:'IN PROGRESS',label:'04 / MAKING',title:<>BUILDING <em>USEFUL THINGS</em></>,place:'INDEPENDENT BUILDS · ONGOING',copy:'Developing BUSHO, Varsity and ElectroLab while exploring research and product design.',kind:'busho',stamp:'BUILDER’S LOG / 004',mark:'MAKE',note:'Questions become prototypes.'},
+  ]
+  const item=cards[active]
+  return <div className="journey-scrapbook-experience">
+    <div className="journey-scrapbook-topline"><span>THE MAKER’S NOTEBOOK / LOOSE LEAF 05</span><span>PINNED MEMORIES · 2023—NOW</span></div>
+    <div className="journey-scrapbook-spread">
+      <div className="journey-spiral" aria-hidden="true">{Array.from({length:13},(_,i)=><i key={i}/>)}</div>
+      <svg className="journey-scrapbook-route" viewBox="0 0 1000 130" preserveAspectRatio="none" aria-hidden="true"><path d="M30 85C150 5 230 10 330 74S490 122 590 62 760 10 970 72"/></svg>
+      <div className="journey-postcards">
+        {cards.map((card,index)=><button type="button" key={card.label} className={`journey-postcard journey-postcard-${card.kind} ${active===index?'is-active':''}`} onClick={()=>setActive(index)} aria-pressed={active===index} style={{'--postcard-index':index}}>
+          <span className="journey-postcard-clip" aria-hidden="true"><i/></span>
+          <span className="journey-postcard-stamp">{card.stamp}</span>
+          <span className="journey-postcard-art"><b>{card.mark}</b><small>{card.year}</small><i>{card.kind==='campus'?'CAMPUS SKETCH':card.kind==='delhi'?'FIELD / NEW DELHI':card.kind==='sqac'?'STUDENT CLUB':'BUILDER’S DESK'}</i></span>
+          <span className="journey-postcard-index">{card.label}</span>
+          <strong>{card.title}</strong>
+          <span className="journey-postcard-place">{card.place}</span>
+          <span className="journey-postcard-open">{active===index?'ON THE DESK':'PICK UP NOTE ↗'}</span>
+        </button>)}
+      </div>
+      <div className="journey-pencil" aria-hidden="true"><span/><i/><b/></div>
+      <div className="journey-sticky-note"><span>NOTE TO SELF</span><strong>{item.note}</strong><i>✳</i></div>
+    </div>
+    <article className="journey-postcard-detail" aria-live="polite" key={item.label}>
+      <div className="journey-detail-paperclip" aria-hidden="true"><i/></div>
+      <div className="journey-detail-index"><span>OPEN NOTE / {String(active+1).padStart(2,'0')}</span><strong>{item.mark}</strong><small>{item.year}</small></div>
+      <div className="journey-detail-copy"><span>{item.label}</span><h3>{item.title}</h3><p>{item.copy}</p><small>{item.place}</small></div>
+      <div className="journey-detail-nav"><span>TURN THE PAGE</span><div><button type="button" onClick={()=>setActive(v=>(v+3)%4)} aria-label="Previous milestone">←</button><button type="button" onClick={()=>setActive(v=>(v+1)%4)} aria-label="Next milestone">→</button></div></div>
+    </article>
+    <div className="journey-scrapbook-footer"><span>NOT A STRAIGHT LINE. A SERIES OF USEFUL TURNS.</span><span>PIN {String(active+1).padStart(2,'0')} / 04</span></div>
+  </div>
+}
+
 function JourneyRoute() {
   const [active, setActive] = useState(0)
   const item = journeyMilestones[active]
@@ -1129,7 +1167,7 @@ function App() {
             <g fill="#645b4d" fontFamily="Georgia,serif" fontStyle="italic" fontSize="18"><text x="510" y="64">N</text><text x="600" y="154">E</text><text x="505" y="246">S</text><text x="423" y="154">W</text></g></svg><span className="journey-map-clip">✳</span></div>
           <p className="journey-editorial-deck">A few chapters so far.<br/>More are still being written.</p>
         </div>
-        <JourneyRoute />
+        <JourneyScrapbook />
 
       </section>
 
