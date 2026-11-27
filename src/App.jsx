@@ -309,6 +309,7 @@ function App() {
   const [activeLearningCategory, setActiveLearningCategory] = useState('ALL ENTRIES')
   const [sectionTransition, setSectionTransition] = useState(null)
   const [envelopeOpen, setEnvelopeOpen] = useState(false)
+  const [envelopeProgress, setEnvelopeProgress] = useState(0)
   const [archiveOpen, setArchiveOpen] = useState(false)
   const [archivePage, setArchivePage] = useState(0)
   const [activeSkillDrawer, setActiveSkillDrawer] = useState(0)
@@ -1074,10 +1075,38 @@ function App() {
           </div>
           <div
             className={`contact-envelope-stage${envelopeOpen ? ' is-open' : ''}`}
-            onPointerEnter={event => { if (event.pointerType === 'mouse') setEnvelopeOpen(true) }}
-            onPointerLeave={event => { if (event.pointerType === 'mouse' && !event.currentTarget.matches(':focus-within')) setEnvelopeOpen(false) }}
-            onFocus={event => { if (event.target.closest('.contact-envelope-choices')) setEnvelopeOpen(true) }}
-            onBlur={event => { if (event.relatedTarget && !event.currentTarget.contains(event.relatedTarget)) setEnvelopeOpen(false) }}
+            style={{ '--envelope-progress': envelopeProgress }}
+            onPointerMove={event => {
+              if (event.pointerType !== 'mouse') return
+              const scene = event.currentTarget.querySelector('.contact-envelope-scene')
+              if (!scene) return
+              const rect = scene.getBoundingClientRect()
+              const dx = event.clientX - (rect.left + rect.width / 2)
+              const dy = event.clientY - (rect.top + rect.height / 2)
+              const radius = Math.max(rect.width * 0.76, rect.height * 0.9)
+              const proximity = Math.max(0, Math.min(1, 1 - Math.hypot(dx, dy) / radius))
+              const eased = proximity * proximity * (3 - 2 * proximity)
+              setEnvelopeProgress(eased)
+              setEnvelopeOpen(eased > 0.88)
+            }}
+            onPointerLeave={event => {
+              if (event.pointerType === 'mouse' && !event.currentTarget.matches(':focus-within')) {
+                setEnvelopeProgress(0)
+                setEnvelopeOpen(false)
+              }
+            }}
+            onFocus={event => {
+              if (event.target.closest('.contact-envelope-choices') || event.target.closest('.contact-envelope-toggle')) {
+                setEnvelopeProgress(1)
+                setEnvelopeOpen(true)
+              }
+            }}
+            onBlur={event => {
+              if (event.relatedTarget && !event.currentTarget.contains(event.relatedTarget)) {
+                setEnvelopeProgress(0)
+                setEnvelopeOpen(false)
+              }
+            }}
           >
             <div className="contact-envelope-orbit" aria-hidden="true" />
             <div className="contact-envelope-scene">
@@ -1104,13 +1133,14 @@ function App() {
               <div className="contact-envelope-back" aria-hidden="true" />
               <div className="contact-envelope-pocket" aria-hidden="true" />
               <div className="contact-envelope-flap" aria-hidden="true" />
+              <div className="contact-envelope-wax-seal" aria-hidden="true"><span>KS</span><small>SEALED<br />WITH INTENT</small></div>
               <button
                 type="button"
                 className="contact-envelope-toggle"
                 aria-expanded={envelopeOpen}
                 onClick={event => {
-                  if (event.nativeEvent.pointerType === 'mouse') setEnvelopeOpen(true)
-                  else setEnvelopeOpen(open => !open)
+                  if (event.nativeEvent.pointerType === 'mouse') { setEnvelopeProgress(1); setEnvelopeOpen(true) }
+                  else { setEnvelopeProgress(open => open ? 0 : 1); setEnvelopeOpen(open => !open) }
                 }}
               >
                 <span>{envelopeOpen ? 'LETTER OPEN' : 'OPEN THE LETTER'}</span><ArrowUpRight size={15} />
