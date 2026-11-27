@@ -8,6 +8,7 @@ import './styles/workshop-art-direction.css'
 import './styles/portrait-photo.css'
 import './styles/final-page-art-direction.css'
 import './styles/contact-envelope.css'
+import './styles/immersive-chapters.css'
 
 createRoot(document.getElementById('root')).render(
   <React.StrictMode>
