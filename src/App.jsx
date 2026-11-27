@@ -111,6 +111,35 @@ const skills = [
   { group: 'PRODUCT & SYSTEMS', items: ['UI / UX', 'Git & GitHub', 'Supabase', 'Vite', 'Electronics', 'AI / ML foundations'] },
 ]
 
+const workshopToolDetails = {
+  'HTML & CSS': { family: 'INTERFACE LAYER', variant: 'web', note: 'The structure and visual language behind readable, responsive screens.', context: 'Portfolio interface · Varsity product UI', link: 'INTERFACE' },
+  'JavaScript': { family: 'INTERACTION ENGINE', variant: 'web', note: 'State, events and behaviour turn a static screen into a working experience.', context: 'Portfolio interactions · ElectroLab', link: 'BEHAVIOUR' },
+  'TypeScript': { family: 'TYPED LOGIC', variant: 'code', note: 'Typed application logic helps keep calculations and interface contracts explicit.', context: 'ElectroLab simulator', link: 'CALCULATION ENGINE' },
+  'React': { family: 'COMPONENT SYSTEM', variant: 'web', note: 'Reusable components organise interfaces into smaller, composable parts.', context: 'Portfolio · ElectroLab', link: 'COMPONENTS' },
+  'React Native': { family: 'MOBILE INTERFACE', variant: 'mobile', note: 'A shared component approach for building native-feeling mobile experiences.', context: 'Varsity mobile app', link: 'MOBILE PRODUCT' },
+  'Expo': { family: 'MOBILE TOOLCHAIN', variant: 'mobile', note: 'The development and runtime layer used for the Varsity mobile build.', context: 'Varsity mobile app', link: 'APP WORKFLOW' },
+  'Flutter': { family: 'CROSS-PLATFORM UI', variant: 'mobile', note: 'A cross-platform interface toolkit in the broader app-development skill set.', context: 'Mobile development practice', link: 'APP TOOLKIT' },
+  'Python': { family: 'GENERAL-PURPOSE LOGIC', variant: 'code', note: 'A flexible language for scripting, problem solving and technical exploration.', context: 'Programming practice', link: 'LOGIC' },
+  'C / C++': { family: 'LOW-LEVEL FOUNDATIONS', variant: 'code', note: 'Programming fundamentals close to memory, data structures and machine behaviour.', context: 'ECE and programming coursework', link: 'FOUNDATIONS' },
+  'Java': { family: 'OBJECT-ORIENTED LOGIC', variant: 'code', note: 'A language for practising structured, object-oriented program design.', context: 'Programming coursework', link: 'OOP' },
+  'API integration': { family: 'SERVICE CONNECTION', variant: 'network', note: 'Connecting interface workflows to services and structured data contracts.', context: 'BUSHO workflow · application integrations', link: 'DATA FLOW' },
+  'Responsive UI': { family: 'ADAPTIVE LAYOUT', variant: 'web', note: 'Layouts and controls adapt to different screen sizes and input modes.', context: 'Portfolio · Varsity interface', link: 'ADAPTIVE UI' },
+  'UI / UX': { family: 'PRODUCT EXPERIENCE', variant: 'web', note: 'Information hierarchy, interaction design and usability shape the product flow.', context: 'Varsity · BUSHO · portfolio', link: 'USER FLOW' },
+  'Git & GitHub': { family: 'VERSION CONTROL', variant: 'network', note: 'Branches and commits keep experiments reviewable and changes traceable.', context: 'Portfolio · BUSHO · ElectroLab', link: 'COLLABORATION' },
+  'Supabase': { family: 'BACKEND SERVICES', variant: 'network', note: 'Database and authentication services form part of the BUSHO backend workflow.', context: 'BUSHO prototype', link: 'DATA SERVICES' },
+  'Vite': { family: 'BUILD PIPELINE', variant: 'code', note: 'A fast development and build tool in the React application stack.', context: 'Portfolio · ElectroLab', link: 'DEVELOPMENT' },
+  'Electronics': { family: 'HARDWARE PRINCIPLES', variant: 'circuit', note: 'Circuit behaviour, device models and engineering principles made explorable.', context: 'ElectroLab diode simulator', link: 'CIRCUIT MODEL' },
+  'AI / ML foundations': { family: 'INTELLIGENT SYSTEMS', variant: 'network', note: 'Foundational learning alongside an early AI/ML research track.', context: 'Research and technical learning', link: 'RESEARCH TRACK' },
+}
+
+const workshopDiagramVariants = {
+  web: { path: 'M18 48H92V104H145M92 104V178H178M178 178H224V124H280V54H342', nodes: [[18,48],[92,104],[280,54],[342,54]], labels: ['INPUT','STATE','RENDER','OUTPUT'] },
+  code: { path: 'M18 58H82V58H132V126H178M178 126H238V126H290V198H342M82 58V202H18M238 126V48H320', nodes: [[18,58],[132,126],[290,198],[342,198]], labels: ['SOURCE','LOGIC','BUILD','RESULT'] },
+  mobile: { path: 'M18 130H82V70H145M82 130V202H145M145 70H215V130H278V70H342M145 202H215V130', nodes: [[18,130],[145,70],[278,70],[342,70]], labels: ['SCREEN','STATE','DEVICE','USER'] },
+  network: { path: 'M18 70H88V130H145M88 130V202H145M145 130H215V70H280V130H342M215 70V24H320', nodes: [[18,70],[145,130],[280,130],[342,130]], labels: ['CLIENT','SERVICE','DATA','RESPONSE'] },
+  circuit: { path: 'M18 45H90V92H145M90 92V184H145M145 92H215V45H280V92H342M215 45V205H280V220H342', nodes: [[18,45],[145,92],[280,92],[342,92]], labels: ['BIAS','DEVICE','SWEEP','OUTPUT'] },
+}
+
 const navItems = [
   ['FRONT PAGE', '#main-content'],
   ['WORK', '#work'],
@@ -318,6 +347,8 @@ function App() {
   const archiveDragRef = useRef(null)
   const [activeSkillDrawer, setActiveSkillDrawer] = useState(0)
   const [activeWorkshopTool, setActiveWorkshopTool] = useState('')
+  const selectedWorkshopDetail = workshopToolDetails[activeWorkshopTool] || { family: 'SYSTEM OVERVIEW', variant: 'circuit', note: 'Choose any filed tool. The bench will reconfigure to show its place in the system.', context: 'Select a drawer to inspect its tools', link: 'TOOL → SYSTEM' }
+  const selectedWorkshopDiagram = workshopDiagramVariants[selectedWorkshopDetail.variant] || workshopDiagramVariants.circuit
   const sectionTransitionAction = useRef(null)
   const sectionTransitionLock = useRef(false)
   const projectShelfRef = useRef(null)
@@ -1131,16 +1162,22 @@ function App() {
             </div>
             <aside className="workshop-side-note" aria-label="Workshop field note">
               <div className="workshop-side-top"><span>{activeWorkshopTool ? 'SELECTED TOOL / 007' : 'BENCH NOTE / 007'}</span><span>ECE × SOFTWARE</span></div>
-              <svg className="workshop-circuit" viewBox="0 0 360 260" role="img" aria-label="An abstract circuit schematic with connected nodes and a central component">
-                <g fill="none" stroke="currentColor" strokeWidth="1.2" opacity=".65">
-                  <path d="M20 45H105V92H145M20 45V20M105 92V145H160M160 145H205V104H260V55H340M205 104V185H280V220H340M260 55V20H320M145 92V55H180M160 145V205H95V235H20M280 220H340"/>
-                  <rect x="145" y="92" width="60" height="53" rx="2" stroke="#d6df83" strokeWidth="1.8"/>
-                  <path d="M157 104h36m-36 10h36m-36 10h36m-36 10h36" stroke="#d6df83"/>
-                  <circle cx="20" cy="45" r="4" fill="#d6df83"/><circle cx="105" cy="92" r="4" fill="#d6df83"/><circle cx="260" cy="55" r="4" fill="#d6df83"/><circle cx="340" cy="55" r="4" fill="#d6df83"/><circle cx="280" cy="220" r="4" fill="#d6df83"/><circle cx="20" cy="235" r="4" fill="#d6df83"/>
+              <svg className={`workshop-circuit workshop-circuit--${(workshopToolDetails[activeWorkshopTool]?.variant || 'circuit')}`} viewBox="0 0 360 260" role="img" aria-label={`Animated ${selectedWorkshopDetail.family.toLowerCase()} schematic for ${activeWorkshopTool || 'the workshop'}`}>
+                <defs><linearGradient id="workshop-signal-gradient" x1="0" x2="1"><stop offset="0" stopColor="#d6df83" stopOpacity=".15"/><stop offset=".5" stopColor="#d6df83"/><stop offset="1" stopColor="#d6df83" stopOpacity=".15"/></linearGradient></defs>
+                <g fill="none" stroke="currentColor" strokeWidth="1.25" opacity=".48">
+                  <path d={selectedWorkshopDiagram.path}/>
+                  <path d={selectedWorkshopDiagram.path} className="workshop-signal-line" stroke="url(#workshop-signal-gradient)" strokeWidth="2.6" strokeLinecap="round"/>
+                  <rect x="145" y="92" width="70" height="53" rx="3" stroke="#d6df83" strokeWidth="1.8" fill="#d6df83" fillOpacity=".035"/>
+                  <path d="M156 104h48m-48 10h48m-48 10h48m-48 10h48" stroke="#d6df83" opacity=".65"/>
+                  {selectedWorkshopDiagram.nodes.map(([x,y],index)=><circle key={`${activeWorkshopTool}-node-${index}`} cx={x} cy={y} r="4.2" className="workshop-node" style={{animationDelay:`${index * -0.55}s`}}/>)}
                 </g>
-                <g fill="currentColor" fontFamily="monospace" fontSize="8" opacity=".7"><text x="18" y="12">INPUT</text><text x="145" y="82">CORE</text><text x="280" y="242">OUTPUT</text><text x="266" y="16">SIGNAL PATH</text></g>
+                <g fill="currentColor" fontFamily="monospace" fontSize="8" opacity=".78">
+                  {selectedWorkshopDiagram.labels.map((label,index)=><text key={label} x={[18,145,280,310][index]} y={[32,82,42,142][index]}>{label}</text>)}
+                  <text x="180" y="163" textAnchor="middle" fill="#d6df83" fontSize="7">{activeWorkshopTool ? activeWorkshopTool.toUpperCase() : 'SELECT A TOOL'}</text>
+                  <text x="180" y="246" textAnchor="middle" fontSize="7" letterSpacing="1.4">SIGNAL PATH / {selectedWorkshopDetail.link}</text>
+                </g>
               </svg>
-              <div className="workshop-side-caption"><span>{activeWorkshopTool ? 'ON THE BENCH / SELECTED' : 'FIG. 07 / A SYSTEM IN PIECES'}</span><p>{activeWorkshopTool ? `${activeWorkshopTool} — selected from the working kit.` : 'Learn the tool. Understand the system. Make something useful with both.'}</p></div>
+              <div className="workshop-side-caption"><span>{activeWorkshopTool ? `ON THE BENCH / ${selectedWorkshopDetail.family}` : 'FIG. 07 / A SYSTEM IN PIECES'}</span><p>{activeWorkshopTool ? selectedWorkshopDetail.note : 'Choose any filed tool. The bench will reconfigure to show its place in the system.'}</p><div className="workshop-bench-readout"><span><small>CONTEXT</small><b>{activeWorkshopTool ? selectedWorkshopDetail.context : 'SELECT A DRAWER'}</b></span><span><small>PATH</small><b>{activeWorkshopTool ? selectedWorkshopDetail.link : 'TOOL → SYSTEM'}</b></span></div></div>
               <div className="workshop-side-foot"><span>KEEP EXPERIMENTING</span><span>END OF NOTE ↗</span></div>
             </aside>
           </div>
