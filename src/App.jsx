@@ -1188,6 +1188,7 @@ function App() {
               if (event.relatedTarget && !event.currentTarget.contains(event.relatedTarget)) {
                 const stage = event.currentTarget
                 stage.style.setProperty('--envelope-progress', '0')
+                stage.style.setProperty('--flap-angle', '0deg')
                 stage.style.setProperty('--letter-layer', '3')
                 stage.style.setProperty('--letter-top', '31%')
                 stage.style.setProperty('--letter-height', '60%')
@@ -1230,8 +1231,9 @@ function App() {
                   const opening = !envelopeOpen
                   stage?.style.setProperty('--envelope-progress', opening ? '1' : '0')
                   stage?.style.setProperty('--flap-angle', opening ? '-168deg' : '0deg')
-                  stage?.style.setProperty('--letter-lift', opening ? '-40%' : '0%')
                   stage?.style.setProperty('--letter-layer', opening ? '6' : '3')
+                  stage?.style.setProperty('--letter-top', opening ? '2%' : '31%')
+                  stage?.style.setProperty('--letter-height', opening ? '84%' : '60%')
                   setEnvelopeOpen(opening)
                 }}
               >
