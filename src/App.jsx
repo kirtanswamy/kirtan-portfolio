@@ -309,6 +309,9 @@ function App() {
   const [activeLearningCategory, setActiveLearningCategory] = useState('ALL ENTRIES')
   const [sectionTransition, setSectionTransition] = useState(null)
   const [envelopeOpen, setEnvelopeOpen] = useState(false)
+  const [archiveOpen, setArchiveOpen] = useState(false)
+  const [archivePage, setArchivePage] = useState(0)
+  const [activeSkillDrawer, setActiveSkillDrawer] = useState(0)
   const sectionTransitionAction = useRef(null)
   const sectionTransitionLock = useRef(false)
   const projectShelfRef = useRef(null)
@@ -435,6 +438,9 @@ function App() {
     () => activeLearningCategory === 'ALL ENTRIES' ? learning : learning.filter(item => item.category === activeLearningCategory),
     [activeLearningCategory],
   )
+
+  const archivePageCount = Math.max(1, Math.ceil(visibleLearning.length / 2))
+  const currentLearningPage = visibleLearning.slice(archivePage * 2, archivePage * 2 + 2)
 
   const visibleProjects = useMemo(
     () => activeCategory === 'ALL WORK' ? projects : projects.filter(project => project.category === activeCategory),
@@ -873,35 +879,6 @@ function App() {
         <div className="work-foot reveal"><span>MORE EXPERIMENTS ARE ALWAYS IN THE WORKS.</span><a href="https://github.com/kirtanswamy" target="_blank" rel="noreferrer">EXPLORE GITHUB <ArrowUpRight size={14} /></a></div>
       </section>
 
-      <section className="process-section practice-section section-pad" id="process">
-        <div className="section-index reveal"><Eyebrow>03 — THE MAKING PRACTICE</Eyebrow><span>A LOOP, NOT A LADDER</span></div>
-        <div className="practice-intro">
-          <div><span className="practice-overline">A FIELD METHOD / IN THREE MOVEMENTS</span><h2>FROM QUESTION<br/>TO <em>SOMETHING REAL.</em></h2></div>
-          <p>Every project starts by understanding the people and the context. Then I make the idea tangible, test it, and keep refining until it works beyond the screen.</p>
-        </div>
-        <div className="practice-flow">
-          <article className="practice-step reveal">
-            <div className="practice-step-top"><span>01</span><Compass size={34} strokeWidth={1.25}/><i>OBSERVE / FRAME</i></div>
-            <h3>Understand<br/>the context.</h3>
-            <p>Find the real question before reaching for an answer. Who is affected? What already exists? What would actually help?</p>
-            <div className="practice-step-mark"><span>01</span><b>LISTEN</b><b>QUESTION</b><b>FOCUS</b></div>
-          </article>
-          <article className="practice-step reveal">
-            <div className="practice-step-top"><span>02</span><Layers3 size={34} strokeWidth={1.25}/><i>EXPLORE / BUILD</i></div>
-            <h3>Make the idea<br/>tangible.</h3>
-            <p>Shape the experience, design the interface and build a working version. Move between craft and engineering as the idea takes form.</p>
-            <div className="practice-step-mark"><span>02</span><b>SKETCH</b><b>PROTOTYPE</b><b>CONNECT</b></div>
-          </article>
-          <article className="practice-step reveal">
-            <div className="practice-step-top"><span>03</span><Send size={34} strokeWidth={1.25}/><i>TEST / REFINE</i></div>
-            <h3>Make it work<br/>in context.</h3>
-            <p>Test the details, connect the systems and learn from real use. A useful product has to hold up outside the presentation.</p>
-            <div className="practice-step-mark"><span>03</span><b>VALIDATE</b><b>IMPROVE</b><b>LEARN</b></div>
-          </article>
-        </div>
-        <div className="practice-foot"><span>THE WORK IS ITERATIVE. THE PEOPLE STAY AT THE CENTRE.</span><span>03 / 08</span></div>
-      </section>
-
       <section className="recognition-section section-pad" id="recognition">
         <div className="section-index reveal"><Eyebrow>03 — MILESTONES / PEOPLE / PLATFORMS</Eyebrow><span>SELECTED RECORD / 2026</span></div>
         <div className="recognition-heading"><h2>NOT JUST<br/><em>THE WORK.</em></h2><p>A few moments beyond the screen that shaped how I work.</p></div>
@@ -1010,21 +987,45 @@ function App() {
         </div>
         <div className="learning-archive-bar">
           <div className="learning-filters" role="group" aria-label="Filter learning records">
-            {learningCategories.map(category => <button key={category} type="button" className={activeLearningCategory === category ? 'selected' : ''} onClick={() => setActiveLearningCategory(category)} aria-pressed={activeLearningCategory === category}>{category}<span>{category === 'ALL ENTRIES' ? String(learning.length).padStart(2, '0') : String(learning.filter(item => item.category === category).length).padStart(2, '0')}</span></button>)}
+            {learningCategories.map(category => <button key={category} type="button" className={activeLearningCategory === category ? 'selected' : ''} onClick={() => { setActiveLearningCategory(category); setArchivePage(0) }} aria-pressed={activeLearningCategory === category}>{category}<span>{category === 'ALL ENTRIES' ? String(learning.length).padStart(2, '0') : String(learning.filter(item => item.category === category).length).padStart(2, '0')}</span></button>)}
           </div>
           <span className="learning-archive-count" aria-live="polite">SHOWING {String(visibleLearning.length).padStart(2, '0')} / {String(learning.length).padStart(2, '0')}</span>
         </div>
-        <div key={activeLearningCategory} className="learning-grid" aria-live="polite">
-          {visibleLearning.map(item => <article className="learning-card reveal" key={item.name}>
-            <div className="learning-card-top"><span>FILE / {String(learning.indexOf(item) + 1).padStart(2, '0')}</span><span className="learning-record-type">{item.record}</span></div>
-            <div className="learning-card-body">
-              <div className="learning-card-copy"><p>{item.kind}</p><h3>{item.name}</h3><h4>{item.detail}</h4></div>
-              <span className="learning-card-index" aria-hidden="true">{String(learning.indexOf(item) + 1).padStart(2, '0')}</span>
-              <span className="learning-card-tab" aria-hidden="true">{item.category}</span>
+        {!archiveOpen ? (
+          <button type="button" className="archive-file-cover" onClick={() => setArchiveOpen(true)} aria-label="Open the learning archive file">
+            <span className="archive-file-stamp">KS / READING ROOM</span>
+            <span className="archive-file-index">FILE<br/>06</span>
+            <strong>LEARNING<br/><em>ARCHIVE.</em></strong>
+            <span className="archive-file-meta">COURSES · SIMULATIONS · NOTES</span>
+            <span className="archive-file-action">OPEN THE FILE <ArrowUpRight size={16}/></span>
+          </button>
+        ) : (
+          <>
+            <div className="archive-open-toolbar">
+              <span>FILE 06 / LEARNING RECORDS / {String(archivePage + 1).padStart(2, '0')} OF {String(archivePageCount).padStart(2, '0')}</span>
+              <button type="button" onClick={() => { setArchiveOpen(false); setArchivePage(0) }}>CLOSE FILE <X size={14}/></button>
             </div>
-            <div className="learning-card-foot"><span className="learning-status">{item.status}</span><span className="learning-card-open" aria-hidden="true">↗</span></div>
-          </article>)}
-        </div>
+            <div className="archive-page-turner" key={`${activeLearningCategory}-${archivePage}`}>
+              <div className="archive-page-spread">
+                {currentLearningPage.map((item, pageIndex) => <article className="learning-card reveal" key={item.name}>
+                  <div className="learning-card-top"><span>FILE / {String(learning.indexOf(item) + 1).padStart(2, '0')}</span><span className="learning-record-type">{item.record}</span></div>
+                  <div className="learning-card-body">
+                    <div className="learning-card-copy"><p>{item.kind}</p><h3>{item.name}</h3><h4>{item.detail}</h4></div>
+                    <span className="learning-card-index" aria-hidden="true">{String(learning.indexOf(item) + 1).padStart(2, '0')}</span>
+                    <span className="learning-card-tab" aria-hidden="true">{item.category}</span>
+                  </div>
+                  <div className="learning-card-foot"><span className="learning-status">{item.status}</span><span className="learning-card-open" aria-hidden="true">↗</span></div>
+                </article>)}
+                {currentLearningPage.length === 1 && <div className="archive-empty-page"><span>END OF FILE</span><strong>MORE<br/>TO COME.</strong><small>NEW RECORDS WILL BE ADDED WHEN VERIFIED</small></div>}
+              </div>
+            </div>
+            <div className="archive-page-controls">
+              <button type="button" onClick={() => setArchivePage(page => Math.max(0, page - 1))} disabled={archivePage === 0}><ArrowLeft size={15}/> PREVIOUS</button>
+              <span>PAGE {String(archivePage + 1).padStart(2, '0')} <i>/</i> {String(archivePageCount).padStart(2, '0')}</span>
+              <button type="button" onClick={() => setArchivePage(page => Math.min(archivePageCount - 1, page + 1))} disabled={archivePage >= archivePageCount - 1}>NEXT <ArrowRight size={15}/></button>
+            </div>
+          </>
+        )}
         <div className="learning-colophon"><span>COURSES ARE NOT CERTIFICATIONS. SIMULATIONS ARE NOT EMPLOYMENT.</span><span>VERIFY FIRST / PUBLISH SECOND</span></div>
       </section>
 
@@ -1037,9 +1038,11 @@ function App() {
           </div>
           <div className="workshop-layout">
             <div className="skills-groups" aria-label="Skills and tools">
-              {skills.map((group, groupIndex) => <section className="skill-group reveal" key={group.group} aria-label={group.group}>
-                <div className="skill-group-heading"><span>DRAWER / {String(groupIndex + 1).padStart(2, '0')}</span><h3>{group.group}</h3><small>{String(group.items.length).padStart(2, '0')} FILED</small></div>
-                <div className="skill-tool-list">{group.items.map((item, itemIndex) => <span className="workshop-tool" key={item}><i aria-hidden="true">{String(itemIndex + 1).padStart(2, '0')}</i><b>{item}</b><span className="tool-cross" aria-hidden="true">↗</span></span>)}</div>
+              {skills.map((group, groupIndex) => <section className={`skill-group reveal ${activeSkillDrawer === groupIndex ? 'is-open' : ''}`} key={group.group} aria-label={group.group}>
+                <button type="button" className="skill-group-heading" aria-expanded={activeSkillDrawer === groupIndex} onClick={() => setActiveSkillDrawer(activeSkillDrawer === groupIndex ? -1 : groupIndex)}>
+                  <span>DRAWER / {String(groupIndex + 1).padStart(2, '0')}</span><h3>{group.group}</h3><small>{String(group.items.length).padStart(2, '0')} FILED</small><i aria-hidden="true">{activeSkillDrawer === groupIndex ? '−' : '+'}</i>
+                </button>
+                {activeSkillDrawer === groupIndex && <div className="skill-tool-list">{group.items.map((item, itemIndex) => <span className="workshop-tool" key={item} tabIndex={0}><i aria-hidden="true">{String(itemIndex + 1).padStart(2, '0')}</i><b>{item}</b><span className="tool-cross" aria-hidden="true">↗</span></span>)}</div>}
               </section>)}
             </div>
             <aside className="workshop-side-note" aria-label="Workshop field note">
@@ -1071,8 +1074,6 @@ function App() {
           </div>
           <div
             className={`contact-envelope-stage${envelopeOpen ? ' is-open' : ''}`}
-            onPointerEnter={event => { if (event.pointerType === 'mouse') setEnvelopeOpen(true) }}
-            onPointerLeave={event => { if (event.pointerType === 'mouse') setEnvelopeOpen(false) }}
             onFocus={event => { if (event.target.closest('.contact-envelope-choices')) setEnvelopeOpen(true) }}
             onBlur={event => { if (!event.currentTarget.contains(event.relatedTarget)) setEnvelopeOpen(false) }}
           >
@@ -1111,7 +1112,7 @@ function App() {
               </button>
               <span className="contact-envelope-postmark" aria-hidden="true">KS<br />008</span>
             </div>
-            <p className="contact-envelope-instruction">{envelopeOpen ? 'YOUR NOTE IS READY — PICK A WAY TO CONNECT' : 'HOVER OR TAP THE ENVELOPE TO OPEN'}</p>
+            <p className="contact-envelope-instruction">{envelopeOpen ? 'YOUR NOTE IS READY — PICK A WAY TO CONNECT' : 'TAP OPEN THE LETTER TO REVEAL CONTACT ROUTES'}</p>
           </div>
         </div>
         <div className="contact-closing-line"><span>THE WORK CONTINUES.</span><a href="#top">RETURN TO THE FIRST PAGE <ArrowUp size={13} /></a></div>
