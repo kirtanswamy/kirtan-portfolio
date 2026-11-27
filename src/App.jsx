@@ -1016,6 +1016,7 @@ function App() {
           <>
             <div className="archive-open-toolbar">
               <span>FILE 06 / LEARNING RECORDS / {String(archivePage + 1).padStart(2, '0')} OF {String(archivePageCount).padStart(2, '0')}</span>
+              <a className="archive-source-link" href="https://www.linkedin.com/in/kirtanswamy" target="_blank" rel="noreferrer">SOURCE PROFILE <ArrowUpRight size={12}/></a>
               <button type="button" onClick={() => { setArchiveOpen(false); setArchivePage(0) }}>CLOSE FILE <X size={14}/></button>
             </div>
             <div className="archive-page-turner" key={`${activeLearningCategory}-${archivePage}`}>
