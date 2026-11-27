@@ -994,7 +994,7 @@ function App() {
         {archiveOpen && (
         <div className="learning-archive-bar">
           <div className="learning-filters" role="group" aria-label="Filter learning records">
-            {learningCategories.map(category => <button key={category} type="button" className={activeLearningCategory === category ? 'selected' : ''} onClick={() => { setActiveLearningCategory(category); setArchivePage(0) }} aria-pressed={activeLearningCategory === category}>{category}<span>{category === 'ALL ENTRIES' ? String(learning.length).padStart(2, '0') : String(learning.filter(item => item.category === category).length).padStart(2, '0')}</span></button>)}
+            {learningCategories.map(category => <button key={category} type="button" className={activeLearningCategory === category ? 'selected' : ''} onClick={() => { setActiveLearningCategory(category); setArchivePage(0) }} aria-pressed={activeLearningCategory === category}>{category}<span>{String(category === 'ALL ENTRIES' ? learning.length : category === 'CERTIFICATES' ? learning.filter(item => ['CERTIFICATION', 'CERTIFICATE', 'PARTICIPANT CREDENTIAL'].includes(item.record)).length : learning.filter(item => item.category === category).length).padStart(2, '0')}</span></button>)}
           </div>
           <span className="learning-archive-count" aria-live="polite">SHOWING {String(visibleLearning.length).padStart(2, '0')} / {String(learning.length).padStart(2, '0')}</span>
         </div>
