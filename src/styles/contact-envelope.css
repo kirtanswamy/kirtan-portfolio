@@ -304,3 +304,47 @@
 @media(prefers-reduced-motion:reduce){
   .contact-envelope-letter,.contact-envelope-flap{transition:none!important}
 }
+
+
+/* Continuous hinged opening: no binary flap snap and no letter jump. */
+.contact-envelope-flap{
+  transform:rotateX(var(--flap-angle,0deg))!important;
+  transform-origin:50% 0%!important;
+  transition:transform .18s linear,filter .35s ease!important;
+  will-change:transform;
+}
+.contact-envelope-stage.is-open .contact-envelope-flap{
+  transform:rotateX(var(--flap-angle,0deg))!important;
+}
+.contact-envelope-letter{
+  top:var(--letter-top,31%)!important;
+  height:var(--letter-height,60%)!important;
+  transform:translate3d(0,calc(-10% * var(--envelope-progress,0)),0) rotate(-.3deg)!important;
+  transition:
+    top .2s ease-out,
+    height .2s ease-out,
+    transform .2s ease-out,
+    box-shadow .35s ease!important;
+  z-index:var(--letter-layer,3)!important;
+  overflow:visible;
+}
+.contact-envelope-stage.is-open .contact-envelope-letter{
+  top:var(--letter-top,31%)!important;
+  height:var(--letter-height,60%)!important;
+  transform:translate3d(0,calc(-10% * var(--envelope-progress,0)),0) rotate(-.25deg)!important;
+}
+.contact-envelope-wax-seal{
+  top:91%!important;
+  transition:opacity .18s ease,transform .25s ease!important;
+}
+.contact-envelope-stage.is-open .contact-envelope-wax-seal{
+  opacity:calc(1 - var(--envelope-progress,0))!important;
+  transform:translate(-50%,-50%) rotate(-9deg) translateZ(3px)!important;
+}
+.contact-envelope-stage.is-open .contact-envelope-flap{
+  filter:drop-shadow(0 -3px 5px #5b4b3018);
+}
+@media(prefers-reduced-motion:reduce){
+  .contact-envelope-flap,.contact-envelope-letter,.contact-envelope-wax-seal{transition:none!important}
+  .contact-envelope-letter{transform:none!important}
+}
