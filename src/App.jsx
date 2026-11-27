@@ -313,6 +313,8 @@ function App() {
   const [envelopeOpen, setEnvelopeOpen] = useState(false)
   const [archiveOpen, setArchiveOpen] = useState(false)
   const [archivePage, setArchivePage] = useState(0)
+  const [archiveTurnDirection, setArchiveTurnDirection] = useState('next')
+  const archiveSwipeStartRef = useRef(null)
   const [activeSkillDrawer, setActiveSkillDrawer] = useState(0)
   const sectionTransitionAction = useRef(null)
   const sectionTransitionLock = useRef(false)
@@ -1000,17 +1002,14 @@ function App() {
         </div>
         )}
         {!archiveOpen ? (
-          <button type="button" className="archive-file-cover" onClick={() => { setArchiveOpen(true); setArchivePage(0) }} aria-label="Open the certificate archive folder">
-            <span className="archive-folder-tab">PERSONAL RECORDS / 2026</span>
-            <span className="archive-folder-fastener" aria-hidden="true"><i/><i/></span>
-            <span className="archive-folder-paper archive-folder-paper-one" aria-hidden="true"/>
-            <span className="archive-folder-paper archive-folder-paper-two" aria-hidden="true"/>
-            <span className="archive-file-stamp">KS / PRIVATE COLLECTION</span>
-            <span className="archive-file-index">NO.<br/>006</span>
-            <strong>CERTIFICATE<br/><em>ARCHIVE.</em></strong>
-            <span className="archive-file-meta">CREDENTIALS · PROGRAMMES · LEARNING RECORDS</span>
-            <span className="archive-file-action">OPEN THE FOLDER <ArrowUpRight size={16}/></span>
-            <span className="archive-folder-seal" aria-hidden="true">KS</span>
+          <button type="button" className="archive-file-cover archive-catalog-cover" onClick={() => { setArchiveOpen(true); setArchivePage(0) }} aria-label="Open the reading room's certificate catalogue">
+            <span className="catalog-cover-kicker">THE READING ROOM <i>—</i> VOL. 06 / 2026</span>
+            <span className="catalog-cover-index">INDEX<br/><b>006</b></span>
+            <span className="catalog-ledger-mark" aria-hidden="true"><i/><i/><i/></span>
+            <strong>THE<br/><em>RECORDS.</em></strong>
+            <span className="catalog-cover-subtitle">A PERSONAL INDEX OF LEARNING, PRACTICE & MILESTONES</span>
+            <span className="catalog-cover-bottom"><span>06 ENTRIES <i/> 04 CREDENTIALS</span><span className="archive-file-action">ENTER READING ROOM <ArrowUpRight size={16}/></span></span>
+            <span className="catalog-spine" aria-hidden="true">KIRTAN SWAMY <i>·</i> PERSONAL ARCHIVE <i>·</i> 2026</span>
           </button>
         ) : (
           <>
@@ -1019,9 +1018,26 @@ function App() {
               <a className="archive-source-link" href="https://www.linkedin.com/in/kirtanswamy" target="_blank" rel="noreferrer">SOURCE PROFILE <ArrowUpRight size={12}/></a>
               <button type="button" onClick={() => { setArchiveOpen(false); setArchivePage(0) }}>CLOSE FILE <X size={14}/></button>
             </div>
-            <div className="archive-page-turner" key={`${activeLearningCategory}-${archivePage}`}>
+            <div
+              className={`archive-page-turner turn-${archiveTurnDirection}`}
+              key={`${activeLearningCategory}-${archivePage}-${archiveTurnDirection}`}
+              onPointerDown={event => { archiveSwipeStartRef.current = { x: event.clientX, y: event.clientY, pointerId: event.pointerId } }}
+              onPointerUp={event => {
+                const start = archiveSwipeStartRef.current
+                archiveSwipeStartRef.current = null
+                if (!start || start.pointerId !== event.pointerId) return
+                const dx = event.clientX - start.x
+                const dy = event.clientY - start.y
+                if (Math.abs(dx) < 44 || Math.abs(dx) < Math.abs(dy) * 1.25) return
+                if (dx < 0 && archivePage < archivePageCount - 1) { setArchiveTurnDirection('next'); setArchivePage(page => Math.min(archivePageCount - 1, page + 1)) }
+                else if (dx > 0 && archivePage > 0) { setArchiveTurnDirection('previous'); setArchivePage(page => Math.max(0, page - 1)) }
+              }}
+              onPointerCancel={() => { archiveSwipeStartRef.current = null }}
+            >
+              <button className="archive-edge-turn archive-edge-prev" type="button" aria-label="Turn to previous spread" disabled={archivePage === 0} onClick={() => { setArchiveTurnDirection('previous'); setArchivePage(page => Math.max(0, page - 1)) }}><ArrowLeft size={17}/><span>PREV</span></button>
+              <button className="archive-edge-turn archive-edge-next" type="button" aria-label="Turn to next spread" disabled={archivePage >= archivePageCount - 1} onClick={() => { setArchiveTurnDirection('next'); setArchivePage(page => Math.min(archivePageCount - 1, page + 1)) }}><span>TURN</span><ArrowRight size={17}/></button>
               <div className="archive-page-spread">
-                {currentLearningPage.map((item, pageIndex) => <article className="learning-card reveal" key={item.name}>
+                {currentLearningPage.map((item, pageIndex) => <article className={`learning-card reveal credential-${item.category.toLowerCase()}`} key={item.name}>
                   <div className="learning-card-top"><span>DOCUMENT / {String(learning.indexOf(item) + 1).padStart(2, '0')} — KS</span><span className="learning-record-type">{item.record}</span></div>
                   <div className="learning-card-body">
                     <div className="learning-card-copy">
@@ -1038,9 +1054,9 @@ function App() {
               </div>
             </div>
             <div className="archive-page-controls">
-              <button type="button" onClick={() => setArchivePage(page => Math.max(0, page - 1))} disabled={archivePage === 0}><ArrowLeft size={15}/> PREVIOUS</button>
-              <span>PAGE {String(archivePage + 1).padStart(2, '0')} <i>/</i> {String(archivePageCount).padStart(2, '0')}</span>
-              <button type="button" onClick={() => setArchivePage(page => Math.min(archivePageCount - 1, page + 1))} disabled={archivePage >= archivePageCount - 1}>NEXT <ArrowRight size={15}/></button>
+              <button type="button" onClick={() => { setArchiveTurnDirection('previous'); setArchivePage(page => Math.max(0, page - 1)) }} disabled={archivePage === 0}><ArrowLeft size={15}/> PREVIOUS SPREAD</button>
+              <span>SPREAD {String(archivePage + 1).padStart(2, '0')} <i>/</i> {String(archivePageCount).padStart(2, '0')} <small>DRAG OR USE PAGE CORNERS</small></span>
+              <button type="button" onClick={() => { setArchiveTurnDirection('next'); setArchivePage(page => Math.min(archivePageCount - 1, page + 1)) }} disabled={archivePage >= archivePageCount - 1}>NEXT SPREAD <ArrowRight size={15}/></button>
             </div>
           </>
         )}
