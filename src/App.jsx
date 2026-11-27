@@ -484,6 +484,23 @@ function App() {
   const archivePageCount = Math.max(1, Math.ceil(visibleLearning.length / 2))
   const currentLearningPage = visibleLearning.slice(archivePage * 2, archivePage * 2 + 2)
 
+  useEffect(() => {
+    if (!activeProject) return undefined
+    const previousBodyOverflow = document.body.style.overflow
+    const previousHtmlOverflow = document.documentElement.style.overflow
+    const previousOverscroll = document.documentElement.style.overscrollBehavior
+    document.body.style.overflow = 'hidden'
+    document.documentElement.style.overflow = 'hidden'
+    document.documentElement.style.overscrollBehavior = 'none'
+    lenisRef.current?.stop()
+    return () => {
+      document.body.style.overflow = previousBodyOverflow
+      document.documentElement.style.overflow = previousHtmlOverflow
+      document.documentElement.style.overscrollBehavior = previousOverscroll
+      lenisRef.current?.start()
+    }
+  }, [activeProject])
+
   const visibleProjects = useMemo(
     () => activeCategory === 'ALL WORK' ? projects : projects.filter(project => project.category === activeCategory),
     [activeCategory],
