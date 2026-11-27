@@ -1,0 +1,10 @@
+/* Workshop bench — project evidence links */
+.workshop-evidence{margin-top:16px;padding-top:12px;border-top:1px solid #d8d0c34a}
+.workshop-evidence-label{display:block;margin-bottom:9px;color:#d6df83;font:7px var(--mono);letter-spacing:.16em}
+.workshop-evidence-links{display:flex;flex-wrap:wrap;gap:7px}
+.workshop-evidence-links button{display:inline-flex;align-items:center;gap:8px;min-height:32px;padding:6px 9px;border:1px solid #d6df8350;border-radius:2px;background:linear-gradient(135deg,#354052,#252e3e);color:#eee8da;font:9px var(--mono);letter-spacing:.06em;cursor:pointer;transition:transform .2s,border-color .2s,background .2s,box-shadow .2s}
+.workshop-evidence-links button span{color:#d6df83;font-size:8px}
+.workshop-evidence-links button svg{color:#d6df83}
+.workshop-evidence-links button:hover,.workshop-evidence-links button:focus-visible{transform:translateY(-2px);border-color:#d6df83;background:#3d4960;box-shadow:0 4px 12px #080d174d;outline:2px solid #d6df83;outline-offset:2px}
+@media(prefers-reduced-motion:reduce){.workshop-evidence-links button{transition:none}.workshop-evidence-links button:hover{transform:none}}
+@media(max-width:480px){.workshop-evidence-links{gap:6px}.workshop-evidence-links button{font-size:8px}}
