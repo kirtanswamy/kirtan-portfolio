@@ -120,3 +120,47 @@
 @media(prefers-reduced-motion:reduce){
   .contact-envelope-letter-top,.contact-envelope-letter-body,.contact-envelope-letter-foot{transition:none!important}
 }
+
+
+/* Envelope geometry correction: the closed letter must fit inside the pocket. */
+.contact-envelope-scene{overflow:visible}
+.contact-envelope-back,.contact-envelope-pocket{bottom:9%;height:60%}
+.contact-envelope-letter{
+  top:31%;
+  height:60%;
+  transform:translateY(0) rotate(0);
+  z-index:3;
+  overflow:hidden;
+  transition:top .78s cubic-bezier(.2,.78,.22,1),height .78s cubic-bezier(.2,.78,.22,1),transform .78s cubic-bezier(.2,.78,.22,1),box-shadow .5s;
+}
+.contact-envelope-pocket{z-index:4}
+.contact-envelope-flap{z-index:5}
+.contact-envelope-stage.is-open .contact-envelope-letter{
+  top:2%;
+  height:84%;
+  z-index:6;
+  transform:translateY(0) rotate(-.35deg);
+}
+.contact-envelope-letter-top,
+.contact-envelope-letter-body,
+.contact-envelope-letter-foot{opacity:0;visibility:hidden;transition:opacity .22s ease,visibility 0s linear .22s}
+.contact-envelope-stage.is-open .contact-envelope-letter-top,
+.contact-envelope-stage.is-open .contact-envelope-letter-body,
+.contact-envelope-stage.is-open .contact-envelope-letter-foot{
+  opacity:1;visibility:visible;transition:opacity .32s ease .28s,visibility 0s linear .28s
+}
+.contact-envelope-stage.is-open .contact-envelope-choices{opacity:1;transform:translateY(0);pointer-events:auto}
+.contact-envelope-stage.is-open .contact-envelope-flap{z-index:2}
+.contact-envelope-toggle{z-index:8}
+@media(max-width:900px){
+  .contact-envelope-letter{top:31%;height:60%}
+  .contact-envelope-stage.is-open .contact-envelope-letter{top:2%;height:84%}
+}
+@media(max-width:600px){
+  .contact-envelope-letter{top:31%;height:60%;left:7%;right:7%;transform:none}
+  .contact-envelope-stage.is-open .contact-envelope-letter{top:2%;height:84%;transform:none}
+}
+@media(prefers-reduced-motion:reduce){
+  .contact-envelope-letter{transition:none!important}
+  .contact-envelope-letter-top,.contact-envelope-letter-body,.contact-envelope-letter-foot{transition:none!important}
+}
