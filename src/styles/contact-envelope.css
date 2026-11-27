@@ -33,7 +33,11 @@
 .contact-envelope-toggle:hover,.contact-envelope-toggle:focus-visible{background:var(--blue);color:#fff;outline:2px solid var(--blue);outline-offset:3px}
 .contact-envelope-postmark{position:absolute;z-index:6;right:12%;bottom:34%;display:grid;place-items:center;width:49px;height:49px;border:1px solid #bd6c4e;border-radius:50%;font:8px/1.2 var(--mono);text-align:center;color:#bd6c4e;transform:rotate(12deg);pointer-events:none;transition:opacity .3s}
 .contact-envelope-instruction{text-align:center;margin:16px 0 0;font:7px var(--mono);letter-spacing:.13em;color:var(--muted);transition:color .25s}
-.contact-envelope-stage.is-open .contact-envelope-letter{transform:translateY(-2%) rotate(-.4deg);box-shadow:0 12px 28px #332b1c24}
+.contact-envelope-stage.is-open .contact-envelope-letter{z-index:6;transform:translateY(-2%) rotate(-.4deg);box-shadow:0 12px 28px #332b1c24}
+.contact-envelope-choices{pointer-events:none;opacity:0;transform:translateY(8px);transition:opacity .3s ease .12s,transform .45s cubic-bezier(.2,.75,.25,1) .12s}
+.contact-envelope-stage.is-open .contact-envelope-choices{pointer-events:auto;opacity:1;transform:translateY(0)}
+.contact-envelope-stage.is-open .contact-envelope-letter{transition:transform .85s cubic-bezier(.16,.82,.24,1),box-shadow .5s,z-index 0s}
+
 .contact-envelope-stage.is-open .contact-envelope-flap{z-index:2;transform:rotateX(180deg);transition:transform .8s cubic-bezier(.2,.78,.22,1),z-index 0s}
 .contact-envelope-stage.is-open .contact-envelope-postmark{opacity:0}
 .contact-envelope-stage.is-open .contact-envelope-toggle{background:var(--blue)}
@@ -48,7 +52,7 @@
  .contact-final-envelope{padding-top:52px;padding-bottom:42px}
  .contact-envelope-scene{height:390px}
  .contact-envelope-letter{left:7%;right:7%;height:86%;padding:14px 13px 11px;transform:translateY(38%) rotate(-.7deg)}
- .contact-envelope-stage.is-open .contact-envelope-letter{transform:translateY(-1%) rotate(0)}
+ .contact-envelope-stage.is-open .contact-envelope-letter{z-index:6;transform:translateY(-1%) rotate(0)}
  .contact-envelope-flap{left:5%;right:5%;bottom:69%;border-left-width:44vw;border-right-width:44vw;border-top-width:150px}
  .contact-envelope-pocket,.contact-envelope-back{left:5%;right:5%}
  .contact-envelope-letter-body h3{font-size:47px}

@@ -1084,14 +1084,14 @@ function App() {
                   <span className="contact-envelope-overline">THE NEXT CONVERSATION</span>
                   <h3>LET'S<br /><em>CONNECT.</em></h3>
                   <p>Choose your preferred way to say hello.</p>
-                  <div className="contact-envelope-choices">
-                    <a href="https://www.linkedin.com/in/kirtanswamy" target="_blank" rel="noreferrer" aria-label="Connect with Kirtan on LinkedIn">
+                  <div className="contact-envelope-choices" aria-hidden={!envelopeOpen}>
+                    <a href="https://www.linkedin.com/in/kirtanswamy" target="_blank" rel="noreferrer" aria-label="Connect with Kirtan on LinkedIn" tabIndex={envelopeOpen ? 0 : -1}>
                       <span className="contact-choice-icon" aria-hidden="true">in</span><span><small>01 / PROFESSIONAL</small><b>LinkedIn</b></span><ArrowUpRight />
                     </a>
-                    <a href="https://github.com/kirtanswamy" target="_blank" rel="noreferrer" aria-label="Explore Kirtan's GitHub">
+                    <a href="https://github.com/kirtanswamy" target="_blank" rel="noreferrer" aria-label="Explore Kirtan's GitHub" tabIndex={envelopeOpen ? 0 : -1}>
                       <span className="contact-choice-icon contact-choice-github" aria-hidden="true">⌘</span><span><small>02 / OPEN WORK</small><b>GitHub</b></span><ArrowUpRight />
                     </a>
-                    <a href="https://mail.google.com/mail/?view=cm&fs=1" target="_blank" rel="noreferrer" aria-label="Write an email to Kirtan using Gmail">
+                    <a href="https://mail.google.com/mail/?view=cm&fs=1" target="_blank" rel="noreferrer" aria-label="Write an email to Kirtan using Gmail" tabIndex={envelopeOpen ? 0 : -1}>
                       <span className="contact-choice-icon contact-choice-mail" aria-hidden="true">✉</span><span><small>03 / A DIRECT NOTE</small><b>Gmail</b></span><ArrowUpRight />
                     </a>
                   </div>
