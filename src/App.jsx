@@ -1021,6 +1021,13 @@ function App() {
             <div
               className={`archive-page-turner turn-${archiveTurnDirection}`}
               key={`${activeLearningCategory}-${archivePage}-${archiveTurnDirection}`}
+              role="group"
+              aria-label="Certificate archive. Swipe horizontally or use the arrow keys to turn pages."
+              tabIndex={0}
+              onKeyDown={event => {
+                if (event.key === 'ArrowRight' && archivePage < archivePageCount - 1) { event.preventDefault(); setArchiveTurnDirection('next'); setArchivePage(page => Math.min(archivePageCount - 1, page + 1)) }
+                if (event.key === 'ArrowLeft' && archivePage > 0) { event.preventDefault(); setArchiveTurnDirection('previous'); setArchivePage(page => Math.max(0, page - 1)) }
+              }}
               onPointerDown={event => { archiveSwipeStartRef.current = { x: event.clientX, y: event.clientY, pointerId: event.pointerId } }}
               onPointerUp={event => {
                 const start = archiveSwipeStartRef.current
@@ -1039,6 +1046,7 @@ function App() {
               <div className="archive-page-spread">
                 {currentLearningPage.map((item, pageIndex) => <article className={`learning-card reveal credential-${item.category.toLowerCase()}`} key={item.name}>
                   <div className="learning-card-top"><span>DOCUMENT / {String(learning.indexOf(item) + 1).padStart(2, '0')} — KS</span><span className="learning-record-type">{item.record}</span></div>
+                  <div className="learning-issuer-lockup"><span className="learning-issuer-monogram">{item.category === 'DIGITAL' ? 'G' : item.category === 'BUSINESS' ? 'GS' : item.category === 'NATIONAL' ? 'VB' : item.issuer === 'LinkedIn' ? 'in' : 'Q'}</span><span>{item.issuer}</span><i>VERIFIED RECORD</i></div>
                   <div className="learning-card-body">
                     <div className="learning-card-copy">
                       <p>{item.kind}</p><h3>{item.name}</h3><h4>{item.detail}</h4>
