@@ -317,6 +317,7 @@ function App() {
   const archiveSwipeStartRef = useRef(null)
   const archiveDragRef = useRef(null)
   const [activeSkillDrawer, setActiveSkillDrawer] = useState(0)
+  const [activeWorkshopTool, setActiveWorkshopTool] = useState('')
   const sectionTransitionAction = useRef(null)
   const sectionTransitionLock = useRef(false)
   const projectShelfRef = useRef(null)
@@ -1122,14 +1123,14 @@ function App() {
           <div className="workshop-layout">
             <div className="skills-groups" aria-label="Skills and tools">
               {skills.map((group, groupIndex) => <section className={`skill-group reveal ${activeSkillDrawer === groupIndex ? 'is-open' : ''}`} key={group.group} aria-label={group.group}>
-                <button type="button" className="skill-group-heading" aria-expanded={activeSkillDrawer === groupIndex} onClick={() => setActiveSkillDrawer(activeSkillDrawer === groupIndex ? -1 : groupIndex)}>
+                <button type="button" className="skill-group-heading" aria-expanded={activeSkillDrawer === groupIndex} onClick={() => { const nextDrawer = activeSkillDrawer === groupIndex ? -1 : groupIndex; setActiveSkillDrawer(nextDrawer); setActiveWorkshopTool(nextDrawer < 0 ? '' : group.items[0]) }}>
                   <span>DRAWER / {String(groupIndex + 1).padStart(2, '0')}</span><h3>{group.group}</h3><small>{String(group.items.length).padStart(2, '0')} FILED</small><i aria-hidden="true">{activeSkillDrawer === groupIndex ? '−' : '+'}</i>
                 </button>
-                {activeSkillDrawer === groupIndex && <div className="skill-tool-list">{group.items.map((item, itemIndex) => <span className="workshop-tool" key={item} tabIndex={0}><i aria-hidden="true">{String(itemIndex + 1).padStart(2, '0')}</i><b>{item}</b><span className="tool-cross" aria-hidden="true">↗</span></span>)}</div>}
+                {activeSkillDrawer === groupIndex && <div className="skill-tool-list">{group.items.map((item, itemIndex) => <button type="button" className="workshop-tool" key={item} aria-pressed={activeWorkshopTool === item} onClick={() => setActiveWorkshopTool(item)}><i aria-hidden="true">{String(itemIndex + 1).padStart(2, '0')}</i><b>{item}</b><span className="tool-cross" aria-hidden="true">↗</span></button>)}</div>}
               </section>)}
             </div>
             <aside className="workshop-side-note" aria-label="Workshop field note">
-              <div className="workshop-side-top"><span>BENCH NOTE / 007</span><span>ECE × SOFTWARE</span></div>
+              <div className="workshop-side-top"><span>{activeWorkshopTool ? 'SELECTED TOOL / 007' : 'BENCH NOTE / 007'}</span><span>ECE × SOFTWARE</span></div>
               <svg className="workshop-circuit" viewBox="0 0 360 260" role="img" aria-label="An abstract circuit schematic with connected nodes and a central component">
                 <g fill="none" stroke="currentColor" strokeWidth="1.2" opacity=".65">
                   <path d="M20 45H105V92H145M20 45V20M105 92V145H160M160 145H205V104H260V55H340M205 104V185H280V220H340M260 55V20H320M145 92V55H180M160 145V205H95V235H20M280 220H340"/>
@@ -1139,7 +1140,7 @@ function App() {
                 </g>
                 <g fill="currentColor" fontFamily="monospace" fontSize="8" opacity=".7"><text x="18" y="12">INPUT</text><text x="145" y="82">CORE</text><text x="280" y="242">OUTPUT</text><text x="266" y="16">SIGNAL PATH</text></g>
               </svg>
-              <div className="workshop-side-caption"><span>FIG. 07 / A SYSTEM IN PIECES</span><p>Learn the tool. Understand the system. Make something useful with both.</p></div>
+              <div className="workshop-side-caption"><span>{activeWorkshopTool ? 'ON THE BENCH / SELECTED' : 'FIG. 07 / A SYSTEM IN PIECES'}</span><p>{activeWorkshopTool ? `${activeWorkshopTool} — selected from the working kit.` : 'Learn the tool. Understand the system. Make something useful with both.'}</p></div>
               <div className="workshop-side-foot"><span>KEEP EXPERIMENTING</span><span>END OF NOTE ↗</span></div>
             </aside>
           </div>
