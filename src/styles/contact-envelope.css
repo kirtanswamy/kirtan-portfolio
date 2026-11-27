@@ -67,3 +67,31 @@
  .contact-envelope-hint i{animation:none}
  .contact-envelope-letter,.contact-envelope-flap,.contact-envelope-postmark,.contact-envelope-toggle{transition:none!important}
 }
+
+/* Final envelope depth pass — keep the stationery readable as a layered object. */
+.contact-envelope-scene{transform-style:preserve-3d;perspective-origin:50% 48%}
+.contact-envelope-back,.contact-envelope-pocket,.contact-envelope-letter{transform-style:preserve-3d}
+.contact-envelope-flap{
+  backface-visibility:hidden;
+  transform-style:preserve-3d;
+  filter:drop-shadow(0 5px 5px #66563d24);
+}
+.contact-envelope-letter{
+  will-change:transform;
+  box-shadow:0 5px 0 #b9aa8d65,0 13px 24px #332b1c12;
+}
+.contact-envelope-stage.is-open .contact-envelope-letter{
+  box-shadow:0 15px 32px #332b1c2b,0 3px 0 #b9aa8d70;
+}
+.contact-envelope-stage.is-open .contact-envelope-flap{
+  transform:rotateX(180deg);
+  transform-origin:50% 0;
+}
+.contact-envelope-toggle{z-index:8}
+@media(max-width:600px){
+  .contact-envelope-scene{perspective:1000px}
+  .contact-envelope-letter{will-change:auto}
+}
+@media(prefers-reduced-motion:reduce){
+  .contact-envelope-letter{will-change:auto}
+}
