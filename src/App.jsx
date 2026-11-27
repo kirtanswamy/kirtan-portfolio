@@ -1084,12 +1084,16 @@ function App() {
                 {currentLearningPage.map((item, pageIndex) => <article className={`learning-card reveal credential-${item.category.toLowerCase()} ${item.category === 'DIGITAL' ? 'issuer-google' : item.category === 'BUSINESS' ? 'issuer-goldman' : item.category === 'NATIONAL' ? 'issuer-vbyld' : item.issuer === 'LinkedIn' ? 'issuer-linkedin' : 'issuer-qualcomm'}`} key={item.name}>
                   <div className="learning-card-top"><span>DOCUMENT / {String(learning.indexOf(item) + 1).padStart(2, '0')} — KS</span><span className="learning-record-type">{item.record}</span></div>
                   <div className="learning-issuer-lockup"><span className="learning-issuer-monogram">{item.category === 'DIGITAL' ? 'G' : item.category === 'BUSINESS' ? 'GS' : item.category === 'NATIONAL' ? 'VB' : item.issuer === 'LinkedIn' ? 'in' : 'Q'}</span><span>{item.issuer}</span><i>SOURCE LISTED</i></div>
+                  <div className="learning-document-heading">
+                    {item.record === 'JOB SIMULATION' ? 'SIMULATION COMPLETION RECORD' : item.record === 'PARTICIPANT CREDENTIAL' ? 'PARTICIPATION RECORD' : item.record === 'COURSE RECORD' ? 'COURSE COMPLETION RECORD' : 'CERTIFICATE OF ACHIEVEMENT'}
+                  </div>
                   <div className="learning-card-body">
                     <div className="learning-card-copy">
                       <p>{item.kind}</p><h3>{item.name}</h3><h4>{item.detail}</h4>
                       <dl className="learning-record-meta"><div><dt>ISSUED BY</dt><dd>{item.issuer}</dd></div><div><dt>ISSUED</dt><dd>{item.issued}</dd></div>{item.expires && <div><dt>VALID UNTIL</dt><dd>{item.expires}</dd></div>}</dl>
                     </div>
                     <span className="learning-card-index" aria-hidden="true">{String(learning.indexOf(item) + 1).padStart(2, '0')}</span>
+                    <span className="learning-certificate-seal" aria-hidden="true"><b>KS</b><small>{item.record === 'JOB SIMULATION' ? 'SIMULATION' : item.record === 'PARTICIPANT CREDENTIAL' ? 'PARTICIPATION' : item.record === 'COURSE RECORD' ? 'COURSE' : 'CREDENTIAL'}</small></span>
                     <span className="learning-card-tab" aria-hidden="true">{item.category}</span>
                   </div>
                   <div className="learning-card-foot"><span className="learning-status">{item.status}</span><span className="learning-card-seal" aria-hidden="true"><b>KS</b><small>ARCHIVE</small></span><span className="learning-card-open" aria-hidden="true">↗</span></div>
