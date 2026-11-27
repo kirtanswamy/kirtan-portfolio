@@ -1039,7 +1039,7 @@ function App() {
                 event.preventDefault()
                 event.currentTarget.setPointerCapture?.(event.pointerId)
                 archiveDragRef.current = { pointerId: event.pointerId, startX: event.clientX, startY: event.clientY, direction, width: rect.width }
-                event.currentTarget.classList.add('is-dragging')
+                event.currentTarget.classList.add('is-dragging', `is-dragging-${direction}`)
                 event.currentTarget.style.setProperty('--page-turn-progress', '0')
                 event.currentTarget.style.setProperty('--page-turn-angle', '0deg')
               }}
@@ -1061,7 +1061,7 @@ function App() {
                 const signed = drag.direction === 'next' ? -dx : dx
                 const progress = Math.max(0, signed / (drag.width * 0.42))
                 archiveDragRef.current = null
-                event.currentTarget.classList.remove('is-dragging')
+                event.currentTarget.classList.remove('is-dragging', 'is-dragging-next', 'is-dragging-previous')
                 event.currentTarget.style.setProperty('--page-turn-progress', '0')
                 event.currentTarget.style.setProperty('--page-turn-angle', '0deg')
                 if (progress > 0.24) {
