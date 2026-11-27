@@ -309,7 +309,6 @@ function App() {
   const [activeLearningCategory, setActiveLearningCategory] = useState('ALL ENTRIES')
   const [sectionTransition, setSectionTransition] = useState(null)
   const [envelopeOpen, setEnvelopeOpen] = useState(false)
-  const [envelopeProgress, setEnvelopeProgress] = useState(0)
   const [archiveOpen, setArchiveOpen] = useState(false)
   const [archivePage, setArchivePage] = useState(0)
   const [activeSkillDrawer, setActiveSkillDrawer] = useState(0)
@@ -1075,7 +1074,6 @@ function App() {
           </div>
           <div
             className={`contact-envelope-stage${envelopeOpen ? ' is-open' : ''}`}
-            style={{ '--envelope-progress': envelopeProgress, '--letter-top': `${31 - 35 * envelopeProgress}%`, '--letter-height': `${60 + 28 * envelopeProgress}%`, '--flap-angle': `${-168 * envelopeProgress}deg`, '--letter-layer': envelopeProgress > 0.62 ? 6 : 3 }}
             onPointerMove={event => {
               if (event.pointerType !== 'mouse') return
               const scene = event.currentTarget.querySelector('.contact-envelope-scene')
@@ -1088,24 +1086,44 @@ function App() {
               // A continuous ease: the lid begins to lift at the edge of the
               // interaction field and the letter follows without a threshold pop.
               const eased = proximity * proximity * (2.4 - 1.4 * proximity)
-              setEnvelopeProgress(eased)
+              const stage = event.currentTarget
+              stage.style.setProperty('--envelope-progress', eased.toFixed(3))
+              stage.style.setProperty('--letter-top', `${31 - 35 * eased}%`)
+              stage.style.setProperty('--letter-height', `${60 + 28 * eased}%`)
+              stage.style.setProperty('--flap-angle', `${-168 * eased}deg`)
+              stage.style.setProperty('--letter-layer', eased > 0.62 ? '6' : '3')
               setEnvelopeOpen(eased > 0.58)
             }}
             onPointerLeave={event => {
               if (event.pointerType === 'mouse' && !event.currentTarget.matches(':focus-within')) {
-                setEnvelopeProgress(0)
+                const stage = event.currentTarget
+                stage.style.setProperty('--envelope-progress', '0')
+                stage.style.setProperty('--letter-top', '31%')
+                stage.style.setProperty('--letter-height', '60%')
+                stage.style.setProperty('--flap-angle', '0deg')
+                stage.style.setProperty('--letter-layer', '3')
                 setEnvelopeOpen(false)
               }
             }}
             onFocus={event => {
               if (event.target.closest('.contact-envelope-choices') || event.target.closest('.contact-envelope-toggle')) {
-                setEnvelopeProgress(1)
+                const stage = event.currentTarget
+                stage.style.setProperty('--envelope-progress', '1')
+                stage.style.setProperty('--letter-top', '-4%')
+                stage.style.setProperty('--letter-height', '88%')
+                stage.style.setProperty('--flap-angle', '-168deg')
+                stage.style.setProperty('--letter-layer', '6')
                 setEnvelopeOpen(true)
               }
             }}
             onBlur={event => {
               if (event.relatedTarget && !event.currentTarget.contains(event.relatedTarget)) {
-                setEnvelopeProgress(0)
+                const stage = event.currentTarget
+                stage.style.setProperty('--envelope-progress', '0')
+                stage.style.setProperty('--letter-top', '31%')
+                stage.style.setProperty('--letter-height', '60%')
+                stage.style.setProperty('--flap-angle', '0deg')
+                stage.style.setProperty('--letter-layer', '3')
                 setEnvelopeOpen(false)
               }
             }}
@@ -1142,8 +1160,15 @@ function App() {
                 className="contact-envelope-toggle"
                 aria-expanded={envelopeOpen}
                 onClick={event => {
-                  if (event.nativeEvent.pointerType === 'mouse') { setEnvelopeProgress(1); setEnvelopeOpen(true) }
-                  else { setEnvelopeProgress(open => open ? 0 : 1); setEnvelopeOpen(open => !open) }
+                  const stage = event.currentTarget.closest('.contact-envelope-stage')
+                  const opening = !envelopeOpen
+                  const progress = opening ? 1 : 0
+                  stage?.style.setProperty('--envelope-progress', String(progress))
+                  stage?.style.setProperty('--letter-top', opening ? '-4%' : '31%')
+                  stage?.style.setProperty('--letter-height', opening ? '88%' : '60%')
+                  stage?.style.setProperty('--flap-angle', opening ? '-168deg' : '0deg')
+                  stage?.style.setProperty('--letter-layer', opening ? '6' : '3')
+                  setEnvelopeOpen(opening)
                 }}
               >
                 <span>{envelopeOpen ? 'LETTER OPEN' : 'OPEN THE LETTER'}</span><ArrowUpRight size={15} />
