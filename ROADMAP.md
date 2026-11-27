@@ -381,3 +381,13 @@ See [CONTENT_REGISTRY.md](./CONTENT_REGISTRY.md). That file is the source of tru
 - Still to do: validate the contact envelope visually in both states; redesign project cards as distinct project worlds rather than one shared card template; turn the milestones and autobiography into an evidence-led interactive scene; make archive pages display real, user-approved certificate/credential artefacts; test mobile performance, keyboard access and reduced motion.
 - The vinyl / interests record section is not altered in this pass. Preserve it pending the user's stated approval.
 - Keep all work on `feature/editorial-world-rebuild`; do not merge or promote to production without explicit approval.
+
+### Envelope motion and archive redesign — 27 November 2026
+
+- Envelope hover updates now write motion variables directly to the stage instead of triggering React state updates for every pointer frame. The lid hinge angle and letter lift share the same eased proximity progress; the letter uses a fixed geometry and transform-only lift to avoid layout reflow.
+- Moved the wax seal out of the clipped triangular flap into a separate overlay at the flap/pocket meeting point so the full seal remains visible.
+- Rebuilt the Reading Room cover as a full-size manila certificate folder. Opening it reveals a two-page folio with page navigation; category filters appear inside the opened file.
+- Public LinkedIn profile review identified: Goldman Sachs Operations Job Simulation (Sep 2026); Google Ads Display Certification (Sep 2026, expires Sep 2027); Google Analytics Individual Qualification (Sep 2026, expires Sep 2027); LinkedIn “What Is Generative AI?” (Sep 2026); Viksit Bharat Young Leaders Dialogue 2026 participant credential (Jan 2026). Qualcomm AI Upskilling is retained as a completed course record, not a certificate, because the user previously reported no certificate was issued.
+- Credentials IDs and issue/expiry metadata are transcribed from the public LinkedIn profile. The archive uses designed record pages, not fabricated scans of original certificates. Replace with original scans only when supplied.
+- The public profile also contains a post about Google Display & Video 360 Certification, but it is not listed in the visible Licenses & Certifications section. It is not added as a separate credential until the user confirms whether this is an additional credential beyond the two Google certificates.
+- This archive pass is preview-only. Validate file opening, three-page pagination, filters, keyboard interaction, mobile layout and reduced-motion behavior before sign-off.
