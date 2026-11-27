@@ -104,3 +104,120 @@
  .workshop-tool,.workshop-tool .tool-cross{transition:none!important}
  .workshop-tool:hover{transform:none}
 }
+
+
+/* WORKSHOP PASS — tactile instrument controls and an active bench readout. */
+.skills-section .skills-inner{perspective:1400px}
+.skills-section .workshop-layout{align-items:stretch}
+.skills-section .skills-groups{position:relative;transform-style:preserve-3d}
+.skills-section .skill-group{
+  position:relative;
+  padding:0 0 19px 15px;
+  border-bottom-color:#d8d0c34a;
+  transition:border-color .28s,transform .35s;
+}
+.skills-section .skill-group:before{
+  content:"";position:absolute;left:0;top:0;bottom:18px;width:2px;
+  background:linear-gradient(180deg,#d6df83,transparent);
+  opacity:.22;transition:opacity .25s,box-shadow .25s;
+}
+.skills-section .skill-group.is-open:before{
+  opacity:1;box-shadow:0 0 12px #d6df8370;
+}
+.skills-section .skill-group-heading{
+  width:100%;min-height:54px;padding:10px 12px 10px 0;
+  text-align:left;color:inherit;background:transparent;border:0;
+  cursor:pointer;transition:transform .25s,color .25s;
+}
+.skills-section .skill-group-heading:hover{transform:translateX(4px)}
+.skills-section .skill-group-heading h3{transition:color .25s}
+.skills-section .skill-group.is-open .skill-group-heading h3{color:#d6df83}
+.skills-section .skill-group-heading i{
+  display:grid;place-items:center;width:25px;height:25px;
+  border:1px solid #d6df8366;border-radius:50%;
+  color:#d6df83;font:14px var(--mono);font-style:normal;
+}
+.skills-section .skill-tool-list{
+  display:flex;flex-wrap:wrap;gap:9px;padding:8px 0 5px;
+  perspective:900px;
+}
+.skills-section .workshop-tool{
+  position:relative;isolation:isolate;appearance:none;
+  min-height:48px;padding:0 14px;
+  border:1px solid #d8d0c355;border-radius:3px;
+  background:linear-gradient(145deg,#354052,#242d3e 70%);
+  box-shadow:0 3px 0 #111827,0 7px 14px #080d1738,inset 0 1px 0 #ffffff1c;
+  color:#eee8da;text-align:left;cursor:pointer;
+  transform:translateZ(0);
+  transition:transform .22s cubic-bezier(.2,.8,.2,1),border-color .22s,background .22s,box-shadow .22s;
+}
+.skills-section .workshop-tool:before{
+  content:"";position:absolute;z-index:-1;inset:3px;
+  border:1px solid #ffffff0c;pointer-events:none;
+}
+.skills-section .workshop-tool i{color:#d6df83;font-size:7px}
+.skills-section .workshop-tool b{font-size:13px}
+.skills-section .workshop-tool:hover,
+.skills-section .workshop-tool:focus-visible{
+  transform:translateY(-4px) rotateX(5deg);
+  border-color:#d6df83;background:linear-gradient(145deg,#45516a,#2b3549);
+  box-shadow:0 6px 0 #111827,0 13px 20px #080d174d,inset 0 1px 0 #ffffff2a;
+  outline:2px solid #d6df83;outline-offset:3px;
+}
+.skills-section .workshop-tool[aria-pressed="true"]{
+  transform:translateY(-2px);
+  color:#202534;border-color:#e3e9a7;
+  background:linear-gradient(145deg,#e7edaa,#cbd78a);
+  box-shadow:0 4px 0 #8f9b57,0 10px 18px #080d1740,inset 0 1px 0 #fff9;
+}
+.skills-section .workshop-tool[aria-pressed="true"] i,
+.skills-section .workshop-tool[aria-pressed="true"] .tool-cross{color:#344021;opacity:1}
+.skills-section .workshop-side-note{
+  transform-style:preserve-3d;
+  background:
+    radial-gradient(ellipse at 50% 36%,#d6df8310,transparent 46%),
+    linear-gradient(145deg,#ffffff0d,#ffffff02);
+  box-shadow:inset 0 0 0 5px #ffffff04,0 16px 32px #090e1a2b;
+  transition:border-color .3s,box-shadow .3s;
+}
+.skills-section .workshop-side-note:after{
+  content:"";position:absolute;right:-35px;top:22px;width:110px;height:110px;
+  border:1px solid #d6df8324;border-radius:50%;
+  box-shadow:0 0 0 12px #d6df8308,0 0 0 24px #d6df8305;
+  pointer-events:none;
+}
+.skills-section .workshop-side-caption p{min-height:3em;transition:opacity .2s,transform .2s}
+.skills-section .workshop-circuit{
+  filter:drop-shadow(0 0 7px #d6df8318);
+}
+.skills-section .workshop-circuit circle{
+  animation:workshop-node-pulse 3.8s ease-in-out infinite;
+}
+.skills-section .workshop-circuit circle:nth-of-type(2n){animation-delay:-1.3s}
+.skills-section .workshop-circuit path{
+  stroke-dasharray:5 9;
+  animation:workshop-signal-flow 12s linear infinite;
+}
+@keyframes workshop-node-pulse{
+  0%,100%{opacity:.48}
+  50%{opacity:1}
+}
+@keyframes workshop-signal-flow{to{stroke-dashoffset:-112}}
+@media(max-width:900px){
+  .skills-section .workshop-side-note{transform:none}
+  .skills-section .workshop-circuit{max-height:245px}
+}
+@media(max-width:480px){
+  .skills-section .skill-group{padding-left:10px}
+  .skills-section .workshop-tool{min-height:44px;padding:0 11px}
+  .skills-section .workshop-tool b{font-size:12px}
+}
+@media(prefers-reduced-motion:reduce){
+  .skills-section .workshop-circuit circle,
+  .skills-section .workshop-circuit path{animation:none!important}
+  .skills-section .workshop-tool,
+  .skills-section .skill-group-heading,
+  .skills-section .workshop-side-caption p{transition:none!important}
+  .skills-section .workshop-tool:hover,
+  .skills-section .workshop-tool:focus-visible{transform:none}
+}
