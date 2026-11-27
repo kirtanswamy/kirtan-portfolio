@@ -991,12 +991,14 @@ function App() {
           <div><span className="learning-notebook-label">THE READING ROOM / INDEXED NOTES</span><h2>THE<br/><em>ARCHIVE.</em></h2></div>
           <div className="learning-intro-aside"><span className="learning-aside-mark">A–Z</span><p>A working record of courses, simulations and learning in progress. Filed by subject, with the status kept honest.</p><small>SIX RECORDS / CERTIFICATES & LEARNING</small></div>
         </div>
+        {archiveOpen && (
         <div className="learning-archive-bar">
           <div className="learning-filters" role="group" aria-label="Filter learning records">
             {learningCategories.map(category => <button key={category} type="button" className={activeLearningCategory === category ? 'selected' : ''} onClick={() => { setActiveLearningCategory(category); setArchivePage(0) }} aria-pressed={activeLearningCategory === category}>{category}<span>{category === 'ALL ENTRIES' ? String(learning.length).padStart(2, '0') : String(learning.filter(item => item.category === category).length).padStart(2, '0')}</span></button>)}
           </div>
           <span className="learning-archive-count" aria-live="polite">SHOWING {String(visibleLearning.length).padStart(2, '0')} / {String(learning.length).padStart(2, '0')}</span>
         </div>
+        )}
         {!archiveOpen ? (
           <button type="button" className="archive-file-cover" onClick={() => { setArchiveOpen(true); setArchivePage(0) }} aria-label="Open the certificate archive folder">
             <span className="archive-folder-tab">PERSONAL RECORDS / 2026</span>
@@ -1126,9 +1128,6 @@ function App() {
               if (event.relatedTarget && !event.currentTarget.contains(event.relatedTarget)) {
                 const stage = event.currentTarget
                 stage.style.setProperty('--envelope-progress', '0')
-                stage.style.setProperty('--letter-top', '31%')
-                stage.style.setProperty('--letter-height', '60%')
-                stage.style.setProperty('--flap-angle', '0deg')
                 stage.style.setProperty('--letter-layer', '3')
                 setEnvelopeOpen(false)
               }
