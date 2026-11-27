@@ -46,3 +46,44 @@
 @media(max-width:900px){.journey-scrapbook-spread{min-height:730px;padding-top:48px}.journey-postcards{grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 16px}.journey-postcard{min-height:300px}.journey-postcard:nth-child(n){margin-top:0}.journey-postcard:nth-child(odd){transform:rotate(-1deg)}.journey-postcard:nth-child(even){transform:rotate(1deg)}.journey-postcard-art{height:105px}.journey-sticky-note{right:5%;bottom:10px}.journey-pencil{left:4%;bottom:25px}}
 @media(max-width:560px){.journey-scrapbook-experience{padding:13px}.journey-scrapbook-topline,.journey-scrapbook-footer{font-size:6px}.journey-scrapbook-spread{min-height:870px;padding:42px 12px 140px}.journey-spiral{gap:9px}.journey-spiral i{width:13px;height:25px}.journey-postcards{gap:17px 10px}.journey-postcard{min-height:275px;padding:10px 9px}.journey-postcard-art{height:86px}.journey-postcard>strong{font-size:14px;min-height:48px}.journey-postcard-stamp{font-size:5px}.journey-sticky-note{width:145px;right:8%;bottom:16px}.journey-pencil{width:120px;bottom:35px}.journey-postcard-detail{grid-template-columns:1fr;gap:12px;padding:22px 17px 17px}.journey-detail-index{min-height:70px;display:grid;grid-template-columns:1fr auto;align-items:center;border-right:0;border-bottom:1px dashed #aa9b80;padding:0 0 10px}.journey-detail-index>strong{grid-column:2;grid-row:1/3}.journey-detail-nav{grid-column:1}.journey-detail-copy h3{font-size:27px}.journey-detail-copy p{font-size:14px}}
 @media(prefers-reduced-motion:reduce){.journey-postcard,.journey-detail-nav button{transition:none!important}.journey-postcard:hover,.journey-postcard.is-active{transform:none}.journey-postcard-detail{animation:none}}
+
+
+/* Visual QA refinement — protect the postcard row and give the stationery room to breathe */
+.journey-scrapbook-spread{min-height:625px;padding-bottom:145px}
+.journey-postcards{gap:clamp(12px,1.5vw,20px)}
+.journey-postcard{min-height:315px;padding:13px 14px 12px}
+.journey-postcard-art{height:118px}
+.journey-postcard>strong{min-height:58px;font-size:clamp(15px,1.45vw,19px);line-height:1.04}
+.journey-postcard-place{min-height:18px;line-height:1.45}
+.journey-postcard-open{padding-top:10px}
+.journey-postcard.is-active{box-shadow:0 0 0 2px #bd65474d,3px 5px 0 #fff9e9,8px 20px 28px #3d33252e,inset 0 0 0 5px #bd65440b}
+.journey-postcard:after{content:"";position:absolute;right:0;bottom:0;width:23px;height:23px;background:linear-gradient(135deg,transparent 49%,#c9b99d 50%,#f7efdf 57%);opacity:.8;filter:drop-shadow(-1px -1px 1px #66583a22);pointer-events:none}
+.journey-postcard-clip{transition:transform .3s ease,filter .3s}
+.journey-postcard:hover .journey-postcard-clip,.journey-postcard.is-active .journey-postcard-clip{transform:translateX(-50%) translateY(-4px) rotate(4deg);filter:drop-shadow(0 5px 3px #302b2230)}
+.journey-spiral{width:min(430px,52%);justify-content:space-between;gap:0;padding:0 12px}
+.journey-spiral:before{content:"";position:absolute;left:7px;right:7px;top:14px;height:3px;background:linear-gradient(#77766f,#f5f0e3 45%,#77766f);box-shadow:0 1px 2px #302b2240}
+.journey-spiral i{position:relative;width:16px;height:34px;border-radius:50%;border:2px solid #73756f;border-bottom-color:#c7c2b5;background:linear-gradient(90deg,#7c807d,#f7f3e8 38%,#a5a69e 70%,#6d716e);box-shadow:0 2px 2px #312b222c}
+.journey-sticky-note{right:4%;bottom:20px;transform:rotate(2deg)}
+.journey-pencil{left:3%;bottom:35px}
+.journey-postcard-detail{margin-top:30px}
+.journey-detail-copy h3{max-width:28ch}
+.journey-detail-copy p{max-width:72ch}
+@media(max-width:900px){
+ .journey-scrapbook-spread{min-height:790px;padding-bottom:145px}
+ .journey-postcard{min-height:295px}
+ .journey-postcard-art{height:108px}
+ .journey-sticky-note{right:5%;bottom:18px}
+}
+@media(max-width:560px){
+ .journey-scrapbook-spread{min-height:930px;padding-bottom:155px}
+ .journey-postcard{min-height:270px}
+ .journey-postcard-art{height:86px}
+ .journey-postcard>strong{min-height:52px;font-size:14px}
+ .journey-spiral{width:72%;gap:0}
+ .journey-spiral i{width:13px;height:27px}
+ .journey-sticky-note{right:7%;bottom:15px}
+ .journey-pencil{left:4%;bottom:34px;width:112px}
+}
+@media(prefers-reduced-motion:reduce){
+ .journey-postcard-clip{transition:none}
+}
