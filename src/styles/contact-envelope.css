@@ -95,3 +95,28 @@
 @media(prefers-reduced-motion:reduce){
   .contact-envelope-letter{will-change:auto}
 }
+
+
+/* Closed state: keep the letter visibly inside the envelope until opened. */
+.contact-envelope-letter{
+  transform:translateY(63%) rotate(0deg);
+  transition:transform .85s cubic-bezier(.16,.82,.24,1),box-shadow .5s,opacity .25s;
+}
+.contact-envelope-letter-top,
+.contact-envelope-letter-body,
+.contact-envelope-letter-foot{
+  opacity:0;
+  transition:opacity .25s ease;
+}
+.contact-envelope-stage.is-open .contact-envelope-letter{
+  transform:translateY(-2%) rotate(-.35deg);
+}
+.contact-envelope-stage.is-open .contact-envelope-letter-top,
+.contact-envelope-stage.is-open .contact-envelope-letter-body,
+.contact-envelope-stage.is-open .contact-envelope-letter-foot{
+  opacity:1;
+  transition:opacity .35s ease .28s;
+}
+@media(prefers-reduced-motion:reduce){
+  .contact-envelope-letter-top,.contact-envelope-letter-body,.contact-envelope-letter-foot{transition:none!important}
+}
