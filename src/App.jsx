@@ -112,23 +112,23 @@ const skills = [
 ]
 
 const workshopToolDetails = {
-  'HTML & CSS': { family: 'INTERFACE LAYER', variant: 'web', note: 'The structure and visual language behind readable, responsive screens.', context: 'Portfolio interface · Varsity product UI', link: 'INTERFACE' },
-  'JavaScript': { family: 'INTERACTION ENGINE', variant: 'web', note: 'State, events and behaviour turn a static screen into a working experience.', context: 'Portfolio interactions · ElectroLab', link: 'BEHAVIOUR' },
-  'TypeScript': { family: 'TYPED LOGIC', variant: 'code', note: 'Typed application logic helps keep calculations and interface contracts explicit.', context: 'ElectroLab simulator', link: 'CALCULATION ENGINE' },
-  'React': { family: 'COMPONENT SYSTEM', variant: 'web', note: 'Reusable components organise interfaces into smaller, composable parts.', context: 'Portfolio · ElectroLab', link: 'COMPONENTS' },
-  'React Native': { family: 'MOBILE INTERFACE', variant: 'mobile', note: 'A shared component approach for building native-feeling mobile experiences.', context: 'Varsity mobile app', link: 'MOBILE PRODUCT' },
-  'Expo': { family: 'MOBILE TOOLCHAIN', variant: 'mobile', note: 'The development and runtime layer used for the Varsity mobile build.', context: 'Varsity mobile app', link: 'APP WORKFLOW' },
+  'HTML & CSS': { family: 'INTERFACE LAYER', variant: 'web', note: 'The structure and visual language behind readable, responsive screens.', context: 'Portfolio interface · Varsity product UI', link: 'INTERFACE', evidenceIds: ['02'] },
+  'JavaScript': { family: 'INTERACTION ENGINE', variant: 'web', note: 'State, events and behaviour turn a static screen into a working experience.', context: 'Portfolio interactions · ElectroLab', link: 'BEHAVIOUR', evidenceIds: ['03'] },
+  'TypeScript': { family: 'TYPED LOGIC', variant: 'code', note: 'Typed application logic helps keep calculations and interface contracts explicit.', context: 'ElectroLab simulator', link: 'CALCULATION ENGINE', evidenceIds: ['03'] },
+  'React': { family: 'COMPONENT SYSTEM', variant: 'web', note: 'Reusable components organise interfaces into smaller, composable parts.', context: 'Portfolio · ElectroLab', link: 'COMPONENTS', evidenceIds: ['03'] },
+  'React Native': { family: 'MOBILE INTERFACE', variant: 'mobile', note: 'A shared component approach for building native-feeling mobile experiences.', context: 'Varsity mobile app', link: 'MOBILE PRODUCT', evidenceIds: ['02'] },
+  'Expo': { family: 'MOBILE TOOLCHAIN', variant: 'mobile', note: 'The development and runtime layer used for the Varsity mobile build.', context: 'Varsity mobile app', link: 'APP WORKFLOW', evidenceIds: ['02'] },
   'Flutter': { family: 'CROSS-PLATFORM UI', variant: 'mobile', note: 'A cross-platform interface toolkit in the broader app-development skill set.', context: 'Mobile development practice', link: 'APP TOOLKIT' },
   'Python': { family: 'GENERAL-PURPOSE LOGIC', variant: 'code', note: 'A flexible language for scripting, problem solving and technical exploration.', context: 'Programming practice', link: 'LOGIC' },
   'C / C++': { family: 'LOW-LEVEL FOUNDATIONS', variant: 'code', note: 'Programming fundamentals close to memory, data structures and machine behaviour.', context: 'ECE and programming coursework', link: 'FOUNDATIONS' },
   'Java': { family: 'OBJECT-ORIENTED LOGIC', variant: 'code', note: 'A language for practising structured, object-oriented program design.', context: 'Programming coursework', link: 'OOP' },
-  'API integration': { family: 'SERVICE CONNECTION', variant: 'network', note: 'Connecting interface workflows to services and structured data contracts.', context: 'BUSHO workflow · application integrations', link: 'DATA FLOW' },
-  'Responsive UI': { family: 'ADAPTIVE LAYOUT', variant: 'web', note: 'Layouts and controls adapt to different screen sizes and input modes.', context: 'Portfolio · Varsity interface', link: 'ADAPTIVE UI' },
-  'UI / UX': { family: 'PRODUCT EXPERIENCE', variant: 'web', note: 'Information hierarchy, interaction design and usability shape the product flow.', context: 'Varsity · BUSHO · portfolio', link: 'USER FLOW' },
-  'Git & GitHub': { family: 'VERSION CONTROL', variant: 'network', note: 'Branches and commits keep experiments reviewable and changes traceable.', context: 'Portfolio · BUSHO · ElectroLab', link: 'COLLABORATION' },
-  'Supabase': { family: 'BACKEND SERVICES', variant: 'network', note: 'Database and authentication services form part of the BUSHO backend workflow.', context: 'BUSHO prototype', link: 'DATA SERVICES' },
-  'Vite': { family: 'BUILD PIPELINE', variant: 'code', note: 'A fast development and build tool in the React application stack.', context: 'Portfolio · ElectroLab', link: 'DEVELOPMENT' },
-  'Electronics': { family: 'HARDWARE PRINCIPLES', variant: 'circuit', note: 'Circuit behaviour, device models and engineering principles made explorable.', context: 'ElectroLab diode simulator', link: 'CIRCUIT MODEL' },
+  'API integration': { family: 'SERVICE CONNECTION', variant: 'network', note: 'Connecting interface workflows to services and structured data contracts.', context: 'BUSHO workflow · application integrations', link: 'DATA FLOW', evidenceIds: ['01'] },
+  'Responsive UI': { family: 'ADAPTIVE LAYOUT', variant: 'web', note: 'Layouts and controls adapt to different screen sizes and input modes.', context: 'Portfolio · Varsity interface', link: 'ADAPTIVE UI', evidenceIds: ['02'] },
+  'UI / UX': { family: 'PRODUCT EXPERIENCE', variant: 'web', note: 'Information hierarchy, interaction design and usability shape the product flow.', context: 'Varsity · BUSHO · portfolio', link: 'USER FLOW', evidenceIds: ['01','02'] },
+  'Git & GitHub': { family: 'VERSION CONTROL', variant: 'network', note: 'Branches and commits keep experiments reviewable and changes traceable.', context: 'Portfolio · BUSHO · ElectroLab', link: 'COLLABORATION', evidenceIds: ['01','02','03'] },
+  'Supabase': { family: 'BACKEND SERVICES', variant: 'network', note: 'Database and authentication services form part of the BUSHO backend workflow.', context: 'BUSHO prototype', link: 'DATA SERVICES', evidenceIds: ['01'] },
+  'Vite': { family: 'BUILD PIPELINE', variant: 'code', note: 'A fast development and build tool in the React application stack.', context: 'Portfolio · ElectroLab', link: 'DEVELOPMENT', evidenceIds: ['03'] },
+  'Electronics': { family: 'HARDWARE PRINCIPLES', variant: 'circuit', note: 'Circuit behaviour, device models and engineering principles made explorable.', context: 'ElectroLab diode simulator', link: 'CIRCUIT MODEL', evidenceIds: ['03'] },
   'AI / ML foundations': { family: 'INTELLIGENT SYSTEMS', variant: 'network', note: 'Foundational learning alongside an early AI/ML research track.', context: 'Research and technical learning', link: 'RESEARCH TRACK' },
 }
 
@@ -1177,7 +1177,7 @@ function App() {
                   <text x="180" y="246" textAnchor="middle" fontSize="7" letterSpacing="1.4">SIGNAL PATH / {selectedWorkshopDetail.link}</text>
                 </g>
               </svg>
-              <div className="workshop-side-caption"><span>{activeWorkshopTool ? `ON THE BENCH / ${selectedWorkshopDetail.family}` : 'FIG. 07 / A SYSTEM IN PIECES'}</span><p>{activeWorkshopTool ? selectedWorkshopDetail.note : 'Choose any filed tool. The bench will reconfigure to show its place in the system.'}</p><div className="workshop-bench-readout"><span><small>CONTEXT</small><b>{activeWorkshopTool ? selectedWorkshopDetail.context : 'SELECT A DRAWER'}</b></span><span><small>PATH</small><b>{activeWorkshopTool ? selectedWorkshopDetail.link : 'TOOL → SYSTEM'}</b></span></div></div>
+              <div className="workshop-side-caption"><span>{activeWorkshopTool ? `ON THE BENCH / ${selectedWorkshopDetail.family}` : 'FIG. 07 / A SYSTEM IN PIECES'}</span><p>{activeWorkshopTool ? selectedWorkshopDetail.note : 'Choose any filed tool. The bench will reconfigure to show its place in the system.'}</p><div className="workshop-bench-readout"><span><small>CONTEXT</small><b>{activeWorkshopTool ? selectedWorkshopDetail.context : 'SELECT A DRAWER'}</b></span><span><small>PATH</small><b>{activeWorkshopTool ? selectedWorkshopDetail.link : 'TOOL → SYSTEM'}</b></span></div>{activeWorkshopTool && selectedWorkshopDetail.evidenceIds?.length > 0 && <div className="workshop-evidence"><span className="workshop-evidence-label">RELATED PROJECT FILES</span><div className="workshop-evidence-links">{selectedWorkshopDetail.evidenceIds.map(id => { const project = projects.find(item => item.id === id); return project ? <button type="button" key={id} onClick={() => setActiveProject(project)}><span>{project.id}</span>{project.name}<ArrowUpRight size={13}/></button> : null })}</div></div>}</div>
               <div className="workshop-side-foot"><span>KEEP EXPERIMENTING</span><span>END OF NOTE ↗</span></div>
             </aside>
           </div>
