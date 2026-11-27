@@ -11,6 +11,7 @@ import './styles/contact-envelope.css'
 import './styles/immersive-chapters.css'
 import './styles/project-case-study.css'
 import './styles/useful-engine.css'
+import './styles/journey-atlas.css'
 
 createRoot(document.getElementById('root')).render(
   <React.StrictMode>
