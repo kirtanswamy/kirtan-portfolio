@@ -337,6 +337,65 @@ function VinylPlayer() {
   )
 }
 
+const usefulStages = [
+  { key: '01', title: 'UNDERSTAND', verb: 'Find the real problem.', detail: 'Start with the people, constraints and small frustrations behind a complicated system. The best interface begins before the first screen.', example: 'BUSHO · frontline reporting and review workflows', accent: '#e6c98d' },
+  { key: '02', title: 'MAKE', verb: 'Give the idea a shape.', detail: 'Turn a question into something tangible: a prototype, an interface, a simulation or a workflow that someone can actually explore.', example: 'VARSITY · a connected campus experience', accent: '#c7d77d' },
+  { key: '03', title: 'TEST', verb: 'See what breaks.', detail: 'Try the model against real constraints. Follow the edge cases, question assumptions and make the behaviour understandable.', example: 'ELECTROLAB · interactive diode modelling', accent: '#8fb8e8' },
+  { key: '04', title: 'REFINE', verb: 'Make it more useful.', detail: 'Keep what works, remove what gets in the way and improve the hand-off between people, tools and systems.', example: 'JANSEVA ONE · civic action coordination concept', accent: '#d99a80' },
+]
+
+function UsefulThingsEngine() {
+  const [activeStage, setActiveStage] = useState(0)
+  const [tilt, setTilt] = useState({ x: 0, y: 0 })
+  const stage = usefulStages[activeStage]
+  const handlePointerMove = event => {
+    if (event.pointerType !== 'mouse' || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    const rect = event.currentTarget.getBoundingClientRect()
+    setTilt({ x: ((event.clientY - rect.top) / rect.height - .5) * -9, y: ((event.clientX - rect.left) / rect.width - .5) * 11 })
+  }
+  const resetTilt = () => setTilt({ x: 0, y: 0 })
+  return (
+    <div className="useful-engine" onPointerMove={handlePointerMove} onPointerLeave={resetTilt}>
+      <div className="useful-engine-topline"><span>THE USEFULNESS ENGINE / 001</span><span>SELECT A STAGE TO RECONFIGURE</span></div>
+      <div className="useful-engine-stage">
+        <div className="useful-engine-orbit useful-orbit-one" aria-hidden="true"/>
+        <div className="useful-engine-orbit useful-orbit-two" aria-hidden="true"/>
+        <div className="useful-engine-orbit useful-orbit-three" aria-hidden="true"/>
+        <svg className="useful-engine-wiring" viewBox="0 0 760 420" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M120 210H260L330 115H430L500 210H640M260 210L330 305H430L500 210M330 115V305M430 115V305" />
+          <path d="M120 210H260L330 115H430L500 210H640" className="useful-wire-active"/>
+          <circle cx="120" cy="210" r="5"/><circle cx="260" cy="210" r="5"/><circle cx="330" cy="115" r="5"/><circle cx="430" cy="115" r="5"/><circle cx="500" cy="210" r="5"/><circle cx="640" cy="210" r="5"/>
+        </svg>
+        <div className="useful-engine-core" style={{ '--core-x': `${tilt.y}deg`, '--core-y': `${tilt.x}deg`, '--stage-accent': stage.accent }}>
+          <div className="useful-core-shadow"/>
+          <div className="useful-core-prism">
+            <span className="prism-face prism-face-front">USEFUL<br/><i>BY DESIGN</i></span>
+            <span className="prism-face prism-face-side">KS / 04</span>
+            <span className="prism-face prism-face-top">QUESTION → ACTION</span>
+          </div>
+          <span className="useful-core-index">0{activeStage + 1}</span>
+          <span className="useful-core-cross">✳</span>
+        </div>
+        {usefulStages.map((item, index) => (
+          <button type="button" key={item.key} className={`useful-stage-node useful-node-${index + 1} ${activeStage === index ? 'is-active' : ''}`} style={{ '--node-accent': item.accent }} onClick={() => setActiveStage(index)} aria-pressed={activeStage === index}>
+            <span>{item.key}</span><b>{item.title}</b><i>{activeStage === index ? 'ACTIVE' : 'INSPECT'}</i>
+          </button>
+        ))}
+        <div className="useful-engine-caption"><span>FIG. 04 / ITERATION MODEL</span><span>INPUT → UNDERSTANDING → OUTCOME</span></div>
+      </div>
+      <div className="useful-engine-readout" aria-live="polite">
+        <div className="useful-readout-index">0{activeStage + 1}<span>/ 04</span></div>
+        <div className="useful-readout-copy"><span>NOW EXPLORING / {stage.title}</span><h3>{stage.verb}</h3><p>{stage.detail}</p><small>CONNECTED WORK / {stage.example}</small></div>
+        <div className="useful-readout-controls" role="group" aria-label="Explore the four stages">
+          <button type="button" onClick={() => setActiveStage(index => (index + usefulStages.length - 1) % usefulStages.length)} aria-label="Previous stage">←</button>
+          <button type="button" onClick={() => setActiveStage(index => (index + 1) % usefulStages.length)} aria-label="Next stage">→</button>
+        </div>
+      </div>
+      <div className="useful-engine-foot"><span>NOT A LINEAR PROCESS</span><span>REPEAT UNTIL IT HELPS SOMEONE</span></div>
+    </div>
+  )
+}
+
 function App() {
   const [openingActive, setOpeningActive] = useState(true)
   const [menuOpen, setMenuOpen] = useState(false)
@@ -1007,9 +1066,8 @@ function App() {
           </div>
         </div>
         <div className="about-north-star reveal">
-          <span>THE REASON I KEEP MAKING</span>
-          <p>Make difficult things feel <em>more useful.</em></p>
-          <small>QUESTION / BUILD / LEARN / REPEAT</small>
+          <div className="about-north-star-copy"><span>THE REASON I KEEP MAKING / 04</span><p>Make difficult things feel <em>more useful.</em></p><small>QUESTION / BUILD / LEARN / REPEAT</small></div>
+          <UsefulThingsEngine />
         </div>
         <div className="about-facts reveal">
           <div><span>01 / CURRENT CHAPTER</span><strong>ECE UNDERGRADUATE</strong><small>SRMIST</small></div>
