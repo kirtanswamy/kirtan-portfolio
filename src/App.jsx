@@ -1075,7 +1075,7 @@ function App() {
           </div>
           <div
             className={`contact-envelope-stage${envelopeOpen ? ' is-open' : ''}`}
-            style={{ '--envelope-progress': envelopeProgress, '--letter-top': `${31 - 38 * envelopeProgress}%`, '--letter-height': `${60 + 40 * envelopeProgress}%` }}
+            style={{ '--envelope-progress': envelopeProgress, '--letter-top': `${31 - 35 * envelopeProgress}%`, '--letter-height': `${60 + 28 * envelopeProgress}%`, '--flap-angle': `${-168 * envelopeProgress}deg`, '--letter-layer': envelopeProgress > 0.62 ? 6 : 3 }}
             onPointerMove={event => {
               if (event.pointerType !== 'mouse') return
               const scene = event.currentTarget.querySelector('.contact-envelope-scene')
@@ -1085,9 +1085,11 @@ function App() {
               const dy = event.clientY - (rect.top + rect.height / 2)
               const radius = Math.max(rect.width * 0.76, rect.height * 0.9)
               const proximity = Math.max(0, Math.min(1, 1 - Math.hypot(dx, dy) / radius))
-              const eased = proximity * proximity * (3 - 2 * proximity)
+              // A continuous ease: the lid begins to lift at the edge of the
+              // interaction field and the letter follows without a threshold pop.
+              const eased = proximity * proximity * (2.4 - 1.4 * proximity)
               setEnvelopeProgress(eased)
-              setEnvelopeOpen(eased > 0.88)
+              setEnvelopeOpen(eased > 0.58)
             }}
             onPointerLeave={event => {
               if (event.pointerType === 'mouse' && !event.currentTarget.matches(':focus-within')) {
