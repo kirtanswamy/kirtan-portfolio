@@ -1106,6 +1106,8 @@ function App() {
               const eased = proximity * proximity * (2.4 - 1.4 * proximity)
               const stage = event.currentTarget
               stage.style.setProperty('--envelope-progress', eased.toFixed(3))
+              stage.style.setProperty('--flap-angle', `${-168 * eased}deg`)
+              stage.style.setProperty('--letter-lift', `${-40 * eased}%`)
               stage.style.setProperty('--letter-layer', eased > 0.42 ? '6' : '3')
               setEnvelopeOpen(eased > 0.58)
             }}
@@ -1113,6 +1115,8 @@ function App() {
               if (event.pointerType === 'mouse' && !event.currentTarget.matches(':focus-within')) {
                 const stage = event.currentTarget
                 stage.style.setProperty('--envelope-progress', '0')
+                stage.style.setProperty('--flap-angle', '0deg')
+                stage.style.setProperty('--letter-lift', '0%')
                 stage.style.setProperty('--letter-layer', '3')
                 setEnvelopeOpen(false)
               }
@@ -1121,6 +1125,8 @@ function App() {
               if (event.target.closest('.contact-envelope-choices') || event.target.closest('.contact-envelope-toggle')) {
                 const stage = event.currentTarget
                 stage.style.setProperty('--envelope-progress', '1')
+                stage.style.setProperty('--flap-angle', '-168deg')
+                stage.style.setProperty('--letter-lift', '-40%')
                 stage.style.setProperty('--letter-layer', '6')
                 setEnvelopeOpen(true)
               }
@@ -1168,6 +1174,8 @@ function App() {
                   const stage = event.currentTarget.closest('.contact-envelope-stage')
                   const opening = !envelopeOpen
                   stage?.style.setProperty('--envelope-progress', opening ? '1' : '0')
+                  stage?.style.setProperty('--flap-angle', opening ? '-168deg' : '0deg')
+                  stage?.style.setProperty('--letter-lift', opening ? '-40%' : '0%')
                   stage?.style.setProperty('--letter-layer', opening ? '6' : '3')
                   setEnvelopeOpen(opening)
                 }}
