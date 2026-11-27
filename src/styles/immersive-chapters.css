@@ -266,14 +266,14 @@
 
 /* Envelope motion is driven by one progress variable, avoiding layout reflow per pointer frame. */
 .contact-envelope-flap{
-  transform:rotateX(calc(-168deg * var(--envelope-progress,0)))!important;
+  transform:rotateX(var(--flap-angle,0deg))!important;
   transform-origin:50% 0%!important;
   transition:transform .34s cubic-bezier(.2,.72,.2,1),filter .4s ease!important;
   will-change:transform;
 }
 .contact-envelope-letter{
   top:31%!important;height:60%!important;
-  transform:translate3d(0,calc(-40% * var(--envelope-progress,0)),0) rotate(-.25deg)!important;
+  transform:translate3d(0,var(--letter-lift,0%),0) rotate(-.25deg)!important;
   transition:transform .34s cubic-bezier(.2,.72,.2,1),box-shadow .4s ease!important;
   z-index:var(--letter-layer,3)!important;
   overflow:visible;
@@ -310,3 +310,6 @@
 @media(prefers-reduced-motion:reduce){
   .archive-file-cover,.archive-page-spread,.archive-page-controls button,.contact-envelope-flap,.contact-envelope-letter{transition:none!important;animation:none!important}
 }
+
+.archive-source-link{display:inline-flex;align-items:center;gap:7px;color:#786b54;font:7px var(--mono);letter-spacing:.1em;text-decoration:none}
+.archive-source-link:hover{color:var(--blue)}
