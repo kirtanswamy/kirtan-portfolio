@@ -315,6 +315,7 @@ function App() {
   const [archivePage, setArchivePage] = useState(0)
   const [archiveTurnDirection, setArchiveTurnDirection] = useState('next')
   const archiveSwipeStartRef = useRef(null)
+  const archiveDragRef = useRef(null)
   const [activeSkillDrawer, setActiveSkillDrawer] = useState(0)
   const sectionTransitionAction = useRef(null)
   const sectionTransitionLock = useRef(false)
@@ -1028,25 +1029,61 @@ function App() {
                 if (event.key === 'ArrowRight' && archivePage < archivePageCount - 1) { event.preventDefault(); setArchiveTurnDirection('next'); setArchivePage(page => Math.min(archivePageCount - 1, page + 1)) }
                 if (event.key === 'ArrowLeft' && archivePage > 0) { event.preventDefault(); setArchiveTurnDirection('previous'); setArchivePage(page => Math.max(0, page - 1)) }
               }}
-              onPointerDown={event => { archiveSwipeStartRef.current = { x: event.clientX, y: event.clientY, pointerId: event.pointerId } }}
-              onPointerUp={event => {
-                const start = archiveSwipeStartRef.current
-                archiveSwipeStartRef.current = null
-                if (!start || start.pointerId !== event.pointerId) return
-                const dx = event.clientX - start.x
-                const dy = event.clientY - start.y
-                if (Math.abs(dx) < 44 || Math.abs(dx) < Math.abs(dy) * 1.25) return
-                if (dx < 0 && archivePage < archivePageCount - 1) { setArchiveTurnDirection('next'); setArchivePage(page => Math.min(archivePageCount - 1, page + 1)) }
-                else if (dx > 0 && archivePage > 0) { setArchiveTurnDirection('previous'); setArchivePage(page => Math.max(0, page - 1)) }
+              onPointerDown={event => {
+                if (event.target.closest('button, a')) return
+                const rect = event.currentTarget.getBoundingClientRect()
+                const localX = event.clientX - rect.left
+                const fromRight = localX >= rect.width * 0.52
+                const direction = fromRight ? 'next' : 'previous'
+                if ((direction === 'next' && archivePage >= archivePageCount - 1) || (direction === 'previous' && archivePage <= 0)) return
+                event.preventDefault()
+                event.currentTarget.setPointerCapture?.(event.pointerId)
+                archiveDragRef.current = { pointerId: event.pointerId, startX: event.clientX, startY: event.clientY, direction, width: rect.width }
+                event.currentTarget.classList.add('is-dragging')
+                event.currentTarget.style.setProperty('--page-turn-progress', '0')
+                event.currentTarget.style.setProperty('--page-turn-angle', '0deg')
               }}
-              onPointerCancel={() => { archiveSwipeStartRef.current = null }}
+              onPointerMove={event => {
+                const drag = archiveDragRef.current
+                if (!drag || drag.pointerId !== event.pointerId) return
+                const dx = event.clientX - drag.startX
+                const signed = drag.direction === 'next' ? -dx : dx
+                const progress = Math.max(0, Math.min(1, signed / (drag.width * 0.42)))
+                const angle = Math.min(68, progress * 68)
+                event.currentTarget.style.setProperty('--page-turn-progress', progress.toFixed(3))
+                event.currentTarget.style.setProperty('--page-turn-angle', `${drag.direction === 'next' ? -angle : angle}deg`)
+                event.currentTarget.style.setProperty('--page-turn-x', `${Math.max(0, Math.min(100, (event.clientX - event.currentTarget.getBoundingClientRect().left) / drag.width * 100))}%`)
+              }}
+              onPointerUp={event => {
+                const drag = archiveDragRef.current
+                if (!drag || drag.pointerId !== event.pointerId) return
+                const dx = event.clientX - drag.startX
+                const signed = drag.direction === 'next' ? -dx : dx
+                const progress = Math.max(0, signed / (drag.width * 0.42))
+                archiveDragRef.current = null
+                event.currentTarget.classList.remove('is-dragging')
+                event.currentTarget.style.setProperty('--page-turn-progress', '0')
+                event.currentTarget.style.setProperty('--page-turn-angle', '0deg')
+                if (progress > 0.22) {
+                  setArchiveTurnDirection(drag.direction)
+                  setArchivePage(page => drag.direction === 'next'
+                    ? Math.min(archivePageCount - 1, page + 1)
+                    : Math.max(0, page - 1))
+                }
+              }}
+              onPointerCancel={event => {
+                archiveDragRef.current = null
+                event.currentTarget.classList.remove('is-dragging')
+                event.currentTarget.style.setProperty('--page-turn-progress', '0')
+                event.currentTarget.style.setProperty('--page-turn-angle', '0deg')
+              }}
             >
               <button className="archive-edge-turn archive-edge-prev" type="button" aria-label="Turn to previous spread" disabled={archivePage === 0} onClick={() => { setArchiveTurnDirection('previous'); setArchivePage(page => Math.max(0, page - 1)) }}><ArrowLeft size={17}/><span>PREV</span></button>
               <button className="archive-edge-turn archive-edge-next" type="button" aria-label="Turn to next spread" disabled={archivePage >= archivePageCount - 1} onClick={() => { setArchiveTurnDirection('next'); setArchivePage(page => Math.min(archivePageCount - 1, page + 1)) }}><span>TURN</span><ArrowRight size={17}/></button>
               <div className="archive-page-spread">
                 {currentLearningPage.map((item, pageIndex) => <article className={`learning-card reveal credential-${item.category.toLowerCase()} ${item.category === 'DIGITAL' ? 'issuer-google' : item.category === 'BUSINESS' ? 'issuer-goldman' : item.category === 'NATIONAL' ? 'issuer-vbyld' : item.issuer === 'LinkedIn' ? 'issuer-linkedin' : 'issuer-qualcomm'}`} key={item.name}>
                   <div className="learning-card-top"><span>DOCUMENT / {String(learning.indexOf(item) + 1).padStart(2, '0')} — KS</span><span className="learning-record-type">{item.record}</span></div>
-                  <div className="learning-issuer-lockup"><span className="learning-issuer-monogram">{item.category === 'DIGITAL' ? 'G' : item.category === 'BUSINESS' ? 'GS' : item.category === 'NATIONAL' ? 'VB' : item.issuer === 'LinkedIn' ? 'in' : 'Q'}</span><span>{item.issuer}</span><i>VERIFIED RECORD</i></div>
+                  <div className="learning-issuer-lockup"><span className="learning-issuer-monogram">{item.category === 'DIGITAL' ? 'G' : item.category === 'BUSINESS' ? 'GS' : item.category === 'NATIONAL' ? 'VB' : item.issuer === 'LinkedIn' ? 'in' : 'Q'}</span><span>{item.issuer}</span><i>SOURCE LISTED</i></div>
                   <div className="learning-card-body">
                     <div className="learning-card-copy">
                       <p>{item.kind}</p><h3>{item.name}</h3><h4>{item.detail}</h4>
@@ -1055,7 +1092,7 @@ function App() {
                     <span className="learning-card-index" aria-hidden="true">{String(learning.indexOf(item) + 1).padStart(2, '0')}</span>
                     <span className="learning-card-tab" aria-hidden="true">{item.category}</span>
                   </div>
-                  <div className="learning-card-foot"><span className="learning-status">{item.status}</span><span className="learning-card-open" aria-hidden="true">↗</span></div>
+                  <div className="learning-card-foot"><span className="learning-status">{item.status}</span><span className="learning-card-seal" aria-hidden="true"><b>KS</b><small>ARCHIVE</small></span><span className="learning-card-open" aria-hidden="true">↗</span></div>
                   {item.credentialId && <div className="learning-credential-id">CREDENTIAL ID <b>{item.credentialId}</b></div>}
                 </article>)}
                 {currentLearningPage.length === 1 && <div className="archive-empty-page"><span>END OF FILE</span><strong>MORE<br/>TO COME.</strong><small>NEW RECORDS WILL BE ADDED WHEN VERIFIED</small></div>}
