@@ -382,3 +382,53 @@
 @media(prefers-reduced-motion:reduce){
   .learning-section .archive-catalog-cover,.learning-section .archive-page-spread,.learning-section .learning-card{transition:none!important;animation:none!important}
 }
+
+
+/* Drag-to-turn: the leaf follows the pointer instead of selecting its text. */
+.learning-section .archive-page-turner{
+  touch-action:pan-y;
+  user-select:none;
+  -webkit-user-select:none;
+  cursor:grab;
+}
+.learning-section .archive-page-turner.is-dragging{
+  cursor:grabbing;
+  user-select:none;
+  -webkit-user-select:none;
+}
+.learning-section .archive-page-turner.is-dragging .learning-card{
+  transition:none!important;
+  user-select:none;
+  -webkit-user-select:none;
+}
+.learning-section .archive-page-turner.is-dragging-next .learning-card:last-child{
+  transform-origin:left center;
+  transform:perspective(1500px) rotateY(var(--page-turn-angle,0deg));
+  backface-visibility:hidden;
+  box-shadow:inset 12px 0 22px #2c24191a,0 10px 26px #29231b20;
+  filter:brightness(calc(1 - var(--page-turn-progress,0) * .12));
+}
+.learning-section .archive-page-turner.is-dragging-previous .learning-card:first-child{
+  transform-origin:right center;
+  transform:perspective(1500px) rotateY(var(--page-turn-angle,0deg));
+  backface-visibility:hidden;
+  box-shadow:inset -12px 0 22px #2c24191a,0 10px 26px #29231b20;
+  filter:brightness(calc(1 - var(--page-turn-progress,0) * .12));
+}
+.learning-section .archive-page-turner.is-dragging-next .learning-card:last-child:before,
+.learning-section .archive-page-turner.is-dragging-previous .learning-card:first-child:before{
+  background:linear-gradient(90deg,#3c30201c,transparent 30%,#fffdf080 76%,#7b68441c);
+}
+.learning-section .archive-page-controls button{
+  min-width:150px;justify-content:center;
+  border-color:#9d927b;background:#e9dfcb;
+  transition:background .22s,color .22s,transform .22s,box-shadow .22s;
+}
+.learning-section .archive-page-controls button:not(:disabled):hover{
+  color:#f4ead8;background:#28334d;transform:translateY(-2px);
+  box-shadow:0 4px 0 #a89a7e;
+}
+.learning-section .archive-page-controls button:disabled{opacity:.32}
+@media(prefers-reduced-motion:reduce){
+  .learning-section .archive-page-turner.is-dragging .learning-card{transition:none!important}
+}
