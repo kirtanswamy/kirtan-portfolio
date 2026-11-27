@@ -103,7 +103,7 @@ const learning = [
   { name: 'Qualcomm AI Upskilling', detail: 'Technical foundations in AI', kind: 'AI / MACHINE LEARNING', category: 'TECH', record: 'COURSE RECORD', issuer: 'Qualcomm', issued: 'COMPLETED', status: 'COURSE COMPLETED · CERTIFICATE NOT ISSUED', verified: true },
 ]
 
-const learningCategories = ['ALL ENTRIES', 'CERTIFICATES', 'TECH', 'BUSINESS', 'DIGITAL', 'NATIONAL']
+const learningCategories = ['ALL ENTRIES', 'CREDENTIALS', 'TECH', 'BUSINESS', 'DIGITAL', 'NATIONAL']
 
 const skills = [
   { group: 'FRONTEND & APPS', items: ['HTML & CSS', 'JavaScript', 'TypeScript', 'React', 'React Native', 'Expo', 'Flutter'] },
@@ -441,7 +441,7 @@ function App() {
   const visibleLearning = useMemo(
     () => activeLearningCategory === 'ALL ENTRIES'
       ? learning
-      : activeLearningCategory === 'CERTIFICATES'
+      : activeLearningCategory === 'CREDENTIALS'
         ? learning.filter(item => ['CERTIFICATION', 'CERTIFICATE', 'PARTICIPANT CREDENTIAL'].includes(item.record))
         : learning.filter(item => item.category === activeLearningCategory),
     [activeLearningCategory],
@@ -991,12 +991,12 @@ function App() {
         <div className="section-index reveal"><Eyebrow>06 — THE READING ROOM</Eyebrow><span>COURSES / SIMULATIONS / CONTINUOUS LEARNING</span></div>
         <div className="learning-intro reveal">
           <div><span className="learning-notebook-label">THE READING ROOM / INDEXED NOTES</span><h2>THE<br/><em>ARCHIVE.</em></h2></div>
-          <div className="learning-intro-aside"><span className="learning-aside-mark">A–Z</span><p>A working record of courses, simulations and learning in progress. Filed by subject, with the status kept honest.</p><small>SIX RECORDS / CERTIFICATES & LEARNING</small></div>
+          <div className="learning-intro-aside"><span className="learning-aside-mark">A–Z</span><p>A working record of courses, simulations and learning in progress. Filed by subject, with the status kept honest.</p><small>SIX RECORDS / CREDENTIALS & LEARNING</small></div>
         </div>
         {archiveOpen && (
         <div className="learning-archive-bar">
           <div className="learning-filters" role="group" aria-label="Filter learning records">
-            {learningCategories.map(category => <button key={category} type="button" className={activeLearningCategory === category ? 'selected' : ''} onClick={() => { setActiveLearningCategory(category); setArchivePage(0) }} aria-pressed={activeLearningCategory === category}>{category}<span>{String(category === 'ALL ENTRIES' ? learning.length : category === 'CERTIFICATES' ? learning.filter(item => ['CERTIFICATION', 'CERTIFICATE', 'PARTICIPANT CREDENTIAL'].includes(item.record)).length : learning.filter(item => item.category === category).length).padStart(2, '0')}</span></button>)}
+            {learningCategories.map(category => <button key={category} type="button" className={activeLearningCategory === category ? 'selected' : ''} onClick={() => { setActiveLearningCategory(category); setArchivePage(0) }} aria-pressed={activeLearningCategory === category}>{category}<span>{String(category === 'ALL ENTRIES' ? learning.length : category === 'CREDENTIALS' ? learning.filter(item => ['CERTIFICATION', 'CERTIFICATE', 'PARTICIPANT CREDENTIAL'].includes(item.record)).length : learning.filter(item => item.category === category).length).padStart(2, '0')}</span></button>)}
           </div>
           <span className="learning-archive-count" aria-live="polite">SHOWING {String(visibleLearning.length).padStart(2, '0')} / {String(learning.length).padStart(2, '0')}</span>
         </div>
