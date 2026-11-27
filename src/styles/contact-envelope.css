@@ -335,11 +335,8 @@
 }
 .contact-envelope-wax-seal{
   top:91%!important;
-  transition:opacity .18s ease,transform .25s ease!important;
-}
-.contact-envelope-stage.is-open .contact-envelope-wax-seal{
   opacity:calc(1 - var(--envelope-progress,0))!important;
-  transform:translate(-50%,-50%) rotate(-9deg) translateZ(3px)!important;
+  transition:opacity .18s ease,transform .25s ease!important;
 }
 .contact-envelope-stage.is-open .contact-envelope-flap{
   filter:drop-shadow(0 -3px 5px #5b4b3018);
