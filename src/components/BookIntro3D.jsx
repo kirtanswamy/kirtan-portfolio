@@ -1,12 +1,15 @@
-import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { Suspense, useCallback, useEffect, useRef, useState } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
-import { Html } from '@react-three/drei'
 import {
   ACESFilmicToneMapping,
   BackSide,
+  CanvasTexture,
   Color,
-  DoubleSide,
+  FrontSide,
+  LinearFilter,
+  LinearMipmapLinearFilter,
   MathUtils,
+  MeshBasicMaterial,
   MeshPhysicalMaterial,
   PlaneGeometry,
   SRGBColorSpace,
@@ -16,8 +19,321 @@ import '../styles/book-intro-3d.css'
 
 const PAGE_WIDTH = 1.72
 const PAGE_HEIGHT = 2.38
+const SPREAD_WIDTH = PAGE_WIDTH * 2
 const PAGE_SEGMENTS_X = 48
 const PAGE_SEGMENTS_Y = 28
+const TEXTURE_SCALE = 2
+const TEXTURE_WIDTH = 800
+const TEXTURE_HEIGHT = 1100
+const CAMERA_FOV = 37
+const INITIAL_DOLLY_OFFSET = 1.35
+
+function getFontFamilies() {
+  const styles = getComputedStyle(document.documentElement)
+  const read = (name, fallback) => styles.getPropertyValue(name).trim() || fallback
+  return {
+    display: read('--display', 'Arial, sans-serif'),
+    serif: read('--serif', 'Georgia, serif'),
+    mono: read('--mono', 'monospace'),
+  }
+}
+
+function addPaperGrain(ctx, width, height, tint = '#756b59') {
+  ctx.save()
+  for (let index = 0; index < 1900; index += 1) {
+    const x = (index * 73 + 19) % width
+    const y = (index * 193 + 47) % height
+    const alpha = 0.018 + ((index * 17) % 9) * 0.003
+    ctx.fillStyle = tint
+    ctx.globalAlpha = alpha
+    ctx.fillRect(x, y, index % 5 === 0 ? 2 : 1, 1)
+  }
+  ctx.restore()
+}
+
+function drawCoverTexture(ctx, fonts) {
+  const gradient = ctx.createLinearGradient(0, 0, TEXTURE_WIDTH, TEXTURE_HEIGHT)
+  gradient.addColorStop(0, '#263c56')
+  gradient.addColorStop(0.52, '#172b43')
+  gradient.addColorStop(1, '#101e32')
+  ctx.fillStyle = gradient
+  ctx.fillRect(0, 0, TEXTURE_WIDTH, TEXTURE_HEIGHT)
+
+  // Fine woven linen grain.
+  ctx.save()
+  ctx.globalAlpha = 0.12
+  for (let x = 0; x < TEXTURE_WIDTH; x += 5) {
+    ctx.fillStyle = x % 2 ? '#d7c8a8' : '#071426'
+    ctx.fillRect(x, 0, 1, TEXTURE_HEIGHT)
+  }
+  for (let y = 0; y < TEXTURE_HEIGHT; y += 5) {
+    ctx.fillStyle = y % 2 ? '#d7c8a8' : '#071426'
+    ctx.fillRect(0, y, TEXTURE_WIDTH, 1)
+  }
+  ctx.restore()
+
+  addPaperGrain(ctx, TEXTURE_WIDTH, TEXTURE_HEIGHT, '#e9dcc0')
+
+  ctx.strokeStyle = '#d7c6a2'
+  ctx.lineWidth = 2
+  ctx.strokeRect(31, 31, TEXTURE_WIDTH - 62, TEXTURE_HEIGHT - 62)
+  ctx.strokeStyle = '#d7c6a270'
+  ctx.lineWidth = 1
+  ctx.strokeRect(47, 47, TEXTURE_WIDTH - 94, TEXTURE_HEIGHT - 94)
+
+  ctx.textAlign = 'center'
+  ctx.textBaseline = 'middle'
+  ctx.fillStyle = '#e8dcc4'
+  ctx.font = '600 34px ' + fonts.mono
+  ctx.fillText("THE MAKER'S", TEXTURE_WIDTH / 2, 350)
+
+  ctx.fillStyle = '#f1e7d4'
+  ctx.font = '600 100px ' + fonts.display
+  ctx.fillText('NOTEBOOK.', TEXTURE_WIDTH / 2, 475)
+
+  ctx.fillStyle = '#d6c49e'
+  ctx.font = '22px ' + fonts.mono
+  ctx.fillText('VOL. 01 / FIELD EDITION', TEXTURE_WIDTH / 2, 590)
+
+  // A wax seal rendered into the texture, not a DOM overlay.
+  const sealX = TEXTURE_WIDTH / 2
+  const sealY = 875
+  const wax = ctx.createRadialGradient(sealX - 20, sealY - 24, 4, sealX, sealY, 76)
+  wax.addColorStop(0, '#ef9a7c')
+  wax.addColorStop(0.48, '#c94e42')
+  wax.addColorStop(1, '#7c292b')
+  ctx.save()
+  ctx.shadowColor = '#050a12aa'
+  ctx.shadowBlur = 20
+  ctx.shadowOffsetY = 9
+  ctx.beginPath()
+  ctx.arc(sealX, sealY, 72, 0, Math.PI * 2)
+  ctx.fillStyle = wax
+  ctx.fill()
+  ctx.restore()
+  ctx.strokeStyle = '#e5b18e'
+  ctx.lineWidth = 4
+  ctx.beginPath()
+  ctx.arc(sealX, sealY, 64, 0, Math.PI * 2)
+  ctx.stroke()
+  ctx.strokeStyle = '#f0c7a0aa'
+  ctx.lineWidth = 1
+  ctx.beginPath()
+  ctx.arc(sealX, sealY, 55, 0, Math.PI * 2)
+  ctx.stroke()
+  ctx.fillStyle = '#fff0dd'
+  ctx.font = '600 42px ' + fonts.serif
+  ctx.fillText('KS', sealX, sealY + 2)
+}
+
+function drawInnerCoverTexture(ctx) {
+  const gradient = ctx.createLinearGradient(0, 0, TEXTURE_WIDTH, TEXTURE_HEIGHT)
+  gradient.addColorStop(0, '#f4eddf')
+  gradient.addColorStop(0.55, '#eee5d5')
+  gradient.addColorStop(1, '#e6dbc8')
+  ctx.fillStyle = gradient
+  ctx.fillRect(0, 0, TEXTURE_WIDTH, TEXTURE_HEIGHT)
+  addPaperGrain(ctx, TEXTURE_WIDTH, TEXTURE_HEIGHT, '#8b7b60')
+
+  ctx.strokeStyle = '#bdab89'
+  ctx.lineWidth = 2
+  ctx.strokeRect(34, 34, TEXTURE_WIDTH - 68, TEXTURE_HEIGHT - 68)
+  ctx.strokeStyle = '#bdab8950'
+  ctx.lineWidth = 1
+  ctx.strokeRect(50, 50, TEXTURE_WIDTH - 100, TEXTURE_HEIGHT - 100)
+
+  ctx.fillStyle = '#a58d68'
+  ctx.font = '18px Georgia, serif'
+  ctx.textAlign = 'center'
+  ctx.fillText('FIELD EDITION  /  001', TEXTURE_WIDTH / 2, 1000)
+}
+
+function drawPageBase(ctx, side) {
+  const gradient = ctx.createLinearGradient(0, 0, TEXTURE_WIDTH, TEXTURE_HEIGHT)
+  gradient.addColorStop(0, '#f6efe2')
+  gradient.addColorStop(0.55, '#f1e8d8')
+  gradient.addColorStop(1, '#e9dfcd')
+  ctx.fillStyle = gradient
+  ctx.fillRect(0, 0, TEXTURE_WIDTH, TEXTURE_HEIGHT)
+  addPaperGrain(ctx, TEXTURE_WIDTH, TEXTURE_HEIGHT, '#746850')
+
+  // Quiet ruled lines, kept light enough for the typography to lead.
+  ctx.strokeStyle = '#8c9a9d24'
+  ctx.lineWidth = 1
+  for (let y = 190; y < 1010; y += 43) {
+    ctx.beginPath()
+    ctx.moveTo(60, y)
+    ctx.lineTo(740, y)
+    ctx.stroke()
+  }
+
+  // A soft gutter shadow makes the two leaves feel like one bound spread.
+  const gutter = side === 'left'
+    ? ctx.createLinearGradient(630, 0, 800, 0)
+    : ctx.createLinearGradient(0, 0, 170, 0)
+  if (side === 'left') {
+    gutter.addColorStop(0, '#30271a00')
+    gutter.addColorStop(1, '#30271a20')
+    ctx.fillStyle = gutter
+    ctx.fillRect(630, 0, 170, TEXTURE_HEIGHT)
+  } else {
+    gutter.addColorStop(0, '#30271a20')
+    gutter.addColorStop(1, '#30271a00')
+    ctx.fillStyle = gutter
+    ctx.fillRect(0, 0, 170, TEXTURE_HEIGHT)
+  }
+
+  ctx.fillStyle = '#c7b99e'
+  ctx.fillRect(side === 'left' ? 742 : 54, 68, 2, 34)
+}
+
+function drawLeftPageTexture(ctx, fonts) {
+  drawPageBase(ctx, 'left')
+  ctx.textAlign = 'left'
+  ctx.textBaseline = 'alphabetic'
+  ctx.fillStyle = '#9c6148'
+  ctx.font = '22px ' + fonts.mono
+  ctx.fillText('THE MAKER / 001', 72, 142)
+
+  ctx.strokeStyle = '#a58e6c80'
+  ctx.lineWidth = 1
+  ctx.beginPath()
+  ctx.moveTo(72, 174)
+  ctx.lineTo(690, 174)
+  ctx.stroke()
+
+  ctx.fillStyle = '#252a2d'
+  ctx.font = '600 116px ' + fonts.display
+  ctx.fillText('KIRTAN', 70, 365)
+  ctx.fillText('SWAMY.', 70, 490)
+
+  ctx.fillStyle = '#625a4e'
+  ctx.font = '28px ' + fonts.serif
+  ctx.fillText('Engineering, curiosity and a habit', 74, 590)
+  ctx.fillText('of making things with purpose.', 74, 634)
+
+  ctx.fillStyle = '#8b795d'
+  ctx.font = '17px ' + fonts.mono
+  ctx.fillText('ENGINEERING  /  DESIGN  /  INDIA', 74, 930)
+}
+
+function drawRightPageTexture(ctx, fonts) {
+  drawPageBase(ctx, 'right')
+  ctx.textAlign = 'left'
+  ctx.textBaseline = 'alphabetic'
+  ctx.fillStyle = '#9c6148'
+  ctx.font = '22px ' + fonts.mono
+  ctx.fillText('FIELD NOTES / 001', 72, 142)
+
+  ctx.strokeStyle = '#a58e6c80'
+  ctx.lineWidth = 1
+  ctx.beginPath()
+  ctx.moveTo(72, 174)
+  ctx.lineTo(690, 174)
+  ctx.stroke()
+
+  ctx.fillStyle = '#252a2d'
+  ctx.font = '600 116px ' + fonts.display
+  ctx.fillText('MAKE IT', 70, 365)
+  ctx.fillStyle = '#3158b8'
+  ctx.font = 'italic 118px ' + fonts.serif
+  ctx.fillText('MATTER.', 70, 495)
+
+  ctx.fillStyle = '#625a4e'
+  ctx.font = '28px ' + fonts.serif
+  ctx.fillText('Questions become systems when', 74, 590)
+  ctx.fillText('curiosity meets thoughtful craft.', 74, 634)
+
+  ctx.fillStyle = '#8b795d'
+  ctx.font = '17px ' + fonts.mono
+  ctx.fillText('OBSERVE  /  BUILD  /  REFINE', 74, 930)
+}
+
+function createTexture(gl, draw, width = TEXTURE_WIDTH, height = TEXTURE_HEIGHT) {
+  const canvas = document.createElement('canvas')
+  canvas.width = width * TEXTURE_SCALE
+  canvas.height = height * TEXTURE_SCALE
+  const context = canvas.getContext('2d', { alpha: true })
+  if (!context) throw new Error('Canvas 2D context is unavailable')
+
+  context.scale(TEXTURE_SCALE, TEXTURE_SCALE)
+  draw(context)
+
+  const texture = new CanvasTexture(canvas)
+  texture.colorSpace = SRGBColorSpace
+  texture.anisotropy = gl.capabilities.getMaxAnisotropy()
+  texture.minFilter = LinearMipmapLinearFilter
+  texture.magFilter = LinearFilter
+  texture.generateMipmaps = true
+  texture.needsUpdate = true
+  return texture
+}
+
+function createShadowTexture(gl) {
+  return createTexture(gl, (ctx) => {
+    const gradient = ctx.createRadialGradient(400, 550, 20, 400, 550, 390)
+    gradient.addColorStop(0, 'rgba(0, 0, 0, 0.5)')
+    gradient.addColorStop(0.48, 'rgba(0, 0, 0, 0.25)')
+    gradient.addColorStop(1, 'rgba(0, 0, 0, 0)')
+    ctx.fillStyle = gradient
+    ctx.fillRect(0, 0, 800, 1100)
+  }, 800, 1100)
+}
+
+function disposeTextures(textures) {
+  if (!textures) return
+  Object.values(textures).forEach((texture) => {
+    if (!texture) return
+    const image = texture.image
+    texture.dispose()
+    if (image instanceof HTMLCanvasElement) {
+      image.width = 0
+      image.height = 0
+    }
+  })
+}
+
+function useNotebookTextures(gl) {
+  const [textures, setTextures] = useState(null)
+
+  useEffect(() => {
+    let active = true
+    let ownedTextures = null
+
+    const prepare = async () => {
+      try {
+        await (document.fonts?.ready || Promise.resolve())
+        if (!active) return
+
+        const fonts = getFontFamilies()
+        const generated = {
+          cover: createTexture(gl, (ctx) => drawCoverTexture(ctx, fonts)),
+          innerCover: createTexture(gl, drawInnerCoverTexture),
+          leftPage: createTexture(gl, (ctx) => drawLeftPageTexture(ctx, fonts)),
+          rightPage: createTexture(gl, (ctx) => drawRightPageTexture(ctx, fonts)),
+          shadow: createShadowTexture(gl),
+        }
+        ownedTextures = generated
+
+        if (!active) {
+          disposeTextures(generated)
+          return
+        }
+        setTextures(generated)
+      } catch (error) {
+        console.error('Unable to prepare notebook canvas textures:', error)
+      }
+    }
+
+    prepare()
+    return () => {
+      active = false
+      disposeTextures(ownedTextures)
+    }
+  }, [gl])
+
+  return textures
+}
 
 function createCoverGeometry() {
   const geometry = new PlaneGeometry(
@@ -26,6 +342,7 @@ function createCoverGeometry() {
     PAGE_SEGMENTS_X,
     PAGE_SEGMENTS_Y,
   )
+  // The cover's local x=0 edge is the physical hinge.
   geometry.translate(PAGE_WIDTH / 2, 0, 0)
   geometry.userData.originalPositions = new Float32Array(
     geometry.attributes.position.array,
@@ -36,7 +353,7 @@ function createCoverGeometry() {
 function deformCover(geometry, progress) {
   const position = geometry.attributes.position
   const original = geometry.userData.originalPositions
-  const bend = Math.sin(progress * Math.PI) * 0.13
+  const bend = Math.sin(progress * Math.PI) * 0.12
   const curl = Math.sin(progress * Math.PI) * 0.025
 
   for (let index = 0; index < position.count; index += 1) {
@@ -57,56 +374,21 @@ function deformCover(geometry, progress) {
   geometry.computeVertexNormals()
 }
 
-function PageTypography({ side }) {
-  const left = side === 'left'
-  return (
-    <Html
-      transform
-      distanceFactor={4.4}
-      position={[left ? -0.88 : 0.88, 0.42, 0.055]}
-      style={{
-        width: '220px',
-        pointerEvents: 'none',
-        backfaceVisibility: 'hidden',
-        WebkitBackfaceVisibility: 'hidden',
-      }}
-    >
-      <div className="book-page-copy">
-        <span className="book-page-kicker">
-          {left ? 'THE MAKER / 001' : 'FIELD NOTES / 001'}
-        </span>
-        <strong>
-          {left ? <>KIRTAN<br /><em>SWAMY.</em></> : <>MAKE IT<br /><em>MATTER.</em></>}
-        </strong>
-        <p>
-          {left
-            ? 'Engineering, curiosity and a habit of making things.'
-            : 'Ideas take shape when questions meet thoughtful execution.'}
-        </p>
-        <small>{left ? 'ENGINEERING / DESIGN / INDIA' : 'OBSERVE / BUILD / REFINE'}</small>
-      </div>
-    </Html>
-  )
-}
-
 function SpiralBinding() {
-  const loops = useMemo(
-    () => Array.from({ length: 10 }, (_, index) => -1.02 + index * 0.226),
-    [],
-  )
   return (
     <group>
-      {loops.map((y, index) => (
+      {Array.from({ length: 11 }, (_, index) => (
         <mesh
           key={index}
-          position={[0, y, 0.105]}
+          position={[0, -1.06 + index * 0.212, 0.145]}
           rotation={[Math.PI / 2, 0, 0]}
         >
-          <torusGeometry args={[0.052, 0.012, 8, 24]} />
-          <meshStandardMaterial
+          <torusGeometry args={[0.052, 0.012, 10, 28]} />
+          <meshPhysicalMaterial
             color="#c8c5b9"
-            metalness={0.86}
-            roughness={0.25}
+            metalness={0.9}
+            roughness={0.22}
+            clearcoat={0.45}
           />
         </mesh>
       ))}
@@ -114,90 +396,124 @@ function SpiralBinding() {
   )
 }
 
-function BookScene({ progressRef, onReady, onOpened }) {
+function BookScene({ progressRef, onReady, onTexturesReady }) {
   const bookRef = useRef(null)
   const coverPivotRef = useRef(null)
-  const coverArtRef = useRef(null)
   const insidePagesRef = useRef(null)
-  const coverGeometry = useMemo(createCoverGeometry, [])
+  const coverGeometry = useState(createCoverGeometry)[0]
   const tiltTarget = useRef({ x: 0, y: 0 })
-  const { camera, size, invalidate } = useThree()
+  const { camera, size, invalidate, gl } = useThree()
+  const textures = useNotebookTextures(gl)
 
-  const coverMaterial = useMemo(
-    () => new MeshPhysicalMaterial({
-      color: new Color('#172b43'),
-      roughness: 0.48,
-      metalness: 0.16,
-      clearcoat: 0.34,
-      clearcoatRoughness: 0.42,
-      side: DoubleSide,
-    }),
-    [],
-  )
-
-  const paperMaterial = useMemo(
-    () => new MeshPhysicalMaterial({
-      color: new Color('#eee5d5'),
-      roughness: 0.94,
-      metalness: 0,
-      side: DoubleSide,
-    }),
-    [],
-  )
-
-  const insideCoverMaterial = useMemo(
-    () => new MeshPhysicalMaterial({
-      color: new Color('#e9dfcb'),
-      roughness: 0.88,
-      metalness: 0,
-      side: BackSide,
-    }),
-    [],
-  )
+  const coverMaterial = useState(() => new MeshPhysicalMaterial({
+    color: new Color('#ffffff'),
+    roughness: 0.52,
+    metalness: 0.14,
+    clearcoat: 0.4,
+    clearcoatRoughness: 0.42,
+    map: null,
+    side: FrontSide,
+  }))[0]
+  const insideCoverMaterial = useState(() => new MeshPhysicalMaterial({
+    color: new Color('#ffffff'),
+    roughness: 0.94,
+    metalness: 0,
+    map: null,
+    side: BackSide,
+  }))[0]
+  const leftPageMaterial = useState(() => new MeshPhysicalMaterial({
+    color: new Color('#ffffff'),
+    roughness: 0.94,
+    metalness: 0,
+    map: null,
+    side: FrontSide,
+  }))[0]
+  const rightPageMaterial = useState(() => new MeshPhysicalMaterial({
+    color: new Color('#ffffff'),
+    roughness: 0.94,
+    metalness: 0,
+    map: null,
+    side: FrontSide,
+  }))[0]
+  const shadowMaterial = useState(() => new MeshBasicMaterial({
+    color: '#17120e',
+    transparent: true,
+    opacity: 0.72,
+    depthWrite: false,
+    map: null,
+  }))[0]
 
   useEffect(() => {
     const aspect = size.width / Math.max(1, size.height)
-    camera.position.set(0, 0, aspect < 0.78 ? 7.5 : 7.0)
+    const fovRadians = MathUtils.degToRad(CAMERA_FOV)
+    const fitDistance = (SPREAD_WIDTH * 0.5) /
+      (Math.tan(fovRadians * 0.5) * Math.max(0.1, aspect) * 0.9)
+    const targetDistance = Math.max(5.15, fitDistance)
+
+    camera.fov = CAMERA_FOV
+    camera.position.set(0, 0, targetDistance + INITIAL_DOLLY_OFFSET)
     camera.lookAt(0, 0, 0)
     camera.updateProjectionMatrix()
+    onReady({ camera, invalidate, targetCameraZ: targetDistance })
     invalidate()
-  }, [camera, size.width, size.height, invalidate])
+  }, [camera, size.width, size.height, invalidate, onReady])
 
   useEffect(() => {
-    onReady({ camera, invalidate })
-  }, [camera, invalidate, onReady])
+    if (!textures) return
+    coverMaterial.map = textures.cover
+    insideCoverMaterial.map = textures.innerCover
+    leftPageMaterial.map = textures.leftPage
+    rightPageMaterial.map = textures.rightPage
+    shadowMaterial.map = textures.shadow
+    coverMaterial.needsUpdate = true
+    insideCoverMaterial.needsUpdate = true
+    leftPageMaterial.needsUpdate = true
+    rightPageMaterial.needsUpdate = true
+    shadowMaterial.needsUpdate = true
+    onTexturesReady()
+    invalidate()
+  }, [
+    textures,
+    coverMaterial,
+    insideCoverMaterial,
+    leftPageMaterial,
+    rightPageMaterial,
+    shadowMaterial,
+    onTexturesReady,
+    invalidate,
+  ])
 
   useFrame((_, delta) => {
     const progress = progressRef.current.value
 
     if (coverPivotRef.current) {
-      // GSAP owns the easing. Do not damp this value a second time.
+      // GSAP owns cover easing; apply its progress directly to the hinge.
       coverPivotRef.current.rotation.y = -Math.PI * progress
     }
 
-    if (coverGeometry) deformCover(coverGeometry, progress)
-
-    if (coverArtRef.current) {
-      coverArtRef.current.visible = progress <= 0.45
-    }
+    deformCover(coverGeometry, progress)
 
     if (insidePagesRef.current) {
-      insidePagesRef.current.visible = progress > 0.43
+      insidePagesRef.current.visible = progress > 0.38
     }
 
     if (bookRef.current) {
       const current = bookRef.current.rotation
-      const dx = tiltTarget.current.x - current.x
-      const dy = tiltTarget.current.y - current.y
+      const targetX = tiltTarget.current.x
+      const targetY = tiltTarget.current.y
+      const unsettled = Math.abs(targetX - current.x) > 0.001 ||
+        Math.abs(targetY - current.y) > 0.001
 
-      if (Math.abs(dx) > 0.001 || Math.abs(dy) > 0.001) {
-        current.x = MathUtils.damp(current.x, tiltTarget.current.x, 7, delta)
-        current.y = MathUtils.damp(current.y, tiltTarget.current.y, 7, delta)
-        // Demand rendering continues only while the pointer tilt is settling.
-        invalidate()
+      if (unsettled) {
+        current.x = MathUtils.damp(current.x, targetX, 7, delta)
+        current.y = MathUtils.damp(current.y, targetY, 7, delta)
+        if (
+          Math.abs(targetX - current.x) > 0.001 ||
+          Math.abs(targetY - current.y) > 0.001
+        ) invalidate()
       } else {
-        current.x = tiltTarget.current.x
-        current.y = tiltTarget.current.y
+        current.x = targetX
+        current.y = targetY
       }
     }
   })
@@ -206,10 +522,19 @@ function BookScene({ progressRef, onReady, onOpened }) {
     return () => {
       coverGeometry.dispose()
       coverMaterial.dispose()
-      paperMaterial.dispose()
       insideCoverMaterial.dispose()
+      leftPageMaterial.dispose()
+      rightPageMaterial.dispose()
+      shadowMaterial.dispose()
     }
-  }, [coverGeometry, coverMaterial, paperMaterial, insideCoverMaterial])
+  }, [
+    coverGeometry,
+    coverMaterial,
+    insideCoverMaterial,
+    leftPageMaterial,
+    rightPageMaterial,
+    shadowMaterial,
+  ])
 
   const handlePointerMove = useCallback((event) => {
     tiltTarget.current.x = -event.pointer.y * 0.035
@@ -226,69 +551,52 @@ function BookScene({ progressRef, onReady, onOpened }) {
   return (
     <group
       ref={bookRef}
-      rotation={[-0.055, 0, -0.018]}
+      position={[0, -0.02, 0]}
+      rotation={[-0.035, 0, -0.01]}
       onPointerMove={handlePointerMove}
       onPointerLeave={handlePointerLeave}
     >
-      {/* Closed volume: a single block under the front cover. */}
-      <mesh position={[PAGE_WIDTH / 2, 0, -0.075]} receiveShadow>
-        <boxGeometry args={[PAGE_WIDTH, PAGE_HEIGHT, 0.15]} />
-        <meshStandardMaterial color="#d7cbb5" roughness={0.92} />
+      {/* A soft, texture-based contact shadow on the maker's desk. */}
+      <mesh position={[0, -0.04, -0.34]}>
+        <planeGeometry args={[4.2, 2.8]} />
+        <primitive object={shadowMaterial} attach="material" />
       </mesh>
 
-      {/* The opened two-page spread is revealed after the cover turns. */}
+      {/* Closed page block and front cover. */}
+      <mesh position={[PAGE_WIDTH / 2, 0, -0.075]}>
+        <boxGeometry args={[PAGE_WIDTH, PAGE_HEIGHT, 0.15]} />
+        <meshPhysicalMaterial color="#d9cfbc" roughness={0.94} />
+      </mesh>
+
+      {/* The open left/right spread sits above the back of the hinged cover. */}
       <group ref={insidePagesRef} visible={false}>
-        <mesh position={[-PAGE_WIDTH / 2, 0, 0.018]} material={paperMaterial}>
+        <mesh position={[-PAGE_WIDTH / 2, 0, 0.018]} material={leftPageMaterial}>
           <planeGeometry args={[PAGE_WIDTH, PAGE_HEIGHT, 1, 1]} />
         </mesh>
-        <mesh position={[PAGE_WIDTH / 2, 0, 0.018]} material={paperMaterial}>
+        <mesh position={[PAGE_WIDTH / 2, 0, 0.018]} material={rightPageMaterial}>
           <planeGeometry args={[PAGE_WIDTH, PAGE_HEIGHT, 1, 1]} />
         </mesh>
-
         <mesh position={[0, 0, -0.035]}>
-          <boxGeometry args={[PAGE_WIDTH * 2 + 0.025, PAGE_HEIGHT + 0.035, 0.11]} />
-          <meshStandardMaterial color="#c8b99f" roughness={0.95} />
+          <boxGeometry args={[SPREAD_WIDTH + 0.025, PAGE_HEIGHT + 0.035, 0.11]} />
+          <meshPhysicalMaterial color="#d8cbb5" roughness={0.96} />
         </mesh>
-
-        <PageTypography side="left" />
-        <PageTypography side="right" />
       </group>
 
-      {/* Spine and metallic binding stay fixed while the cover swings. */}
-      <mesh position={[0, 0, 0.025]}>
-        <boxGeometry args={[0.105, PAGE_HEIGHT + 0.08, 0.19]} />
-        <meshPhysicalMaterial color="#172b43" roughness={0.48} metalness={0.2} />
+      {/* The binding is fixed to the spine; its loops sit just proud of the paper. */}
+      <mesh position={[0, 0, 0.045]}>
+        <boxGeometry args={[0.105, PAGE_HEIGHT + 0.08, 0.17]} />
+        <meshPhysicalMaterial color="#172b43" roughness={0.48} metalness={0.22} />
       </mesh>
       <SpiralBinding />
 
-      <group ref={coverPivotRef} position={[0, 0, 0.095]}>
+      <group ref={coverPivotRef} position={[0, 0, 0.105]}>
         <mesh geometry={coverGeometry} material={coverMaterial} castShadow />
+        {/* A separate back-face material prevents the navy front from appearing mirrored. */}
         <mesh
           geometry={coverGeometry}
           material={insideCoverMaterial}
-          position={[0, 0, -0.008]}
+          position={[0, 0, -0.003]}
         />
-
-        <group ref={coverArtRef}>
-          <Html
-            transform
-            distanceFactor={4.4}
-            position={[PAGE_WIDTH / 2, 0.04, 0.045]}
-            style={{
-              width: '260px',
-              pointerEvents: 'none',
-              backfaceVisibility: 'hidden',
-              WebkitBackfaceVisibility: 'hidden',
-            }}
-          >
-            <div className="book-cover-art">
-              <span>THE MAKER'S</span>
-              <strong>NOTEBOOK<span>.</span></strong>
-              <i>VOL. 01 / FIELD EDITION</i>
-              <b>KS</b>
-            </div>
-          </Html>
-        </group>
       </group>
     </group>
   )
@@ -301,21 +609,22 @@ export default function BookIntro3D({ onComplete, onSkip }) {
   const progressRef = useRef({ value: 0 })
   const invalidateRef = useRef(null)
   const cameraRef = useRef(null)
+  const cameraTargetRef = useRef(5.15)
   const startedRef = useRef(false)
+  const exitingRef = useRef(false)
 
   const [inView, setInView] = useState(true)
   const [opened, setOpened] = useState(false)
+  const [texturesReady, setTexturesReady] = useState(false)
+  const [reducedMotion, setReducedMotion] = useState(() => (
+    typeof window !== 'undefined' &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  ))
   const [dpr, setDpr] = useState(() => {
     if (typeof window === 'undefined') return 1
     const cap = window.matchMedia('(max-width: 700px)').matches ? 1.5 : 2
     return Math.min(window.devicePixelRatio || 1, cap)
   })
-
-  const reducedMotion = useMemo(
-    () => typeof window !== 'undefined' &&
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches,
-    [],
-  )
 
   useEffect(() => {
     const host = hostRef.current
@@ -331,32 +640,36 @@ export default function BookIntro3D({ onComplete, onSkip }) {
       const cap = window.matchMedia('(max-width: 700px)').matches ? 1.5 : 2
       setDpr(Math.min(window.devicePixelRatio || 1, cap))
     }
-
+    const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const updateMotionPreference = (event) => setReducedMotion(event.matches)
     const pauseWhenHidden = () => {
       if (document.hidden) timelineRef.current?.pause()
       else timelineRef.current?.resume()
     }
 
     window.addEventListener('resize', updateDpr)
+    motionQuery.addEventListener?.('change', updateMotionPreference)
     document.addEventListener('visibilitychange', pauseWhenHidden)
 
     return () => {
       observer.disconnect()
       window.removeEventListener('resize', updateDpr)
+      motionQuery.removeEventListener?.('change', updateMotionPreference)
       document.removeEventListener('visibilitychange', pauseWhenHidden)
       timelineRef.current?.kill()
     }
   }, [])
 
-  const beginOpening = useCallback(({ camera, invalidate }) => {
+  const beginOpening = useCallback(({ camera, invalidate, targetCameraZ }) => {
+    cameraRef.current = camera
+    invalidateRef.current = invalidate
+    cameraTargetRef.current = targetCameraZ
+
     if (startedRef.current) return
     startedRef.current = true
 
-    cameraRef.current = camera
-    invalidateRef.current = invalidate
-
     if (reducedMotion) {
-      camera.position.z = 6.35
+      camera.position.z = targetCameraZ
       progressRef.current.value = 1
       invalidate()
       setOpened(true)
@@ -372,7 +685,7 @@ export default function BookIntro3D({ onComplete, onSkip }) {
     })
 
     timeline.to(camera.position, {
-      z: 6.35,
+      z: targetCameraZ,
       duration: 1.15,
       ease: 'power2.inOut',
     }, 0)
@@ -385,7 +698,7 @@ export default function BookIntro3D({ onComplete, onSkip }) {
 
     timeline.to(titleRef.current, {
       autoAlpha: 0,
-      x: -28,
+      x: -24,
       duration: 0.62,
       ease: 'power2.in',
     }, 1.72)
@@ -397,20 +710,59 @@ export default function BookIntro3D({ onComplete, onSkip }) {
     beginOpening(sceneApi)
   }, [beginOpening])
 
-  const skip = useCallback(() => {
+  const handleTexturesReady = useCallback(() => {
+    setTexturesReady(true)
+  }, [])
+
+  useEffect(() => {
+    if (!reducedMotion || !texturesReady || startedRef.current) return
+    // Switching the OS preference on mid-intro settles the scene immediately.
+    if (cameraRef.current) cameraRef.current.position.z = cameraTargetRef.current
+    progressRef.current.value = 1
     timelineRef.current?.kill()
     timelineRef.current = null
-    progressRef.current.value = 1
-    if (cameraRef.current) cameraRef.current.position.z = 6.35
     invalidateRef.current?.()
     setOpened(true)
+    startedRef.current = true
+  }, [reducedMotion, texturesReady])
+
+  const skip = useCallback(() => {
+    if (exitingRef.current) return
+    exitingRef.current = true
+    timelineRef.current?.kill()
+    timelineRef.current = null
     onSkip?.()
   }, [onSkip])
 
   const enter = useCallback(() => {
-    timelineRef.current?.kill()
-    onComplete?.()
-  }, [onComplete])
+    if (!opened || exitingRef.current) return
+    exitingRef.current = true
+
+    if (reducedMotion) {
+      onComplete?.()
+      return
+    }
+
+    const camera = cameraRef.current
+    const host = hostRef.current
+    const currentZ = camera?.position.z ?? cameraTargetRef.current
+
+    const exitTimeline = gsap.timeline({
+      onUpdate: () => invalidateRef.current?.(),
+      onComplete: () => onComplete?.(),
+    })
+    timelineRef.current = exitTimeline
+    exitTimeline.to(camera?.position || {}, {
+      z: Math.max(0.1, currentZ - 0.28),
+      duration: 0.45,
+      ease: 'power2.inOut',
+    }, 0)
+    exitTimeline.to(host, {
+      autoAlpha: 0,
+      duration: 0.45,
+      ease: 'power1.inOut',
+    }, 0)
+  }, [opened, reducedMotion, onComplete])
 
   return (
     <div
@@ -434,7 +786,7 @@ export default function BookIntro3D({ onComplete, onSkip }) {
             antialias: true,
             powerPreference: 'high-performance',
           }}
-          camera={{ position: [0, 0, 7], fov: 37, near: 0.1, far: 40 }}
+          camera={{ position: [0, 0, 7], fov: CAMERA_FOV, near: 0.1, far: 40 }}
           onCreated={({ gl, invalidate }) => {
             gl.outputColorSpace = SRGBColorSpace
             gl.toneMapping = ACESFilmicToneMapping
@@ -442,11 +794,12 @@ export default function BookIntro3D({ onComplete, onSkip }) {
           }}
         >
           <color attach="background" args={['#171d28']} />
-          <ambientLight intensity={1.15} />
-          <directionalLight position={[-3, 5, 6]} intensity={2.5} />
-          <directionalLight position={[4, 1, -3]} intensity={0.75} color="#d6dfef" />
+          <ambientLight intensity={0.95} />
+          <directionalLight position={[-3.5, 4.5, 5]} intensity={2.35} />
+          <directionalLight position={[3.5, -1.5, 3]} intensity={0.72} color="#e4cda8" />
+          <pointLight position={[0, 2.8, 3.5]} intensity={0.65} color="#f2e5cd" />
 
-          <mesh position={[0, 0, -0.55]}>
+          <mesh position={[0, 0, -0.58]}>
             <planeGeometry args={[30, 20]} />
             <meshStandardMaterial color="#202a38" roughness={1} />
           </mesh>
@@ -455,6 +808,7 @@ export default function BookIntro3D({ onComplete, onSkip }) {
             <BookScene
               progressRef={progressRef}
               onReady={handleSceneReady}
+              onTexturesReady={handleTexturesReady}
             />
           </Suspense>
         </Canvas>
