@@ -187,3 +187,23 @@
  .journey-postcard,.journey-postcard-art,.journey-sticky-note,.journey-pencil,.journey-detail-nav button{transition:none!important}
  .journey-postcard:hover,.journey-postcard.is-active,.journey-sticky-note:hover{transform:none}
 }
+
+/* Tactile interaction pass: layered metal clips, curled paper, subtle cursor parallax */
+.journey-postcard{user-select:none;-webkit-user-select:none;will-change:transform;transform:translate3d(var(--lift-x,0px),var(--lift-y,0px),0) rotate(var(--card-rotation,0deg)) perspective(900px) rotateX(var(--tilt-x,0deg)) rotateY(var(--tilt-y,0deg));transform-origin:50% 65%;transition:transform .22s cubic-bezier(.2,.75,.25,1),box-shadow .3s,border-color .25s}
+.journey-postcard:hover,.journey-postcard:focus-visible{transform:translate3d(var(--lift-x,0px),calc(var(--lift-y,0px) - 9px),0) rotate(0deg) perspective(900px) rotateX(var(--tilt-x,0deg)) rotateY(var(--tilt-y,0deg));}
+.journey-postcard.is-active{transform:translate3d(0,-13px,0) rotate(0) perspective(900px) rotateX(0) rotateY(0)}
+.journey-postcard:after{content:"";position:absolute;right:0;bottom:0;width:0;height:0;border-style:solid;border-width:0 0 24px 24px;border-color:transparent transparent #c9b99d transparent;filter:drop-shadow(-2px -2px 2px #6d5b3b24);transition:border-width .28s,filter .28s;pointer-events:none}
+.journey-postcard:hover:after,.journey-postcard.is-active:after{border-width:0 0 32px 32px;filter:drop-shadow(-3px -3px 3px #6d5b3b40)}
+.journey-postcard-clip{top:-20px;width:31px;height:51px;border:0;border-radius:0;background:linear-gradient(90deg,transparent 0 8%,#65716f 9%,#dce2dc 18%,#899693 27%,#f2f2e9 43%,#9aa5a1 58%,#e6e8df 72%,#65716f 89%,transparent 90%);clip-path:polygon(18% 0,82% 0,100% 20%,93% 82%,77% 100%,23% 100%,7% 82%,0 20%);box-shadow:0 4px 5px #302b2240;transform:translateX(-50%) rotate(-7deg);filter:drop-shadow(0 2px 1px #302b2230)}
+.journey-postcard-clip:before{content:"";position:absolute;inset:4px 7px 6px;border:1px solid #6f7a77;border-radius:10px 10px 7px 7px;background:linear-gradient(90deg,#9aa6a2,#f0f0e8 42%,#87928f)}
+.journey-postcard-clip i{position:absolute;inset:8px 10px 10px;border:1px solid #65716f;border-radius:8px 8px 5px 5px;background:linear-gradient(90deg,#bfc9c3,#f8f5e9 55%,#a5b0aa);box-shadow:inset 1px 0 2px #fff}
+.journey-postcard:hover .journey-postcard-clip,.journey-postcard.is-active .journey-postcard-clip{transform:translate(-50%,-4px) rotate(2deg);transition:transform .3s}
+.journey-postcard-art{transition:filter .3s,transform .35s;transform:translateZ(1px)}
+.journey-postcard:hover .journey-postcard-art,.journey-postcard.is-active .journey-postcard-art{filter:saturate(1.12) contrast(1.02);transform:translateZ(8px)}
+.journey-postcard-art:before{transition:transform .5s}.journey-postcard:hover .journey-postcard-art:before{transform:rotate(-12deg) scale(1.1)}
+.journey-postcard-open{transition:letter-spacing .25s,color .25s}.journey-postcard:hover .journey-postcard-open{letter-spacing:.16em;color:#3158a4}
+.journey-postcard-detail{transform-origin:top center;box-shadow:0 2px 0 #fff9e8,0 8px 0 #d2c3a8,4px 16px 26px #3d332529}
+.journey-detail-paperclip{top:-19px;width:29px;height:49px;background:linear-gradient(90deg,#65716f 0 8%,#dce2dc 18%,#899693 28%,#f2f2e9 45%,#9aa5a1 60%,#e6e8df 78%,#65716f 92%);border:0;clip-path:polygon(18% 0,82% 0,100% 20%,93% 82%,77% 100%,23% 100%,7% 82%,0 20%);filter:drop-shadow(0 3px 2px #302b2240)}
+.journey-detail-paperclip:before{content:"";position:absolute;inset:5px 7px;border:1px solid #697673;border-radius:10px;background:linear-gradient(90deg,#aeb9b4,#f7f3e7 50%,#9ba6a1)}
+.journey-detail-paperclip i{z-index:1}
+@media(prefers-reduced-motion:reduce){.journey-postcard,.journey-postcard-clip,.journey-postcard-art{transition:none!important;transform:none!important}}
