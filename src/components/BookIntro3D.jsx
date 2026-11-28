@@ -585,7 +585,7 @@ function BookScene({ progressRef, cameraDollyRef, onReady, onTexturesReady }) {
   return (
     <group
       ref={bookRef}
-      position={[0, 0.10, 0]}
+      position={[0, 0.12, 0]}
       rotation={[-0.035, 0, -0.01]}
       onPointerMove={handlePointerMove}
       onPointerLeave={handlePointerLeave}
