@@ -222,3 +222,65 @@
 .journey-postcard-detail:hover .journey-detail-paperclip{transform:translateY(-3px) rotate(-7deg)}
 @media(hover:none){.journey-postcard{cursor:pointer}.journey-postcard.is-grabbed{transform:translateY(-12px) scale(1.01)!important}}
 @media(prefers-reduced-motion:reduce){.journey-postcard.is-grabbed{transform:none!important}.journey-postcard-detail.turn-next,.journey-postcard-detail.turn-previous{animation:none!important}}
+
+
+/* Desktop-only 3D pickup: pointer tilt, lift and a soft contact shadow that
+   shifts opposite the pointer so each pinned note feels raised from paper. */
+.journey-postcard-contact-shadow {
+  position: absolute;
+  z-index: -1;
+  inset: 8px -7px -15px;
+  border-radius: 3px;
+  background: radial-gradient(ellipse at 50% 42%, #29231766 0%, #29231732 48%, transparent 76%);
+  filter: blur(10px);
+  opacity: var(--shadow-opacity, .22);
+  transform: translate3d(var(--shadow-x, 0px), var(--shadow-y, 0px), -18px) scale(.96, .78);
+  pointer-events: none;
+  transition: opacity .18s ease, transform .18s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .journey-postcard {
+    transform-style: preserve-3d;
+    will-change: transform;
+    transition: transform .16s cubic-bezier(.2,.75,.25,1), box-shadow .18s ease, border-color .18s ease;
+  }
+
+  .journey-postcard:hover,
+  .journey-postcard:focus-visible {
+    z-index: 8;
+    transform:
+      perspective(1000px)
+      translate3d(var(--lift-x, 0px), calc(-7px + var(--lift-y, 0px)), 12px)
+      rotateX(var(--tilt-x, 0deg))
+      rotateY(var(--tilt-y, 0deg))
+      rotateZ(var(--tilt-z, 0deg));
+    box-shadow: 2px 3px 0 #fff9e9, 9px 22px 32px #30271d36;
+  }
+
+  .journey-postcard:hover .journey-postcard-contact-shadow,
+  .journey-postcard:focus-visible .journey-postcard-contact-shadow {
+    opacity: var(--shadow-opacity, .42);
+  }
+
+  .journey-postcard.is-active:hover {
+    transform:
+      perspective(1000px)
+      translate3d(var(--lift-x, 0px), calc(-9px + var(--lift-y, 0px)), 14px)
+      rotateX(var(--tilt-x, 0deg))
+      rotateY(var(--tilt-y, 0deg))
+      rotateZ(var(--tilt-z, 0deg));
+  }
+}
+
+@media (hover: none), (pointer: coarse) {
+  .journey-postcard-contact-shadow { display: none; }
+  .journey-postcard { transform-style: flat; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .journey-postcard,
+  .journey-postcard-contact-shadow { transition: none !important; }
+  .journey-postcard:hover,
+  .journey-postcard:focus-visible { transform: none !important; }
+}
