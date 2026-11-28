@@ -3,6 +3,7 @@ import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { Html } from '@react-three/drei'
 import {
   ACESFilmicToneMapping,
+  BackSide,
   Color,
   DoubleSide,
   MathUtils,
@@ -99,7 +100,7 @@ function SpiralBinding() {
         <mesh
           key={index}
           position={[0, y, 0.105]}
-          rotation={[0, 0, Math.PI / 2]}
+          rotation={[Math.PI / 2, 0, 0]}
         >
           <torusGeometry args={[0.052, 0.012, 8, 24]} />
           <meshStandardMaterial
@@ -140,6 +141,16 @@ function BookScene({ progressRef, onReady, onOpened }) {
       roughness: 0.94,
       metalness: 0,
       side: DoubleSide,
+    }),
+    [],
+  )
+
+  const insideCoverMaterial = useMemo(
+    () => new MeshPhysicalMaterial({
+      color: new Color('#e9dfcb'),
+      roughness: 0.88,
+      metalness: 0,
+      side: BackSide,
     }),
     [],
   )
@@ -196,8 +207,9 @@ function BookScene({ progressRef, onReady, onOpened }) {
       coverGeometry.dispose()
       coverMaterial.dispose()
       paperMaterial.dispose()
+      insideCoverMaterial.dispose()
     }
-  }, [coverGeometry, coverMaterial, paperMaterial])
+  }, [coverGeometry, coverMaterial, paperMaterial, insideCoverMaterial])
 
   const handlePointerMove = useCallback((event) => {
     tiltTarget.current.x = -event.pointer.y * 0.035
@@ -251,6 +263,11 @@ function BookScene({ progressRef, onReady, onOpened }) {
 
       <group ref={coverPivotRef} position={[0, 0, 0.095]}>
         <mesh geometry={coverGeometry} material={coverMaterial} castShadow />
+        <mesh
+          geometry={coverGeometry}
+          material={insideCoverMaterial}
+          position={[0, 0, -0.008]}
+        />
 
         <group ref={coverArtRef}>
           <Html
