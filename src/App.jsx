@@ -892,6 +892,10 @@ function App() {
               }}
             >
               <div className="opening-cover-back" aria-hidden="true"><span>THE MAKER'S NOTEBOOK</span><strong>KS<span>.</span></strong><i>FIELD EDITION / 001</i></div>
+              <div className="opening-cover-emboss" aria-hidden="true"><span>THE MAKER'S</span><strong>NOTEBOOK</strong><i>VOL. 01 · FIELD EDITION</i></div>
+              <div className="opening-cover-elastic" aria-hidden="true"><i/></div>
+              <div className="opening-cover-seal" aria-hidden="true"><span>KS</span><small>IDEAS<br/>IN MOTION</small></div>
+              <div className="opening-cover-corners" aria-hidden="true"><i/><i/><i/><i/></div>
               <div className="cover-topline"><span>FIELD NOTES</span><span>NO. 001 / 2026</span></div>
               <div className="cover-art" aria-hidden="true">
                 <span className="cover-orbit cover-orbit-one" />
