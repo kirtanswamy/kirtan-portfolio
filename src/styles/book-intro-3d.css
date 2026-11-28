@@ -37,7 +37,7 @@
 }
 .book-intro-title {
   position: absolute; left: clamp(24px, 5vw, 74px); top: 31%;
-  width: min(330px, 25vw); max-width: 330px;
+  width: min(275px, 20vw); max-width: 275px;
   pointer-events: none; will-change: opacity, transform;
 }
 .book-intro-title > span { font: 8px var(--mono); letter-spacing: .2em; color: #d6df83; }
