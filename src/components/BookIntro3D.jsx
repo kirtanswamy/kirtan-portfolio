@@ -11,7 +11,7 @@ import {
   SRGBColorSpace,
 } from 'three'
 import gsap from 'gsap'
-import '../../styles/book-intro-3d.css'
+import '../styles/book-intro-3d.css'
 
 const PAGE_WIDTH = 1.72
 const PAGE_HEIGHT = 2.38
