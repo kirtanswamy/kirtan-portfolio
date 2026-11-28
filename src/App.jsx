@@ -713,6 +713,60 @@ function App() {
   }, [])
 
   useEffect(() => {
+    const stage = document.querySelector('.contact-envelope-stage')
+    if (!stage) return undefined
+
+    const flap = stage.querySelector('.contact-envelope-flap')
+    const letter = stage.querySelector('.contact-envelope-letter')
+    const choices = stage.querySelector('.contact-envelope-choices')
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+    const setOpenImmediately = () => {
+      envelopeRevealedRef.current = true
+      stage.classList.add('is-scroll-revealed')
+      setEnvelopeOpen(true)
+      gsap.set(flap, { rotationX: -168, transformOrigin: '50% 0%' })
+      gsap.set(letter, { yPercent: -2, rotation: -0.4 })
+      gsap.set(choices, { autoAlpha: 1, y: 0 })
+    }
+
+    if (reduceMotion) {
+      setOpenImmediately()
+      return undefined
+    }
+
+    const trigger = ScrollTrigger.create({
+      trigger: stage,
+      start: 'top 78%',
+      once: true,
+      onEnter: () => {
+        envelopeRevealedRef.current = true
+        stage.classList.add('is-scroll-revealed')
+        setEnvelopeOpen(true)
+
+        gsap.timeline()
+          .fromTo(flap,
+            { rotationX: 0 },
+            { rotationX: -168, duration: 0.78, ease: 'power3.inOut', transformOrigin: '50% 0%' },
+            0,
+          )
+          .fromTo(letter,
+            { yPercent: 39, rotation: -1 },
+            { yPercent: -2, rotation: -0.4, duration: 0.86, ease: 'power3.out' },
+            0.08,
+          )
+          .fromTo(choices,
+            { autoAlpha: 0, y: 9 },
+            { autoAlpha: 1, y: 0, duration: 0.38, stagger: 0.075, ease: 'power2.out' },
+            0.48,
+          )
+      },
+    })
+
+    return () => trigger.kill()
+  }, [])
+
+  useEffect(() => {
     document.body.classList.toggle('menu-open', menuOpen)
     document.documentElement.classList.toggle('index-open', menuOpen)
     if (menuOpen) lenisRef.current?.stop()
@@ -1359,48 +1413,6 @@ function App() {
           </div>
           <div
             className={`contact-envelope-stage${envelopeOpen ? ' is-open' : ''}`}
-            onPointerEnter={event => {
-              if (event.pointerType !== 'mouse') return
-              const stage = event.currentTarget
-              stage.style.setProperty('--envelope-progress', '1')
-              stage.style.setProperty('--flap-angle', '-168deg')
-              stage.style.setProperty('--letter-layer', '6')
-              stage.style.setProperty('--letter-top', '2%')
-              stage.style.setProperty('--letter-height', '84%')
-              setEnvelopeOpen(true)
-            }}
-            onPointerLeave={event => {
-              if (event.pointerType !== 'mouse' || event.currentTarget.matches(':focus-within')) return
-              const stage = event.currentTarget
-              stage.style.setProperty('--envelope-progress', '0')
-              stage.style.setProperty('--flap-angle', '0deg')
-              stage.style.setProperty('--letter-layer', '3')
-              stage.style.setProperty('--letter-top', '31%')
-              stage.style.setProperty('--letter-height', '60%')
-              setEnvelopeOpen(false)
-            }}
-            onFocus={event => {
-              if (event.target.closest('.contact-envelope-choices') || event.target.closest('.contact-envelope-toggle')) {
-                const stage = event.currentTarget
-                stage.style.setProperty('--envelope-progress', '1')
-                stage.style.setProperty('--flap-angle', '-168deg')
-                stage.style.setProperty('--letter-layer', '6')
-                stage.style.setProperty('--letter-top', '2%')
-                stage.style.setProperty('--letter-height', '84%')
-                setEnvelopeOpen(true)
-              }
-            }}
-            onBlur={event => {
-              if (event.relatedTarget && !event.currentTarget.contains(event.relatedTarget)) {
-                const stage = event.currentTarget
-                stage.style.setProperty('--envelope-progress', '0')
-                stage.style.setProperty('--flap-angle', '0deg')
-                stage.style.setProperty('--letter-layer', '3')
-                stage.style.setProperty('--letter-top', '31%')
-                stage.style.setProperty('--letter-height', '60%')
-                setEnvelopeOpen(false)
-              }
-            }}
           >
             <div className="contact-envelope-orbit" aria-hidden="true" />
             <div className="contact-envelope-scene">
@@ -1432,16 +1444,7 @@ function App() {
                 type="button"
                 className="contact-envelope-toggle"
                 aria-expanded={envelopeOpen}
-                onClick={event => {
-                  const stage = event.currentTarget.closest('.contact-envelope-stage')
-                  const opening = !envelopeOpen
-                  stage?.style.setProperty('--envelope-progress', opening ? '1' : '0')
-                  stage?.style.setProperty('--flap-angle', opening ? '-168deg' : '0deg')
-                  stage?.style.setProperty('--letter-layer', opening ? '6' : '3')
-                  stage?.style.setProperty('--letter-top', opening ? '2%' : '31%')
-                  stage?.style.setProperty('--letter-height', opening ? '84%' : '60%')
-                  setEnvelopeOpen(opening)
-                }}
+                onClick={() => { if (!envelopeOpen && !envelopeRevealedRef.current) setEnvelopeOpen(true) }}
               >
                 <span>{envelopeOpen ? 'LETTER OPEN' : 'OPEN THE LETTER'}</span><ArrowUpRight size={15} />
               </button>
