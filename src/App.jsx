@@ -783,6 +783,91 @@ function App() {
     shelf.scrollBy({ left: direction * distance, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' })
   }
 
+  const openProject = useCallback((project, origin = null) => {
+    projectFlipTimelineRef.current?.kill()
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    projectOriginRef.current = origin?.isConnected ? origin : null
+    projectFlipStateRef.current = origin?.isConnected && !reducedMotion
+      ? Flip.getState(origin, { props: 'borderRadius,boxShadow,backgroundColor' })
+      : null
+    setActiveProject(project)
+  }, [])
+
+  const closeProject = useCallback(() => {
+    if (!activeProject) return
+
+    const dialog = document.querySelector('.project-dialog')
+    const origin = projectOriginRef.current
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const dialogState = dialog && origin?.isConnected && !reducedMotion
+      ? Flip.getState(dialog, { props: 'borderRadius,boxShadow,backgroundColor' })
+      : null
+
+    projectFlipTimelineRef.current?.kill()
+    setActiveProject(null)
+
+    if (dialogState && origin) {
+      requestAnimationFrame(() => {
+        const flip = Flip.from(dialogState, {
+          targets: origin,
+          duration: 0.62,
+          ease: 'power3.inOut',
+          scale: true,
+          absolute: true,
+          fade: true,
+          onComplete: () => {
+            gsap.set(origin, { clearProps: 'transform,position,width,height,top,left' })
+            projectOriginRef.current = null
+          },
+        })
+        projectFlipTimelineRef.current = flip
+      })
+    } else {
+      projectOriginRef.current = null
+      projectFlipStateRef.current = null
+    }
+  }, [activeProject])
+
+  useLayoutEffect(() => {
+    if (!activeProject) return undefined
+    const backdrop = document.querySelector('.project-dialog-backdrop')
+    const dialog = backdrop?.querySelector('.project-dialog')
+    if (!backdrop || !dialog) return undefined
+
+    const initialState = projectFlipStateRef.current
+    const origin = projectOriginRef.current
+    const timeline = gsap.timeline()
+    timeline.fromTo(backdrop, { autoAlpha: 0 }, {
+      autoAlpha: 1,
+      duration: 0.3,
+      ease: 'power1.out',
+    }, 0)
+
+    if (initialState && origin?.isConnected) {
+      timeline.add(Flip.from(initialState, {
+        targets: dialog,
+        duration: 0.76,
+        ease: 'power3.inOut',
+        scale: true,
+        absolute: true,
+        fade: true,
+        nested: true,
+      }), 0)
+    } else {
+      timeline.fromTo(dialog,
+        { autoAlpha: 0, y: 24, scale: 0.985 },
+        { autoAlpha: 1, y: 0, scale: 1, duration: 0.48, ease: 'power3.out' },
+        0.04,
+      )
+    }
+
+    projectFlipStateRef.current = null
+    projectFlipTimelineRef.current = timeline
+    return () => timeline.kill()
+  }, [activeProject])
+
+  useEffect(() => () => projectFlipTimelineRef.current?.kill(), [])
+
   useEffect(() => {
     if (!activeProject) return undefined
     const previouslyFocused = document.activeElement
@@ -790,7 +875,7 @@ function App() {
     const closeButton = dialog?.querySelector('.project-dialog-top button')
     closeButton?.focus()
     const onKeyDown = event => {
-      if (event.key === 'Escape') { setActiveProject(null); return }
+      if (event.key === 'Escape') { closeProject(); return }
       if (event.key !== 'Tab' || !dialog) return
       const focusable = [...dialog.querySelectorAll('a[href], button:not([disabled])')]
       if (!focusable.length) return
@@ -805,7 +890,7 @@ function App() {
       document.body.classList.remove('dialog-open')
       previouslyFocused?.focus?.()
     }
-  }, [activeProject])
+  }, [activeProject, closeProject])
 
   useEffect(() => {
     if (projectShelfRef.current) projectShelfRef.current.scrollTo({ left: 0, behavior: 'auto' })
@@ -995,7 +1080,7 @@ function App() {
             const card = shelf.querySelector('.project-card')
             if (card) setActiveProjectIndex(Math.min(visibleProjects.length - 1, Math.max(0, Math.round(shelf.scrollLeft / (card.getBoundingClientRect().width + 22)))))
           }}>
-          {visibleProjects.map((project, index) => <ProjectCard key={project.id} project={project} index={projects.indexOf(project)} onOpen={setActiveProject} />)}
+          {visibleProjects.map((project, index) => <ProjectCard key={project.id} project={project} index={projects.indexOf(project)} onOpen={openProject} />)}
         </div>
         <div className="work-foot reveal"><span>MORE EXPERIMENTS ARE ALWAYS IN THE WORKS.</span><a href="https://github.com/kirtanswamy" target="_blank" rel="noreferrer">EXPLORE GITHUB <ArrowUpRight size={14} /></a></div>
       </section>
@@ -1256,7 +1341,7 @@ function App() {
                   <text x="180" y="246" textAnchor="middle" fontSize="7" letterSpacing="1.4">SIGNAL PATH / {selectedWorkshopDetail.link}</text>
                 </g>
               </svg>
-              <div className="workshop-side-caption"><span>{activeWorkshopTool ? `ON THE BENCH / ${selectedWorkshopDetail.family}` : 'FIG. 07 / A SYSTEM IN PIECES'}</span><p>{activeWorkshopTool ? selectedWorkshopDetail.note : 'Choose any filed tool. The bench will reconfigure to show its place in the system.'}</p><div className="workshop-bench-readout"><span><small>CONTEXT</small><b>{activeWorkshopTool ? selectedWorkshopDetail.context : 'SELECT A DRAWER'}</b></span><span><small>PATH</small><b>{activeWorkshopTool ? selectedWorkshopDetail.link : 'TOOL → SYSTEM'}</b></span></div>{activeWorkshopTool && selectedWorkshopDetail.evidenceIds?.length > 0 && <div className="workshop-evidence"><span className="workshop-evidence-label">RELATED PROJECT FILES</span><div className="workshop-evidence-links">{selectedWorkshopDetail.evidenceIds.map(id => { const project = projects.find(item => item.id === id); return project ? <button type="button" key={id} onClick={() => setActiveProject(project)}><span>{project.id}</span>{project.name}<ArrowUpRight size={13}/></button> : null })}</div></div>}</div>
+              <div className="workshop-side-caption"><span>{activeWorkshopTool ? `ON THE BENCH / ${selectedWorkshopDetail.family}` : 'FIG. 07 / A SYSTEM IN PIECES'}</span><p>{activeWorkshopTool ? selectedWorkshopDetail.note : 'Choose any filed tool. The bench will reconfigure to show its place in the system.'}</p><div className="workshop-bench-readout"><span><small>CONTEXT</small><b>{activeWorkshopTool ? selectedWorkshopDetail.context : 'SELECT A DRAWER'}</b></span><span><small>PATH</small><b>{activeWorkshopTool ? selectedWorkshopDetail.link : 'TOOL → SYSTEM'}</b></span></div>{activeWorkshopTool && selectedWorkshopDetail.evidenceIds?.length > 0 && <div className="workshop-evidence"><span className="workshop-evidence-label">RELATED PROJECT FILES</span><div className="workshop-evidence-links">{selectedWorkshopDetail.evidenceIds.map(id => { const project = projects.find(item => item.id === id); return project ? <button type="button" key={id} onClick={() => openProject(project)}><span>{project.id}</span>{project.name}<ArrowUpRight size={13}/></button> : null })}</div></div>}</div>
               <div className="workshop-side-foot"><span>KEEP EXPERIMENTING</span><span>END OF NOTE ↗</span></div>
             </aside>
           </div>
@@ -1372,9 +1457,9 @@ function App() {
         </footer>
       </section>
 
-      {activeProject && <div className="project-dialog-backdrop" role="presentation" onMouseDown={event => { if (event.target === event.currentTarget) setActiveProject(null) }}>
-        <section className={`project-dialog project-${activeProject.tone}`} role="dialog" aria-modal="true" aria-labelledby="project-dialog-title">
-          <div className="project-dialog-top"><span>THE PROJECT FILE / {activeProject.id}</span><button type="button" onClick={() => setActiveProject(null)} aria-label="Close project note"><X size={20} /></button></div>
+      {activeProject && <div className="project-dialog-backdrop" role="presentation" onMouseDown={event => { if (event.target === event.currentTarget) closeProject() }}>
+        <section className={`project-dialog project-${activeProject.tone}`} data-flip-id={`project-file-${activeProject.id}`} role="dialog" aria-modal="true" aria-labelledby="project-dialog-title">
+          <div className="project-dialog-top"><span>THE PROJECT FILE / {activeProject.id}</span><button type="button" onClick={closeProject} aria-label="Close project note"><X size={20} /></button></div>
           <div className="project-dialog-body" data-lenis-prevent>
             <div className="project-dialog-art"><span>{activeProject.id} / SYSTEM SKETCH</span><strong>{activeProject.name}</strong><small>{activeProject.note}</small><ProjectVisual project={activeProject} /></div>
             <div className="project-dialog-copy"><Eyebrow>{activeProject.category} · {activeProject.year}</Eyebrow><h2 id="project-dialog-title">{activeProject.name}<span>.</span></h2><p className="project-dialog-type">{activeProject.type}</p><p className="project-dialog-description">{activeProject.description}</p>
