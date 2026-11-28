@@ -255,7 +255,9 @@
       rotateX(var(--tilt-x, 0deg))
       rotateY(var(--tilt-y, 0deg))
       rotateZ(var(--tilt-z, 0deg));
-    box-shadow: 2px 3px 0 #fff9e9, 9px 22px 32px #30271d36;
+    box-shadow:
+      calc(5px + var(--shadow-x, 0px)) calc(13px + var(--shadow-y, 0px)) 25px rgba(48, 39, 25, var(--shadow-opacity, .42)),
+      2px 3px 0 #fff9e9;
   }
 
   .journey-postcard:hover .journey-postcard-contact-shadow,
