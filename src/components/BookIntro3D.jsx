@@ -190,6 +190,15 @@ function drawPageBase(ctx, side) {
 function drawLeftPageOverlay(ctx, fonts) {
   // Transparent ink layer. The cream endpaper remains the base surface,
   // while the typography is mapped onto that same hinged 3D leaf.
+  ctx.strokeStyle = '#8c9a9d24'
+  ctx.lineWidth = 1
+  for (let y = 190; y < 1010; y += 43) {
+    ctx.beginPath()
+    ctx.moveTo(60, y)
+    ctx.lineTo(740, y)
+    ctx.stroke()
+  }
+
   ctx.textAlign = 'left'
   ctx.textBaseline = 'alphabetic'
   ctx.fillStyle = '#9c6148'
@@ -302,18 +311,17 @@ function useNotebookTextures(gl) {
     let ownedTextures = null
 
     const prepare = async () => {
+      const generated = {}
       try {
         await (document.fonts?.ready || Promise.resolve())
         if (!active) return
 
         const fonts = getFontFamilies()
-        const generated = {
-          cover: createTexture(gl, (ctx) => drawCoverTexture(ctx, fonts)),
-          innerCover: createTexture(gl, drawInnerCoverTexture),
-          leftOverlay: createTexture(gl, (ctx) => drawLeftPageOverlay(ctx, fonts)),
-          rightPage: createTexture(gl, (ctx) => drawRightPageTexture(ctx, fonts)),
-          shadow: createShadowTexture(gl),
-        }
+        generated.cover = createTexture(gl, (ctx) => drawCoverTexture(ctx, fonts))
+        generated.innerCover = createTexture(gl, drawInnerCoverTexture)
+        generated.leftOverlay = createTexture(gl, (ctx) => drawLeftPageOverlay(ctx, fonts))
+        generated.rightPage = createTexture(gl, (ctx) => drawRightPageTexture(ctx, fonts))
+        generated.shadow = createShadowTexture(gl)
         ownedTextures = generated
 
         if (!active) {
@@ -322,6 +330,7 @@ function useNotebookTextures(gl) {
         }
         setTextures(generated)
       } catch (error) {
+        disposeTextures(generated)
         console.error('Unable to prepare notebook canvas textures:', error)
       }
     }
