@@ -386,3 +386,26 @@
   .contact-envelope-stage.is-open .contact-envelope-letter-body h3{font-size:clamp(35px,10vw,52px)}
   .contact-envelope-stage.is-open .contact-envelope-choices a{min-height:40px}
 }
+
+
+/* Scroll-triggered reveal owns the flap and letter transforms after the note
+   enters the reading viewport. Keep the revealed note open for link access. */
+.contact-envelope-stage.is-scroll-revealed .contact-envelope-flap,
+.contact-envelope-stage.is-scroll-revealed .contact-envelope-letter,
+.contact-envelope-stage.is-scroll-revealed .contact-envelope-choices {
+  transition: none !important;
+}
+
+.contact-envelope-stage.is-scroll-revealed .contact-envelope-flap {
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.contact-envelope-stage.is-scroll-revealed .contact-envelope-letter {
+  will-change: transform;
+}
+
+.contact-envelope-stage.is-scroll-revealed .contact-envelope-choices {
+  pointer-events: auto;
+}
