@@ -740,6 +740,7 @@ function App() {
       start: 'top 78%',
       once: true,
       onEnter: () => {
+        if (envelopeRevealedRef.current) return
         envelopeRevealedRef.current = true
         stage.classList.add('is-scroll-revealed')
         setEnvelopeOpen(true)
@@ -1444,7 +1445,7 @@ function App() {
                 type="button"
                 className="contact-envelope-toggle"
                 aria-expanded={envelopeOpen}
-                onClick={() => { if (!envelopeOpen && !envelopeRevealedRef.current) setEnvelopeOpen(true) }}
+                onClick={() => { if (!envelopeOpen && !envelopeRevealedRef.current) { envelopeRevealedRef.current = true; setEnvelopeOpen(true) } }}
               >
                 <span>{envelopeOpen ? 'LETTER OPEN' : 'OPEN THE LETTER'}</span><ArrowUpRight size={15} />
               </button>
