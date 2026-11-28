@@ -158,12 +158,6 @@ function drawPageBase(ctx, side) {
   addPaperGrain(ctx, TEXTURE_WIDTH, TEXTURE_HEIGHT, '#746850')
 
   // Quiet ruled lines, kept light enough for the typography to lead.
-  const gutter = ctx.createLinearGradient(630, 0, 800, 0)
-  gutter.addColorStop(0, 'rgba(48, 39, 26, 0)')
-  gutter.addColorStop(1, 'rgba(48, 39, 26, 0.14)')
-  ctx.fillStyle = gutter
-  ctx.fillRect(630, 0, 170, TEXTURE_HEIGHT)
-
   ctx.strokeStyle = '#8c9a9d24'
   ctx.lineWidth = 1
   for (let y = 190; y < 1010; y += 43) {
@@ -196,6 +190,12 @@ function drawPageBase(ctx, side) {
 function drawLeftPageOverlay(ctx, fonts) {
   // Transparent ink layer. The cream endpaper remains the base surface,
   // while the typography is mapped onto that same hinged 3D leaf.
+  const leftGutterShade = ctx.createLinearGradient(630, 0, 800, 0)
+  leftGutterShade.addColorStop(0, 'rgba(48, 39, 26, 0)')
+  leftGutterShade.addColorStop(1, 'rgba(48, 39, 26, 0.14)')
+  ctx.fillStyle = leftGutterShade
+  ctx.fillRect(630, 0, 170, TEXTURE_HEIGHT)
+
   ctx.strokeStyle = '#8c9a9d24'
   ctx.lineWidth = 1
   for (let y = 190; y < 1010; y += 43) {
