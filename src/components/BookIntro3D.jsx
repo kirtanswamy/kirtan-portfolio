@@ -463,7 +463,7 @@ function BookScene({ progressRef, onReady, onTexturesReady }) {
     const fovRadians = MathUtils.degToRad(CAMERA_FOV)
     const fitDistance = (SPREAD_WIDTH * 0.5) /
       (Math.tan(fovRadians * 0.5) * Math.max(0.1, aspect) * 0.9)
-    const targetDistance = Math.max(5.15, fitDistance)
+    const targetDistance = Math.max(4.6, fitDistance)
 
     camera.fov = CAMERA_FOV
     camera.position.set(0, 0, targetDistance + INITIAL_DOLLY_OFFSET)
@@ -629,6 +629,7 @@ export default function BookIntro3D({ onComplete, onSkip }) {
   const progressRef = useRef({ value: 0 })
   const invalidateRef = useRef(null)
   const cameraRef = useRef(null)
+  const sceneApiRef = useRef(null)
   const cameraTargetRef = useRef(5.15)
   const startedRef = useRef(false)
   const exitingRef = useRef(false)
@@ -727,12 +728,19 @@ export default function BookIntro3D({ onComplete, onSkip }) {
   }, [reducedMotion])
 
   const handleSceneReady = useCallback((sceneApi) => {
-    beginOpening(sceneApi)
-  }, [beginOpening])
+    sceneApiRef.current = sceneApi
+    if (texturesReady) beginOpening(sceneApi)
+  }, [beginOpening, texturesReady])
 
   const handleTexturesReady = useCallback(() => {
     setTexturesReady(true)
   }, [])
+
+  useEffect(() => {
+    if (texturesReady && sceneApiRef.current && !startedRef.current) {
+      beginOpening(sceneApiRef.current)
+    }
+  }, [texturesReady, beginOpening])
 
   useEffect(() => {
     if (!reducedMotion || !texturesReady || startedRef.current) return
@@ -813,16 +821,11 @@ export default function BookIntro3D({ onComplete, onSkip }) {
             invalidateRef.current = invalidate
           }}
         >
-          <color attach="background" args={['#171d28']} />
-          <ambientLight intensity={0.95} />
+              <ambientLight intensity={0.95} />
           <directionalLight position={[-3.5, 4.5, 5]} intensity={2.35} />
           <directionalLight position={[3.5, -1.5, 3]} intensity={0.72} color="#e4cda8" />
           <pointLight position={[0, 2.8, 3.5]} intensity={0.65} color="#f2e5cd" />
 
-          <mesh position={[0, 0, -0.58]}>
-            <planeGeometry args={[30, 20]} />
-            <meshStandardMaterial color="#202a38" roughness={1} />
-          </mesh>
 
           <Suspense fallback={null}>
             <BookScene
