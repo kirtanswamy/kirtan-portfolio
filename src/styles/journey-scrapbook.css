@@ -284,3 +284,19 @@
   .journey-postcard:hover,
   .journey-postcard:focus-visible { transform: none !important; }
 }
+
+
+/* Touch: preserve card content and tap selection, but remove desktop hover lift. */
+@media (hover: none), (pointer: coarse) {
+  .journey-postcard,
+  .journey-postcard:hover,
+  .journey-postcard:focus-visible,
+  .journey-postcard.is-active,
+  .journey-postcard.is-grabbed {
+    transform: none !important;
+    transform-style: flat;
+    will-change: auto;
+  }
+
+  .journey-postcard-contact-shadow { display: none !important; }
+}
