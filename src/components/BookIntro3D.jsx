@@ -1,4 +1,4 @@
-import { Suspense, useCallback, useEffect, useRef, useState } from 'react'
+import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import {
   ACESFilmicToneMapping,
@@ -187,8 +187,9 @@ function drawPageBase(ctx, side) {
   ctx.fillRect(side === 'left' ? 742 : 54, 68, 2, 34)
 }
 
-function drawLeftPageTexture(ctx, fonts) {
-  drawPageBase(ctx, 'left')
+function drawLeftPageOverlay(ctx, fonts) {
+  // Transparent ink layer. The cream endpaper remains the base surface,
+  // while the typography is mapped onto that same hinged 3D leaf.
   ctx.textAlign = 'left'
   ctx.textBaseline = 'alphabetic'
   ctx.fillStyle = '#9c6148'
@@ -309,7 +310,7 @@ function useNotebookTextures(gl) {
         const generated = {
           cover: createTexture(gl, (ctx) => drawCoverTexture(ctx, fonts)),
           innerCover: createTexture(gl, drawInnerCoverTexture),
-          leftPage: createTexture(gl, (ctx) => drawLeftPageTexture(ctx, fonts)),
+          leftOverlay: createTexture(gl, (ctx) => drawLeftPageOverlay(ctx, fonts)),
           rightPage: createTexture(gl, (ctx) => drawRightPageTexture(ctx, fonts)),
           shadow: createShadowTexture(gl),
         }
@@ -400,7 +401,16 @@ function BookScene({ progressRef, onReady, onTexturesReady }) {
   const bookRef = useRef(null)
   const coverPivotRef = useRef(null)
   const insidePagesRef = useRef(null)
-  const coverGeometry = useState(createCoverGeometry)[0]
+  const coverGeometry = useMemo(createCoverGeometry, [])
+  const insideCoverGeometry = useMemo(() => {
+    const geometry = coverGeometry.clone()
+    const uv = geometry.attributes.uv
+    for (let index = 0; index < uv.count; index += 1) {
+      uv.setX(index, 1 - uv.getX(index))
+    }
+    uv.needsUpdate = true
+    return geometry
+  }, [coverGeometry])
   const tiltTarget = useRef({ x: 0, y: 0 })
   const { camera, size, invalidate, gl } = useThree()
   const textures = useNotebookTextures(gl)
@@ -421,12 +431,17 @@ function BookScene({ progressRef, onReady, onTexturesReady }) {
     map: null,
     side: BackSide,
   }))[0]
-  const leftPageMaterial = useState(() => new MeshPhysicalMaterial({
+  const leftOverlayMaterial = useState(() => new MeshPhysicalMaterial({
     color: new Color('#ffffff'),
-    roughness: 0.94,
+    roughness: 0.96,
     metalness: 0,
     map: null,
-    side: FrontSide,
+    side: BackSide,
+    transparent: true,
+    alphaTest: 0.035,
+    depthWrite: false,
+    polygonOffset: true,
+    polygonOffsetFactor: -1,
   }))[0]
   const rightPageMaterial = useState(() => new MeshPhysicalMaterial({
     color: new Color('#ffffff'),
@@ -462,12 +477,12 @@ function BookScene({ progressRef, onReady, onTexturesReady }) {
     if (!textures) return
     coverMaterial.map = textures.cover
     insideCoverMaterial.map = textures.innerCover
-    leftPageMaterial.map = textures.leftPage
+    leftOverlayMaterial.map = textures.leftOverlay
     rightPageMaterial.map = textures.rightPage
     shadowMaterial.map = textures.shadow
     coverMaterial.needsUpdate = true
     insideCoverMaterial.needsUpdate = true
-    leftPageMaterial.needsUpdate = true
+    leftOverlayMaterial.needsUpdate = true
     rightPageMaterial.needsUpdate = true
     shadowMaterial.needsUpdate = true
     onTexturesReady()
@@ -476,7 +491,7 @@ function BookScene({ progressRef, onReady, onTexturesReady }) {
     textures,
     coverMaterial,
     insideCoverMaterial,
-    leftPageMaterial,
+    leftOverlayMaterial,
     rightPageMaterial,
     shadowMaterial,
     onTexturesReady,
@@ -492,6 +507,7 @@ function BookScene({ progressRef, onReady, onTexturesReady }) {
     }
 
     deformCover(coverGeometry, progress)
+    deformCover(insideCoverGeometry, progress)
 
     if (insidePagesRef.current) {
       insidePagesRef.current.visible = progress > 0.38
@@ -521,17 +537,19 @@ function BookScene({ progressRef, onReady, onTexturesReady }) {
   useEffect(() => {
     return () => {
       coverGeometry.dispose()
+      insideCoverGeometry.dispose()
       coverMaterial.dispose()
       insideCoverMaterial.dispose()
-      leftPageMaterial.dispose()
+      leftOverlayMaterial.dispose()
       rightPageMaterial.dispose()
       shadowMaterial.dispose()
     }
   }, [
     coverGeometry,
+    insideCoverGeometry,
     coverMaterial,
     insideCoverMaterial,
-    leftPageMaterial,
+    leftOverlayMaterial,
     rightPageMaterial,
     shadowMaterial,
   ])
@@ -570,9 +588,6 @@ function BookScene({ progressRef, onReady, onTexturesReady }) {
 
       {/* The open left/right spread sits above the back of the hinged cover. */}
       <group ref={insidePagesRef} visible={false}>
-        <mesh position={[-PAGE_WIDTH / 2, 0, 0.018]} material={leftPageMaterial}>
-          <planeGeometry args={[PAGE_WIDTH, PAGE_HEIGHT, 1, 1]} />
-        </mesh>
         <mesh position={[PAGE_WIDTH / 2, 0, 0.018]} material={rightPageMaterial}>
           <planeGeometry args={[PAGE_WIDTH, PAGE_HEIGHT, 1, 1]} />
         </mesh>
@@ -593,9 +608,14 @@ function BookScene({ progressRef, onReady, onTexturesReady }) {
         <mesh geometry={coverGeometry} material={coverMaterial} castShadow />
         {/* A separate back-face material prevents the navy front from appearing mirrored. */}
         <mesh
-          geometry={coverGeometry}
+          geometry={insideCoverGeometry}
           material={insideCoverMaterial}
           position={[0, 0, -0.003]}
+        />
+        <mesh
+          geometry={insideCoverGeometry}
+          material={leftOverlayMaterial}
+          position={[0, 0, -0.008]}
         />
       </group>
     </group>
