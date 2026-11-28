@@ -585,7 +585,7 @@ function BookScene({ progressRef, cameraDollyRef, onReady, onTexturesReady }) {
   return (
     <group
       ref={bookRef}
-      position={[0, -0.02, 0]}
+      position={[0, 0.10, 0]}
       rotation={[-0.035, 0, -0.01]}
       onPointerMove={handlePointerMove}
       onPointerLeave={handlePointerLeave}
@@ -604,7 +604,7 @@ function BookScene({ progressRef, cameraDollyRef, onReady, onTexturesReady }) {
 
       {/* The open left/right spread sits above the back of the hinged cover. */}
       <group ref={insidePagesRef} visible={false}>
-        <mesh position={[PAGE_WIDTH / 2, 0, 0.018]} material={rightPageMaterial}>
+        <mesh position={[PAGE_WIDTH / 2, 0, 0.055]} material={rightPageMaterial}>
           <planeGeometry args={[PAGE_WIDTH, PAGE_HEIGHT, 1, 1]} />
         </mesh>
         <mesh position={[0, 0, -0.035]}>
