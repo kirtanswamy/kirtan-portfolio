@@ -397,7 +397,7 @@ function SpiralBinding() {
   )
 }
 
-function BookScene({ progressRef, onReady, onTexturesReady }) {
+function BookScene({ progressRef, cameraDollyRef, onReady, onTexturesReady }) {
   const bookRef = useRef(null)
   const coverPivotRef = useRef(null)
   const insidePagesRef = useRef(null)
@@ -466,12 +466,13 @@ function BookScene({ progressRef, onReady, onTexturesReady }) {
     const targetDistance = Math.max(4.6, fitDistance)
 
     camera.fov = CAMERA_FOV
-    camera.position.set(0, 0, targetDistance + INITIAL_DOLLY_OFFSET)
+    const dollyProgress = MathUtils.clamp(cameraDollyRef.current.value, 0, 1)
+    camera.position.set(0, 0, targetDistance + INITIAL_DOLLY_OFFSET * (1 - dollyProgress))
     camera.lookAt(0, 0, 0)
     camera.updateProjectionMatrix()
     onReady({ camera, invalidate, targetCameraZ: targetDistance })
     invalidate()
-  }, [camera, size.width, size.height, invalidate, onReady])
+  }, [camera, cameraDollyRef, size.width, size.height, invalidate, onReady])
 
   useEffect(() => {
     if (!textures) return
@@ -627,6 +628,7 @@ export default function BookIntro3D({ onComplete, onSkip }) {
   const titleRef = useRef(null)
   const timelineRef = useRef(null)
   const progressRef = useRef({ value: 0 })
+  const cameraDollyRef = useRef({ value: 0 })
   const invalidateRef = useRef(null)
   const cameraRef = useRef(null)
   const sceneApiRef = useRef(null)
@@ -690,6 +692,7 @@ export default function BookIntro3D({ onComplete, onSkip }) {
     startedRef.current = true
 
     if (reducedMotion) {
+      cameraDollyRef.current.value = 1
       camera.position.z = targetCameraZ
       progressRef.current.value = 1
       invalidate()
@@ -705,10 +708,14 @@ export default function BookIntro3D({ onComplete, onSkip }) {
       },
     })
 
-    timeline.to(camera.position, {
-      z: targetCameraZ,
+    timeline.to(cameraDollyRef.current, {
+      value: 1,
       duration: 1.15,
       ease: 'power2.inOut',
+      onUpdate: () => {
+        camera.position.z = cameraTargetRef.current +
+          INITIAL_DOLLY_OFFSET * (1 - cameraDollyRef.current.value)
+      },
     }, 0)
 
     timeline.to(progressRef.current, {
@@ -745,6 +752,7 @@ export default function BookIntro3D({ onComplete, onSkip }) {
   useEffect(() => {
     if (!reducedMotion || !texturesReady || startedRef.current) return
     // Switching the OS preference on mid-intro settles the scene immediately.
+    cameraDollyRef.current.value = 1
     if (cameraRef.current) cameraRef.current.position.z = cameraTargetRef.current
     progressRef.current.value = 1
     timelineRef.current?.kill()
@@ -830,6 +838,7 @@ export default function BookIntro3D({ onComplete, onSkip }) {
           <Suspense fallback={null}>
             <BookScene
               progressRef={progressRef}
+              cameraDollyRef={cameraDollyRef}
               onReady={handleSceneReady}
               onTexturesReady={handleTexturesReady}
             />
