@@ -1,8 +1,9 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Lenis from 'lenis'
 import PaperShader from './components/PaperShader.jsx'
+const BookIntro3D = lazy(() => import('./components/BookIntro3D.jsx'))
 import './styles/notebook-portrait.css'
 import './styles/journey-art-direction.css'
 import './styles/workshop-evidence.css'
@@ -530,63 +531,11 @@ function App() {
   }
 
   const finishOpening = useCallback(() => {
-    runPaperTransition(() => {
-      setOpeningActive(false)
+    setOpeningActive(false)
+    requestAnimationFrame(() => {
       document.getElementById('main-content')?.focus({ preventScroll: true })
     })
-  }, [runPaperTransition])
-
-  useEffect(() => {
-    if (!openingActive) return undefined
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    if (reduced) {
-      setOpeningActive(false)
-      document.getElementById('main-content')?.focus({ preventScroll: true })
-      return undefined
-    }
-    const exitTimer = window.setTimeout(finishOpening, 7600)
-    return () => window.clearTimeout(exitTimer)
-  }, [openingActive, finishOpening])
-  useEffect(() => {
-    if (!openingActive || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined
-    const overlay = document.querySelector('.newspaper-opening')
-    if (!overlay) return undefined
-    let frame = 0
-    let pointerX = 50
-    let pointerY = 45
-    const paint = () => {
-      overlay.style.setProperty('--pointer-x', `${pointerX}%`)
-      overlay.style.setProperty('--pointer-y', `${pointerY}%`)
-      overlay.style.setProperty('--book-tilt-x', `${tiltX}deg`)
-      overlay.style.setProperty('--book-tilt-y', `${tiltY}deg`)
-      frame = 0
-    }
-    let tiltX = 0
-    let tiltY = 0
-    const onPointerMove = event => {
-      pointerX = Math.max(0, Math.min(100, event.clientX / window.innerWidth * 100))
-      pointerY = Math.max(0, Math.min(100, event.clientY / window.innerHeight * 100))
-      tiltX = ((pointerX - 50) / 50) * 2.8
-      tiltY = ((45 - pointerY) / 55) * 2.1
-      if (!frame) frame = window.requestAnimationFrame(paint)
-    }
-    const onPointerLeave = () => {
-      pointerX = 50
-      pointerY = 45
-      tiltX = 0
-      tiltY = 0
-      if (!frame) frame = window.requestAnimationFrame(paint)
-    }
-    window.addEventListener('pointermove', onPointerMove, { passive: true })
-    overlay.addEventListener('pointerleave', onPointerLeave)
-    window.addEventListener('blur', onPointerLeave)
-    return () => {
-      window.removeEventListener('pointermove', onPointerMove)
-      overlay.removeEventListener('pointerleave', onPointerLeave)
-      window.removeEventListener('blur', onPointerLeave)
-      if (frame) window.cancelAnimationFrame(frame)
-    }
-  }, [openingActive])
+  }, [])
 
   useEffect(() => {
     if (!openingActive) return undefined
@@ -626,6 +575,31 @@ function App() {
 
   const archivePageCount = Math.max(1, Math.ceil(visibleLearning.length / 2))
   const currentLearningPage = visibleLearning.slice(archivePage * 2, archivePage * 2 + 2)
+
+  useEffect(() => {
+    setArchivePage(page => Math.min(page, Math.max(0, archivePageCount - 1)))
+  }, [archivePageCount])
+
+  // Archive spreads mount after the reading room opens, so they need their own
+  // entrance animation instead of relying on the one-time global .reveal scan.
+  useEffect(() => {
+    if (!archiveOpen) return undefined
+    const cards = gsap.utils.toArray('.archive-page-spread .archive-card-enter')
+    if (!cards.length) return undefined
+
+    const tween = gsap.fromTo(cards,
+      { y: 18, autoAlpha: 0 },
+      {
+        y: 0,
+        autoAlpha: 1,
+        duration: 0.48,
+        stagger: 0.075,
+        ease: 'power2.out',
+        clearProps: 'transform',
+      },
+    )
+    return () => tween.kill()
+  }, [archiveOpen, archivePage, activeLearningCategory, archiveTurnDirection])
 
   useEffect(() => {
     if (!activeProject) return undefined
@@ -847,75 +821,11 @@ function App() {
           </filter>
         </defs>
       </svg>
-      {openingActive && <div className="newspaper-opening" role="dialog" aria-modal="true" aria-label="The Maker's Notebook opening">
-        <div className="opening-vignette" />
-        <div className="opening-stage">
-          <div className="opening-paper">
-            
-            <div className="opening-paper-under"><span>THE MAKER'S NOTEBOOK</span><strong>K.S.</strong><i>VOL. 01 / 2026</i></div>
-            <div className="opening-leaf opening-leaf-left">
-              <span className="opening-page-running"><b>THE MAKER'S NOTEBOOK</b><i>PERSONAL EDITION / 001</i></span>
-              <div className="opening-page-main">
-                <p className="opening-page-kicker">A NOTE ON THE MAKER</p>
-                <strong id="opening-title">KIRTAN<br/><em>SWAMY.</em></strong>
-                <p className="opening-page-intro">Electronics & Communication Engineering student at SRMIST, Chennai. I build at the intersection of <b>technology, thoughtful design and public-good ideas.</b></p>
-                <div className="opening-page-rule" />
-                <div className="opening-page-columns">
-                  <div><small>01 / STUDY</small><b>ENGINEERING</b><span>Systems · Electronics · Software</span></div>
-                  <div><small>02 / PRACTICE</small><b>MAKE & ITERATE</b><span>Prototypes · Interfaces · Experiments</span></div>
-                </div>
-              </div>
-              <i className="opening-page-footer"><b>01</b><span>CURIOUS BY NATURE. PRECISE BY PRACTICE.</span><span>INDIA</span></i>
-            </div>
-            <div className="opening-leaf opening-leaf-right">
-              <span className="opening-page-running"><b>FIELD NOTES / 001</b><i>WHAT I'M EXPLORING</i></span>
-              <div className="opening-page-main opening-page-main-right">
-                <p className="opening-page-kicker">IDEAS INTO WORK</p>
-                <strong className="opening-page-manifesto">MAKE IT<br/><em>MATTER.</em></strong>
-                <p className="opening-page-intro">From useful tools to playful digital experiences, I enjoy taking a question apart, finding its shape and building a thoughtful first version.</p>
-                <div className="opening-page-projects">
-                  <div><b>01</b><span><strong>BUSHO</strong><small>HEALTHCARE WORKFLOWS</small></span><i>↗</i></div>
-                  <div><b>02</b><span><strong>VARSITY</strong><small>CAMPUS EXPERIENCE</small></span><i>↗</i></div>
-                  <div><b>03</b><span><strong>ELECTROLAB</strong><small>ENGINEERING SIMULATION</small></span><i>↗</i></div>
-                </div>
-                <div className="opening-page-stamp"><Asterisk size={30}/><small>OBSERVE<br/>BUILD<br/>REFINE</small></div>
-              </div>
-              <i className="opening-page-footer"><b>02</b><span>ENGINEERING / DESIGN / IDEAS</span><span>VOL. 01</span></i>
-            </div>
-            <div className="opening-fold" />
-            <div
-              className="opening-cover"
-              onAnimationEnd={event => {
-                if (event.animationName === 'opening-cover-hinge') {
-                  event.currentTarget.closest('.opening-paper')?.classList.add('is-open')
-                }
-              }}
-            >
-              <div className="opening-cover-back" aria-hidden="true"><span>THE MAKER'S NOTEBOOK</span><strong>KS<span>.</span></strong><i>FIELD EDITION / 001</i></div>
-              <div className="opening-cover-emboss" aria-hidden="true"><span>THE MAKER'S</span><strong>NOTEBOOK</strong><i>VOL. 01 · FIELD EDITION</i></div>
-              <div className="opening-cover-elastic" aria-hidden="true"><i/></div>
-              <div className="opening-cover-seal" aria-hidden="true"><span>KS</span><small>IDEAS<br/>IN MOTION</small></div>
-              <div className="opening-cover-corners" aria-hidden="true"><i/><i/><i/><i/></div>
-              <div className="cover-topline"><span>FIELD NOTES</span><span>NO. 001 / 2026</span></div>
-              <div className="cover-art" aria-hidden="true">
-                <span className="cover-orbit cover-orbit-one" />
-                <span className="cover-orbit cover-orbit-two" />
-                <span className="cover-orbit cover-orbit-three" />
-                <span className="cover-spark">✳</span>
-                <strong>KS<span>.</span></strong>
-                <i>IDEAS IN MOTION</i>
-              </div>
-              <div className="cover-bottomline">
-                <span>THE MAKER'S<br/>NOTEBOOK</span>
-                <small>ENGINEERING<br/>DESIGN / IDEAS</small>
-                <b>OPEN<br/>TO EXPLORE ↗</b>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="opening-caption"><span>AN OPEN NOTEBOOK</span><span>2026 / INDIA</span></div>
-        <button type="button" className="opening-skip" onClick={finishOpening}>SKIP INTRO <ArrowUpRight size={13}/></button>
-      </div>}
+      {openingActive && (
+        <Suspense fallback={<div className="book-intro-loading">PREPARING THE NOTEBOOK…</div>}>
+          <BookIntro3D onComplete={finishOpening} onSkip={finishOpening} />
+        </Suspense>
+      )}
       <a className="skip-link" href="#main-content">SKIP TO CONTENT</a>
       <div className="reading-progress" aria-hidden="true"><span className="reading-progress__bar" /></div>
       <div className="paper-grain" aria-hidden="true" />
@@ -1271,7 +1181,7 @@ function App() {
               
               
               <div className="archive-page-spread">
-                {currentLearningPage.map((item, pageIndex) => <article className={`learning-card reveal credential-${item.category.toLowerCase()} ${item.category === 'DIGITAL' ? 'issuer-google' : item.category === 'BUSINESS' ? 'issuer-goldman' : item.category === 'NATIONAL' ? 'issuer-vbyld' : item.issuer === 'LinkedIn' ? 'issuer-linkedin' : 'issuer-qualcomm'}`} key={item.name}>
+                {currentLearningPage.length > 0 ? currentLearningPage.map((item, pageIndex) => <article className={`learning-card archive-card-enter credential-${item.category.toLowerCase()} ${item.category === 'DIGITAL' ? 'issuer-google' : item.category === 'BUSINESS' ? 'issuer-goldman' : item.category === 'NATIONAL' ? 'issuer-vbyld' : item.issuer === 'LinkedIn' ? 'issuer-linkedin' : 'issuer-qualcomm'}`} key={item.name}>
                   <div className="learning-card-top"><span>DOCUMENT / {String(learning.indexOf(item) + 1).padStart(2, '0')} — KS</span><span className="learning-record-type">{item.record}</span></div>
                   <div className="learning-issuer-lockup"><span className="learning-issuer-monogram">{item.category === 'DIGITAL' ? 'G' : item.category === 'BUSINESS' ? 'GS' : item.category === 'NATIONAL' ? 'VB' : item.issuer === 'LinkedIn' ? 'in' : 'Q'}</span><span>{item.issuer}</span><i>SOURCE LISTED</i></div>
                   <div className="learning-document-heading">
@@ -1288,7 +1198,13 @@ function App() {
                   </div>
                   <div className="learning-card-foot"><span className="learning-status">{item.status}</span><span className="learning-card-seal" aria-hidden="true"><b>KS</b><small>ARCHIVE</small></span><span className="learning-card-open" aria-hidden="true">↗</span></div>
                   {item.credentialId && <div className="learning-credential-id">CREDENTIAL ID <b>{item.credentialId}</b></div>}
-                </article>)}
+                </article>) : (
+                  <div className="archive-empty-page">
+                    <span>END OF FILE</span>
+                    <strong>NO RECORDS<br/>ON THIS SPREAD.</strong>
+                    <small>RETURN TO THE INDEX OR SELECT ANOTHER CATEGORY</small>
+                  </div>
+                )}
                 {currentLearningPage.length === 1 && <div className="archive-empty-page"><span>END OF FILE</span><strong>MORE<br/>TO COME.</strong><small>NEW RECORDS WILL BE ADDED WHEN VERIFIED</small></div>}
               </div>
             </div>
