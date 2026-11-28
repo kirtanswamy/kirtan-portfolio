@@ -353,6 +353,9 @@ const journeyMilestones = [
 
 function JourneyScrapbook() {
   const [active, setActive] = useState(0)
+  const [grabbed, setGrabbed] = useState(null)
+  const [turnDirection, setTurnDirection] = useState('next')
+  const goTo = (next) => { setTurnDirection(next > active ? 'next' : 'previous'); setActive((next + 4) % 4) }
   const cards = [
     {year:'2023 — PRESENT',label:'01 / FOUNDATIONS',title:<>SRMIST <em>/ ECE</em></>,place:'CHENNAI · INDIA',copy:'Current engineering studies, exploring electronics, computing and the systems that connect them.',kind:'campus',stamp:'FIELD NOTE / 001',mark:'ECE',note:'A foundation in systems thinking.'},
     {year:'JANUARY 2026',label:'02 / REPRESENTATION',title:<>VIKSIT BHARAT<br/><em>YOUNG LEADERS DIALOGUE</em></>,place:'CHHATTISGARH · BALOD',copy:'Selected for the Chhattisgarh state contingent; represented Balod district in New Delhi.',kind:'delhi',stamp:'NEW DELHI / 2026',mark:'भारत',note:'Innovation with tradition.'},
@@ -366,7 +369,7 @@ function JourneyScrapbook() {
       <div className="journey-spiral" aria-hidden="true">{Array.from({length:13},(_,i)=><i key={i}/>)}</div>
       <svg className="journey-scrapbook-route" viewBox="0 0 1000 130" preserveAspectRatio="none" aria-hidden="true"><path d="M30 85C150 5 230 10 330 74S490 122 590 62 760 10 970 72"/></svg>
       <div className="journey-postcards">
-        {cards.map((card,index)=><button type="button" key={card.label} className={`journey-postcard journey-postcard-${card.kind} ${active===index?'is-active':''}`} onClick={()=>setActive(index)} onPointerMove={event=>{if(event.pointerType==='touch')return;const r=event.currentTarget.getBoundingClientRect();event.currentTarget.style.setProperty('--tilt-x',`${((event.clientY-r.top)/r.height-.5)*-5}deg`);event.currentTarget.style.setProperty('--tilt-y',`${((event.clientX-r.left)/r.width-.5)*6}deg`);event.currentTarget.style.setProperty('--lift-x',`${((event.clientX-r.left)/r.width-.5)*-5}px`);event.currentTarget.style.setProperty('--lift-y',`${((event.clientY-r.top)/r.height-.5)*-5}px`)}} onPointerLeave={event=>{event.currentTarget.style.setProperty('--tilt-x','0deg');event.currentTarget.style.setProperty('--tilt-y','0deg');event.currentTarget.style.setProperty('--lift-x','0px');event.currentTarget.style.setProperty('--lift-y','0px')}} onKeyDown={event=>{if(event.key==='ArrowRight'){event.preventDefault();setActive((index+1)%cards.length)}else if(event.key==='ArrowLeft'){event.preventDefault();setActive((index+cards.length-1)%cards.length)}}} aria-label={`Open milestone: ${card.label.replace(/^\\d+ \/ /,'')}`} aria-pressed={active===index} style={{'--postcard-index':index}}>
+        {cards.map((card,index)=><button type="button" key={card.label} className={`journey-postcard journey-postcard-${card.kind} ${active===index?'is-active':''} ${grabbed===index?'is-grabbed':''}`} onPointerDown={event=>{if(event.button!==0)return;setGrabbed(index);event.currentTarget.setPointerCapture?.(event.pointerId)}} onPointerUp={()=>{if(grabbed===index){goTo(index);setGrabbed(null)}}} onPointerCancel={()=>setGrabbed(null)} onClick={()=>goTo(index)} onPointerMove={event=>{if(event.pointerType==='touch')return;const r=event.currentTarget.getBoundingClientRect();event.currentTarget.style.setProperty('--tilt-x',`${((event.clientY-r.top)/r.height-.5)*-5}deg`);event.currentTarget.style.setProperty('--tilt-y',`${((event.clientX-r.left)/r.width-.5)*6}deg`);event.currentTarget.style.setProperty('--lift-x',`${((event.clientX-r.left)/r.width-.5)*-5}px`);event.currentTarget.style.setProperty('--lift-y',`${((event.clientY-r.top)/r.height-.5)*-5}px`)}} onPointerLeave={event=>{event.currentTarget.style.setProperty('--tilt-x','0deg');event.currentTarget.style.setProperty('--tilt-y','0deg');event.currentTarget.style.setProperty('--lift-x','0px');event.currentTarget.style.setProperty('--lift-y','0px')}} onKeyDown={event=>{if(event.key==='ArrowRight'){event.preventDefault();goTo((index+1)%cards.length)}else if(event.key==='ArrowLeft'){event.preventDefault();goTo((index+cards.length-1)%cards.length)}}} aria-label={`Open milestone: ${card.label.replace(/^\\d+ \/ /,'')}`} aria-pressed={active===index} style={{'--postcard-index':index}}>
           <span className="journey-postcard-clip" aria-hidden="true"><i/></span>
           <span className="journey-postcard-stamp">{card.stamp}</span>
           <span className="journey-postcard-art"><b>{card.mark}</b><small>{card.year}</small><i>{card.kind==='campus'?'CAMPUS SKETCH':card.kind==='delhi'?'FIELD / NEW DELHI':card.kind==='sqac'?'STUDENT CLUB':'BUILDER’S DESK'}</i></span>
@@ -379,11 +382,11 @@ function JourneyScrapbook() {
       <div className="journey-pencil" aria-hidden="true"><span/><i/><b/></div>
       <div className="journey-sticky-note"><span>NOTE TO SELF</span><strong>{item.note}</strong><i>✳</i></div>
     </div>
-    <article className="journey-postcard-detail" aria-live="polite" key={item.label}>
+    <article className={`journey-postcard-detail turn-${turnDirection}`} aria-live="polite" key={item.label}>
       <div className="journey-detail-paperclip" aria-hidden="true"><i/></div>
       <div className="journey-detail-index"><span>OPEN NOTE / {String(active+1).padStart(2,'0')}</span><strong>{item.mark}</strong><small>{item.year}</small></div>
       <div className="journey-detail-copy"><span>{item.label}</span><h3>{item.title}</h3><p>{item.copy}</p><small>{item.place}</small></div>
-      <div className="journey-detail-nav"><span>TURN THE PAGE</span><div><button type="button" onClick={()=>setActive(v=>(v+3)%4)} aria-label="Previous milestone">←</button><button type="button" onClick={()=>setActive(v=>(v+1)%4)} aria-label="Next milestone">→</button></div></div>
+      <div className="journey-detail-nav"><span>TURN THE PAGE</span><div><button type="button" onClick={()=>goTo(active+3)} aria-label="Previous milestone">←</button><button type="button" onClick={()=>goTo(active+1)} aria-label="Next milestone">→</button></div></div>
     </article>
     <div className="journey-scrapbook-footer"><span>NOT A STRAIGHT LINE. A SERIES OF USEFUL TURNS.</span><span>PIN {String(active+1).padStart(2,'0')} / 04</span></div>
   </div>
