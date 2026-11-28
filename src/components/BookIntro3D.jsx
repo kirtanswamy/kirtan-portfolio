@@ -736,9 +736,9 @@ export default function BookIntro3D({ onComplete, onSkip }) {
     timeline.to(titleRef.current, {
       autoAlpha: 0,
       x: -24,
-      duration: 0.62,
+      duration: 0.42,
       ease: 'power2.in',
-    }, 1.72)
+    }, 1.3)
 
     timelineRef.current = timeline
   }, [reducedMotion])
