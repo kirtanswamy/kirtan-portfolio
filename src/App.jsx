@@ -1,6 +1,7 @@
-import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { lazy, Suspense, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { Flip } from 'gsap/Flip'
 import Lenis from 'lenis'
 import PaperShader from './components/PaperShader.jsx'
 const BookIntro3D = lazy(() => import('./components/BookIntro3D.jsx'))
@@ -13,7 +14,7 @@ import {
   CircleDot, Sparkles, BookOpen, Cpu, Layers3, Compass, Send, Tv,
 } from 'lucide-react'
 
-gsap.registerPlugin(ScrollTrigger)
+gsap.registerPlugin(ScrollTrigger, Flip)
 
 const projects = [
   {
@@ -230,7 +231,7 @@ function ProjectVisual({ project }) {
 }
 function ProjectCard({ project, index, onOpen }) {
   return (
-    <article className={`project-card project-${project.tone} reveal`}>
+    <article className={`project-card project-${project.tone} reveal`} data-flip-id={`project-file-${project.id}`}>
       <div className="project-card-top">
         <span className="project-number">{project.id} / {String(projects.length).padStart(2, '0')}</span>
         <span className="project-stage"><span />{project.stage}</span>
@@ -238,7 +239,7 @@ function ProjectCard({ project, index, onOpen }) {
       <button
         type="button"
         className="project-art project-art-button"
-        onClick={() => onOpen(project)}
+        onClick={event => onOpen(project, event.currentTarget.closest('.project-card'))}
         aria-label={`Open the ${project.name} project book`}
         onPointerMove={event => {
           if (event.pointerType !== 'mouse' || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
@@ -278,7 +279,7 @@ function ProjectCard({ project, index, onOpen }) {
         <p className="project-type">{project.type}</p>
         <p className="project-description">{project.description}</p>
         <div className="project-tags">{project.tags.map(tag => <span key={tag}>{tag}</span>)}</div>
-        <button type="button" className="project-read-more" onClick={() => onOpen(project)}>OPEN PROJECT NOTE <ArrowUpRight size={13} /></button>
+        <button type="button" className="project-read-more" onClick={event => onOpen(project, event.currentTarget.closest('.project-card'))}>OPEN PROJECT NOTE <ArrowUpRight size={13} /></button>
       </div>
     </article>
   )
@@ -498,6 +499,10 @@ function App() {
   const sectionTransitionLock = useRef(false)
   const projectShelfRef = useRef(null)
   const lenisRef = useRef(null)
+  const projectOriginRef = useRef(null)
+  const projectFlipStateRef = useRef(null)
+  const projectFlipTimelineRef = useRef(null)
+  const envelopeRevealedRef = useRef(false)
   const shelfDragRef = useRef({ pointerId: null, startX: 0, scrollLeft: 0, dragged: false })
 
   const runPaperTransition = useCallback((onReveal) => {
